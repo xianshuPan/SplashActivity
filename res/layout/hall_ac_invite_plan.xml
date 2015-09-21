@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/invite_sts_plan_title"
+        style="@style/custom_title_style"
+        android:layout_alignParentTop="true" >
+		<ImageButton
+			android:id="@+id/invite_sts_plan_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_invite_sts_plan_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+ 
+    <RelativeLayout
+        android:id="@+id/invite_sts_plan_oper_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/invite_detail_botomm_bar"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:paddingTop="@dimen/view_small_ver_distance"
+	    android:paddingBottom="@dimen/view_small_ver_distance"
+        android:layout_alignParentBottom="true" >
+		<Button
+			android:id="@+id/invite_sts_plan_confirm"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+			android:background="@drawable/xbtn_green"
+			android:text="@string/str_invite_sts_plan_confirm"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+    </RelativeLayout>
+    
+	<LinearLayout
+        android:layout_below="@id/invite_sts_plan_title"
+        android:layout_above="@id/invite_sts_plan_oper_bar"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/repeat_bkg"
+	    android:paddingTop="@dimen/view_ver_margin"
+	    android:paddingBottom="@dimen/view_ver_margin"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:orientation="vertical" >
+		<RelativeLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/view_small_ver_distance"
+		    android:background="@drawable/frame_bkg" >
+			<TextView
+			    android:id="@+id/invite_sts_plan_pre_date"
+			    style="@style/setup_pre_txt_style"
+			    android:layout_alignParentLeft="true"
+			    android:layout_alignParentTop="true"
+			    android:text="@string/str_comm_date" />
+			<RelativeLayout
+			    android:id="@+id/invite_sts_plan_date_ll"
+			    style="@style/setup_info_ll_style"
+			    android:layout_toRightOf="@id/invite_sts_plan_pre_date" >
+			    <include
+			        android:id="@+id/invite_sts_plan_enter_date"
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_toLeftOf="@id/invite_sts_plan_enter_date"
+				    android:id="@+id/invite_sts_plan_date_selection"
+				    android:text="@string/str_comm_unset"
+				    style="@style/setup_info_select_style" />
+			</RelativeLayout>
+			
+			<View 
+			    android:id="@+id/invite_sts_plan_line_date"
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/div_line_width"
+			    android:background="@color/color_div_line"
+			    android:layout_below="@id/invite_sts_plan_pre_date"/>
+	
+			<TextView
+			    android:id="@+id/invite_sts_plan_pre_time"
+			    style="@style/setup_pre_txt_style"
+			    android:layout_alignParentLeft="true"
+			    android:layout_below="@id/invite_sts_plan_line_date"
+			    android:text="@string/str_comm_time" />
+			<RelativeLayout
+			    android:id="@+id/invite_sts_plan_time_ll"
+			    style="@style/setup_info_ll_style"
+			    android:layout_below="@id/invite_sts_plan_line_date"
+			    android:layout_toRightOf="@id/invite_sts_plan_pre_time" >
+			    <include
+			        android:id="@+id/invite_sts_plan_enter_time"
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_toLeftOf="@id/invite_sts_plan_enter_time"
+				    android:id="@+id/invite_sts_plan_time_selection"
+				    android:text="@string/str_comm_unset"
+				    style="@style/setup_info_select_style" />
+			</RelativeLayout>
+			
+			<View 
+			    android:id="@+id/invite_sts_plan_line_region"
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/div_line_width"
+			    android:background="@color/color_div_line"
+			    android:layout_below="@id/invite_sts_plan_pre_time"/>
+	
+			<TextView
+			    android:id="@+id/invite_sts_plan_pre_region"
+			    style="@style/setup_pre_txt_style"
+			    android:layout_alignParentLeft="true"
+			    android:layout_below="@id/invite_sts_plan_line_region"
+			    android:text="@string/str_comm_region" />
+			<RelativeLayout
+			    android:id="@+id/invite_sts_plan_region_ll"
+			    style="@style/setup_info_ll_style"
+			    android:layout_below="@id/invite_sts_plan_line_region"
+			    android:layout_toRightOf="@id/invite_sts_plan_pre_region" >
+			    <include
+			        android:id="@+id/arrow_enter_setup_region"
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_toLeftOf="@id/arrow_enter_setup_region"
+				    android:id="@+id/invite_sts_plan_region_selection"
+				    android:text="@string/str_comm_unset"
+				    style="@style/setup_info_select_style" />
+			</RelativeLayout>
+			
+			<View 
+			    android:id="@+id/setup_info_line_region"
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/div_line_width"
+			    android:background="@color/color_div_line"
+			    android:layout_below="@id/invite_sts_plan_pre_region"/>
+	
+			<TextView
+			    android:id="@+id/invite_sts_plan_pre_course"
+			    style="@style/setup_pre_txt_style"
+			    android:layout_alignParentLeft="true"
+			    android:layout_below="@id/setup_info_line_region"
+			    android:text="@string/str_comm_course" />
+			<RelativeLayout
+			    android:id="@+id/invite_sts_plan_course_ll"
+			    style="@style/setup_info_ll_style"
+			    android:layout_below="@id/setup_info_line_region"
+			    android:layout_toRightOf="@id/invite_sts_plan_pre_course" >
+			    <include
+			        android:id="@+id/invite_sts_plan_enter_course"
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_toLeftOf="@id/invite_sts_plan_enter_course"
+				    android:id="@+id/invite_sts_plan_course_selection"
+				    android:text="@string/str_comm_unset"
+				    style="@style/setup_info_select_style" />
+			</RelativeLayout>
+		</RelativeLayout>
+
+	</LinearLayout>
+	
+</RelativeLayout>

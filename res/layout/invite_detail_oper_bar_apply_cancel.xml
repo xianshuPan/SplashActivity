@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+	<Button
+		android:id="@+id/invite_detail_oper_btn_req_apply"
+		android:layout_centerHorizontal="true"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/btn_height"
+		android:background="@drawable/xbtn_green"
+		android:text="@string/str_invite_detail_oper_btn_request_apply"
+		android:textColor="@android:color/white"
+		android:textSize="@dimen/txt_btn_txt_size" />
+	<Button
+		android:id="@+id/invite_detail_oper_btn_req_cancel"
+		android:layout_centerHorizontal="true"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/btn_height"
+		android:background="@drawable/xbtn_green"
+		android:text="@string/str_invite_detail_oper_btn_request_cancel"
+		android:textColor="@android:color/white"
+		android:textSize="@dimen/txt_btn_txt_size" />
+</RelativeLayout>

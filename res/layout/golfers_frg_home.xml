@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        
+        <ImageView
+			    android:id="@+id/friend_frg_camera_customer_image"
+			    style="@style/head_customer"/>
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_golfers_home_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <ScrollView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+	    android:scrollbars="none"
+	    android:paddingTop="@dimen/view_ver_margin"
+	    android:paddingBottom="@dimen/view_ver_margin"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:orientation="vertical" >
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+			<TextView
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_golfers_label_hint"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_size_ml"
+			    android:gravity="center" />
+			<cn.gl.lib.view.NestGridView
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:id="@+id/golfers_label_gridview"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="8dp"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+			<TextView
+			    android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_golfers_selection_hint"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_size_ml"
+			    android:gravity="center" />
+			<cn.gl.lib.view.NestGridView
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:id="@+id/golfers_filters_gridview"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="8dp"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />	
+		</LinearLayout>
+    </ScrollView>
+
+	
+</LinearLayout>

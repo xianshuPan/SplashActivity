@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/view_hor_margin"
+    android:layout_marginRight="@dimen/view_hor_margin"
+    android:background="@drawable/dialog_confirm_bkg"
+    android:orientation="vertical" >
+
+<!-- 
+	<TextView
+	    android:id="@+id/dialog_phone_sumbmit_title"
+	    android:gravity="center_vertical"
+	    android:padding="@dimen/dialog_msg_h_space"
+	    android:paddingBottom="0dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Title Test Custom Dilaog" />
+ -->
+	<TextView
+	    android:id="@+id/dialog_ps_msg_view"
+	    android:gravity="center"
+		    android:layout_marginTop="@dimen/view_ver_margin"
+		    android:layout_marginBottom="@dimen/view_ver_margin"
+	    android:padding="@dimen/dialog_msg_space"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:textSize="@dimen/txt_dialog_msg_size"
+	    android:textColor="@android:color/black"
+	    android:text="@string/str_verify_content" />
+	
+	<TextView
+	    android:layout_width="match_parent"
+	    android:layout_height="1dip"
+	    android:background="@android:color/darker_gray"  />
+	
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	     >
+	    <Button
+	        android:id="@+id/dialog_ps_btn_cancel"
+	        android:layout_weight="1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="@dimen/dialog_btn_confirm_v_space"
+	        android:paddingBottom="@dimen/dialog_btn_confirm_v_space"
+	        android:background="@null"
+	        android:text="@android:string/cancel"
+	        android:textColor="@color/color_dialog_btn_txt"
+	        android:textSize="@dimen/txt_btn_txt_size" />
+	    
+		<TextView
+		    android:layout_width="1dip"
+		    android:layout_height="match_parent"
+		    android:background="@android:color/darker_gray" />
+	
+	    <Button
+	        android:id="@+id/dialog_ps_btn_ok"
+	        android:layout_weight="1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="@dimen/dialog_btn_confirm_v_space"
+	        android:paddingBottom="@dimen/dialog_btn_confirm_v_space"
+	        android:background="@null"
+	        android:text="@android:string/ok"
+	        android:textColor="@color/color_dialog_btn_txt"
+	        android:textSize="@dimen/txt_btn_txt_size" />
+	</LinearLayout>
+</LinearLayout>

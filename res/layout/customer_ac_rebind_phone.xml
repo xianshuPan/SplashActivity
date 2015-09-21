@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/rebind_phone_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_cusinfo_rebind_phone"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <TextView
+        		android:layout_marginBottom="@dimen/view_ver_distance"
+				    android:id="@+id/rebind_phone_current_phone"
+				    style="@style/rebind_phone_txt_style"
+				    android:text="@string/str_comm_current_bind_phone" />
+    
+    <EditText	android:background="@drawable/frame_bkg"
+        		android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_margin="@dimen/view_ver_margin"
+				    android:id="@+id/rebind_phone_new_phone"
+				    style="@style/setup_info_et_style"
+				    android:hint="@string/str_input_hint_phone_new"
+				    android:inputType="phone"/>
+    
+    <TextView	style="@style/rebind_phone_txt_style"
+        		android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:textColor="#FF0000"
+				    android:text="@string/str_comm_rebind_relogin" />
+	
+    <Button
+				android:id="@+id/rebind_phone_next"
+				android:layout_margin="@dimen/view_ver_margin"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/btn_height"
+				android:background="@drawable/xbtn_green"
+				android:text="@string/str_btn_next"
+				android:textColor="@android:color/white"
+				android:textSize="@dimen/txt_btn_txt_size" />
+
+</LinearLayout>

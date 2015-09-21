@@ -1,0 +1,24 @@
+
+<!--
+<com.hylg.igolf.ui.view.RefreshView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/friend_frg_hot_refresh"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+   
+
+</com.hylg.igolf.ui.view.RefreshView>
+
+  -->
+
+ <com.hylg.igolf.ui.view.EhecdListview 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+    	xmlns:tools="http://schemas.android.com/tools"
+        android:listSelector="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/friend_frg_hot_listview"
+	    android:scrollbarStyle="outsideOverlay"
+	    android:divider="@drawable/divider" />

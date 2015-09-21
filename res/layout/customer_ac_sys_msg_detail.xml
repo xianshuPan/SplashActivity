@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        <ImageButton
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back"
+			android:onClick="onSysMsgDetailBackBtnClick" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_cusinfo_item_msg_detail"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dip">
+        <TextView
+            android:id="@+id/system_msg_detail_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textColor="@android:color/black"
+           android:textSize="@dimen/txt_tab_size" />
+		<TextView
+		    android:layout_below="@id/system_msg_detail_title"
+		    android:id="@+id/system_msg_detail_time"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textColor="@android:color/black"
+           android:textSize="@dimen/txt_size_s" />
+		<TextView
+		    android:layout_below="@id/system_msg_detail_title"
+		    android:layout_toRightOf="@id/system_msg_detail_time"
+		    android:id="@+id/system_msg_detail_msg_type"
+		    android:layout_marginLeft="20dip"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_cusinfo_item_msg_type"
+		    android:textColor="@android:color/black"
+           android:textSize="@dimen/txt_size_s" />
+    </RelativeLayout>
+	<ScrollView android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:layout_margin="8dip">
+		<TextView
+		    android:id="@+id/system_msg_detail_content"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textColor="@android:color/black"
+           android:textSize="@dimen/txt_size_s" />
+	</ScrollView>
+</LinearLayout>

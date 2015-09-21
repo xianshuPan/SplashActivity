@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/mem_ac_detail_new_head"
+        style="@style/custom_title_style" >
+        
+         <ImageView
+            style="@style/top_bar_btn_style"
+			android:id="@+id/customer_home_head_back_image"
+			android:layout_width="50dp"
+			android:layout_height="match_parent"
+			android:padding="10dp"
+			android:src="@drawable/xbtn_back" />
+         
+          <ImageView
+              android:visibility="gone"
+			        android:layout_toRightOf="@id/customer_home_head_message_image"
+			        android:layout_marginTop="10dp"
+			        android:id="@+id/cusinfo_msg_img"
+			        android:layout_width="10dp"
+			        android:layout_height="10dp"
+			        android:layout_marginLeft="-20dp"
+			        android:src="@drawable/ic_new_msg"
+			        android:scaleType="fitXY"
+			        android:contentDescription="@null" />
+        
+		<TextView
+		    android:id="@+id/customer_home_head_nick_text"
+		    android:maxLength="8"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_size_m"
+		    android:layout_centerInParent="true" />
+		
+		  <ImageView
+		      android:layout_alignParentRight="true"
+			android:id="@+id/customer_home_head_more_image"
+			android:layout_width="50dp"
+			android:layout_height="match_parent"
+			android:scaleType="fitXY"
+			android:padding="10dp"
+			android:src="@drawable/customer_more_bg" />
+    </RelativeLayout>
+
+    <com.hylg.igolf.ui.view.ListviewBottomRefresh 
+        android:layout_below="@+id/mem_ac_detail_new_head"
+        android:scrollbars="@null"
+        android:listSelector="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/customer_friend_message_listview"
+	    android:scrollbarStyle="outsideOverlay"
+	    android:divider="@drawable/divider" />
+</RelativeLayout>

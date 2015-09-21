@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="signature_max_length">30</integer>
+    <integer name="invite_msg_max_length">20</integer>
+    <integer name="password_max_length">8</integer>
+    <integer name="password_min_length">4</integer>
+    <integer name="nickname_min_length">1</integer>
+    <integer name="nickname_max_length">5</integer>
+    <!-- 邀请简称 -->
+    <integer name="invite_addressname_min_length">1</integer>
+    <integer name="invite_addressname_max_length">5</integer>
+    <!-- 相册长度 -->
+    <integer name="album_max_length">8</integer>
+    <integer name="upload_avatar_size">120</integer>
+    <integer name="upload_scorecard_size">400</integer>
+    <integer name="upload_ablum_size">480</integer>
+</resources>

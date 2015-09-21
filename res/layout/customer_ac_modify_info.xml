@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/customer_my_info_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_cusinfo_item_myinfo"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+        android:scrollbars="none">
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:paddingTop="@dimen/view_ver_margin"
+		    android:paddingBottom="@dimen/view_ver_margin"
+		    android:paddingLeft="@dimen/view_hor_margin"
+		    android:paddingRight="@dimen/view_hor_margin"
+		    android:orientation="vertical" >
+			
+			
+			<RelativeLayout
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@drawable/frame_bkg" >
+				<TextView
+				    android:id="@+id/customer_my_info_pre_avtar"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_centerVertical="true"
+				    android:text="@string/str_comm_avtar" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_avtar_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_height="wrap_content"
+				    android:paddingTop="8dip"
+				    android:paddingBottom="8dip"
+				    android:gravity="center_vertical"
+				    android:layout_toRightOf="@id/customer_my_info_pre_avtar" >
+				    <include
+				        android:id="@+id/arrow_enter_avtar"
+						layout="@layout/include_arrow_enter"/>
+				    <ImageView
+					    android:contentDescription="@null"
+					    android:layout_toLeftOf="@id/arrow_enter_avtar"
+					    android:id="@+id/customer_my_info_avtar"
+					    android:layout_width="@dimen/avatar_reg_size"
+					    android:layout_height="@dimen/avatar_reg_size"
+					    android:src="@drawable/avatar_null"
+					    android:layout_marginRight="10dp"
+					    android:clickable="false" />
+				</RelativeLayout>
+			</RelativeLayout>
+			
+
+			<RelativeLayout
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@drawable/frame_bkg" >
+				<TextView
+				    android:id="@+id/customer_my_info_pre_modify_password"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:text="@string/str_comm_modify_password" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_password_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_toRightOf="@id/customer_my_info_pre_modify_password" >
+				    <include
+				        android:id="@+id/arrow_enter_modify_password"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_modify_password"
+					    android:id="@+id/customer_my_info_password_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<View 
+				    android:id="@+id/customer_my_info_line_modify_password"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"
+				    android:layout_below="@id/customer_my_info_pre_modify_password"/>
+
+				<TextView
+				    android:id="@+id/customer_my_info_pre_reset_phone"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/customer_my_info_pre_modify_password"
+				    android:text="@string/str_comm_reset_phone" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_phone_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/customer_my_info_line_modify_password"
+				    android:layout_toRightOf="@id/customer_my_info_pre_reset_phone" >
+				    <include
+				        android:id="@+id/arrow_enter_reset_phone"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_reset_phone"
+					    android:id="@+id/customer_my_info_phone_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>			
+			</RelativeLayout>
+
+			<RelativeLayout
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@drawable/frame_bkg" >
+				<TextView
+				    android:id="@+id/customer_my_info_pre_sex"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_alignParentTop="true"
+				    android:text="@string/str_comm_sex" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_sex_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_toRightOf="@id/customer_my_info_pre_sex" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_sex"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_sex"
+					    android:id="@+id/customer_my_info_sex_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<View 
+				    android:id="@+id/customer_my_info_line_sex"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"
+				    android:layout_below="@id/customer_my_info_pre_sex"/>
+
+				<TextView
+				    android:id="@+id/customer_my_info_pre_yearsexp"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/customer_my_info_line_sex"
+				    android:text="@string/str_comm_yearsexp" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_yearsexp_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/customer_my_info_line_sex"
+				    android:layout_toRightOf="@id/customer_my_info_pre_yearsexp" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_yearsexp"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_yearsexp"
+					    android:id="@+id/customer_my_info_yearsexp_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<View 
+				    android:id="@+id/customer_my_info_line_yearsexp"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"
+				    android:layout_below="@id/customer_my_info_pre_yearsexp"/>
+
+				<TextView
+				    android:id="@+id/customer_my_info_pre_region"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/customer_my_info_line_yearsexp"
+				    android:text="@string/str_comm_region" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_region_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/customer_my_info_line_yearsexp"
+				    android:layout_toRightOf="@id/customer_my_info_pre_region" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_region"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_region"
+					    android:id="@+id/customer_my_info_region_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<View 
+				    android:id="@+id/customer_my_info_line_region"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"
+				    android:layout_below="@id/customer_my_info_pre_region"/>
+
+				<TextView
+				    android:id="@+id/customer_my_info_pre_industry"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/customer_my_info_line_region"
+				    android:text="@string/str_comm_industry" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_industry_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/customer_my_info_line_region"
+				    android:layout_toRightOf="@id/customer_my_info_pre_industry" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_industry"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_industry"
+					    android:id="@+id/customer_my_info_industry_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<View 
+				    android:id="@+id/customer_my_info_line_age"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"
+				    android:layout_below="@id/customer_my_info_pre_industry"/>
+
+				<TextView
+				    android:id="@+id/customer_my_info_pre_age"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/customer_my_info_line_age"
+				    android:text="@string/str_comm_age" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_age_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/customer_my_info_line_age"
+				    android:layout_toRightOf="@id/customer_my_info_pre_age" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_age"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_age"
+					    android:id="@+id/customer_my_info_age_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+			</RelativeLayout>
+			
+			<RelativeLayout
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@drawable/frame_bkg" >
+				<TextView
+				    android:id="@+id/customer_my_info_pre_signature"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:text="@string/str_comm_signature" />
+				<RelativeLayout
+				    android:id="@+id/customer_my_info_signature_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_toRightOf="@id/customer_my_info_pre_signature" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_signature"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_signature"
+					    android:id="@+id/customer_my_info_signature_selection"
+					    android:hint="@string/str_input_hint_signature"
+					    style="@style/setup_info_select_style"
+					    android:textSize="@dimen/txt_size_s"
+					    android:gravity="center|left"
+					    android:ellipsize="end"
+					    android:maxLines="2"
+					     />
+				</RelativeLayout>
+			</RelativeLayout>
+							
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        
+        <ImageView
+			    android:id="@+id/friend_frg_camera_customer_image"
+			    style="@style/head_customer"/>
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_rank_home_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+		<ImageView
+			android:id="@+id/rank_home_titlebar_hint"
+			style="@style/top_bar_btn_style"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/ic_hint"
+			android:contentDescription="@null" />
+    </RelativeLayout>
+    
+	<LinearLayout
+	    android:baselineAligned="false"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/sub_title_bkg_dark_gray" >
+		<LinearLayout
+		    android:layout_weight="1"
+		    android:clickable="true"
+		    android:id="@+id/rank_home_filter_region"
+		    android:gravity="center"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent" >
+		    <TextView
+		        android:id="@+id/rank_home_filter_region_content"
+		        style="@style/selection_txt_style"
+		        android:textColor="@color/color_white"
+		        android:drawableRight="@drawable/icon_arrow_down"
+		        android:text="@string/str_comm_region" />
+		</LinearLayout>
+<!-- 
+	    <TextView
+	        android:layout_width="1px"
+	        android:layout_height="match_parent"
+	        android:background="@color/color_selection_vline" />
+ -->
+		<LinearLayout
+		    android:layout_weight="1"
+		    android:clickable="true"
+		    android:id="@+id/rank_home_filter_sex"
+		    android:gravity="center"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent" >
+		    <TextView
+		        android:id="@+id/rank_home_filter_sex_content"
+		        style="@style/selection_txt_style"
+		        android:drawableRight="@drawable/icon_arrow_down"
+		        android:textColor="@color/color_white"
+		        android:text="@string/str_comm_sex" />
+		</LinearLayout>
+	</LinearLayout>
+
+    <!-- content title -->
+    <LinearLayout 
+        android:baselineAligned="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sub_title_bkg_gray"
+        android:gravity="center_vertical" >
+        <TextView
+            style="@style/rank_sub_title_style"
+            android:text="@string/str_rank_sub_title_rank" />
+        <TextView
+            style="@style/rank_sub_title_style"
+            android:layout_weight="9"
+            android:text="@string/str_rank_sub_title_golfer" />
+        <TextView
+            style="@style/rank_sub_title_style"
+            android:text="@string/str_rank_sub_title_handicapIndex" />
+        <TextView
+            style="@style/rank_sub_title_style"
+            android:text="@string/str_rank_sub_title_matches" />
+        <TextView
+            style="@style/rank_sub_title_style"
+            android:text="@string/str_rank_sub_title_best" />
+    </LinearLayout>
+	
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/rank_own_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:minHeight="@dimen/rank_li_min_height"
+            android:gravity="center_vertical"
+            android:background="@drawable/rank_bottom_hint_bkg" >
+            <TextView
+                android:id="@+id/rank_own_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/str_rank_own_hint"
+                android:textColor="@color/color_hint_txt" />
+            <!-- mine -->
+			<LinearLayout
+			    android:id="@+id/rank_own_ll"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:duplicateParentState="true"
+			    android:clickable="true"
+			    android:orientation="horizontal" >
+			    <!-- rank_item_style -->
+			    <LinearLayout
+			        style="@style/rank_item_style"
+			        android:orientation="horizontal" >
+					<ImageView
+					    android:id="@+id/rank_own_rank_img"
+					    android:src="@drawable/rank_gold"
+					    android:scaleType="fitXY"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:contentDescription="@null" />
+				    <TextView
+				        android:id="@+id/rank_own_rank_num"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textSize="@dimen/txt_size_m"
+				        android:textColor="@color/color_rank_num" />
+			    </LinearLayout>
+			    
+			    <LinearLayout
+			        style="@style/rank_item_style"
+			        android:layout_weight="9"
+			        android:orientation="horizontal" >
+				    <cn.gl.lib.view.RoundedImageView
+				        xmlns:app="http://schemas.android.com/apk/res-auto"
+				        android:id="@+id/rank_own_golfer_avatar"
+				        android:layout_width="@dimen/avatar_rank_li_size"
+				        android:layout_height="@dimen/avatar_rank_li_size"
+				        android:duplicateParentState="true"
+				        android:scaleType="fitXY"
+				        app:corner_radius="4dip"
+				        app:border_width="0dip"
+				        app:round_background="true"/>
+				    <TextView
+				        android:id="@+id/rank_own_golfer_nickname"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:paddingLeft="3dip"
+				        android:singleLine="true"
+				        android:textSize="@dimen/txt_size_ml"
+				        android:textColor="@color/color_rank_def" />
+			    </LinearLayout>
+			    
+			    <TextView
+			        android:id="@+id/rank_own_handicapi"
+			        style="@style/rank_item_style"
+			        android:textSize="@dimen/txt_size_m"
+			        android:textColor="@color/color_rank_def" />
+			    
+			    <TextView
+			        android:id="@+id/rank_own_matches"
+			        style="@style/rank_item_style"
+			        android:textSize="@dimen/txt_size_m"
+			        android:textColor="@color/color_rank_def" />
+			    
+			    <TextView
+			        android:id="@+id/rank_own_best"
+			        style="@style/rank_item_style"
+			        android:textSize="@dimen/txt_size_m"
+			        android:textColor="@color/color_rank_def" />    
+			</LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_above="@id/rank_own_info"
+            android:layout_alignParentTop="true"
+            android:id="@+id/rank_list_data_ll"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+			<com.hylg.igolf.ui.view.PullListView
+			    android:id="@+id/rank_home_listview"
+			   style="@style/listview_style"  />            
+        </LinearLayout>        
+
+    </RelativeLayout>
+</LinearLayout>

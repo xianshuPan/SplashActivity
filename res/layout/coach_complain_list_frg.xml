@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        
+        <ImageButton
+			android:id="@+id/coach_complain_list_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:id="@+id/coach_complain_list_title_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_coach_comments_list_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@color/color_white"
+	    android:orientation="vertical" >
+	    
+	    <ListView
+	        android:layout_margin="10dp"
+			android:id="@+id/coach_complain_list_listview"
+			android:listSelector="@color/color_white"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+		    android:scrollbarStyle="outsideOverlay"
+		    android:divider="@drawable/divider"  />  
+		    
+	    <EditText 
+	        android:gravity="top"
+	        android:padding="3dp"
+	        android:hint="请填写您的其他原因"
+	        android:background="@drawable/xbtn_gray"
+	        android:inputType="text"
+	        android:id="@+id/coach_complain_reason_edit"
+	        android:layout_width="match_parent"
+	        android:layout_margin="10dp"
+	        android:layout_height="80dp"
+	        android:maxLength="70"/>
+	    
+	    <View 
+			android:layout_marginTop="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="1dp" 
+			android:background="@drawable/divider1"/>
+	</LinearLayout>
+   <TextView
+		android:layout_margin="20dp"
+		android:textSize="@dimen/txt_title_size"
+		android:id="@+id/coach_complain_commit_text"
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:text="提交"
+		android:textColor="@color/color_white"
+		android:padding="5dp"
+		android:gravity="center"
+		android:background="@drawable/attented_color"/>	
+
+    <!-- content title -->
+</LinearLayout>

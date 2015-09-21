@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_even_bkg_normal"
+    android:paddingTop="8dip"
+    android:paddingBottom="8dip"
+    android:minHeight="@dimen/rank_li_min_height"
+    android:orientation="horizontal" >
+    <TextView
+        android:id="@+id/score_history_li_course"
+        style="@style/my_history_item_style"
+	    android:layout_weight="9"
+        android:singleLine="true"
+		android:ellipsize="end"/>
+    <TextView
+        android:id="@+id/score_history_li_teeTime"
+        android:singleLine="true"
+		android:ellipsize="end"
+		style="@style/my_history_item_style"
+	    android:layout_weight="8"/>
+    <TextView
+	        android:id="@+id/score_history_li_handicap"
+	        style="@style/my_history_item_style"
+	        android:layout_weight="9.5"/>
+    <Button
+	    android:background="@drawable/xbtn_selection"
+        style="@style/my_history_item_style"
+        android:layout_marginRight="5dp"
+        android:text="@string/str_member_score_histoyr_list_item_card"
+        android:id="@+id/score_history_li_request"
+        android:contentDescription="@null"/>
+</LinearLayout>

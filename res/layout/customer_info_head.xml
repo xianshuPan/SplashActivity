@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <LinearLayout
+			    xmlns:android="http://schemas.android.com/apk/res/android"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="vertical" >
+    <LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+			    android:paddingTop="5dp" >
+			   <com.hylg.igolf.ui.view.CircleImageView
+			       android:layout_marginTop="5dp"
+            		android:id="@+id/customer_avatar"
+            		android:layout_width="80dp"
+            		android:layout_height="80dp"
+            		android:layout_marginLeft="10dp"
+            		android:src="@drawable/avatar_null" />
+			   
+			   <LinearLayout
+			       android:layout_marginTop="5dp"
+			       android:layout_marginLeft="5dp"
+			       android:layout_gravity="top"
+			    			android:layout_width="wrap_content"
+			    			android:orientation="vertical"
+			    			android:layout_height="wrap_content" >
+			    			
+			       <TextView
+			        			android:layout_width="50dp"
+			        			android:layout_height="wrap_content"
+			        			android:textSize="12sp"
+			        			android:gravity="center"
+			        			android:textColor="@android:color/black"
+			        			android:text="@string/str_comm_yearsexp" />
+			    			<TextView
+			    			    android:gravity="center"
+			        			android:id="@+id/cusinfo_yearsexp_txt"
+			        			android:layout_width="match_parent"
+			        			android:layout_height="wrap_content"
+			        			android:textSize="12sp"/>
+			    			
+						</LinearLayout>
+				<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:orientation="vertical"
+				    android:gravity="center_vertical">
+					<LinearLayout
+					    android:id="@+id/cusinfo_score_line"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:gravity="center_vertical"
+					    android:orientation="horizontal" >
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_handicapi" />
+						    <TextView
+						        android:id="@+id/cusinfo_handicapi_txt"
+						        style="@style/detail_item_value_style" />
+						</LinearLayout>
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_best" />
+						    <TextView
+						        android:id="@+id/cusinfo_best_txt"
+						        style="@style/detail_item_value_style" />
+						    
+						</LinearLayout>
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_matches" />
+						    <TextView
+						        android:id="@+id/cusinfo_matches_txt"
+						        style="@style/detail_item_value_style" />
+						</LinearLayout>
+					</LinearLayout>
+					
+					<LinearLayout
+		    android:id="@+id/cusinfo_more_line"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="center_vertical"
+		    android:orientation="horizontal" >
+			
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+				<TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_cityrank" />
+			    <TextView
+			        android:id="@+id/cusinfo_cityrank_txt"
+			        style="@style/detail_item_value_style" />
+			    
+			</LinearLayout>
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_heat" />
+			    <TextView
+			        android:id="@+id/cusinfo_heat_txt"
+			        style="@style/detail_item_value_style" />
+			    
+			</LinearLayout>
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_activity" />
+			    <TextView
+			        android:id="@+id/cusinfo_activity_txt"
+			        style="@style/detail_item_value_style" />
+			    
+			</LinearLayout>
+		</LinearLayout>
+		
+					<TextView
+					    android:layout_marginTop="5dp"
+					    android:paddingTop="5dp"
+					    android:paddingBottom="5dp"
+					    android:background="@drawable/attented_color"
+					    android:id="@+id/cusinfo_myinfo_ll"
+					    android:gravity="center"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:layout_marginRight="10dp"
+					    android:text="@string/str_cusinfo_edit"
+					    android:textColor="@color/color_title_txt"
+					    android:textSize="@dimen/txt_size_ml" />
+				</LinearLayout>   
+				
+	
+		</LinearLayout>
+		
+    
+		
+    <View
+        android:layout_marginTop="10dp"
+	        android:layout_width="match_parent"
+	        android:layout_height="1px"
+	        android:background="@drawable/divider1" />
+    
+    	<LinearLayout
+    	    android:id="@+id/cusinfo_more_relative"
+    	    android:visibility="gone"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal" >
+			    <TextView
+			        android:id="@+id/cusinfo_tips_text"
+			        android:background="@drawable/friend_tab_select_bg"
+			        android:gravity="center"
+			        android:layout_weight="1"
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp"
+			        android:text="帖子" />
+			   <TextView
+			        android:id="@+id/cusinfo_praise_text"
+			       	android:background="@drawable/praiser_selection"
+			       	android:gravity="center"
+			        android:layout_weight="1"
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp"
+			        android:text="点赞" />
+			   <TextView
+			        android:id="@+id/cusinfo_follower_text"
+			       	android:background="@drawable/praiser_selection"
+			       	android:gravity="center"
+			        android:layout_weight="1"
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp"
+			        android:text="粉丝" />
+			   <TextView
+			        android:id="@+id/cusinfo_attention_text"
+			       android:background="@drawable/praiser_selection"
+			       android:gravity="center"
+			        android:layout_weight="1"
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp"
+			        android:text="关注" />
+			    
+		</LinearLayout>
+			
+    	 <View
+	        android:layout_width="match_parent"
+	        android:layout_height="1px"
+	        android:background="@drawable/divider1" />
+    
+ </LinearLayout>
+    

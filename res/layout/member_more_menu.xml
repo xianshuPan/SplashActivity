@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+    android:layout_width="wrap_content"  
+    android:layout_height="80dp"  
+    android:layout_marginRight="10dp"
+    android:orientation="vertical"  
+    android:background="@color/gray" >  
+ 
+	 <LinearLayout 
+       android:layout_marginTop="1px"
+       android:id="@+id/member_menu_score_history_linear"
+	    android:layout_width="120dp"  
+	    android:layout_height="40dp"  
+	    android:orientation="horizontal"  
+	    android:background="@color/color_image_picker_title_bkg"
+	    android:gravity="center_vertical" >   
+	    <TextView   
+	        android:layout_marginLeft="10dp"
+	        android:layout_width="wrap_content"  
+	        android:layout_height="wrap_content"  
+	        android:text="@string/str_member_score_history_title"  
+	        android:textSize="15sp"
+	        android:gravity="center_vertical"  
+	        android:textColor="#fff"/>  
+  
+	</LinearLayout>  
+	 <LinearLayout 
+       android:layout_marginTop="1px"
+       android:id="@+id/member_menu_fight_record_linear"
+	    android:layout_width="120dp"  
+	    android:layout_height="40dp"  
+	    android:orientation="horizontal"  
+	    android:background="@color/color_image_picker_title_bkg"
+	    android:gravity="center_vertical" >  
+	    <TextView   
+	        android:layout_marginLeft="10dp"
+	        android:layout_width="wrap_content"  
+	        android:layout_height="wrap_content"  
+	        android:text="@string/str_member_fight_record_title"  
+	        android:textSize="15sp"
+	        android:gravity="center_vertical"  
+	        android:textColor="#fff"/>  
+  
+	</LinearLayout>  
+  
+</LinearLayout>  

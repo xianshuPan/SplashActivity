@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/golfers_list_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_golfers_home_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+		<ImageButton
+			android:id="@+id/golfers_list_topbar_search"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:padding="12dp"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/ic_action_search" />
+    </RelativeLayout>
+    
+	<LinearLayout
+	    android:baselineAligned="false"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@color/color_white"
+	     >
+		<LinearLayout
+		    android:layout_weight="1"
+		    android:clickable="true"
+		    android:id="@+id/golfers_list_filter_label"
+		    android:gravity="center"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent" >
+		    <TextView
+		        android:id="@+id/golfers_list_filter_label_content"
+		        style="@style/selection_txt_style"
+		        android:text="@string/str_comm_label" />
+		</LinearLayout>
+		<!-- 
+	    <View
+	        android:layout_width="1px"
+	        android:layout_height="match_parent"
+	        android:background="@color/color_selection_vline" />
+	         -->
+		<LinearLayout
+		    android:layout_weight="1"
+	        android:id="@+id/golfers_list_filter_region"
+		    android:clickable="true"
+		    android:gravity="center"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent" >
+		    <TextView
+		        android:id="@+id/golfers_list_filter_region_content"
+		        style="@style/selection_txt_style"
+		        android:text="@string/str_comm_region" />
+		</LinearLayout>
+		<!-- 
+	    <View
+	        android:layout_width="1px"
+	        android:layout_height="match_parent"
+	        android:background="@color/color_selection_vline" />
+	         -->
+		<LinearLayout
+		    android:layout_weight="1"
+		    android:clickable="true"
+		    android:gravity="center"
+	        android:id="@+id/golfers_list_filter_industry"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent" >
+		    <TextView
+		        android:id="@+id/golfers_list_filter_industry_content"
+		        style="@style/selection_txt_style"
+		        android:text="@string/str_comm_industry" />
+		</LinearLayout>
+		<!-- 
+	    <View
+	        android:layout_width="1px"
+	        android:layout_height="match_parent"
+	        android:background="@color/color_selection_vline" />
+	         -->
+		<LinearLayout
+		    android:layout_weight="1"
+		    android:id="@+id/golfers_list_filter_sex"
+		    android:clickable="true"
+		    android:gravity="center"
+		    android:layout_height="wrap_content"
+		    android:layout_width="match_parent" >
+		    <TextView
+		        android:id="@+id/golfers_list_filter_sex_content"
+		        style="@style/selection_txt_style"
+		        android:text="@string/str_comm_sex" />
+		</LinearLayout>
+
+	</LinearLayout>
+ <View
+	     android:layout_width="match_parent"
+	     android:layout_height="1px"
+	     android:background="@drawable/divider1" />
+	<include
+	    android:id="@+id/golfers_list_load_fail"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    layout="@layout/common_load_fail" />
+	
+	<com.hylg.igolf.ui.view.PullListView
+	    android:id="@+id/golfers_listview"
+	   style="@style/listview_style"  />
+</LinearLayout>

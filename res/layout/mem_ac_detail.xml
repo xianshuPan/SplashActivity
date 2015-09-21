@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        style="@style/custom_title_style"
+        android:layout_alignParentTop="true" 
+        android:id="@+id/member_detail_title">
+        <ImageButton
+			android:id="@+id/member_detail_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_member_home_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+        <!-- bottom operate buttons region -->
+		    <LinearLayout
+		        android:id="@+id/member_detail_oper_bar"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentBottom="true"
+		        android:background="@drawable/invite_detail_botomm_bar"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+			    android:paddingTop="@dimen/view_small_ver_distance"
+			    android:paddingBottom="@dimen/view_small_ver_distance"
+		        android:orientation="horizontal" >
+				
+		<Button
+			android:id="@+id/member_detail_oper_btn_call"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+			android:layout_weight="1"
+			android:background="@drawable/xbtn_green"
+			android:text="@string/str_member_detail_oper_btn_call"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+		<View
+		    android:id="@+id/member_detail_oper_cm_btn_space"
+		    android:layout_width="@dimen/view_hor_margin"
+		    android:layout_height="0dip"
+		    android:background="@null" />
+		<Button
+			android:id="@+id/member_detail_oper_btn_invite"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+			android:layout_weight="1"
+			android:background="@drawable/xbtn_green"
+			android:text="@string/str_member_detail_oper_btn_invite"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+		
+	 </LinearLayout>
+	  <View 
+				    android:id="@+id/member_detail_line_btn"
+				    android:layout_width="match_parent"
+				    android:layout_above="@id/member_detail_oper_bar"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"/>
+     <ScrollView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+        android:layout_below="@id/member_detail_title"
+        android:layout_above="@id/member_detail_line_btn"
+	    android:scrollbars="none"
+	    android:orientation="vertical" >
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+		    <!-- avatar + name line + score line -->
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+			    android:gravity="center_vertical"
+			    android:paddingTop="5dp" >
+			    <cn.gl.lib.view.RoundedImageView
+			        xmlns:app="http://schemas.android.com/apk/res-auto"
+			        android:id="@+id/member_avatar"
+			        android:layout_width="match_parent"
+			        android:layout_height="@dimen/avatar_detail_size"
+			        android:scaleType="fitCenter"
+			        android:layout_weight="3"
+			        android:src="@drawable/avatar_loading"
+			        app:corner_radius="6dip"
+			        app:border_width="0dip"
+			        app:round_background="true"
+			        android:contentDescription="@null" />
+				<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:orientation="vertical"
+				    android:gravity="center_vertical"
+				    android:paddingTop="5dp" >
+					<RelativeLayout
+					    android:id="@+id/member_detail_name_line"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:padding="5dp" >
+					    <TextView
+					        android:layout_alignParentRight="true"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/meminfo_region_txt"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginRight="5dp"
+					        android:textColor="@android:color/black" />
+					    <TextView
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/meminfo_nickname_txt"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginRight="5dp"
+					        android:textColor="@android:color/black" />
+					    <ImageView
+					        android:layout_toRightOf="@id/meminfo_nickname_txt"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/meminfo_sex_img"
+					        android:layout_width="12dp"
+					        android:layout_height="12dp"
+					        android:layout_marginRight="5dp"
+					        android:src="@drawable/navi_customer"
+					        android:contentDescription="@null" />
+					    <LinearLayout
+					        android:layout_toRightOf="@id/meminfo_sex_img"
+					        android:layout_centerVertical="true"
+					        android:orientation="horizontal"
+					        android:id="@+id/meminfo_rate_ll"
+					        android:layout_marginRight="5dp"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content" />
+					    <TextView
+					        android:layout_toRightOf="@id/meminfo_rate_ll"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/meminfo_age_txt"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:textColor="@android:color/black" />
+					</RelativeLayout>
+				    <View
+				        android:id="@+id/meminfo_name_div"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/div_line_width"
+				        android:background="@color/color_div_line" />
+					<LinearLayout
+					    android:id="@+id/meminfo_score_line"
+					    android:layout_width="match_parent"
+					    android:layout_height="match_parent"
+					    android:gravity="center_vertical"
+					    android:orientation="horizontal" >
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        android:id="@+id/meminfo_handicapi_txt"
+						        style="@style/detail_item_value_style" />
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_handicapi" />
+						</LinearLayout>
+					    <View
+					        android:layout_width="@dimen/div_line_width"
+					        android:layout_height="match_parent"
+					        android:background="@color/color_div_line" />
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        android:id="@+id/meminfo_best_txt"
+						        style="@style/detail_item_value_style" />
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_best" />
+						</LinearLayout>
+					    <View
+					        android:layout_width="@dimen/div_line_width"
+					        android:layout_height="match_parent"
+					        android:background="@color/color_div_line" />
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        android:id="@+id/meminfo_matches_txt"
+						        style="@style/detail_item_value_style" />
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_matches" />
+						</LinearLayout>
+					</LinearLayout>
+				</LinearLayout>    
+		</LinearLayout>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />
+	    <!-- more line -->
+	    <LinearLayout
+		    android:id="@+id/meminfo_more_line"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:gravity="center_vertical"
+		    android:orientation="horizontal" >
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/meminfo_yearsexp_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_yearsexp" />
+			</LinearLayout>
+		    <View
+		        android:layout_width="@dimen/div_line_width"
+		        android:layout_height="match_parent"
+		        android:background="@color/color_div_line" />
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/meminfo_cityrank_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_cityrank" />
+			</LinearLayout>
+		    <View
+		        android:layout_width="@dimen/div_line_width"
+		        android:layout_height="match_parent"
+		        android:background="@color/color_div_line" />
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/meminfo_heat_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_heat" />
+			</LinearLayout>
+		    <View
+		        android:layout_width="@dimen/div_line_width"
+		        android:layout_height="match_parent"
+		        android:background="@color/color_div_line" />
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/meminfo_activity_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_activity" />
+			</LinearLayout>
+		</LinearLayout>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />
+	    <!-- signature line -->
+	    <TextView
+	            android:id="@+id/meminfo_signature_txt"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+		        android:layout_marginLeft="@dimen/view_hor_margin"
+		        android:layout_marginRight="@dimen/view_hor_margin"
+		        android:paddingTop="8dp"
+		        android:paddingBottom="8dip"
+	            android:maxLines="2"
+	            android:ellipsize="end"
+	            android:text="@string/str_comm_def_signature"
+	            android:textColor="@color/color_hint_txt" />
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />
+	    <!-- 预留相册 -->
+	    <HorizontalScrollView
+		    android:layout_width="match_parent"	    
+		    android:layout_height="wrap_content"
+		    android:scrollbars="none"
+	        android:layout_marginLeft="@dimen/view_hor_margin"
+	        android:layout_marginRight="@dimen/view_hor_margin"	 >
+
+	    	<LinearLayout
+	            android:id="@+id/member_detail_photo_ll"
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:orientation="horizontal" >
+
+	        </LinearLayout>
+
+		</HorizontalScrollView> 
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:layout_marginBottom="@dimen/view_ver_distance"
+	        android:background="@color/color_div_line" />
+	    <RelativeLayout
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_marginTop="@dimen/view_ver_margin"
+			    android:layout_marginLeft="@dimen/view_hor_margin"
+			    android:layout_marginRight="@dimen/view_hor_margin"
+			    android:background="@drawable/frame_bkg" >
+			<TextView
+				    android:id="@+id/member_detail_pre_fightMsg"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:text="@string/str_member_fightMsg" />
+				<RelativeLayout
+				    android:id="@+id/member_detail_fightMsg_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_toRightOf="@id/member_detail_pre_fightMsg" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_fightMsg"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_fightMsg"
+					    android:id="@+id/member_detail_fightMsg_selection"
+					    android:textSize="@dimen/txt_size_small"
+					    android:ellipsize="end"
+					    android:singleLine="true"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				<View 
+				    android:id="@+id/member_detail_line_fightMsg"
+				    android:layout_width="match_parent"
+				    android:layout_height="@dimen/div_line_width"
+				    android:background="@color/color_div_line"
+				    android:layout_below="@id/member_detail_pre_fightMsg"/>
+				<TextView
+				    android:id="@+id/member_detail_pre_scoreMsg"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/member_detail_pre_fightMsg"
+				    android:text="@string/str_member_scoreMsg" />
+				<RelativeLayout
+				    android:id="@+id/member_detail_scoreMsg_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/member_detail_line_fightMsg"
+				    android:layout_toRightOf="@id/member_detail_pre_scoreMsg" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_scoreMsg"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_scoreMsg"
+					    android:id="@+id/member_detail_scoreMsg_selection"
+					    android:textSize="@dimen/txt_size_small"
+					    android:ellipsize="end"
+					    android:singleLine="true"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+			</RelativeLayout>
+	    </LinearLayout>
+     </ScrollView>
+
+</RelativeLayout>

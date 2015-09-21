@@ -1,0 +1,188 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:background="#ffe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <LinearLayout
+        android:layout_above="@+id/share_menu_linear"
+	    android:baselineAligned="false"
+	    android:id="@+id/share_menu_linear1"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/share_menu_item_height"
+	    android:orientation="horizontal" >
+	    
+	   <RelativeLayout
+	        android:id="@+id/share_menu_micro_blog_relative"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true" >
+	        
+	        
+	         <ImageView
+	            android:layout_above="@+id/share_menu_micro_blog_name"
+	            android:src="@drawable/share_menu_micro_blog"
+	            android:contentDescription="@null"
+	            style="@style/share_menu_item_img_style" />
+	        <TextView
+	            android:id="@+id/share_menu_micro_blog_name"
+	            android:layout_marginBottom="6dp"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:duplicateParentState="true"
+	            
+	            android:text="@string/str_share_menu_micro_blog"
+	            android:textSize="@dimen/txt_size_small"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+
+	    </RelativeLayout>
+	     <RelativeLayout
+	        android:id="@+id/share_menu_QQ_relative"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true" >
+	        <ImageView
+	            android:layout_above="@+id/share_menu_QQ_name"
+	            android:src="@drawable/share_menu_qq"
+	            android:contentDescription="@null"
+	            style="@style/share_menu_item_img_style" />
+	        <TextView
+	            android:layout_marginBottom="6dp"
+	            android:id="@+id/share_menu_QQ_name"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:duplicateParentState="true"
+	            android:text="@string/str_share_menu_QQ"
+	            android:textSize="@dimen/txt_size_small"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	        
+	    </RelativeLayout>
+	    <RelativeLayout
+	        android:id="@+id/share_menu_QQ_Zone_relative"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true" >
+	        <ImageView
+	            android:layout_above="@+id/share_menu_QQ_Zone_name"
+	            android:src="@drawable/share_menu_qq_zone"
+	            android:contentDescription="@null"
+	            style="@style/share_menu_item_img_style" />
+	        <TextView
+	            android:layout_marginBottom="6dp"
+	            android:id="@+id/share_menu_QQ_Zone_name"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:duplicateParentState="true"
+	            android:text="@string/str_share_menu_QQ_zone"
+	            
+	            android:textSize="@dimen/txt_size_small"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	    </RelativeLayout>
+	   
+	</LinearLayout>
+
+	<LinearLayout
+	    android:id="@+id/share_menu_linear"
+	   android:layout_above="@+id/share_menu_cancel_text"
+	    android:layout_width="match_parent"
+	    android:layout_height="@dimen/share_menu_item_height"
+	    android:orientation="horizontal" >
+	   
+	     <RelativeLayout
+	        android:id="@+id/share_menu_micro_message_friend_relative"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true" >
+	        <ImageView
+	            android:layout_above="@+id/share_menu_micro_message_friend_name"
+	            android:src="@drawable/share_menu_micro_message_friend"
+	            android:contentDescription="@null"
+	            style="@style/share_menu_item_img_style" />
+	        <TextView
+	            android:layout_marginBottom="6dp"
+	            android:id="@+id/share_menu_micro_message_friend_name"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:duplicateParentState="true"
+	            android:text="@string/str_share_menu_micro_message_friend"
+	            android:textSize="@dimen/txt_size_small"
+	            
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	    </RelativeLayout>
+	    <RelativeLayout
+	        android:id="@+id/share_menu_micro_message_friend_circle_relative"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true" >
+	        <ImageView
+	            android:layout_above="@+id/share_menu_micro_message_friend_circle_name"
+	            android:src="@drawable/share_menu_micro_message_friend_circle"
+	            android:contentDescription="@null"
+	            style="@style/share_menu_item_img_style" />
+	        <TextView
+	            android:layout_marginBottom="6dp"
+	            android:id="@+id/share_menu_micro_message_friend_circle_name"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:duplicateParentState="true"
+	            android:text="@string/str_share_menu_micro_message_friend_circle"
+	            android:textSize="@dimen/txt_size_small"
+	           
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	    </RelativeLayout>
+	    
+	   
+	    
+	    <RelativeLayout
+	        android:id="@+id/share_menu_relative"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1"
+	        android:clickable="true" >
+	        <ImageView
+	            android:layout_above="@+id/share_menu_name"
+	            android:contentDescription="@null"
+	            style="@style/navigate_radio_img_style" />
+	        <TextView
+	            android:layout_marginBottom="6dp"
+	            android:id="@+id/share_menu_name"
+	            android:layout_alignParentBottom="true"
+	            android:layout_centerHorizontal="true"
+	            android:duplicateParentState="true"
+	            android:textColor="@color/color_white"
+	            android:textSize="@dimen/txt_size_small"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content" />
+	    </RelativeLayout>
+	</LinearLayout>
+	
+	<View 
+	    android:layout_below="@+id/share_menu_cancel_text"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/divider1"/>
+	
+	<TextView 
+	    android:layout_alignParentBottom="true"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="@string/str_photo_cancel"
+	    android:id="@+id/share_menu_cancel_text"
+	    android:gravity="center"
+	    android:padding="8dp"
+	    android:layout_margin="15dp"
+	    android:textSize="@dimen/txt_title_size"
+	    android:background="@drawable/xbtn_selection"/>
+	
+</RelativeLayout>

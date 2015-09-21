@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/start_sts_title"
+        style="@style/custom_title_style"
+        android:layout_alignParentTop="true" >
+		<ImageButton
+			android:id="@+id/start_sts_invite_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_hall_start_sts_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+ 
+    <RelativeLayout
+        android:id="@+id/start_sts_oper_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/invite_detail_botomm_bar"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:paddingTop="@dimen/view_small_ver_distance"
+	    android:paddingBottom="@dimen/view_small_ver_distance"
+        android:layout_alignParentBottom="true" >
+		<Button
+			android:id="@+id/start_sts_oper_start_invite"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+			android:background="@drawable/xbtn_green"
+			android:text="@string/str_hall_preset_btn_invite"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+    </RelativeLayout>
+    
+    <ScrollView
+        android:layout_below="@id/start_sts_title"
+        android:layout_above="@id/start_sts_oper_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+        android:scrollbars="none">
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:paddingTop="@dimen/view_ver_margin"
+		    android:paddingBottom="@dimen/view_ver_margin"
+		    android:paddingLeft="@dimen/view_hor_margin"
+		    android:paddingRight="@dimen/view_hor_margin"
+		    android:orientation="vertical" >
+			<TextView
+				android:layout_marginBottom="@dimen/view_small_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_comm_plans"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size"
+			    android:gravity="center"
+			    android:focusable="true"
+			    android:focusableInTouchMode="true" />
+			
+		    <!-- add plans -->
+            <cn.gl.lib.view.NestListView
+                android:layout_marginBottom="@dimen/view_small_ver_distance"
+                android:id="@+id/start_sts_plan_list"
+				style="@style/listview_style"
+				android:scrollbars="none"
+				android:dividerHeight="5dip"
+				android:divider="@android:color/transparent"  />
+			
+			<TextView
+				android:layout_marginBottom="@dimen/view_small_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_comm_payment"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size"
+			    android:gravity="center"
+			    android:focusable="true"
+			    android:focusableInTouchMode="true" />
+			
+			<cn.gl.lib.view.NestGridView
+				android:layout_marginBottom="@dimen/view_small_ver_distance"
+			    android:id="@+id/start_sts_pay_type_gridview"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="8dp"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+			
+			<TextView
+				android:layout_marginBottom="@dimen/view_small_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_comm_stake"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size"
+			    android:gravity="center"
+			    android:focusable="true"
+			    android:focusableInTouchMode="true" />
+			
+			<cn.gl.lib.view.NestGridView
+				android:layout_marginBottom="@dimen/view_ver_margin"
+			    android:id="@+id/start_sts_stake_gridview"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="8dp"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+			<EditText
+				android:layout_marginBottom="@dimen/view_small_ver_distance"
+			    android:id="@+id/start_sts_invite_addressname"
+			    android:layout_width="match_parent"
+			    android:layout_height="40dip"
+			    android:gravity="top|left"
+			    android:maxLength="@integer/invite_addressname_max_length"
+			    android:inputType="text|textPersonName"
+			    android:paddingTop="@dimen/edittext_v_space"
+			    android:paddingBottom="@dimen/edittext_v_space"
+			    android:paddingLeft="@dimen/edittext_h_space"
+			    android:paddingRight="@dimen/edittext_h_space"
+			    android:background="@drawable/edittext_bkg"
+			    android:hint="@string/str_input_hint_sts_addr_name"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size" />			
+			<EditText
+			    android:id="@+id/start_sts_invite_msg"
+			    android:layout_width="match_parent"
+			    android:layout_height="90dip"
+			    android:gravity="top|left"
+			    android:maxLength="@integer/invite_msg_max_length"
+			    android:inputType="textMultiLine"
+			    android:paddingTop="@dimen/edittext_v_space"
+			    android:paddingBottom="@dimen/edittext_v_space"
+			    android:paddingLeft="@dimen/edittext_h_space"
+			    android:paddingRight="@dimen/edittext_h_space"
+			    android:background="@drawable/edittext_bkg"
+			    android:hint="@string/str_input_hint_sts_invite"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size" />
+			
+		</LinearLayout>
+	</ScrollView>
+	
+</RelativeLayout>

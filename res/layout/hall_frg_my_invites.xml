@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="horizontal" >
+
+	<com.hylg.igolf.ui.view.PullListView
+	    android:id="@+id/my_invites_listview"
+	    style="@style/listview_style"
+	    android:scrollbarStyle="outsideOverlay"
+	    android:paddingLeft="10dip"
+	    android:paddingRight="15dip"
+	    android:dividerHeight="15dip"
+	    android:divider="@null"  />
+</LinearLayout>

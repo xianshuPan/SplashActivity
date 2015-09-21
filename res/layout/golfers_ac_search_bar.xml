@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:clickable="true"
+	android:background="@color/color_translucence" >
+
+    <RelativeLayout
+        android:id="@+id/golfers_list_search_bar"
+        android:layout_alignParentTop="true"
+        style="@style/custom_title_style"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip" >
+		<Button
+			android:id="@+id/golfers_list_search_bar_cancel"
+			android:layout_width="wrap_content"
+			android:paddingLeft="8dip"
+			android:paddingRight="8dip"
+			android:layout_height="wrap_content"
+			android:minHeight="@dimen/golfers_li_invite_btn_h"
+			android:paddingTop="3dip"
+			android:paddingBottom="3dip"
+			android:layout_margin="8dip"
+			android:background="@drawable/xbtn_green"
+			android:textColor="@android:color/white"
+			android:layout_centerVertical="true"
+			android:layout_alignParentRight="true"
+			android:text="@string/str_coachers_search"
+			android:contentDescription="@null" />
+		<RelativeLayout
+		    android:layout_toLeftOf="@id/golfers_list_search_bar_cancel"
+		    android:layout_centerVertical="true"
+		    android:layout_alignParentLeft="true"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@drawable/search_box"
+		    android:layout_margin="8dip" >
+			<ImageButton
+				android:id="@+id/golfers_list_search_box_cancel"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_marginRight="8dip"
+				android:layout_centerVertical="true"
+				android:layout_alignParentRight="true"
+				android:src="@drawable/search_box_cancel"
+				android:background="@null"
+				android:contentDescription="@null" />
+			<ImageButton
+				android:id="@+id/golfers_list_search_box_icon"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="8dip"
+				android:layout_centerVertical="true"
+				android:layout_alignParentLeft="true"
+				android:src="@drawable/search_box_icon"
+				android:background="@null"
+				android:contentDescription="@null" />
+			<EditText
+			    android:id="@+id/golfers_list_search_box_input"
+			    android:layout_toLeftOf="@id/golfers_list_search_box_cancel"
+			    android:layout_toRightOf="@id/golfers_list_search_box_icon"
+			    android:layout_centerVertical="true"
+			    android:background="@null"
+			    android:layout_width="match_parent"
+			    android:layout_height="match_parent"
+			    android:paddingLeft="8dip"
+			    android:paddingRight="8dip"
+			    android:focusable="true"
+			    android:focusableInTouchMode="true"
+			    android:imeOptions="actionSearch"
+			    android:hint="@string/str_golfers_search_hint"
+			    android:maxLength="5"
+			    android:textSize="@dimen/txt_size_ml" />
+		</RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

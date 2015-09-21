@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2010-2011, The MiCode Open Source Community (www.micode.net)
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+--><RelativeLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hylg.igolf.ui.view.photoview.PhotoView
+        android:id="@+id/image_loading_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_centerInParent="true"
+        />
+	<com.hylg.igolf.ui.view.ProgressWheel 
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        ProgressWheel:text="@string/app_name"
+			ProgressWheel:textColor="@color/color_tab_green"
+			ProgressWheel:textSize="12sp"
+			ProgressWheel:rimColor="@color/background_tab_pressed"
+			ProgressWheel:barLength="20dp" 
+			ProgressWheel:barColor="@color/color_tab_green"
+			ProgressWheel:barWidth="5dp"
+			ProgressWheel:rimWidth="5dp" 
+			ProgressWheel:spinSpeed="2dp" 
+			android:visibility="gone"
+	        android:layout_centerInParent="true"
+	        android:id="@+id/image_loading_progress"/>
+
+</RelativeLayout>

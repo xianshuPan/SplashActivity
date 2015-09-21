@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#231f20" >
+    
+    <RelativeLayout
+        android:id="@+id/image_picker_head_realtive"
+        style="@style/iamge_picker_title_style" >
+        <ImageButton
+			android:id="@+id/image_picker_head_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_centerVertical="true"
+		    android:layout_toRightOf="@+id/image_picker_head_back"
+		    android:layout_marginLeft="10dp"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_image_picker_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_size_m" />
+		
+		<TextView
+		    android:paddingLeft="15dp"
+		    android:paddingRight="15dp"
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:background="@drawable/green_back"
+		    android:id="@+id/image_picker_done_text"
+		    android:layout_centerVertical="true"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_marginRight="10dp"
+		    android:text="@string/str_image_picker_selected_done"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_size_ml" />
+    </RelativeLayout>
+
+
+    <GridView
+        android:layout_below="@+id/image_picker_head_realtive"
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:layout_margin="5dp"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:scrollbars="none"/>
+    
+     <ListView
+         android:visibility="gone"
+         android:layout_marginBottom="100dp"
+            android:id="@+id/image_picker_photo_List"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:divider="@drawable/divider"
+            android:cacheColorHint="@android:color/transparent" >
+        </ListView>
+
+   <RelativeLayout
+       android:alpha="0.8"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/image_picker_photo_select_relative"
+        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:background="@color/color_image_picker_title_bkg" >
+		<TextView
+		    android:id="@+id/image_picker_photo_select_text"
+		    android:layout_centerVertical="true"
+		    android:layout_marginLeft="10dp"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="所有图片"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_size_m" />
+		
+		<ImageView
+		    android:layout_centerVertical="true"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_marginRight="10dp"
+		    android:src="@drawable/icon_arrow_enter"/>
+    </RelativeLayout>
+
+</RelativeLayout>

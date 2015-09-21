@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+  <FrameLayout
+    android:id="@+id/tools_camera_previewFrame"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    />
+  <!-- 
+  <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_above="@+id/camera_tak_picture_linear"
+   >
+    <SurfaceView 
+       android:id="@+id/tools_camera_preview_surface"
+    	android:layout_width="fill_parent"
+    	android:layout_height="match_parent"/>
+  
+ 	<ImageView 
+        android:id="@+id/tools_camera_preview_image"
+        android:src="@drawable/white_bg_all"
+    	android:layout_width="fill_parent"
+    	android:layout_height="match_parent"/>
+    	
+   </RelativeLayout>
+  
+   -->
+   <ImageView
+       android:visibility="gone"
+       android:background="#000"
+	    android:id="@+id/tools_camera_current_image"
+	    android:scaleType="center"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_gravity="center"
+	    android:layout_above="@+id/camera_tak_picture_linear"
+    />
+ 
+  <!-- 倒计时控件 -->
+  <TextView 
+      android:visibility="gone"
+    	android:background="@drawable/camera_count_bg"
+      android:id="@+id/tools_camera_count_text"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:textSize="@dimen/txt_title_size"
+      android:gravity="center"
+      android:layout_centerInParent="true"
+      android:textColor="@color/color_white"
+      android:text="1"/>
+  
+   <ListView
+       android:layout_above="@+id/camera_tak_picture_linear"
+         android:visibility="gone"
+            android:id="@+id/camera_more_List"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#BB000000"
+            android:cacheColorHint="@android:color/transparent" >
+        </ListView>
+  
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#000"
+    android:layout_above="@+id/camera_bottom_linear"
+    android:id="@+id/camera_tak_picture_linear"
+   >
+    <ImageView
+        	android:id="@+id/camera_tak_picture_image"
+			android:layout_width="60dp"
+    		android:layout_height="60dp"
+    		android:scaleType="centerCrop"
+			android:contentDescription="@null"
+			android:background="@drawable/take_pictrue" />
+   </LinearLayout>
+  
+  <LinearLayout
+      android:id="@+id/camera_bottom_linear"
+    android:layout_width="fill_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
+    android:background="#000"
+   >
+   <!-- 返回按钮-->
+   <LinearLayout
+       
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:id="@+id/camera_back_linear"
+   >
+    <ImageButton
+        android:id="@+id/camera_back_image"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:src="@drawable/xbtn_back" />
+   </LinearLayout>
+   
+   <!-- 闪光-->
+   <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:id="@+id/camera_flash_linear"
+   >
+   <ImageView 
+       android:id="@+id/camera_flash_image"
+     android:layout_width="50dp"
+     android:layout_height="50dp"
+     android:background="@drawable/camera_flash_close"
+     android:layout_marginBottom="5dp"
+     android:layout_marginTop="5dp"
+   />
+   </LinearLayout>
+   
+   <!-- 摄像头切换-->
+   <LinearLayout
+       
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:id="@+id/camera_change_linear"
+   >
+   <ImageView 
+     android:layout_width="50dp"
+     android:layout_height="50dp"
+      android:background="@drawable/camera_change"
+     android:layout_marginBottom="5dp"
+     android:layout_marginTop="5dp"
+   />
+   </LinearLayout>
+   
+   <!-- 拍照模式选择-->
+   <LinearLayout
+       android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:id="@+id/camera_style_linear"
+   >
+   <ImageView 
+       android:id="@+id/camera_style_image"
+     android:layout_width="60dp"
+     android:layout_height="50dp"
+     android:scaleType="centerCrop"
+     android:background="@drawable/camera_style_nine"
+     android:layout_marginBottom="5dp"
+     android:layout_marginTop="5dp"
+   />
+   
+   </LinearLayout>
+   
+   <!-- 连拍时间选择-->
+   <LinearLayout
+       android:visibility="gone"
+    android:layout_width="wrap_content"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:id="@+id/camera_more_linear"
+   >
+   <ImageView 
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:background="@drawable/ic_more"
+     android:layout_marginBottom="5dp"
+     android:layout_marginTop="5dp"
+   />
+   </LinearLayout>
+  </LinearLayout>
+</RelativeLayout>

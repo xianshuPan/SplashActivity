@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/account_pverify_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:id="@+id/account_pverify_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_reg_phone_verify_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+	<LinearLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/repeat_bkg"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:paddingTop="@dimen/view_ver_margin"
+	    android:paddingBottom="@dimen/view_ver_margin"
+	    android:orientation="vertical" >
+		<TextView
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_verify_hint"
+		    android:textColor="@color/color_hint_txt"
+		    android:textSize="@dimen/txt_hint_size"
+		    android:gravity="center" />
+		<TextView
+		    android:layout_marginBottom="@dimen/view_ver_distance"
+		    android:paddingTop="@dimen/dialog_msg_space"
+		    android:id="@+id/account_pverify_hint_phone"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:text=""
+		    android:textColor="@android:color/black"
+		    android:textSize="@dimen/txt_size_m"
+		    android:gravity="center" />
+		
+		<RelativeLayout
+			android:layout_marginBottom="@dimen/view_ver_distance"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content" >
+			<Button
+			    android:layout_alignParentRight="true"
+			    android:layout_centerVertical="true"
+				android:id="@+id/account_pverify_renew"
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/btn_height"
+				android:background="@drawable/xbtn_green"
+				android:paddingLeft="@dimen/btn_h_space"
+				android:paddingRight="@dimen/btn_h_space"
+				android:text="@string/str_btn_renew_time"
+				android:textColor="@android:color/white"
+				android:textSize="@dimen/txt_btn_txt_size" />
+			<EditText
+			    android:id="@+id/account_pverify_input_et"
+			    android:layout_toLeftOf="@id/account_pverify_renew"
+			    android:layout_centerVertical="true"
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/edittxt_bkg_height"
+			    android:paddingLeft="@dimen/edittext_h_space"
+			    android:paddingRight="@dimen/edittext_h_space"
+			    android:layout_marginRight="@dimen/view_hor_margin"
+			    android:background="@drawable/edittext_bkg"
+			    android:inputType="number"
+			    android:maxLength="10"
+			    android:hint="@string/str_verify_input_hint"
+			    android:textSize="@dimen/txt_hint_size" />
+		</RelativeLayout>
+	
+		<Button
+			android:id="@+id/account_pverify_next"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+			android:background="@drawable/xbtn_green"
+			android:text="@string/str_btn_next"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+		
+	</LinearLayout>
+	
+</LinearLayout>

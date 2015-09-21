@@ -1,0 +1,8 @@
+<resources>
+
+    <dimen name="invite_detail_rate_height">28dp</dimen>
+
+    <dimen name="view_hor_margin">10dp</dimen>
+    <dimen name="view_ver_margin">10dp</dimen>
+    
+</resources>

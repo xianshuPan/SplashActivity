@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_customer_home_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <ScrollView
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+	    android:scrollbars="none"
+	    android:orientation="vertical" >
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+		    <!-- avatar + name line + score line -->
+			<LinearLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+			    android:gravity="center_vertical"
+			    android:paddingTop="5dp" >
+			    <cn.gl.lib.view.RoundedImageView
+			        xmlns:app="http://schemas.android.com/apk/res-auto"
+			        android:id="@+id/customer_avatar"
+			        android:layout_width="match_parent"
+			        android:layout_height="@dimen/avatar_detail_size"
+			        android:scaleType="fitCenter"
+			        app:corner_radius="6dip"
+			        app:border_width="0dip"
+			        app:round_background="true"
+			        android:layout_weight="3"
+			        android:src="@drawable/avatar_loading"
+			        android:contentDescription="@null" />
+				<LinearLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"
+				    android:orientation="vertical"
+				    android:gravity="center_vertical"
+				    android:paddingTop="5dp" >
+					<RelativeLayout
+					    android:id="@+id/customer_info_name_line"
+					    android:layout_width="match_parent"
+					    android:layout_height="wrap_content"
+					    android:padding="5dp" >
+					    <TextView
+					        android:layout_alignParentRight="true"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/cusinfo_region_txt"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginRight="5dp"
+					        android:textColor="@android:color/black" />
+					    <TextView
+					        android:layout_alignParentLeft="true"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/cusinfo_nickname_txt"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:layout_marginRight="5dp"
+					        android:textColor="@android:color/black" />
+					    <ImageView
+					        android:layout_toRightOf="@id/cusinfo_nickname_txt"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/cusinfo_sex_img"
+					        android:layout_width="12dp"
+					        android:layout_height="12dp"
+					        android:src="@drawable/navi_customer"
+					        android:layout_marginRight="5dp"
+					        android:contentDescription="@null" />
+					    <LinearLayout
+					        android:layout_toRightOf="@id/cusinfo_sex_img"
+					        android:layout_centerVertical="true"
+					        android:orientation="horizontal"
+					        android:id="@+id/cusinfo_rate_ll"
+					        android:layout_marginRight="5dp"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content" />
+					    <TextView
+					        android:layout_toRightOf="@id/cusinfo_rate_ll"
+					        android:layout_centerVertical="true"
+					        android:id="@+id/cusinfo_age_txt"
+					        android:layout_width="wrap_content"
+					        android:layout_height="wrap_content"
+					        android:textColor="@android:color/black" />
+					</RelativeLayout>
+				    <View
+				        android:id="@+id/cusinfo_name_div"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/div_line_width"
+				        android:background="@color/color_div_line" />
+					<LinearLayout
+					    android:id="@+id/cusinfo_score_line"
+					    android:layout_width="match_parent"
+					    android:layout_height="match_parent"
+					    android:gravity="center_vertical"
+					    android:orientation="horizontal" >
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        android:id="@+id/cusinfo_handicapi_txt"
+						        style="@style/detail_item_value_style" />
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_handicapi" />
+						</LinearLayout>
+					    <View
+					        android:layout_width="@dimen/div_line_width"
+					        android:layout_height="match_parent"
+					        android:background="@color/color_div_line" />
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        android:id="@+id/cusinfo_best_txt"
+						        style="@style/detail_item_value_style" />
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_best" />
+						</LinearLayout>
+					    <View
+					        android:layout_width="@dimen/div_line_width"
+					        android:layout_height="match_parent"
+					        android:background="@color/color_div_line" />
+						<LinearLayout
+						    style="@style/detail_item_layout_style" >
+						    <TextView
+						        android:id="@+id/cusinfo_matches_txt"
+						        style="@style/detail_item_value_style" />
+						    <TextView
+						        style="@style/detail_item_title_style"
+						        android:text="@string/str_detail_matches" />
+						</LinearLayout>
+					</LinearLayout>
+				</LinearLayout>    
+		</LinearLayout>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />
+	    <!-- more line -->
+		<LinearLayout
+		    android:id="@+id/cusinfo_more_line"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:gravity="center_vertical"
+		    android:orientation="horizontal" >
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/cusinfo_yearsexp_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_yearsexp" />
+			</LinearLayout>
+		    <View
+		        android:layout_width="@dimen/div_line_width"
+		        android:layout_height="match_parent"
+		        android:background="@color/color_div_line" />
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/cusinfo_cityrank_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_cityrank" />
+			</LinearLayout>
+		    <View
+		        android:layout_width="@dimen/div_line_width"
+		        android:layout_height="match_parent"
+		        android:background="@color/color_div_line" />
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/cusinfo_heat_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_heat" />
+			</LinearLayout>
+		    <View
+		        android:layout_width="@dimen/div_line_width"
+		        android:layout_height="match_parent"
+		        android:background="@color/color_div_line" />
+			<LinearLayout
+			    style="@style/detail_item_layout_style" >
+			    <TextView
+			        android:id="@+id/cusinfo_activity_txt"
+			        style="@style/detail_item_value_style" />
+			    <TextView
+			        style="@style/detail_item_title_style"
+			        android:text="@string/str_comm_activity" />
+			</LinearLayout>
+		</LinearLayout>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />
+	    
+	    <!-- signature and expand line -->
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_vertical"
+	        android:layout_marginLeft="@dimen/view_hor_margin"
+	        android:layout_marginRight="@dimen/view_hor_margin"
+	        android:paddingTop="8dp"
+	        android:paddingBottom="8dip" >
+	        <TextView
+	            android:id="@+id/cusinfo_signature_txt_expand"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:maxLines="2"
+	            android:ellipsize="end"
+	            android:text="@string/str_comm_def_signature"
+	            android:textColor="@color/color_hint_txt" />
+	        <TextView
+	            android:id="@+id/cusinfo_expand_btn"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="3dp"
+	            android:layout_weight="5"
+	            android:paddingLeft="8dip"
+	            android:paddingTop="5dip"
+	            android:paddingRight="8dip"
+	            android:paddingBottom="5dip"
+	            android:clickable="true"
+	            android:background="@drawable/xbtn_gray"
+	            android:gravity="center"
+	            android:textSize="14sp"
+	            android:textColor="@color/color_hint_txt"
+	            android:text="@string/str_cusinfo_signature_edit" />
+	    </LinearLayout>
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />
+	    <!-- gallery line -->
+		<HorizontalScrollView
+		    android:layout_width="match_parent"
+		    android:scrollbars="none"
+		    android:layout_height="wrap_content"
+	        android:layout_marginLeft="@dimen/view_hor_margin"
+	        android:layout_marginRight="@dimen/view_hor_margin"
+		     >
+	    	<LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="match_parent"
+	            android:orientation="horizontal" >
+		    	<LinearLayout
+		            android:id="@+id/cusinfo_myinfo_photo_ll"
+		            android:layout_width="wrap_content"
+		            android:layout_height="match_parent"
+		            android:orientation="horizontal" >
+	
+		        </LinearLayout>
+		        <View
+		            android:id="@+id/cusinfo_album_add_space"
+		            android:layout_width="@dimen/detail_ablum_pad"
+		            android:layout_height="wrap_content" />
+			    <ImageView
+			        android:id="@+id/customer_album_add"
+			        android:layout_width="@dimen/avatar_detail_size"
+			        android:layout_height="@dimen/avatar_detail_size"
+			        android:scaleType="fitCenter"
+			        android:src="@drawable/upload_ablum"
+			        android:layout_marginTop="@dimen/detail_ablum_pad"
+			        android:layout_marginBottom="@dimen/detail_ablum_pad"
+			        android:contentDescription="@null" />
+	        </LinearLayout>
+		</HorizontalScrollView>       
+	    <View
+	        android:layout_width="match_parent"
+	        android:layout_height="@dimen/div_line_width"
+	        android:background="@color/color_div_line" />	    
+
+	    <!-- my info, msg, history -->
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"
+		    android:layout_marginTop="@dimen/view_ver_margin"
+		    android:layout_marginLeft="@dimen/view_hor_margin"
+		    android:layout_marginRight="@dimen/view_hor_margin"
+		    android:background="@drawable/frame_bkg" >
+			<RelativeLayout
+			    android:id="@+id/cusinfo_myinfo_ll"
+			    style="@style/detail_info_ll_style" >
+			    <include
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_alignParentLeft="true"
+				    android:id="@+id/cusinfo_myinfo"
+				    android:text="@string/str_cusinfo_item_myinfo"
+				    style="@style/setup_pre_txt_style" />
+			</RelativeLayout>
+			
+			<View 
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/div_line_width"
+			    android:background="@color/color_div_line"/>
+			<RelativeLayout
+			    android:id="@+id/cusinfo_msg_ll"
+			    style="@style/detail_info_ll_style" >
+			    <include
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_alignParentLeft="true"
+				    android:id="@+id/cusinfo_msg"
+				    android:text="@string/str_cusinfo_item_msg"
+				    style="@style/setup_pre_txt_style" />
+			    <ImageView
+			        android:layout_toRightOf="@id/cusinfo_msg"
+			        android:layout_centerVertical="true"
+			        android:id="@+id/cusinfo_msg_img"
+			        android:layout_width="6dp"
+			        android:layout_height="6dp"
+			        android:layout_marginLeft="3dp"
+			        android:src="@drawable/ic_new_msg"
+			        android:scaleType="fitXY"
+			        android:contentDescription="@null" />
+			</RelativeLayout>
+			
+			<View 
+			    android:layout_width="match_parent"
+			    android:layout_height="@dimen/div_line_width"
+			    android:background="@color/color_div_line"/>
+			<RelativeLayout
+			    android:id="@+id/cusinfo_history_ll"
+			    style="@style/detail_info_ll_style" >
+			    <include
+					layout="@layout/include_arrow_enter"/>
+			    <TextView
+			        android:layout_alignParentLeft="true"
+				    android:id="@+id/cusinfo_history"
+				    android:text="@string/str_cusinfo_item_history"
+				    style="@style/setup_pre_txt_style" />
+			</RelativeLayout>
+		</LinearLayout>
+		<!-- about application -->
+		<RelativeLayout
+		    android:id="@+id/cusinfo_about_ll"
+		    style="@style/detail_info_ll_style"
+		    android:layout_marginTop="@dimen/view_ver_margin"
+		    android:layout_marginLeft="@dimen/view_hor_margin"
+		    android:layout_marginRight="@dimen/view_hor_margin"
+		    android:background="@drawable/frame_bkg" >
+		    <include
+				layout="@layout/include_arrow_enter"/>
+		    <TextView
+		        android:layout_alignParentLeft="true"
+			    android:id="@+id/cusinfo_about"
+			    android:text="@string/str_cusinfo_item_about"
+			    style="@style/setup_pre_txt_style" />
+		</RelativeLayout>
+
+							
+		<Button
+			android:id="@+id/cusinfo_logout"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+		    android:layout_marginTop="@dimen/view_ver_distance"
+		    android:layout_marginBottom="@dimen/view_ver_distance"
+		    android:layout_marginLeft="@dimen/view_hor_margin"
+		    android:layout_marginRight="@dimen/view_hor_margin"
+			android:background="@drawable/btn_red_normal"
+			android:text="@string/str_cusinfo_logout"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+			
+		</LinearLayout>        
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,94 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <!-- 视图垂直，水平边距 -->
+    <dimen name="view_ver_distance">20dp</dimen>
+    <dimen name="view_small_ver_distance">8dp</dimen>
+    <dimen name="view_hor_margin">16dp</dimen>
+    <dimen name="view_ver_margin">16dp</dimen>
+    <!-- 普通头像大小 -->
+    <dimen name="avatar_normal_w">90dp</dimen>
+    <!-- 分割线宽度 -->
+    <dimen name="div_line_width">1px</dimen>
+    <!-- 排行榜最小高度 -->
+    <dimen name="rank_li_min_height">45dip</dimen>
+    <!-- 约球详情，星级图标大小 -->
+    <dimen name="invite_detail_rate_star_size">14dp</dimen>
+    <!-- 个人详情 -->
+    <dimen name="personal_detail_rate_star_size">14dp</dimen>
+    
+    <!--  custom edit text  -->
+    <dimen name="edittxt_bkg_height">53dp</dimen>
+    <dimen name="edittxt_content_height">46dp</dimen>
+    <dimen name="edittext_h_space">16dp</dimen>
+    <dimen name="edittext_v_space">10dp</dimen>
+    
+    <dimen name="filter_ic_size">18dp</dimen>
+    
+    <!-- list item padding -->
+    <dimen name="list_item_vn_pad">10dp</dimen>
+    <dimen name="list_item_hn_pad">10dp</dimen>
+
+	<!-- golfers list item -->
+	<dimen name="golfers_li_invite_btn_w">50dp</dimen>
+	<dimen name="golfers_li_invite_btn_h">40dp</dimen>
+	<dimen name="golfers_li_rate_star_size">14dp</dimen>
+	
+	<!-- invite list item special size -->
+	<dimen name="invite_item_pad_left">14dip</dimen>
+	<dimen name="invite_item_status_pad_left">20dip</dimen>
+	<dimen name="invite_item_txt_pad">3dip</dimen>
+	
+    <!-- dialog -->
+    <dimen name="dialog_msg_space">8dp</dimen>
+    <dimen name="dialog_btn_confirm_v_space">12dp</dimen>
+    <dimen name="dialog_loading_icon_size">40dp</dimen>
+    
+    <dimen name="reg_item_height">48dp</dimen>
+    
+    <!-- custom title bar -->
+    <dimen name="title_height">48dp</dimen>
+    <dimen name="navigate_height">55dp</dimen>
+    <dimen name="share_menu_item_height">85dp</dimen>
+
+    <!-- button height, eg: next button -->
+    <dimen name="btn_height">35dp</dimen>
+    <dimen name="btn_h_space">8dp</dimen>
+    
+    <!-- 自定义对话框模式Activity布局属性 -->
+    <dimen name="custom_ad_btn_height">45dp</dimen>
+    <dimen name="custom_ad_btn_margin_height">50dp</dimen>
+    <dimen name="custom_ad_btn_negative_height">-45dp</dimen>
+    <dimen name="custom_ad_padding">90dip</dimen>
+    <dimen name="custom_ad_single_list_item_height">45dp</dimen>
+    
+    
+    <!-- text size -->
+    <dimen name="txt_title_size">20sp</dimen>
+    <dimen name="txt_size_m">18sp</dimen>
+    <dimen name="txt_size_ml">16sp</dimen>
+    <dimen name="txt_size_s">14sp</dimen>
+    <dimen name="txt_btn_txt_size">20sp</dimen>
+    <dimen name="txt_pre_name_size">18sp</dimen>
+    <dimen name="txt_dialog_msg_size">18sp</dimen>
+    <dimen name="txt_hint_size">@dimen/txt_size_ml</dimen>
+    <dimen name="txt_tab_size">18sp</dimen>
+    <dimen name="txt_size_small">12sp</dimen>
+    
+    <!-- image size -->
+    <dimen name="avatar_golfers_li_size">70dp</dimen>
+    <dimen name="avatar_invite_li_size">60dp</dimen>
+    <dimen name="avatar_invite_detail_size">60dp</dimen>
+    <dimen name="avatar_rank_li_size">22dp</dimen>
+    <dimen name="avatar_reg_size">90dp</dimen>
+    <dimen name="avatar_detail_size">65dp</dimen>
+    <dimen name="detail_ablum_size">65dp</dimen>
+    <dimen name="detail_ablum_pad">8dp</dimen>
+    <dimen name="score_invite_detail_size">93dp</dimen>
+    
+    <!-- 不同分辨率，设置不同 -->
+    <dimen name="invite_detail_rate_height">28dp</dimen>
+</resources>

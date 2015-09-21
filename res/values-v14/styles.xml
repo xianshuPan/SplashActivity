@@ -1,0 +1,28 @@
+<resources>
+
+    <!--
+        Base application theme for API 14+. This theme completely replaces
+        AppBaseTheme from BOTH res/values/styles.xml and
+        res/values-v11/styles.xml on API 14+ devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- API 14 theme customizations can go here. -->
+    </style>
+    <style name="NoTitleBaseTheme" parent="AppBaseTheme">
+        <!-- API 14 theme customizations can go here. -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="NoTitleFullBaseTheme" parent="NoTitleBaseTheme">
+        <!-- API 14 theme customizations can go here. -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <!-- Activity translucent and no title bar theme. -->
+	<style name="TranslucentTheme" parent="@android:style/Theme.NoTitleBar">
+	    <!-- set start activity translucent, avoid black background -->
+		<item name="android:windowIsTranslucent">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<!-- avoid bar black -->
+		<item name="android:windowBackground">@android:color/transparent</item>
+	</style>
+</resources>

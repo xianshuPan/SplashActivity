@@ -1,0 +1,130 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#fff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <RelativeLayout
+        android:id="@+id/friend_message_new_head_realtive"
+        style="@style/iamge_picker_title_style" >
+        <ImageButton
+			android:id="@+id/image_picker_head_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		
+		<TextView
+		    android:paddingLeft="10dp"
+		    android:paddingRight="10dp"
+		    android:paddingTop="5dp"
+		    android:paddingBottom="5dp"
+		    android:background="@drawable/green_back"
+		    android:id="@+id/image_picker_distr_text"
+		    android:layout_centerVertical="true"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_marginRight="10dp"
+		    android:text="@string/str_friend_message_new_dist"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_size_ml" />
+    </RelativeLayout>
+    
+  	<EditText 
+       android:layout_below="@+id/friend_message_new_head_realtive"
+       android:hint="@string/str_friend_message_new_contens"
+		android:layout_margin="10dp"
+		android:textSize="14sp"
+		android:gravity="top"
+		android:background="#fff"
+		android:textColor="@color/gray"
+		android:imeOptions="actionDone"
+		android:layout_centerVertical="true"
+		android:id="@+id/friend_message_new_contents_edit"
+		android:layout_width="fill_parent"
+		android:layout_height="100dp"/>
+
+
+    <GridView
+        android:layout_below="@+id/friend_message_new_contents_edit"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="50dp"
+        android:id="@+id/friend_message_new_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="4"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="2dp"
+        android:scrollbars="none"/>
+
+   <RelativeLayout
+        android:layout_below="@+id/friend_message_new_gridview"
+        android:id="@+id/friend_message_new_location_relative"
+        android:layout_height="50dp"
+        android:layout_width="match_parent" >
+		
+       <ImageView
+           android:id="@+id/friend_message_new_location_image"
+           android:layout_marginLeft="10dp"
+		    android:layout_centerVertical="true"
+		    android:layout_width="30dp"
+		    android:layout_height="30dp"
+		    android:layout_marginRight="10dp"
+		    android:src="@drawable/location"/>
+       
+		<TextView
+		    android:id="@+id/friend_message_new_location_text"
+		    android:layout_toRightOf="@+id/friend_message_new_location_image"
+		    android:layout_centerVertical="true"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="所在位置"
+		    android:textSize="@dimen/txt_size_ml" />
+		
+		
+    </RelativeLayout>
+    
+   <RelativeLayout
+       android:layout_below="@+id/friend_message_new_location_relative"
+       android:background="#dddddd"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent" >
+		
+       <RelativeLayout
+           android:layout_marginTop="10dp"
+           android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" >
+		
+	       <ImageView
+	           android:layout_toLeftOf="@+id/friend_message_new_micro_blog_image"
+	           	android:id="@+id/friend_message_new_micro_messsage_image"
+			    android:layout_centerVertical="true"
+			    android:layout_width="35dp"
+			    android:layout_height="35dp"
+			    android:layout_marginRight="10dp"
+			    android:src="@drawable/micro_message_selected"/>
+	       <ImageView
+	           android:layout_toLeftOf="@+id/friend_message_new_tencent_qq_image"
+	           	android:id="@+id/friend_message_new_micro_blog_image"
+			    android:layout_centerVertical="true"
+			    android:layout_width="35dp"
+			    android:layout_height="35dp"
+			    android:layout_marginRight="10dp"
+			    android:src="@drawable/micro_blog_selected"/>
+	       <ImageView
+	           android:layout_alignParentRight="true"
+	           	android:id="@+id/friend_message_new_tencent_qq_image"
+			    android:layout_centerVertical="true"
+			    android:layout_width="35dp"
+			    android:layout_height="35dp"
+			    android:layout_marginRight="10dp"
+			    android:src="@drawable/tencent_qq"/>
+       
+		
+    	</RelativeLayout>
+		
+    </RelativeLayout>
+
+</RelativeLayout>

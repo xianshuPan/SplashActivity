@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+	<Button
+		android:id="@+id/invite_detail_oper_btn_revoke"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/btn_height"
+		android:layout_weight="1"
+		android:background="@drawable/xbtn_green"
+		android:text="@string/str_invite_detail_oper_btn_app_revoke"
+		android:textColor="@android:color/white"
+		android:textSize="@dimen/txt_btn_txt_size" />
+	<View
+	    android:id="@+id/invite_detail_oper_ra_btn_space"
+	    android:layout_width="@dimen/view_hor_margin"
+	    android:layout_height="0dip"
+	    android:background="@null" />
+	<Button
+		android:id="@+id/invite_detail_oper_btn_accept"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/btn_height"
+		android:layout_weight="1"
+		android:background="@drawable/xbtn_green"
+		android:text="@string/str_invite_detail_oper_btn_app_accept_end"
+		android:textColor="@android:color/white"
+		android:textSize="@dimen/txt_btn_txt_size" />
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back"
+			android:onClick="onVerifyPwdBackBtnClick" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_cusinfo_verify_pwd_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    
+    <EditText	android:background="@drawable/frame_bkg"
+        		android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_margin="@dimen/view_ver_margin"
+				    android:id="@+id/verify_pwd_input"
+				    style="@style/setup_info_et_style"
+				    android:hint="@string/str_input_hint_pwd_login_user"
+				    android:maxLength="@integer/password_max_length"
+				    android:inputType="textPassword"/>
+        
+	
+	
+    <Button
+				android:id="@+id/verify_pwd_next"
+				android:layout_margin="@dimen/view_ver_margin"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/btn_height"
+				android:background="@drawable/xbtn_green"
+				android:text="@string/str_btn_next"
+				android:textColor="@android:color/white"
+				android:textSize="@dimen/txt_btn_txt_size" />
+
+</LinearLayout>

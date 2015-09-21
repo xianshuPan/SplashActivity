@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_translucence">#40000000</color>
+    <!--  <color name="color_title_bkg">#2b9b42</color>      
+    <color name="color_title_bkg">#00684d</color>-->
+    <color name="color_title_bkg">#00684d </color>
+    
+     <!--  <color name="color_tab_green">#6cb33b</color>-->
+     <color name="color_tab_green">#58be81</color>
+     
+     <color name="color_white">#ffffff</color>
+     <color name="gray">#808080</color>
+     
+     <color name="color_yellow">#f90</color>
+     
+      <color name="color_red">#f00</color>
+    
+    <color name="color_image_picker_title_bkg">#21292b</color>
+    
+    <color name="color_title_txt">#ffffff</color>
+    <color name="color_hint_txt">#666666</color>
+    
+    <color name="color_div_line">#e6e6e6</color>
+    
+    <color name="color_selection_bkg">#6f6f6f</color>
+    <color name="color_selection_vline">#f9f9f9</color>
+    <color name="color_filter_title_nor">#2c9a42</color>
+    <color name="color_filter_title_hl">#c55554</color>
+    <color name="color_filter_line_hl">@color/color_filter_title_hl</color>
+    <color name="color_filter_line_nor">#bfbfbf</color>
+    <color name="color_dialog_btn_txt_normal">#157efb</color>
+    <color name="color_dialog_btn_txt_pressed">#000000</color>
+    
+    <color name="color_tab_txt_normal">#ffffff</color>
+    <color name="color_tab_txt_pressed">#999999</color>
+
+    <color name="color_navi_txt_normal">#ffffff</color>
+    <color name="color_navi_txt_selected">#58bf81</color>
+    
+    <color name="color_rank_num">#bbbbbb</color>
+    <color name="color_rank_def">#666666</color>
+    <color name="color_rank_gold">#eacb1e</color>
+    <color name="color_rank_silver">#c1c6c4</color>
+    <color name="color_rank_bronze">#ecba70</color>
+    
+    <color name="color_help_phone">#58bf81</color>
+    
+    <color name="color_bottome_menu_bg">#00684d</color>
+    
+    <color name="color_friend_item_name">#777777</color>
+    
+    <color name="color_friend_item_praiser_name">#8b7a4e</color>
+    
+    <color name="background_tab_pressed">#6633B5E5</color>
+</resources>

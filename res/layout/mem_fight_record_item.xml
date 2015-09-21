@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+   android:paddingLeft="@dimen/view_hor_margin"
+   android:paddingRight="@dimen/view_hor_margin"
+    android:paddingTop="8dip"
+    android:paddingBottom="8dip" >
+    <TextView
+        android:id="@+id/fight_record_li_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+		android:ellipsize="end"
+		 android:textColor="@color/color_hint_txt"
+        android:textSize="@dimen/txt_size_ml"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dip"
+        android:orientation="horizontal">
+        <TextView
+	        android:id="@+id/fight_record_li_myhcpi"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_vertical|left"
+	        android:textColor="@color/color_hint_txt"
+	        android:textSize="@dimen/txt_size_s"/>
+        <TextView
+	        android:id="@+id/fight_record_li_palhcpi"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_vertical|left"
+	        android:textColor="@color/color_hint_txt"
+	        android:textSize="@dimen/txt_size_s"/>
+    </LinearLayout>
+    <TextView
+	        android:id="@+id/fight_record_li_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="2dip"
+	        android:textColor="@color/color_hint_txt"
+	        android:textSize="@dimen/txt_size_small"/>
+</LinearLayout>

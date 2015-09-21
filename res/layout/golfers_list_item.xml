@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/list_item_hn_pad"
+    android:paddingTop="@dimen/list_item_vn_pad"
+    android:paddingRight="@dimen/list_item_hn_pad" >
+    
+	    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	
+		<Button
+		    android:layout_marginRight="10dp"
+		    android:layout_alignParentRight="true"
+		    android:layout_centerVertical="true"
+		    android:background="@drawable/xbtn_green"
+		    android:id="@+id/golfers_li_invite_btn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="@dimen/golfers_li_invite_btn_h"
+		    android:textColor="@color/color_white"
+		    android:text="@string/str_golfers_li_invate_btn" />
+	
+	    <cn.gl.lib.view.RoundedImageView
+	         android:layout_centerVertical="true"
+	        xmlns:app="http://schemas.android.com/apk/res-auto"
+	        android:id="@+id/golfers_li_avatar"
+	        android:layout_width="@dimen/avatar_golfers_li_size"
+	        android:layout_height="@dimen/avatar_golfers_li_size"
+	        android:duplicateParentState="true"
+	        android:layout_marginLeft="10dp"
+	        android:scaleType="fitXY"
+	        app:corner_radius="6dip"
+	        app:border_width="0dip"
+	        app:round_background="true"/>
+	<!-- 	    	
+		<ImageView
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerVertical="true"
+		    android:id="@+id/golfers_li_avatar"
+		    android:src="@drawable/avatar_loading"
+		    android:scaleType="fitXY"
+		    android:layout_width="@dimen/avatar_golfers_li_size"
+		    android:layout_height="@dimen/avatar_golfers_li_size"
+		    android:contentDescription="@null" />
+	 -->
+	
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_centerVertical="true"
+		    android:layout_toLeftOf="@id/golfers_li_invite_btn"
+		    android:layout_toRightOf="@id/golfers_li_avatar"
+		    android:gravity="center_vertical"
+		    android:orientation="vertical"
+		    android:paddingLeft="10dp"
+		    android:paddingRight="3dp" >
+	
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center_vertical"
+		        android:orientation="horizontal" >
+				<ImageView
+				    android:id="@+id/golfers_li_sex"
+				    android:src="@drawable/ic_male"
+				    android:scaleType="fitXY"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:contentDescription="@null" />
+			    <TextView
+			        android:id="@+id/golfers_li_nickname"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="@dimen/txt_size_m"
+			        android:textColor="#333333"
+			        android:paddingLeft="10dp" />
+		    </LinearLayout>
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center_vertical"
+		        android:orientation="horizontal" >
+				<ImageView
+				    android:src="@drawable/golfers_li_region"
+				    android:scaleType="fitXY"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:contentDescription="@null" />
+			    <TextView
+			        android:id="@+id/golfers_li_region"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="@dimen/txt_size_s"
+			        android:textColor="#666666"
+			        android:singleLine="true"
+			        android:maxLines="3"
+			        android:paddingLeft="3dp" />
+			    
+			    <LinearLayout
+			        android:layout_marginLeft="25dp"
+				    android:layout_toLeftOf="@id/golfers_li_invite_btn"
+				    android:layout_centerVertical="true"
+				    android:id="@+id/golfers_li_handicapi_region"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingLeft="3dp"
+				    android:paddingRight="10dp"
+				    android:gravity="center_horizontal"
+				    android:orientation="horizontal" >
+				     <TextView
+				        android:layout_width="wrap_content"
+				        android:layout_height="match_parent"
+				        android:textSize="@dimen/txt_size_s"
+				        android:textColor="#333333"
+				        android:gravity="center"
+				        android:text="@string/str_golfers_li_handicapi_title" />
+				    <TextView
+				        android:id="@+id/golfers_li_handicapi"
+				        android:layout_width="wrap_content"
+				        android:layout_height="match_parent"
+				        android:gravity="center"
+				        android:layout_marginLeft="2dp"
+				        android:textColor="@color/color_rank_bronze"
+				        android:textSize="@dimen/txt_size_m" />
+				   
+				</LinearLayout>
+			    <LinearLayout
+			        android:visibility="gone"
+			        android:id="@+id/golfers_li_rate_ll"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content"
+			        android:paddingLeft="10dp"
+			        android:orientation="horizontal" />
+		    </LinearLayout>
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center_vertical"
+		        android:orientation="horizontal" >
+			    <TextView
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="@dimen/txt_size_s"
+			        android:textColor="#666666"
+			        android:text="@string/str_golfers_li_yearsexp_title" />
+			    <TextView
+			        android:id="@+id/golfers_li_yearsExp"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="@dimen/txt_size_s"
+			        android:textColor="@color/color_filter_title_nor" />
+				<ImageView
+				    android:src="@drawable/golfers_li_industry"
+				    android:scaleType="fitXY"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:paddingLeft="10dp"
+				    android:contentDescription="@null" />
+			    <TextView
+			        android:id="@+id/golfers_li_industry"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:textSize="@dimen/txt_size_s"
+			        android:textColor="#666666"
+			        android:singleLine="true"
+			        android:ellipsize="end"
+			        android:paddingLeft="3dp" />
+		    </LinearLayout>
+		</LinearLayout>
+	
+	</RelativeLayout>
+		
+</RelativeLayout>

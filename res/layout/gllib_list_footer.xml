@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center" >
+
+    <!-- the last page -->
+    <LinearLayout
+        android:id="@+id/footer_last"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    	android:padding="8dip"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_footer_load_last"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- load more -->
+    <LinearLayout
+        android:id="@+id/footer_more"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"   	
+    	android:padding="8dip"
+        android:gravity="center" >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_uparrow"
+            android:drawablePadding="8dip"
+            android:gravity="center"
+            android:text="@string/str_footer_load_more"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- loading -->
+    <LinearLayout
+        android:id="@+id/footer_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+    	android:padding="8dip"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Small.Inverse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dip"
+            android:text="@string/str_footer_loading"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</FrameLayout>

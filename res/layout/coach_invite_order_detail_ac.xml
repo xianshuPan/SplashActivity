@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/coach_invite_order_detail_title_relative"
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/coach_invite_order_detail_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_coachers_apply_order_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+		
+		<TextView
+		    android:visibility="gone"
+		    android:id="@+id/coach_invite_order_detail_complain_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:paddingRight="10dp"
+		    android:text="投诉"
+		    android:gravity="center"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_size_m"
+		    android:layout_alignParentRight="true" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_below="@+id/coach_invite_order_detail_title_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+		<RelativeLayout
+		    android:background="#f0f1f5"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+
+		    <!-- 显示头像、姓名、电话、教学诉求，-->
+			<RelativeLayout
+			    android:id="@+id/coach_invite_order_detail_avatar_relative"
+				android:background="@color/color_white"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content">
+			    
+			    <ImageView 
+					android:layout_margin="20dp"
+			        android:id="@+id/coach_invite_order_detail_status_image"
+			        android:layout_width="20dp"
+			        android:layout_height="20dp"
+			        android:src="@drawable/home"
+			        />
+			    
+			    <ImageView 
+			        android:layout_centerVertical="true"
+			        android:id="@+id/coach_invite_order_detail_home_image"
+			        android:layout_width="20dp"
+			        android:layout_height="20dp"
+			        android:layout_toLeftOf="@+id/coach_invite_order_detail_avatar_linear"
+			        android:src="@drawable/home"
+			        />
+			    <LinearLayout 
+			        android:gravity="center_horizontal"
+			        android:layout_centerHorizontal="true"
+			        android:layout_marginTop="10dp"
+			        android:id="@+id/coach_invite_order_detail_avatar_linear"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical">
+			        
+			         <com.hylg.igolf.ui.view.CircleImageView
+            			android:id="@+id/coach_invite_order_detail_avatar_image"
+            			android:layout_width="60dp"
+            			android:layout_height="60dp"
+            			android:src="@drawable/avatar_null" />
+			         <TextView 
+			             android:layout_marginTop="5dp"
+			             android:id="@+id/coach_invite_order_detail_name_text"
+			             android:layout_width="wrap_content"
+			             android:layout_height="wrap_content"
+			             android:text="夏日蝉鸣"
+			             android:textColor="@color/color_friend_item_praiser_name"/>
+			         
+			         <TextView 
+			             android:drawableLeft="@drawable/teaching_phone"
+			             android:layout_marginTop="5dp"
+			             android:id="@+id/coach_invite_order_detail_phone_text"
+			             android:layout_width="wrap_content"
+			             android:layout_height="wrap_content"
+			             android:text="13982026567"
+			             android:gravity="center_vertical"
+			             android:textColor="@color/color_friend_item_praiser_name"/>
+					
+			        			        
+			    </LinearLayout>
+			    
+			    <ImageView 
+			        android:layout_centerVertical="true"
+			        android:id="@+id/coach_invite_order_detail_attention_image"
+			        android:layout_width="20dp"
+			        android:layout_height="20dp"
+			        android:layout_toRightOf="@+id/coach_invite_order_detail_avatar_linear"
+			        android:src="@drawable/add"
+			        />
+			    
+			    <TextView 
+			        android:layout_below="@+id/coach_invite_order_detail_avatar_linear"
+			        android:layout_centerHorizontal="true"
+			             android:layout_marginTop="5dp"
+			             android:id="@+id/coach_invite_order_detail_question_text"
+			             android:layout_width="wrap_content"
+			             android:layout_height="wrap_content"
+			             android:padding="10dp"
+			             android:text="希望纠正希望纠正希望纠正"/>
+			    			
+			</RelativeLayout>
+			
+			<!-- 约球的时间、地方、球场、学时等 -->
+			<LinearLayout 
+			    android:layout_below="@+id/coach_invite_order_detail_avatar_relative"
+			    android:background="@color/color_white"
+			    android:id="@+id/coach_invite_order_detail_other_linear"
+			    android:layout_height="wrap_content"
+			    android:layout_width="match_parent"
+			    android:orientation="vertical">
+
+				  <RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content">
+					<TextView
+					    android:drawableLeft="@drawable/teaching_date"
+					    android:layout_marginLeft="30dp"
+				    	android:id="@+id/coach_invite_order_detail_date_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_comm_date" />
+				    <TextView
+				        android:layout_marginRight="40dp"
+				        android:text="2015.08.09"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="right|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_detail_date_title_text"
+					    android:id="@+id/coach_invite_order_detail_date_text" />
+				</RelativeLayout>
+				
+				<View 
+				    android:layout_marginLeft="20dp"
+				    android:layout_marginRight="20dp"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content">
+					<TextView
+					    android:drawableLeft="@drawable/teaching_time"
+					    android:layout_marginLeft="30dp"
+				    	android:id="@+id/coach_invite_order_detail_time_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_comm_time" />
+				    <TextView
+				        android:layout_marginRight="40dp"
+				        android:text="15:30"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="right|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_detail_time_title_text"
+					    android:id="@+id/coach_invite_order_detail_time_text" />
+				</RelativeLayout>
+				
+				<View 
+				    android:layout_marginLeft="20dp"
+				    android:layout_marginRight="20dp"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content">
+					<TextView
+					    android:drawableLeft="@drawable/teaching_hours"
+					    android:layout_marginLeft="30dp"
+				    	android:id="@+id/coach_invite_order_detail_pre_teach_time_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_teach_time" />
+				    <TextView
+				        android:layout_marginRight="40dp"
+				        android:text="2"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="right|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_detail_pre_teach_time_title_text"
+					    android:id="@+id/coach_invite_order_detail_pre_teach_time_text" />
+				</RelativeLayout>
+				
+				<View 
+				    android:layout_marginLeft="20dp"
+				    android:layout_marginRight="20dp"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content">
+					<TextView
+					    android:drawableLeft="@drawable/teaching_course"
+					    android:layout_marginLeft="30dp"
+				    	android:id="@+id/coach_invite_order_detail_place_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_comm_course" />
+				    <TextView
+				        android:layout_marginRight="40dp"
+				        android:text="宏都球场"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="right|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_detail_place_title_text"
+					    android:id="@+id/coach_invite_order_detail_place_text" />
+				</RelativeLayout>
+			    
+			      <View 
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+			</LinearLayout>
+			
+			
+			<!-- 教练的计时和费用按钮 -->
+			<LinearLayout
+				android:visibility="gone"
+			    android:id="@+id/coach_invite_order_detail_time_and_fee_linear"
+			    android:layout_below="@+id/coach_invite_order_detail_other_linear" 
+			    android:layout_marginTop="@dimen/view_ver_distance"
+			    android:background="@color/gray"
+			    android:paddingTop="1px"
+			    android:paddingBottom="1px"
+			    android:layout_width="match_parent"
+			    android:layout_height="50dp"
+			    android:orientation="horizontal">
+				
+			    <LinearLayout 
+			        android:id="@+id/coach_invite_order_detail_tab_count_time_linear"
+			        android:background="@color/color_white"
+			        android:layout_weight="1"
+			        android:layout_marginRight="1px"
+			        android:gravity="center"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="match_parent"
+			    	android:orientation="horizontal">
+				    
+			        <ImageView 
+			            android:adjustViewBounds="true"
+			            android:duplicateParentState="true"
+			            android:layout_width="10dp"
+			            android:layout_height="10dp"
+			            android:src="@drawable/coach_type_select_bg"/>
+			        <TextView 
+			            android:layout_marginLeft="5dp"
+			            android:text="教学计时"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"/>
+			    
+			    
+				</LinearLayout>
+				
+			     <LinearLayout 
+			         android:id="@+id/coach_invite_order_detail_tab_fee_detial_linear"
+			         android:background="@color/color_white"
+			        android:layout_weight="1"
+			         android:layout_marginRight="1px"
+			        android:gravity="center"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="match_parent"
+			    	android:orientation="horizontal">
+				    
+			        <ImageView 
+			            android:adjustViewBounds="true"
+			            android:duplicateParentState="true"
+			            android:layout_width="10dp"
+			            android:layout_height="10dp"
+			            android:src="@drawable/coach_type_select_bg"/>
+			        <TextView 
+			            android:layout_marginLeft="5dp"
+			            android:text="费用明细"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"/>
+			    
+			    
+				</LinearLayout>
+			    
+			    
+			</LinearLayout>
+
+
+			
+		<!-- 教练的计时界面 -->
+		<RelativeLayout
+		   android:visibility="gone"
+			    android:id="@+id/coach_invite_order_detail_count_time_relative"
+			    android:layout_below="@+id/coach_invite_order_detail_time_and_fee_linear"
+			    android:layout_marginTop="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@color/color_white" >
+			    <View 
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+			
+				
+				<com.hylg.igolf.ui.view.DonutProgress
+				    android:layout_marginTop="20dp"
+				    android:id="@+id/coach_invite_order_detail_count_time_progress"
+				    xmlns:custom="http://schemas.android.com/apk/res-auto"
+		            android:layout_centerHorizontal="true"
+		            android:layout_width="150dp"
+		            android:layout_height="150dp"
+		            custom:donut_unfinished_stroke_width="5dp"
+		            custom:donut_finished_stroke_width="5dp"
+		            custom:donut_progress="0"
+		            custom:donut_inner_bottom_text="请开始"
+		            custom:donut_inner_bottom_text_size="12dp"
+		            custom:donut_inner_bottom_text_color="@color/color_friend_item_praiser_name"/>
+				
+				<LinearLayout 
+				    android:id="@+id/coach_invite_order_detail_count_time_operate_linear"
+				    android:layout_below="@+id/coach_invite_order_detail_count_time_progress"
+				    android:layout_marginTop="@dimen/view_ver_distance"
+				    android:background="@color/gray"
+				    android:layout_width="match_parent"
+				    android:layout_height="50dp"
+				    android:orientation="horizontal">
+				
+				   <LinearLayout 
+				        android:id="@+id/coach_invite_order_detail_count_time_start_linear"
+				        android:background="@color/color_white"
+				        
+				        android:layout_weight="1"
+				        android:gravity="center"
+				    	android:layout_width="match_parent"
+				    	android:layout_height="match_parent"
+				    	android:orientation="horizontal">
+					    
+				        <ImageView 
+				            android:adjustViewBounds="true"
+				            android:duplicateParentState="true"
+				            android:layout_width="30dp"
+				            android:layout_height="30dp"
+				            android:src="@drawable/start_bkg"/>
+	
+					</LinearLayout>
+					
+				    <LinearLayout 
+				         android:id="@+id/coach_invite_order_detail_count_time_pause_linear"
+				         android:background="@color/color_white"
+				        android:layout_weight="1"
+				        android:gravity="center"
+				    	android:layout_width="match_parent"
+				    	android:layout_height="match_parent"
+				    	android:orientation="horizontal">
+					    
+				        <ImageView 
+				            android:adjustViewBounds="true"
+				            android:duplicateParentState="true"
+				            android:layout_width="30dp"
+				            android:layout_height="30dp"
+				            android:src="@drawable/pause_bkg"/>
+	
+				    
+				    
+					</LinearLayout>
+					
+				     <LinearLayout 
+				        android:id="@+id/coach_invite_order_detail_count_time_stop_linear"
+				        android:background="@color/color_white"
+				        android:layout_weight="1"
+				        android:gravity="center"
+				    	android:layout_width="match_parent"
+				    	android:layout_height="match_parent"
+				    	android:orientation="horizontal">
+					    
+				        <ImageView 
+				            android:adjustViewBounds="true"
+				            android:duplicateParentState="true"
+				            android:layout_width="30dp"
+				            android:layout_height="30dp"
+				            android:src="@drawable/end_bkg"/>
+
+					</LinearLayout>
+			    
+			</LinearLayout>
+			
+		</RelativeLayout>
+			
+		<!-- 费用明细 -->
+		<LinearLayout
+		    android:id="@+id/coach_invite_order_detail_fee_linear"
+		    
+		    android:orientation="vertical"
+		    android:layout_below="@+id/coach_invite_order_detail_time_and_fee_linear"
+			    android:layout_marginTop="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@color/color_white" >
+			    <View 
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+			    
+			     <RelativeLayout 
+			        android:id="@+id/coach_invite_order_detail_rating_relative"
+			        android:layout_width="match_parent"
+			        android:layout_height="wrap_content">
+					<TextView
+				    	android:id="@+id/coach_invite_order_detail_rating_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:gravity="bottom"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="星级评定" />
+					
+				    <RatingBar 
+				        android:layout_marginTop="15dp"
+				        android:layout_toRightOf="@+id/coach_invite_order_detail_rating_title_text"
+					    android:layout_marginLeft="5dp"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:rating="5"
+				        android:numStars="5"
+				        android:stepSize="0.5"
+				        style="@style/star_rating_bar_style"
+				        android:id="@+id/coach_invite_order_detail_rating"/>
+				    
+				    <EditText 
+				        android:background="@drawable/frame_bkg"
+				        android:textColor="@color/color_hint_txt"
+				        android:textSize="@dimen/txt_hint_size"
+				        android:gravity="top"
+				        android:padding="3dp"
+				        android:layout_marginTop="20dp"
+				        android:layout_below="@+id/coach_invite_order_detail_rating"
+				        android:id="@+id/coach_invite_order_detail_comments_edit"
+				        android:layout_width="match_parent"
+				        android:layout_marginLeft="15dp"
+				        android:layout_marginRight="15dp"
+				        android:layout_height="80dp"
+				        android:maxLength="70"
+				        android:text="教练人很好"/>
+				</RelativeLayout>
+			    
+			     
+			     <View
+				      android:layout_width="match_parent"
+				      android:layout_height="1dp"
+				      android:layout_marginTop="@dimen/view_ver_distance"
+				      android:background="@drawable/divider1" />
+			     
+			    <RelativeLayout 
+			        android:layout_height="35dp"
+			        android:layout_width="match_parent">
+					<TextView
+				    	android:id="@+id/coach_invite_order_teach_time_total_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_teach_total_time" />
+				    <TextView
+				        android:text="4:32"
+				        android:layout_marginLeft="10dp"
+				         android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="left|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_teach_time_total_title_text"
+					    android:id="@+id/coach_invite_order_teach_time_total_text" />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp">
+					<TextView
+				    	android:id="@+id/coach_invite_order_start_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_start_time" />
+				    <TextView
+				        android:text="16:30"
+				        android:layout_marginLeft="10dp"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="left|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_start_title_text"
+					    android:id="@+id/coach_invite_order_start_text" />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp">
+					<TextView
+				    	android:id="@+id/coach_invite_order_end_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_end_time" />
+				    <TextView
+				        android:layout_marginLeft="10dp"
+				        android:text="20:56"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="left|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_end_title_text"
+					    android:id="@+id/coach_invite_order_end_text" />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp">
+					<TextView
+				    	android:id="@+id/coach_invite_order_pause_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_pause_time" />
+				    <TextView
+				        android:layout_marginLeft="10dp"
+				        android:text="0:30"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="left|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_pause_title_text"
+					    android:id="@+id/coach_invite_order_pause_text" />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp">
+					<TextView
+				    	android:id="@+id/coach_invite_order_price_unit_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_fee_unit" />
+				    <TextView
+				        android:layout_marginLeft="10dp"
+				        android:text="200元/小时"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="left|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_price_unit_title_text"
+					    android:id="@+id/coach_invite_order_price_unit_text" />
+				</RelativeLayout>
+				
+				
+				<RelativeLayout 
+			        android:layout_width="match_parent"
+			        android:layout_height="35dp">
+					<TextView
+				    	android:id="@+id/coach_invite_order_fee_title_text"
+				    	style="@style/setup_pre_txt_style"
+				    	android:layout_alignParentLeft="true"
+				    	android:layout_alignParentTop="true"
+				    	android:text="@string/str_coachers_apply_order_fee_total" />
+				    <TextView
+				        android:layout_marginLeft="10dp"
+				        android:text="￥360.00"
+				        android:layout_width="match_parent"
+				        android:layout_height="@dimen/reg_item_height"
+				        android:gravity="left|center_vertical"
+				        android:layout_toRightOf="@id/coach_invite_order_fee_title_text"
+					    android:id="@+id/coach_invite_order_detail_fee_text" />
+				</RelativeLayout>
+				
+				<View 
+				    android:layout_marginTop="60dp"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+
+			</LinearLayout>
+				
+		</RelativeLayout>
+	</ScrollView>
+	
+    <RelativeLayout 
+        android:background="#f0f1f5"
+        android:visibility="gone"
+			    android:id="@+id/coach_invite_order_detail_revoke_relative"
+				android:layout_alignParentBottom="true"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    >
+			    <TextView
+			        android:visibility="gone"
+			        android:layout_centerInParent="true"
+				      android:layout_margin="20dp"
+				      android:textSize="@dimen/txt_title_size"
+					  android:id="@+id/coach_invite_order_revoke_text"
+					  android:layout_width="match_parent"
+					  android:layout_height="40dp"
+					  android:text="撤约"
+					  android:textColor="@color/color_white"
+					  android:padding="5dp"
+					  android:gravity="center"
+					  android:background="@drawable/attented_color"/>	
+					  
+			    <TextView
+			        android:visibility="gone"
+			        android:layout_centerInParent="true"
+				      android:layout_margin="20dp"
+				      android:textSize="@dimen/txt_title_size"
+					  android:id="@+id/coach_invite_order_detail_pay_text"
+					  android:layout_width="match_parent"
+					  android:layout_height="40dp"
+					  android:text="支付"
+					  android:textColor="@color/color_white"
+					  android:padding="5dp"
+					  android:gravity="center"
+					  android:background="@drawable/attented_color"/>	
+			    
+			</RelativeLayout>
+			
+			<LinearLayout 
+			    android:visibility="gone"
+			   android:layout_alignParentBottom="true"
+			    android:id="@+id/coach_invite_order_detail_accept_linear"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"
+			    >	
+					  
+			    <TextView
+			        android:layout_weight="1"
+				      android:layout_margin="20dp"
+				      android:textSize="@dimen/txt_title_size"
+					  android:id="@+id/coach_invite_order_accept_text"
+					  android:layout_width="match_parent"
+					  android:layout_height="40dp"
+					  android:text="接受"
+					  android:textColor="@color/color_white"
+					  android:padding="5dp"
+					  android:gravity="center"
+					  android:background="@drawable/attented_color"/>	
+					  
+			    <TextView
+			        android:layout_weight="1"
+				      android:layout_margin="20dp"
+				      android:textSize="@dimen/txt_title_size"
+					  android:id="@+id/coach_invite_order_refuse_text"
+					  android:layout_width="match_parent"
+					  android:layout_height="40dp"
+					  android:text="拒绝"
+					  android:textColor="@color/color_white"
+					  android:padding="5dp"
+					  android:gravity="center"
+					  android:background="@drawable/attented_color"/>	
+					  
+			    
+			</LinearLayout>
+			
+		<LinearLayout
+		    android:id="@+id/coach_invite_order_detail_container"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_marginBottom="1dp"
+		    android:orientation="vertical" />
+</RelativeLayout>

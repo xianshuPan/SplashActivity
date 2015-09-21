@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/invite_list_bkg" >
+
+    <cn.gl.lib.view.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/invite_list_mime_item_avatar"
+        android:layout_width="@dimen/avatar_invite_li_size"
+        android:layout_height="@dimen/avatar_invite_li_size"
+        android:layout_margin="6dp"
+        android:duplicateParentState="true"
+        android:scaleType="fitXY"
+        app:corner_radius="8dip"
+        app:border_width="0dip"
+        app:round_background="true"/>
+<!--     
+    <ImageView
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/invite_list_mime_item_avatar"
+        android:layout_width="@dimen/avatar_invite_li_size"
+        android:layout_height="@dimen/avatar_invite_li_size"
+        android:layout_margin="6dp"
+        android:background="@drawable/xbtn_selection"
+        android:src="@drawable/def_avatar"
+        android:contentDescription="@null"  />
+     -->
+    <LinearLayout
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/invite_list_mime_item_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/view_small_ver_distance"
+        android:paddingBottom="@dimen/view_small_ver_distance"
+        android:orientation="vertical"
+         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/invite_item_pad_left"
+             android:orientation="horizontal" >
+            <ImageView
+                android:src="@drawable/ic_new_msg"
+                android:id="@+id/invite_list_mime_item_alert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null" />
+            <TextView
+                android:id="@+id/invite_list_mime_item_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/invite_item_txt_pad"
+                android:textColor="#333333"
+                android:textSize="@dimen/txt_size_m" />
+            <ImageView
+                android:src="@drawable/ic_male"
+                android:id="@+id/invite_list_mime_item_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/invite_item_pad_left" >
+
+            <TextView
+                android:id="@+id/invite_list_mime_item_teetime"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:drawableLeft="@drawable/ic_teetime"
+	            style="@style/invite_mime_li_txt_style" />
+            
+            <TextView
+                android:id="@+id/invite_list_mime_item_course"
+	            android:layout_toRightOf="@id/invite_list_mime_item_teetime"
+	            android:layout_alignParentTop="true"
+	            android:drawableLeft="@drawable/ic_course"
+	            android:singleLine="true"
+                style="@style/invite_mime_li_txt_style" />
+            
+            <TextView
+                android:id="@+id/invite_list_mime_item_desc"
+	            android:layout_below="@id/invite_list_mime_item_teetime"
+	            android:layout_alignParentLeft="true"
+	            android:drawableLeft="@drawable/ic_info"
+	            style="@style/invite_mime_li_txt_style" />
+
+        </RelativeLayout>
+       <TextView
+           android:id="@+id/invite_list_mime_item_state"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:paddingLeft="@dimen/invite_item_pad_left"
+           android:background="@drawable/invite_list_status_green_bkg"
+           android:textColor="@android:color/white"
+           android:textSize="@dimen/txt_size_s" />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 头部 -->
+<RelativeLayout
+       	xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+        
+     <RelativeLayout
+        android:id="@+id/photo_view_head_realtive"
+        style="@style/iamge_picker_title_style" >
+        <ImageButton
+			android:id="@+id/photo_view_head_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		
+		<ImageView
+                android:background="@drawable/customer_delete_bg"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/photo_view_delete_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"/>
+    </RelativeLayout>
+    
+        <com.hylg.igolf.ui.view.ViewPagerFixed
+            android:layout_below="@+id/photo_view_head_realtive"
+            android:id="@+id/photo_view_pager"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="50dp"/>
+	 <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="50dp"
+	        android:alpha="0.5"
+	        android:layout_alignParentBottom="true"
+	        android:background="@color/color_image_picker_title_bkg"
+	        android:orientation="horizontal" >
+	        
+	        <ImageView 
+	            android:id="@+id/photo_view_pre_image"
+	            android:layout_width="30dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="10dp"
+	            android:layout_centerVertical="true"
+	            android:src="@drawable/arrow_left"
+	            />
+	
+	        <TextView 
+	            android:id="@+id/photo_view_current_text"
+	            android:layout_marginLeft="20dp"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_toRightOf="@+id/photo_view_pre_image"
+	            android:layout_centerVertical="true"
+	            android:textSize="20sp"
+	            android:ellipsize="end"
+	            android:maxLines="1"
+	            android:gravity="center"
+	            android:textColor="#FFF"/>
+	        
+	         <ImageView 
+	             android:layout_toRightOf="@+id/photo_view_current_text"
+	            android:id="@+id/photo_view_next_image"
+	            android:layout_marginLeft="20dp"
+	             android:layout_centerVertical="true"
+	            android:layout_width="30dp"
+	            android:layout_height="30dp"
+	            android:src="@drawable/arrow_right"
+	            />
+	       
+	      <LinearLayout 
+	            android:id="@+id/head_homeLinear"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:orientation="horizontal"
+	            android:layout_alignParentRight="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_centerVertical="true"
+	            android:gravity="right|center_vertical">
+	            <Button 
+	                android:visibility="gone"
+	            	android:id="@+id/photo_view_upload_btn"
+	            	android:layout_marginRight="10dp"
+	            	android:layout_width="wrap_content"
+	            	android:layout_height="wrap_content"
+	            	android:text="上传"
+	            	android:textSize="20sp"
+	            	android:textColor="#ffffff"/>
+	        </LinearLayout>
+	    </RelativeLayout>
+    </RelativeLayout>

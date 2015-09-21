@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        <ImageButton
+			android:id="@+id/member_score_history_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_member_score_history_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <TextView
+        	android:id="@+id/score_history_top_msg"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:textColor="@color/color_title_txt"
+		     android:background="@drawable/sub_title_bkg_dark_gray"
+		    android:textSize="@dimen/txt_size_ml"
+		    android:gravity="center" />
+    
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sub_title_bkg_gray"
+        android:orientation="horizontal">
+ 
+        <TextView
+            style="@style/my_history_sub_title_style"
+            android:layout_weight="9"
+            android:text="@string/str_member_score_histoyr_list_header_course" />
+        <TextView
+            style="@style/my_history_sub_title_style"
+            android:layout_weight="8"
+            android:text="@string/str_member_score_histoyr_list_header_teeTime" />
+        <TextView
+            style="@style/my_history_sub_title_style"
+            android:layout_weight="9.5"
+            android:text="@string/str_member_score_histoyr_list_header_handicap" />
+        <TextView
+            style="@style/my_history_sub_title_style"
+            android:text="@string/str_member_score_histoyr_list_header_check" />
+    </LinearLayout>
+    
+    <include
+	    android:id="@+id/score_history_list_load_fail"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    layout="@layout/common_load_fail" />
+	
+	<com.hylg.igolf.ui.view.PullListView
+	    android:id="@+id/score_history_listview"
+	   style="@style/listview_style"  
+	   android:scrollbarStyle="outsideOverlay" /> 
+
+</LinearLayout>

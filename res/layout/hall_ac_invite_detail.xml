@@ -1,0 +1,1123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg" >
+
+    <RelativeLayout
+        android:id="@+id/invite_detail_title"
+        style="@style/custom_title_style"
+        android:layout_alignParentTop="true" >
+		<ImageButton
+			android:id="@+id/invite_detail_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_invite_detail_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+ 
+    <!-- bottom operate buttons region -->
+    <LinearLayout
+        android:id="@+id/invite_detail_oper_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/invite_detail_botomm_bar"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:paddingTop="@dimen/view_small_ver_distance"
+	    android:paddingBottom="@dimen/view_small_ver_distance"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+    </LinearLayout>
+    
+    <ScrollView
+        android:layout_below="@id/invite_detail_title"
+        android:layout_above="@id/invite_detail_oper_bar"
+        android:id="@+id/invite_detail_sv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:paddingTop="@dimen/view_ver_margin"
+		    android:paddingBottom="@dimen/view_ver_margin"
+		    android:orientation="vertical" >
+		    <!-- avatar name -->
+		    <LinearLayout
+		        android:orientation="horizontal"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="center"
+		         >
+		       
+		        <RelativeLayout
+		            android:id="@+id/invite_detail_inviter_realtive"
+		            android:layout_centerHorizontal="true"
+		            android:layout_width="match_parent"
+		            android:layout_marginRight="10dp"
+		            android:layout_weight="1"
+		            android:layout_height="wrap_content" >
+				    <cn.gl.lib.view.RoundedImageView
+				        xmlns:app="http://schemas.android.com/apk/res-auto"
+				        android:id="@+id/invite_detail_avatar_left"
+				        android:layout_centerHorizontal="true"
+				        android:layout_width="@dimen/avatar_invite_detail_size"
+				        android:layout_height="@dimen/avatar_invite_detail_size"
+				        android:duplicateParentState="true"
+				        android:src="@drawable/avatar_no_golfer"
+				        android:scaleType="centerCrop"
+				        app:corner_radius="8dip"
+				        app:border_width="0dip"
+				        app:round_background="true"/>
+		            <LinearLayout
+		                android:layout_below="@id/invite_detail_avatar_left"
+		                android:layout_centerHorizontal="true"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:gravity="center_vertical"
+		                android:orientation="horizontal" >
+		                <TextView
+		                    android:id="@+id/invite_detail_nickname_left"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="match_parent"
+		                    android:padding="3dip"
+		                    android:maxLength="5"
+		                    android:singleLine="true"
+		                    android:text="@string/str_no_value" />
+		                <ImageView
+		                    android:id="@+id/invite_detail_sex_left"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="match_parent"
+		                    android:visibility="gone"
+		                    android:contentDescription="@null" />
+		            </LinearLayout>
+		        </RelativeLayout>
+		        
+		         <ImageView
+		             android:visibility="gone"
+		            android:id="@+id/invite_detail_vs"
+		            android:layout_toRightOf="@+id/invite_detail_inviter_realtive"
+		            android:layout_width="20dp"
+		            android:layout_height="@dimen/avatar_invite_detail_size"
+		            android:layout_marginLeft="5dip"
+		            android:layout_marginRight="5dip"
+		            android:gravity="center"
+		            android:src="@drawable/ic_vs"
+		            android:contentDescription="@null" />
+		        
+		        <RelativeLayout
+		            android:layout_weight="1"
+		            android:layout_toRightOf="@+id/invite_detail_vs"
+			        android:id="@+id/invite_detail_invitee_realtive"
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content" >
+					    <cn.gl.lib.view.RoundedImageView
+					        xmlns:app="http://schemas.android.com/apk/res-auto"
+					        android:id="@+id/invite_detail_avatar_right"
+					        android:layout_centerHorizontal="true"
+					        android:layout_width="@dimen/avatar_invite_detail_size"
+					        android:layout_height="@dimen/avatar_invite_detail_size"
+					        android:duplicateParentState="true"
+					        android:src="@drawable/avatar_no_golfer"
+					        android:scaleType="centerCrop"
+					        app:corner_radius="8dip"
+					        app:border_width="0dip"
+					        app:round_background="true"/>
+			            <LinearLayout
+			                android:layout_below="@id/invite_detail_avatar_right"
+			                android:layout_centerHorizontal="true"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:gravity="center_vertical"
+			                android:orientation="horizontal" >
+			                <TextView
+			                    android:id="@+id/invite_detail_nickname_right"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:padding="3dip"
+			                    android:maxLength="5"
+			                    android:singleLine="true"
+			                    android:text="@string/str_no_value" />
+			                <ImageView
+			                    android:id="@+id/invite_detail_sex_right"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:visibility="gone"
+			                    android:contentDescription="@null" />
+			            </LinearLayout>
+			        </RelativeLayout>
+			        
+		          <RelativeLayout
+		              android:layout_marginLeft="10dp"
+		              android:layout_marginRight="10dp"
+		              android:layout_weight="1"
+			           android:id="@+id/invite_detail_invitee_realtive1"
+			           android:layout_toLeftOf="@+id/invite_detail_invitee_realtive0"
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content" >
+					    <cn.gl.lib.view.RoundedImageView
+					        xmlns:app="http://schemas.android.com/apk/res-auto"
+					        android:id="@+id/invite_detail_avatar_right1"
+					        android:layout_centerHorizontal="true"
+					        android:layout_width="@dimen/avatar_invite_detail_size"
+					        android:layout_height="@dimen/avatar_invite_detail_size"
+					        android:duplicateParentState="true"
+					        android:src="@drawable/avatar_no_golfer"
+					        android:scaleType="centerCrop"
+					        app:corner_radius="8dip"
+					        app:border_width="0dip"
+					        app:round_background="true"/>
+			            <LinearLayout
+			                android:layout_below="@id/invite_detail_avatar_right1"
+			                android:layout_centerHorizontal="true"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:gravity="center_vertical"
+			                android:orientation="horizontal" >
+			                <TextView
+			                    android:id="@+id/invite_detail_nickname_right1"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:padding="3dip"
+			                    android:maxLength="5"
+			                    android:singleLine="true"
+			                    android:text="@string/str_no_value" />
+			                <ImageView
+			                    android:id="@+id/invite_detail_sex_right1"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:visibility="gone"
+			                    android:contentDescription="@null" />
+			            </LinearLayout>
+			        </RelativeLayout>
+			        
+			        <RelativeLayout
+			            android:layout_weight="1"
+			            android:layout_toRightOf="@+id/invite_detail_invitee_realtive0"
+			            android:id="@+id/invite_detail_invitee_realtive2"
+			            android:layout_width="match_parent"
+			            android:layout_height="wrap_content" >
+					    <cn.gl.lib.view.RoundedImageView
+					        xmlns:app="http://schemas.android.com/apk/res-auto"
+					        android:id="@+id/invite_detail_avatar_right2"
+					        android:layout_centerHorizontal="true"
+					        android:layout_width="@dimen/avatar_invite_detail_size"
+					        android:layout_height="@dimen/avatar_invite_detail_size"
+					        android:duplicateParentState="true"
+					        android:src="@drawable/avatar_no_golfer"
+					        android:scaleType="centerCrop"
+					        app:corner_radius="8dp"
+					        app:border_width="0dip"
+					        app:round_background="true"/>
+			            <LinearLayout
+			                android:layout_below="@id/invite_detail_avatar_right2"
+			                android:layout_centerHorizontal="true"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:gravity="center_vertical"
+			                android:orientation="horizontal" >
+			                <TextView
+			                    android:id="@+id/invite_detail_nickname_right2"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:padding="3dip"
+			                    android:maxLength="5"
+			                    android:singleLine="true"
+			                    android:text="@string/str_no_value" />
+			                <ImageView
+			                    android:id="@+id/invite_detail_sex_right2"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:visibility="gone"
+			                    android:contentDescription="@null" />
+			            </LinearLayout>
+			        </RelativeLayout>
+		        
+		        
+		    </LinearLayout>
+		    
+		     <RelativeLayout
+		         android:visibility="gone"
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content"
+		                android:gravity="center_vertical"
+		                android:orientation="horizontal" >
+			       
+			        <RelativeLayout
+			           android:id="@+id/invite_detail_invitee_realtive11"
+			           android:layout_toLeftOf="@+id/invite_detail_invitee_realtive01"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content" >
+					    <cn.gl.lib.view.RoundedImageView
+					        xmlns:app="http://schemas.android.com/apk/res-auto"
+					        android:id="@+id/invite_detail_avatar_right11"
+					        android:layout_centerHorizontal="true"
+					        android:layout_width="@dimen/avatar_invite_detail_size"
+					        android:layout_height="@dimen/avatar_invite_detail_size"
+					        android:duplicateParentState="true"
+					        android:src="@drawable/avatar_no_golfer"
+					        android:scaleType="centerCrop"
+					        app:corner_radius="8dip"
+					        app:border_width="0dip"
+					        app:round_background="true"/>
+			            <LinearLayout
+			                android:layout_below="@id/invite_detail_avatar_right11"
+			                android:layout_centerHorizontal="true"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:gravity="center_vertical"
+			                android:orientation="horizontal" >
+			                <TextView
+			                    android:id="@+id/invite_detail_nickname_right11"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:padding="3dip"
+			                    android:text="@string/str_no_value" />
+			                <ImageView
+			                    android:id="@+id/invite_detail_sex_right11"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:visibility="gone"
+			                    android:contentDescription="@null" />
+			            </LinearLayout>
+			        </RelativeLayout>
+			        
+			        <RelativeLayout
+			             android:layout_marginLeft="10dp"
+			            android:layout_marginRight="10dp"
+			            android:layout_centerHorizontal="true"
+			            android:id="@+id/invite_detail_invitee_realtive01"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content" >
+					    <cn.gl.lib.view.RoundedImageView
+					        xmlns:app="http://schemas.android.com/apk/res-auto"
+					        android:id="@+id/invite_detail_avatar_right01"
+					        android:layout_centerHorizontal="true"
+					        android:layout_width="@dimen/avatar_invite_detail_size"
+					        android:layout_height="@dimen/avatar_invite_detail_size"
+					        android:duplicateParentState="true"
+					        android:src="@drawable/avatar_no_golfer"
+					        android:scaleType="centerCrop"
+					        app:corner_radius="8dip"
+					        app:border_width="0dip"
+					        app:round_background="true"/>
+			            <LinearLayout
+			                android:layout_below="@id/invite_detail_avatar_right01"
+			                android:layout_centerHorizontal="true"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:gravity="center_vertical"
+			                android:orientation="horizontal" >
+			                <TextView
+			                    android:id="@+id/invite_detail_nickname_right01"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:padding="3dip"
+			                    android:text="@string/str_no_value" />
+			                <ImageView
+			                    android:id="@+id/invite_detail_sex_right01"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:visibility="gone"
+			                    android:contentDescription="@null" />
+			            </LinearLayout>
+			        </RelativeLayout>
+			        
+			        <RelativeLayout
+			            android:layout_toRightOf="@+id/invite_detail_invitee_realtive01"
+			            android:id="@+id/invite_detail_invitee_realtive21"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content" >
+					    <cn.gl.lib.view.RoundedImageView
+					        xmlns:app="http://schemas.android.com/apk/res-auto"
+					        android:id="@+id/invite_detail_avatar_right21"
+					        android:layout_centerHorizontal="true"
+					        android:layout_width="@dimen/avatar_invite_detail_size"
+					        android:layout_height="@dimen/avatar_invite_detail_size"
+					        android:duplicateParentState="true"
+					        android:src="@drawable/avatar_no_golfer"
+					        android:scaleType="centerCrop"
+					        app:corner_radius="8dip"
+					        app:border_width="0dip"
+					        app:round_background="true"/>
+			            <LinearLayout
+			                android:layout_below="@id/invite_detail_avatar_right21"
+			                android:layout_centerHorizontal="true"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:gravity="center_vertical"
+			                android:orientation="horizontal" >
+			                <TextView
+			                    android:id="@+id/invite_detail_nickname_right21"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:padding="3dip"
+			                    android:text="@string/str_no_value" />
+			                <ImageView
+			                    android:id="@+id/invite_detail_sex_right21"
+			                    android:layout_width="wrap_content"
+			                    android:layout_height="match_parent"
+			                    android:visibility="gone"
+			                    android:contentDescription="@null" />
+			            </LinearLayout>
+			        </RelativeLayout>
+		        
+		        </RelativeLayout>
+		    
+		    <!-- message -->
+            <TextView
+                android:id="@+id/invite_detail_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="3dip" />
+		    
+            <!-- personal information -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:background="@drawable/sub_title_bkg_dark_gray" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/txt_size_small"
+                    android:text="@string/str_invite_detail_title_golfer" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/txt_size_small"
+                    android:text="@string/str_invite_detail_title_hi" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/txt_size_small"
+                    android:text="@string/str_invite_detail_title_matches" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/txt_size_small"
+                    android:text="@string/str_invite_detail_title_this_hi" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/txt_size_small"
+                    android:text="@string/str_invite_detail_title_rate" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:background="@android:color/white" >
+                <TextView
+                    android:id="@+id/invite_detail_pi_nickname_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_hi_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_matches_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_score_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <LinearLayout
+                    android:id="@+id/invite_detail_pi_rate_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@color/color_div_line" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:background="@android:color/white" >
+                <TextView
+                    android:id="@+id/invite_detail_pi_nickname_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_hi_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_matches_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_score_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <LinearLayout
+                    android:id="@+id/invite_detail_pi_rate_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@color/color_div_line" />
+            <LinearLayout
+                android:id="@+id/invite_detail_pi_linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:background="@android:color/white" >
+                <TextView
+                    android:id="@+id/invite_detail_pi_nickname_right1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_hi_right1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_matches_right1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_score_right1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <LinearLayout
+                    android:id="@+id/invite_detail_pi_rate_right1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@color/color_div_line" />
+            <LinearLayout
+                android:id="@+id/invite_detail_pi_linear2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="3dip"
+                android:paddingBottom="3dip"
+                android:background="@android:color/white" >
+                <TextView
+                    android:id="@+id/invite_detail_pi_nickname_right2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_hi_right2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_matches_right2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <TextView
+                    android:id="@+id/invite_detail_pi_score_right2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="10"
+                    android:textSize="@dimen/txt_size_s"
+                    android:text="@string/str_no_value" />
+                <LinearLayout
+                    android:id="@+id/invite_detail_pi_rate_right2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_weight="9"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@color/color_div_line" />
+            <!-- application information 1-->
+            <LinearLayout
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+                android:id="@+id/invite_detail_app_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+                android:orientation="vertical" >
+                <TextView
+                    android:id="@+id/invite_detail_app_info_teetime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:drawablePadding="3dip"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_teetime" />
+                <TextView
+                    android:id="@+id/invite_detail_app_info_course"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:drawablePadding="3dip"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_region_hl" />
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@drawable/divider" />
+            
+              <!-- request region -->
+            <LinearLayout
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+                android:id="@+id/invite_detail_request_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/view_hor_margin"
+                android:paddingRight="@dimen/view_hor_margin"
+                android:orientation="vertical" >
+				<TextView
+				    android:id="@+id/invite_detail_request_title"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:background="@drawable/frame_bkg"
+				    android:padding="3dip"
+				    android:text="@string/str_invite_detail_request_no_one"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="center" />
+				<cn.gl.lib.view.NestGridView
+				    android:paddingTop="@dimen/view_ver_margin"
+				    android:id="@+id/invite_detail_request_gridview"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:numColumns="3"
+				    android:stretchMode="columnWidth"
+				    android:horizontalSpacing="8dp"
+				    android:verticalSpacing="8dp"
+				    android:scrollbars="none"
+				    android:background="@android:color/transparent"
+				    android:cacheColorHint="@android:color/transparent"
+					android:listSelector="@android:color/transparent"
+					android:fadingEdge="none"
+					android:drawSelectorOnTop="false" />
+            </LinearLayout>
+            
+            
+            
+            <!-- application plan information 2-->
+            <LinearLayout
+                android:id="@+id/invite_detail_plans_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+                android:gravity="center_horizontal"
+                android:orientation="vertical" >
+				<TextView
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:text="@string/str_comm_plans"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="center" />
+	            <cn.gl.lib.view.NestListView
+	                android:id="@+id/invite_detail_app_plan_list"
+				   style="@style/listview_style"
+				   android:scrollbars="none"
+				   android:dividerHeight="5dip"
+				   android:divider="@android:color/transparent"  />
+            </LinearLayout>
+
+          
+			 <LinearLayout
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+                android:id="@+id/invite_detail_pay_type_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+                android:orientation="horizontal" >
+                <!-- payment type -->
+				<TextView
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/str_comm_payment"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="center_vertical" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/invite_detail_pay_type_text"
+                    android:text="AA制"
+                    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+			
+			<cn.gl.lib.view.NestGridView
+			    android:visibility="gone"
+			    android:id="@+id/invite_detail_pay_type_gridview"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="8dp"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+			
+            <!-- stake -->
+			 <LinearLayout
+                android:id="@+id/invite_detail_stake_type_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+                android:orientation="horizontal" >
+                <!-- payment type -->
+				<TextView
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:text="@string/str_comm_stake"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="center" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/invite_detail_stake_type_text"
+                    android:text="不下注"
+                    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dip"
+                    android:gravity="center_vertical"/>
+            </LinearLayout>
+			
+			<cn.gl.lib.view.NestGridView
+			    android:visibility="gone"
+			    android:id="@+id/invite_detail_stake_gridview"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="8dp"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+            
+            <!-- score -->
+            <View
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@drawable/divider" />
+            <LinearLayout
+                android:id="@+id/invite_detail_score_region"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+			    android:paddingLeft="@dimen/view_hor_margin"
+			    android:paddingRight="@dimen/view_hor_margin" >
+				<TextView
+				    android:id="@+id/invite_detail_score_title"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:text="@string/str_comm_score"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="center" />
+
+				<RelativeLayout
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content" >
+		            <FrameLayout
+		                android:layout_alignParentRight="true"
+		                android:id="@+id/invite_detail_score_card_fl"
+		                 android:layout_width="wrap_content"
+		                android:layout_height="wrap_content" >
+		                <ImageView
+		                    android:id="@+id/invite_detail_score_card"
+		                    android:layout_width="@dimen/score_invite_detail_size"
+		                    android:layout_height="@dimen/score_invite_detail_size"
+		                    android:src="@drawable/upload_scorecard"
+		                    android:contentDescription="@null" />
+		                <ImageView
+		                    android:visibility="gone"
+		                    android:id="@+id/invite_detail_score_card_invalid"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:src="@drawable/scorecard_invalid"
+		                    android:layout_marginRight="5dip"
+		                    android:layout_marginBottom="5dip"
+		                    android:layout_gravity="bottom|right"
+		                    android:contentDescription="@null" />
+		            </FrameLayout>
+
+	                <LinearLayout
+	                    android:layout_toLeftOf="@id/invite_detail_score_card_fl"
+	                    android:layout_alignParentLeft="true"
+	                    android:layout_alignParentBottom="true"
+	                    android:layout_width="match_parent"
+	                    android:layout_height="match_parent"
+	                    android:layout_marginRight="5dip"
+	                    android:orientation="vertical"
+	                     >
+						<TextView
+						    android:id="@+id/invite_detail_score_hint"
+						    android:layout_width="match_parent"
+						    android:layout_height="match_parent"
+						    android:gravity="left"
+						    android:padding="3dip"
+						    android:text="@string/str_invite_detail_scores_hint"
+						    android:textColor="@color/color_hint_txt"
+						    android:textSize="@dimen/txt_size_small" /> 
+						    
+						
+						<EditText
+						    android:id="@+id/invite_detail_scores"
+						    android:layout_width="match_parent"
+						    android:layout_height="35dp"
+						    android:layout_marginTop="5dip"
+						    android:paddingLeft="@dimen/edittext_h_space"
+						    android:paddingRight="@dimen/edittext_h_space"
+						    android:background="@drawable/edittext_bkg"
+						    android:hint="@string/str_invite_detail_scores_input_hint"
+						    android:inputType="number"
+						    android:textSize="@dimen/txt_hint_size" />
+						     
+						  
+	                </LinearLayout>
+				</RelativeLayout>				
+
+                <Button
+						android:id="@+id/invite_detail_score_btn_do"
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/btn_height"
+						android:layout_marginTop="5dip"
+						android:background="@drawable/xbtn_green"
+						android:text="@string/str_invite_detail_scores_btn_do"
+						android:textColor="@android:color/white"
+						android:textSize="@dimen/txt_size_ml" />
+                
+            </LinearLayout>
+			
+            <!-- rate -->
+            <LinearLayout
+                android:id="@+id/invite_detail_rate_region"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/view_small_ver_distance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                
+                <View
+                
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/div_line_width"
+                android:background="@drawable/divider" />
+				<TextView
+				    android:layout_marginTop="@dimen/view_small_ver_distance"
+				    android:id="@+id/invite_detail_rate_title"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content"
+				    android:text="@string/str_invite_detail_rate_subtitle"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="center" />
+				
+				<RelativeLayout
+				    android:visibility="gone"
+				  	android:id="@+id/invite_detail_rate_relative1"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content" >
+	                
+				    <com.hylg.igolf.ui.view.CircleImageView
+			            android:id="@+id/user_headImage1"
+			            android:layout_width="50dp"
+			            android:layout_height="50dp"
+			            android:layout_alignParentLeft="true"
+			            android:layout_marginLeft="10dp"
+			            android:src="@drawable/avatar_null" />
+				    
+		            <LinearLayout
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_centerHorizontal="true"
+		                android:layout_marginLeft="@dimen/view_hor_margin"
+		                android:layout_marginRight="@dimen/view_hor_margin"
+		                android:orientation="vertical" >
+						
+		                <TextView
+						    android:id="@+id/invite_detail_rate_name1"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:textColor="@color/color_hint_txt"
+						    android:textSize="@dimen/txt_hint_size"/>
+			            <RatingBar
+							    android:id="@+id/invite_detail_rate_set_bar1"
+							    style="@style/star_rating_bar_style"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:isIndicator="false"
+							    android:numStars="5"
+							    android:stepSize="1"
+							     /> 
+					</LinearLayout>
+					
+		            <Button
+		                 android:visibility="gone"
+		                android:layout_centerVertical="true"
+		                 android:layout_marginRight="10dp"
+		                android:layout_alignParentRight="true"
+							android:id="@+id/invite_detail_rate_btn_do1"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:layout_marginLeft="8dip"
+							android:paddingLeft="12dip"
+							android:paddingRight="12dip"
+							android:background="@drawable/xbtn_green"
+							android:text="@string/str_invite_detail_rate_btn_do"
+							android:textColor="@android:color/white"
+							android:textSize="@dimen/txt_size_ml" />
+				</RelativeLayout>
+				<RelativeLayout
+				    android:layout_marginTop="5dp"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content" >
+	                
+				    <com.hylg.igolf.ui.view.CircleImageView
+			            android:id="@+id/user_headImage"
+			            android:layout_width="50dp"
+			            android:layout_height="50dp"
+			            android:layout_alignParentLeft="true"
+			            android:layout_marginLeft="10dp"
+			            android:src="@drawable/avatar_null" />
+				    
+		            <LinearLayout
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_centerHorizontal="true"
+		                android:layout_marginLeft="@dimen/view_hor_margin"
+		                android:layout_marginRight="@dimen/view_hor_margin"
+		                android:orientation="vertical" >
+						
+		                <TextView
+						    android:id="@+id/invite_detail_rate_name"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:textColor="@color/color_hint_txt"
+						    android:textSize="@dimen/txt_hint_size"/>
+			            <RatingBar
+							    android:id="@+id/invite_detail_rate_set_bar"
+							    style="@style/star_rating_bar_style"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:isIndicator="false"
+							    android:numStars="5"
+							    android:stepSize="1" /> 
+					</LinearLayout>
+					
+		            <Button
+		               
+		                android:layout_marginRight="10dp"
+		                android:layout_centerVertical="true"
+		                android:layout_alignParentRight="true"
+							android:id="@+id/invite_detail_rate_btn_do"
+							android:layout_width="wrap_content"
+							android:layout_height="35dp"
+							android:layout_marginLeft="8dip"
+							android:paddingLeft="12dip"
+							android:paddingRight="12dip"
+							android:background="@drawable/xbtn_green"
+							android:text="@string/str_invite_detail_rate_btn_do"
+							android:textColor="@android:color/white"
+							android:textSize="@dimen/txt_size_ml" />
+				</RelativeLayout>
+				
+				
+				<RelativeLayout
+				    android:visibility="gone"
+				    android:id="@+id/invite_detail_rate_relative2"
+				    android:layout_marginTop="5dp"
+				    android:layout_width="match_parent"
+				    android:layout_height="wrap_content" >
+	                
+				    <com.hylg.igolf.ui.view.CircleImageView
+			            android:id="@+id/user_headImage2"
+			            android:layout_width="50dp"
+			            android:layout_height="50dp"
+			            android:layout_alignParentLeft="true"
+			            android:layout_marginLeft="10dp"
+			            android:src="@drawable/avatar_null" />
+				    
+		            <LinearLayout
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_centerHorizontal="true"
+		                android:layout_marginLeft="@dimen/view_hor_margin"
+		                android:layout_marginRight="@dimen/view_hor_margin"
+		                android:orientation="vertical" >
+						
+		                <TextView
+						    android:id="@+id/invite_detail_rate_name2"
+						    android:layout_width="match_parent"
+						    android:layout_height="wrap_content"
+						    android:textColor="@color/color_hint_txt"
+						    android:textSize="@dimen/txt_hint_size"/>
+			            <RatingBar
+							    android:id="@+id/invite_detail_rate_set_bar2"
+							    style="@style/star_rating_bar_style"
+							    android:layout_width="wrap_content"
+							    android:layout_height="wrap_content"
+							    android:isIndicator="false"
+							    android:numStars="5"
+							    android:stepSize="1"/> 
+					</LinearLayout>
+					
+		            <Button
+		                 android:visibility="gone"
+		                android:layout_centerVertical="true"
+		                 android:layout_marginRight="10dp"
+		                android:layout_alignParentRight="true"
+							android:id="@+id/invite_detail_rate_btn_do2"
+							android:layout_width="wrap_content"
+							android:layout_height="match_parent"
+							android:layout_marginLeft="8dip"
+							android:paddingLeft="12dip"
+							android:paddingRight="12dip"
+							android:background="@drawable/xbtn_green"
+							android:text="@string/str_invite_detail_rate_btn_do"
+							android:textColor="@android:color/white"
+							android:textSize="@dimen/txt_size_ml" />
+				</RelativeLayout>
+				<TextView
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"
+				    android:gravity="center"
+				    android:padding="3dip"
+				    android:text="@string/str_invite_detail_rate_hint"
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_size_small" /> 
+            </LinearLayout>
+
+          
+            
+		</LinearLayout>    
+	</ScrollView>
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        style="@style/custom_title_style"
+        android:layout_gravity="top" >
+        <ImageButton
+			android:id="@+id/customer_album_detail_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+        <TextView
+            android:id="@+id/indicator"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:text="@string/viewpager_indicator"
+		    android:layout_centerInParent="true" />
+        <ImageButton
+			android:id="@+id/customer_album_detail_operation"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/ic_more" />
+    </RelativeLayout>
+    
+    <com.hylg.igolf.ui.view.ViewPagerFixed
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg" />
+
+</LinearLayout>

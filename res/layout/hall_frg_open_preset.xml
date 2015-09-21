@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+	    android:scrollbars="none"
+	    android:paddingTop="@dimen/view_ver_margin"
+	    android:paddingBottom="@dimen/view_ver_margin"
+	    android:paddingLeft="@dimen/view_hor_margin"
+	    android:paddingRight="@dimen/view_hor_margin"
+	    android:orientation="vertical" >
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+			<TextView
+				android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_hall_preset_selection_hint"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size"
+			    android:gravity="center" />
+			<cn.gl.lib.view.NestGridView
+			    android:id="@+id/hall_open_preset_filter_gridview"
+			    android:paddingBottom="3dip"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:numColumns="3"
+			    android:stretchMode="columnWidth"
+			    android:horizontalSpacing="8dp"
+			    android:verticalSpacing="@dimen/view_ver_distance"
+			    android:scrollbars="none"
+			    android:background="@android:color/transparent"
+			    android:cacheColorHint="@android:color/transparent"
+				android:listSelector="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+			
+			<Button
+				android:layout_marginTop="@dimen/view_ver_distance"
+				android:layout_marginBottom="@dimen/view_ver_distance"
+				android:id="@+id/hall_open_preset_retrieve"
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/btn_height"
+				android:background="@drawable/xbtn_green"
+				android:text="@string/str_btn_hall_open_btn_retrieve"
+				android:textColor="@android:color/white"
+				android:textSize="@dimen/txt_btn_txt_size" />
+
+			<TextView
+			    android:layout_marginBottom="@dimen/view_ver_distance"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:text="@string/str_hall_preset_invite_hint"
+			    android:textColor="@color/color_hint_txt"
+			    android:textSize="@dimen/txt_hint_size"
+			    android:gravity="center" />
+
+			<Button
+				android:id="@+id/hall_open_preset_start_invite"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center_horizontal"
+				android:background="@drawable/xbtn_gray"
+				android:paddingLeft="12dip"
+				android:paddingTop="8dip"
+				android:paddingRight="12dip"
+				android:paddingBottom="8dip"
+				android:text="@string/str_hall_preset_btn_invite"
+				android:textColor="@color/color_hint_txt"
+				android:textSize="@dimen/txt_btn_txt_size" />	
+		</LinearLayout>
+    </ScrollView>

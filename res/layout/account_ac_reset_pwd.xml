@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/account_reset_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_reset_do_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="@dimen/view_ver_margin"
+	    android:layout_marginBottom="@dimen/view_ver_margin"
+	    android:layout_marginLeft="@dimen/view_hor_margin"
+	    android:layout_marginRight="@dimen/view_hor_margin"
+	    android:background="@drawable/frame_bkg" >
+		<TextView
+		    android:id="@+id/account_pre_reset_pwd"
+		    style="@style/setup_pre_txt_style"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignParentTop="true"
+		    android:text="@string/str_input_pre_pwd_first" />
+		<EditText
+		    android:id="@+id/account_reset_pwd"
+		    style="@style/setup_info_et_style"
+		    android:layout_toRightOf="@id/account_pre_reset_pwd"
+		    android:hint="@string/str_reset_pwd_hint"
+		    android:inputType="textPassword"
+		    android:maxLength="@integer/password_max_length"
+		    android:textSize="@dimen/txt_hint_size" />
+		
+		<TextView 
+		    android:id="@+id/account_reset_pwd_line"
+		    android:layout_width="match_parent"
+		    android:layout_height="1px"
+		    android:background="#e6e6e6"
+		    android:layout_below="@id/account_pre_reset_pwd"/>
+		
+		<TextView
+		    android:id="@+id/account_pre_confirm_pwd"
+		    style="@style/setup_pre_txt_style"
+		    android:layout_below="@id/account_reset_pwd_line"
+		    android:layout_alignParentLeft="true"
+		    android:text="@string/str_input_pre_pwd_confirm" />
+		<EditText
+		    android:id="@+id/account_reset_pwd_confirm"
+		    style="@style/setup_info_et_style"
+		    android:layout_toRightOf="@id/account_pre_confirm_pwd"
+		    android:layout_below="@id/account_reset_pwd_line"
+		    android:hint="@string/str_reset_pwd_confirm_hint"
+		    android:inputType="textPassword"
+		    android:maxLength="@integer/password_max_length"
+		    android:textSize="@dimen/txt_hint_size" />
+		
+		</RelativeLayout>
+		
+		<Button
+			android:layout_marginBottom="@dimen/view_ver_distance"
+		    android:layout_marginLeft="@dimen/view_hor_margin"
+		    android:layout_marginRight="@dimen/view_hor_margin"
+			android:id="@+id/account_reset_do"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/btn_height"
+			android:background="@drawable/xbtn_green"
+			android:text="@string/str_btn_reset"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_btn_txt_size" />
+	
+</LinearLayout>

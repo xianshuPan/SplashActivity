@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/golfers_search_result_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_golfers_search_result_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/golfers_search_result_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
+        android:padding="3dp"
+        android:gravity="center"
+        android:text="@string/str_golfers_search_result_hint"
+        android:textColor="@android:color/white" />
+    
+	<include
+	    android:id="@+id/golfers_search_result_load_fail"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    layout="@layout/common_load_fail" />
+	
+	<com.hylg.igolf.ui.view.PullListView
+	    android:id="@+id/golfers_search_result_listview"
+	   style="@style/listview_style"  />
+</LinearLayout>

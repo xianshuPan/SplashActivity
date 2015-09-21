@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/rank_li_min_height"
+    android:orientation="horizontal" >
+
+    <!-- rank_item_style -->
+    <LinearLayout
+        style="@style/rank_item_style"
+        android:orientation="horizontal" >
+		<ImageView
+		    android:id="@+id/rank_li_rank_img"
+		    android:src="@drawable/rank_gold"
+		    android:scaleType="fitXY"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:contentDescription="@null" />
+	    <TextView
+	        android:id="@+id/rank_li_rank_num"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textSize="@dimen/txt_size_m"
+	        android:textColor="@color/color_rank_num" />
+    </LinearLayout>
+    
+    <LinearLayout
+        style="@style/rank_item_style"
+        android:layout_weight="9"
+        android:orientation="horizontal" >
+	    <cn.gl.lib.view.RoundedImageView
+	        xmlns:app="http://schemas.android.com/apk/res-auto"
+	        android:id="@+id/rank_li_golfer_avatar"
+	        android:layout_width="@dimen/avatar_rank_li_size"
+	        android:layout_height="@dimen/avatar_rank_li_size"
+	        android:duplicateParentState="true"
+	        android:scaleType="fitXY"
+	        app:corner_radius="4dip"
+	        app:border_width="0dip"
+	        app:round_background="true"/>
+    <!-- 
+		<ImageView
+		    android:id="@+id/rank_li_golfer_avatar"
+		    android:src="@drawable/def_avatar"
+		    android:scaleType="fitXY"
+		    android:layout_width="@dimen/avatar_rank_li_size"
+		    android:layout_height="@dimen/avatar_rank_li_size"
+		    android:contentDescription="@null" />
+		     -->
+	    <TextView
+	        android:id="@+id/rank_li_golfer_nickname"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="3dip"
+	        android:singleLine="true"
+	        android:textSize="@dimen/txt_size_ml"
+	        android:textColor="@color/color_rank_def" />
+    </LinearLayout>
+    
+    <TextView
+        android:id="@+id/rank_li_handicapi"
+        style="@style/rank_item_style"
+        android:textSize="@dimen/txt_size_m"
+        android:textColor="@color/color_rank_def" />
+    
+    <TextView
+        android:id="@+id/rank_li_matches"
+        style="@style/rank_item_style"
+        android:textSize="@dimen/txt_size_m"
+        android:textColor="@color/color_rank_def" />
+    
+    <TextView
+        android:id="@+id/rank_li_best"
+        style="@style/rank_item_style"
+        android:textSize="@dimen/txt_size_m"
+        android:textColor="@color/color_rank_def" />    
+</LinearLayout>

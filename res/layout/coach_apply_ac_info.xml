@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/coach_applay_info_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:id="@+id/coach_applay_info_title_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_coachers_apply_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+		
+		<TextView
+		    android:visibility="gone"
+		   	android:layout_alignBottom="@+id/coach_applay_info_title_text"
+		    android:layout_toRightOf="@+id/coach_applay_info_title_text"
+		    android:id="@+id/coach_applay_info_status_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="5dp"
+		    android:text="已通过"
+		    android:textColor="#fff"
+		    android:textSize="@dimen/txt_size_small"/>
+		
+		<ImageView
+		    android:visibility="gone"
+			android:id="@+id/coach_applay_info_title_tips_image"
+			style="@style/top_bar_btn_style"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/ic_hint"
+			android:contentDescription="@null" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/repeat_bkg"
+        android:scrollbars="vertical">
+		<LinearLayout
+		    android:background="#f0f1f5"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+			
+			 <TextView
+			     android:drawableLeft="@drawable/ic_hint_star"
+				    android:text="请填写真实有效的信息"
+				    android:textSize="@dimen/txt_size_small"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:padding="5dp"
+				    android:textColor="@color/gray"/>
+			<RelativeLayout
+				android:background="@color/color_white"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content">
+			    
+			    <TextView
+				    android:id="@+id/coach_apply_info_pre_avtar"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_alignParentTop="true"
+				    android:text="@string/str_comm_avtar" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_avtar_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_height="wrap_content"
+				    android:paddingTop="8dip"
+				    android:paddingBottom="8dip"
+				    android:gravity="center_vertical"
+				    android:layout_toRightOf="@id/coach_apply_info_pre_avtar" >
+				    <include
+				        android:id="@+id/arrow_enter_avtar"
+						layout="@layout/include_arrow_enter"/>
+				    
+				    <com.hylg.igolf.ui.view.CircleImageView
+					    android:contentDescription="@null"
+					    android:layout_toLeftOf="@id/arrow_enter_avtar"
+					    android:id="@+id/coach_apply_info_avtar"
+					    android:layout_width="60dp"
+					    android:layout_height="60dp"
+					    android:src="@drawable/avatar_null"
+					    android:layout_marginRight="10dp"
+					    android:clickable="false" />
+				</RelativeLayout>
+			    
+				<TextView
+				    android:layout_below="@+id/coach_apply_info_avtar_ll"
+				    android:id="@+id/coach_apply_info_name"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:text="@string/str_coachers_name" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_name_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@+id/coach_apply_info_avtar_ll"
+				    android:layout_toRightOf="@id/coach_apply_info_name" >
+				    <include
+				        android:id="@+id/arrow_enter_modify_password"
+						layout="@layout/include_arrow_enter"/>
+
+				    <EditText
+				        android:textColor="@color/color_hint_txt"
+				        android:textSize="@dimen/txt_hint_size"
+				        android:layout_marginRight="5dp"
+				        android:paddingRight="5dp"
+				        android:background="@null"
+				        android:layout_toLeftOf="@+id/arrow_enter_modify_password"
+				        android:imeOptions="actionNext"
+				        android:singleLine="true"
+				        android:layout_height="30dp"
+				        android:gravity="center_vertical|right"
+				        android:id="@+id/coach_apply_info_name_selection"
+				        android:layout_centerVertical="true"
+				        android:layout_width="match_parent" />
+
+				</RelativeLayout>
+
+				<TextView
+				    android:id="@+id/coach_apply_info_sex"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_name"
+				    android:text="@string/str_comm_sex" />
+
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_sex_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_name"
+				    android:layout_toRightOf="@id/coach_apply_info_sex" >
+
+				    <include
+				        android:id="@+id/arrow_enter_reset_phone"
+						layout="@layout/include_arrow_enter"/>
+
+				    <TextView
+				        android:id="@+id/coach_apply_info_sex_selection"
+				        style="@style/setup_info_select_style"
+				        android:layout_alignParentTop="true"
+				        android:layout_toLeftOf="@+id/arrow_enter_reset_phone" />
+
+				</RelativeLayout>		
+				
+				<TextView
+				    android:id="@+id/coach_apply_info_age"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_sex"
+				    android:text="@string/str_comm_age" />
+
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_age_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_sex_ll"
+				    android:layout_toRightOf="@id/coach_apply_info_age" >
+
+				    <include
+				        android:id="@+id/arrow_enter_reset_phone"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_reset_phone"
+					    android:id="@+id/coach_apply_info_age_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>				
+			</RelativeLayout>
+			
+			<View 
+			    android:layout_width="match_parent"
+			    android:layout_height="1dp" 
+			    android:background="@drawable/divider1"/>
+			
+			
+			<LinearLayout 
+			    android:layout_marginTop="@dimen/view_ver_distance"
+			    android:background="@color/gray"
+			    android:paddingTop="1px"
+			    android:paddingBottom="1px"
+			    android:layout_width="match_parent"
+			    android:layout_height="50dp"
+			    android:orientation="horizontal">
+				
+			    <LinearLayout 
+			        android:id="@+id/coach_apply_info_hobby_linear"
+			        android:background="@color/color_white"
+			        android:layout_weight="1"
+			        android:layout_marginRight="1px"
+			        android:gravity="center"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="match_parent"
+			    	android:orientation="horizontal">
+				    
+			        <ImageView 
+			            android:adjustViewBounds="true"
+			            android:duplicateParentState="true"
+			            android:layout_width="10dp"
+			            android:layout_height="10dp"
+			            android:src="@drawable/coach_type_select_bg"/>
+			        <TextView 
+			            android:text="业余教练"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"/>
+			    
+			    
+				</LinearLayout>
+				
+			     <LinearLayout 
+			         android:id="@+id/coach_apply_info_professional_linear"
+			         android:background="@color/color_white"
+			        android:layout_weight="1"
+			        android:gravity="center"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="match_parent"
+			    	android:orientation="horizontal">
+				    
+			        <ImageView 
+			            android:adjustViewBounds="true"
+			            android:duplicateParentState="true"
+			            android:layout_width="10dp"
+			            android:layout_height="10dp"
+			            android:src="@drawable/coach_type_select_bg"/>
+			        <TextView 
+			            android:text="职业教练"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"/>
+			    
+			    
+				</LinearLayout>
+			    
+			    
+			</LinearLayout>
+
+			
+			<RelativeLayout
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@color/color_white" >
+				<TextView
+				    android:drawableLeft="@drawable/ic_hint_star"
+				    android:id="@+id/coach_apply_info_id"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_alignParentTop="true"
+				    android:text="@string/str_coachers_apply_id" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_id_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_toRightOf="@id/coach_apply_info_id" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_sex"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:textSize="@dimen/txt_size_small"
+				        android:layout_centerVertical="true"
+				        android:text="只用于后台审核"
+				        android:textColor="@color/gray"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+					    android:id="@+id/coach_apply_info_id_selection" />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+				    android:layout_below="@+id/coach_apply_info_id"
+				    android:id="@+id/coach_apply_info_id_front_selected_relative"
+				    android:layout_marginLeft="20dp"
+				    android:layout_width="100dp"
+				    android:layout_height="75dp">
+				    
+				    <ImageView
+				    android:id="@+id/coach_apply_info_id_front_selected_image"
+				    android:src="@drawable/id_front"
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"/>
+				    
+				     <ImageView
+				         android:visibility="gone"
+				         android:src="@drawable/icon_data_select"
+				    	android:id="@+id/coach_apply_info_id_front_selected_ok_image"
+				    	android:layout_marginLeft="5dp"
+				    	android:layout_width="20dp"
+				    	android:layout_height="20dp"/>
+				     
+				     <TextView
+				         android:layout_alignParentBottom="true"
+				        android:id="@+id/coach_apply_info_id_front_tips_text"
+				        android:layout_width="match_parent"
+				        android:layout_height="20dp"
+				        android:text="点击上传"
+				        android:textSize="@dimen/txt_size_small"
+				        android:textColor="@color/color_white"
+				        android:gravity="center"
+				        android:background="@drawable/bg_gray"/>
+				     
+				     <ProgressBar
+				         android:visibility="gone" 
+				         android:layout_centerInParent="true"
+				         android:layout_width="20dp"
+				         android:layout_height="20dp"
+				         android:id="@+id/coach_apply_info_id_front_progress"/>
+				</RelativeLayout>
+				
+				<RelativeLayout 
+				    android:layout_below="@+id/coach_apply_info_id"
+				    android:layout_toRightOf="@+id/coach_apply_info_id_front_selected_relative"
+				    android:id="@+id/coach_apply_info_id_back_selected_relative"
+				    android:layout_marginLeft="20dp"
+				    android:layout_width="100dp"
+				    android:layout_height="75dp">
+				    
+				    <ImageView
+				    	android:id="@+id/coach_apply_info_id_back_selected_image"
+				    	android:src="@drawable/id_back"
+				    	android:layout_width="match_parent"
+				    	android:layout_height="match_parent"/>
+				    
+				     <ImageView
+				         android:visibility="gone"
+				         android:src="@drawable/icon_data_select"
+				    	android:id="@+id/coach_apply_info_id_back_selected_ok_image"
+				    	android:layout_marginLeft="5dp"
+				    	android:layout_width="20dp"
+				    	android:layout_height="20dp"/>
+				     
+				     <TextView
+				         android:layout_alignParentBottom="true"
+				        android:id="@+id/coach_apply_info_id_back_tips_text"
+				        android:layout_width="match_parent"
+				        android:layout_height="20dp"
+				        android:text="点击上传"
+				        android:textSize="@dimen/txt_size_small"
+				        android:textColor="@color/color_white"
+				        android:gravity="center"
+				        android:background="@drawable/bg_gray"/>
+				     
+				     <ProgressBar 
+				         android:visibility="gone"
+				         android:layout_centerInParent="true"
+				         android:layout_width="20dp"
+				         android:layout_height="20dp"
+				         android:id="@+id/coach_apply_info_id_back_progress"/>
+				</RelativeLayout>
+				
+				<TextView
+				    android:drawableLeft="@drawable/ic_hint_star"
+				    android:id="@+id/coach_apply_info_award"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_id_front_selected_relative"
+				    android:text="@string/str_coachers_apply_award" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_award_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_id_front_selected_relative"
+				    android:layout_toRightOf="@id/coach_apply_info_award" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_age"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_age"
+					    android:id="@+id/coach_apply_info_award_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+				    android:layout_below="@+id/coach_apply_info_award"
+				    android:id="@+id/coach_apply_info_award_relative"
+				    android:layout_marginLeft="20dp"
+				    android:layout_width="100dp"
+				    android:layout_height="100dp">
+				    
+				   <ImageView 
+				       android:src="@drawable/addpic"
+				    android:id="@+id/coach_apply_info_award_selected_image"
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"/>
+				    
+				     <ImageView
+				         android:visibility="gone"
+				         android:src="@drawable/icon_data_select"
+				    	android:id="@+id/coach_apply_info_award_selected_ok_image"
+				    	android:layout_marginLeft="5dp"
+				    	android:layout_width="20dp"
+				    	android:layout_height="20dp"/>
+				     
+				     <TextView
+				         android:layout_alignParentBottom="true"
+				        android:id="@+id/coach_apply_info_award_tips_text"
+				        android:layout_width="match_parent"
+				        android:layout_height="25dp"
+				        android:text="点击上传"
+				        android:textColor="@color/color_white"
+				        android:gravity="center"
+				        android:background="@drawable/bg_gray"/>
+				     <ProgressBar 
+				         android:visibility="gone"
+				         android:layout_centerInParent="true"
+				         android:layout_width="20dp"
+				         android:layout_height="20dp"
+				         android:id="@+id/coach_apply_info_award_progress"/>
+				</RelativeLayout>
+				
+
+				<TextView
+				    android:drawableLeft="@drawable/ic_hint_star"
+				    android:id="@+id/coach_apply_info_place"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_award_relative"
+				    android:text="@string/str_coachers_apply_place" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_place_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_award_relative"
+				    android:layout_toRightOf="@id/coach_apply_info_place" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_region"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_region"
+					    android:id="@+id/coach_apply_info_place_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+
+				<TextView
+				    android:drawableLeft="@drawable/ic_hint_star"
+				    android:id="@+id/coach_apply_info_teach_age"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_place_ll"
+				    android:text="@string/str_coachers_apply_teach_age" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_teach_age_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_place_ll"
+				    android:layout_toRightOf="@id/coach_apply_info_teach_age" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_industry"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_industry"
+					    android:id="@+id/coach_apply_info_teach_age_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				
+				<TextView
+				    android:drawableLeft="@drawable/ic_hint_star"
+				    android:id="@+id/coach_apply_info_special"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_teach_age"
+				    android:text="@string/str_coachers_apply_special" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_special_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_teach_age"
+				    android:layout_toRightOf="@id/coach_apply_info_special" >
+				    <include
+				        android:visibility="gone"
+				        android:id="@+id/arrow_enter_setup_yearsexp"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_yearsexp"
+					    android:id="@+id/coach_apply_info_special_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				<EditText 
+				    
+				    android:textColor="@color/color_hint_txt"
+				    android:textSize="@dimen/txt_hint_size"
+				    android:gravity="top"
+				    android:padding="3dp"
+				    android:maxLength="70"
+				    android:layout_below="@+id/coach_apply_info_special"
+				    android:id="@+id/coach_apply_info_special_edit"
+				    android:layout_width="match_parent"
+				    android:layout_height="80dp"
+				    android:layout_marginLeft="20dp"
+				    android:layout_marginRight="20dp"
+				    android:background="@drawable/frame_bkg"/>
+				
+				<View 
+				    android:layout_marginTop="10dp"
+				    android:layout_below="@id/coach_apply_info_special_edit"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+
+			</RelativeLayout>
+			
+			<!-- 职业教练 选填项-->
+			<TextView
+			    android:visibility="gone"
+			    android:layout_marginTop="@dimen/view_ver_distance"
+			    android:id="@+id/coach_apply_info_professional_tips_text"
+			    android:drawableLeft="@drawable/ic_hint_star"
+				android:text="职业教练至少上传一项"
+				android:textSize="@dimen/txt_size_small"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:padding="5dp"
+				android:textColor="@color/gray"/>
+			<RelativeLayout
+			    android:visibility="gone"
+			    android:id="@+id/coach_apply_info_professional_select_input_relative"
+			    android:layout_marginBottom="10dp"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@color/color_white" >
+				
+				<View 
+			    android:layout_width="match_parent"
+			    android:layout_height="1dp" 
+			    android:background="@drawable/divider1"/>
+				<TextView
+				    android:id="@+id/coach_apply_info_graduate"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:text="@string/str_coachers_apply_graduate" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_graduate_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_toRightOf="@id/coach_apply_info_graduate" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_signature"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_signature"
+					    android:id="@+id/coach_apply_info_graduate_selection"
+					    style="@style/setup_info_select_style"
+					    android:textSize="@dimen/txt_size_s"
+					    android:gravity="center|left"
+					    android:ellipsize="end"
+					    android:maxLines="2"
+					     />
+				</RelativeLayout>
+				
+				<RelativeLayout 
+				    android:layout_below="@+id/coach_apply_info_graduate"
+				    android:id="@+id/coach_apply_info_graduate_selected_relative"
+				    android:layout_marginLeft="20dp"
+				    android:layout_width="100dp"
+				    android:layout_height="100dp">
+				    
+				   <ImageView 
+				       android:src="@drawable/addpic"
+				    android:id="@+id/coach_apply_info_graduate_selected_image"
+				    android:layout_width="match_parent"
+				    android:layout_height="match_parent"/>
+				    
+				     <ImageView
+				         android:visibility="gone"
+				         android:src="@drawable/icon_data_select"
+				    	android:id="@+id/coach_apply_info_graduate_selected_ok_image"
+				    	android:layout_marginLeft="5dp"
+				    	android:layout_width="20dp"
+				    	android:layout_height="20dp"/>
+				     
+				     <TextView
+				         android:layout_alignParentBottom="true"
+				        android:id="@+id/coach_apply_info_graduate_tips_text"
+				        android:layout_width="match_parent"
+				        android:layout_height="25dp"
+				        android:text="点击上传"
+				        android:textColor="@color/color_white"
+				        android:gravity="center"
+				        android:background="@drawable/bg_gray"/>
+				     
+				     <ProgressBar 
+				         android:visibility="gone"
+				         android:layout_centerInParent="true"
+				         android:layout_width="20dp"
+				         android:layout_height="20dp"
+				         android:id="@+id/coach_apply_info_graduate_progress"/>
+				</RelativeLayout>
+				
+				
+				<TextView
+				    android:id="@+id/coach_apply_info_certificate"
+				    style="@style/setup_pre_txt_style"
+				    android:layout_alignParentLeft="true"
+				    android:layout_below="@id/coach_apply_info_graduate_selected_relative"
+				    android:text="@string/str_coachers_apply_certificate" />
+				<RelativeLayout
+				    android:id="@+id/coach_apply_info_certificate_ll"
+				    style="@style/setup_info_ll_style"
+				    android:layout_below="@id/coach_apply_info_graduate_selected_relative"
+				    android:layout_toRightOf="@id/coach_apply_info_certificate" >
+				    <include
+				        android:id="@+id/arrow_enter_setup_age"
+						layout="@layout/include_arrow_enter"/>
+				    <TextView
+				        android:layout_toLeftOf="@id/arrow_enter_setup_age"
+					    android:id="@+id/coach_apply_info_certificate_selection"
+					    style="@style/setup_info_select_style" />
+				</RelativeLayout>
+				
+				
+				<RelativeLayout 
+				    android:layout_below="@+id/coach_apply_info_certificate"
+				    android:id="@+id/coach_apply_info_certificate_selected_relative"
+				    android:layout_marginLeft="20dp"
+				    android:layout_width="100dp"
+				    android:layout_height="120dp">
+				    
+				   <ImageView 
+				       android:src="@drawable/addpic"
+				    android:id="@+id/coach_apply_info_certificate_selected_image"
+				    android:layout_width="match_parent"
+				    android:layout_height="100dp"/>
+				    
+				     <ImageView
+				         android:visibility="gone"
+				         android:src="@drawable/icon_data_select"
+				    	android:id="@+id/coach_apply_info_certificate_selected_ok_image"
+				    	android:layout_marginLeft="5dp"
+				    	android:layout_width="20dp"
+				    	android:layout_height="20dp"/>
+				     
+				     <TextView
+				         android:layout_marginBottom="20dp"
+				         android:layout_alignParentBottom="true"
+				        android:id="@+id/coach_apply_info_certificate_tips_text"
+				        android:layout_width="match_parent"
+				        android:layout_height="25dp"
+				        android:text="点击上传"
+				        android:textColor="@color/color_white"
+				        android:gravity="center"
+				        android:background="@drawable/bg_gray"/>
+				     <ProgressBar 
+				         android:visibility="gone"
+				         android:layout_centerInParent="true"
+				         android:layout_width="20dp"
+				         android:layout_height="20dp"
+				         android:id="@+id/coach_apply_info_certificate_progress"/>
+				</RelativeLayout>
+
+				<View 
+				    android:layout_alignParentBottom="true"
+			    	android:layout_width="match_parent"
+			    	android:layout_height="1dp" 
+			    	android:background="@drawable/divider1"/>
+			</RelativeLayout>
+			
+			<TextView
+			      android:layout_margin="20dp"
+			      android:textSize="@dimen/txt_title_size"
+				  android:id="@+id/coach_apply_info_commit_text"
+				  android:layout_width="match_parent"
+				  android:layout_height="40dp"
+				  android:text="提交审核"
+				  android:textColor="@color/color_white"
+				  android:padding="5dp"
+				  android:gravity="center"
+				  android:background="@drawable/attented_color"/>
+							
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>

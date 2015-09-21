@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- user guide array 	-->
+	<integer-array name="user_guide_array">
+		<item>@drawable/user_guide_01</item>
+		<item>@drawable/user_guide_02</item>
+		
+		<!-- 
+		<item>@drawable/user_guide_03</item>
+		 -->
+		<item>@drawable/user_guide_04</item>
+	</integer-array>
+
+	<integer-array name="golfers_label_type_array">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+	</integer-array>
+	<integer-array name="golfers_label_img_array">
+		<item>@drawable/label_activity</item>
+		<item>@drawable/label_years_exp</item>
+		<item>@drawable/label_best</item>
+		<item>@drawable/label_hot</item>
+		<item>@drawable/label_rate</item>
+		<item>@drawable/label_industry</item>
+	</integer-array>
+	<string-array name="golfers_label_name_array">
+        <item>活跃球友</item>
+        <item>球龄相近</item>
+        <item>高手切磋</item>
+        <item>最热球友</item>
+        <item>最佳球品</item>
+        <item>同行切磋</item>
+    </string-array>
+    
+	<!-- use index to sign type
+	<integer-array name="golfers_filter_type_array">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</integer-array>
+	 -->
+	<integer-array name="golfers_filter_img_array">
+		<item>@drawable/ic_region</item>
+		<item>@drawable/ic_industry</item>
+		<item>@drawable/ic_sex</item>
+	</integer-array>
+	<string-array name="golfers_filter_title_array">
+        <item>@string/str_comm_region</item>
+        <item>@string/str_comm_industry</item>
+        <item>@string/str_comm_sex</item>
+    </string-array>
+    
+	<!-- sex -->
+	<integer-array name="sex_index_array">
+		<item>-1</item>
+		<item>0</item>
+		<item>1</item>
+	</integer-array>
+	<string-array name="sex_name_array">
+        <item>不限</item>
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+    
+	<!-- coacher type -->
+	<integer-array name="coacher_type_index_array">
+		<item>-1</item>
+		<item>0</item>
+		<item>1</item>
+	</integer-array>
+	<string-array name="coacher_type_name_array">
+        <item>不限</item>
+        <item>职业教练</item>
+        <item>业余教练</item>
+    </string-array>
+    
+	
+	<!-- coacher sort item -->
+	<integer-array name="coacher_sort_index_array">
+		<item>-1</item>
+		<item>0</item>
+		<item>1</item>
+	</integer-array>
+	<string-array name="coacher_sort_name_array">
+        <item>不限</item>
+        <item>星级排序</item>
+        <item>经验排序</item>
+    </string-array>
+    
+    
+	<!-- open preset -->
+	<integer-array name="open_preset_img_array">
+		<item>@drawable/ic_date_hl</item>
+		<item>@drawable/ic_time_hl</item>
+		<item>@drawable/ic_region_hl</item>
+		<item>@drawable/ic_sex</item>
+		<item>@drawable/ic_payent</item>
+		<item>@drawable/ic_stake</item>
+	</integer-array>
+	<string-array name="open_preset_title_array">
+        <item>@string/str_comm_date</item>
+        <item>@string/str_comm_time</item>
+        <item>@string/str_comm_region</item>
+        <item>@string/str_comm_sex</item>
+        <item>@string/str_comm_payment</item>
+        <item>@string/str_comm_stake</item>
+    </string-array>
+    
+	<!-- payment -->
+	<string-array name="payment_name_array">
+        <item>不限</item>
+        <item>AA制</item>
+        <item>赢家买单</item>
+        <item>输家买单</item>
+        <item>我请客</item>
+        <item>男士付款</item>
+        <item>女士付款</item>
+    </string-array>
+	<integer-array name="payment_value_array">
+	    <item>-1</item>
+		<item>1</item>
+		<item>3</item>
+		<item>2</item>
+		<item>0</item>
+		<item>4</item>
+		<item>5</item>
+	</integer-array>
+	<!-- stake -->
+	<string-array name="stake_name_array">
+        <item>不限</item>
+	    <item>不下注</item>
+        <item>小注怡情</item>
+        <item>随意</item>
+    </string-array>
+	<integer-array name="stake_value_array">
+	    <item>-1</item>
+	    <item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</integer-array>
+	
+	<!-- date -->
+	<integer-array name="tee_date_index_array">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+	</integer-array>
+	<string-array name="tee_date_name_array">
+        <item>不限</item>
+        <item>今天</item>
+        <item>明天</item>
+        <item>后天</item>
+    </string-array>
+    
+	<!-- tee_date -->
+	<integer-array name="tee_time_index_array">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+	</integer-array>
+	<string-array name="tee_time_name_array">
+        <item>不限</item>
+        <item>上午</item>
+        <item>下午</item>
+    </string-array>
+    
+	<!-- image select -->
+	<string-array name="image_select_name_array">
+        <item>拍照</item>
+        <item>选择本地图片</item>
+    </string-array>
+    
+	<!-- start sts plan default string -->
+	<string-array name="sts_plan_name_array">
+        <item>添加方案1</item>
+        <item>添加方案2</item>
+        <item>添加方案3</item>
+    </string-array>
+    
+	<!-- album select -->
+	<string-array name="album_select_name_array">
+        <item>设为头像</item>
+        <item>删除</item>
+    </string-array>
+    
+	<string-array name="camera_more_time">
+        <item>1.5秒</item>
+        <item>2.0秒</item>
+        <item>2.5秒</item>
+    </string-array>
+</resources>

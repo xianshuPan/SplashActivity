@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        <ImageButton
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back"
+			android:onClick="onBarBackBtnClick"  />
+        <TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:text="@string/str_cusinfo_item_about"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@drawable/repeat_bkg" >
+	    <TextView
+	        android:id="@+id/about_version"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:gravity="center"
+	        android:textColor="@color/color_hint_txt"
+	        android:textSize="@dimen/txt_title_size"
+	        android:textStyle="bold" />
+	    <ImageView
+	        android:layout_above="@id/about_version"
+	        android:layout_centerHorizontal="true"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="5dip"
+	        android:src="@drawable/about_logo"
+	        android:contentDescription="@null" />
+	    <LinearLayout
+	        android:layout_below="@id/about_version"
+	        android:layout_alignParentBottom="true"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:gravity="center_vertical"
+	        android:orientation="vertical" >
+	        <TextView
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_horizontal"
+	            android:textColor="@color/color_hint_txt"
+	            android:text="@string/str_about_copyright" />
+			<TextView
+				android:layout_width="150dip"
+				android:layout_height="@dimen/btn_height"
+				android:clickable="true"
+				android:background="@drawable/xbtn_gray"
+				android:layout_gravity="center_horizontal"
+				android:gravity="center"
+			    android:layout_marginTop="20dp"
+				android:text="@string/str_about_intro"
+				android:textColor="@color/color_hint_txt"
+				android:textSize="@dimen/txt_btn_txt_size"
+				android:onClick="onIntroBtnClick" />
+	    </LinearLayout>
+	</RelativeLayout>
+</LinearLayout>

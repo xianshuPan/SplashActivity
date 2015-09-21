@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:background="@color/color_white" >
+
+    	
+		
+		
+		<TextView
+		    android:layout_toLeftOf="@+id/coach_complain_or_refuse_item_select_image"
+		    android:layout_centerVertical="true"
+		    android:layout_marginLeft="10dp"
+		    android:layout_marginRight="10dp"
+			android:id="@+id/coach_complain_or_refuse_item_reason_text"
+			  
+			android:textSize="@dimen/txt_size_ml"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:maxLines="1"
+			android:ellipsize="end"/>
+		
+		<ImageView
+		    android:layout_marginRight="10dp"
+		    android:layout_alignParentRight="true"
+		    android:layout_centerVertical="true"
+		    android:id="@+id/coach_complain_or_refuse_item_select_image"
+		    android:src="@drawable/select"
+		    android:scaleType="fitXY"
+		    android:layout_width="25dp"
+		    android:layout_height="25dp"
+		    android:contentDescription="@null" />
+		
+</RelativeLayout>

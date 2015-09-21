@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true" >
+    <TextView
+        android:id="@+id/common_hint_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#666666"
+        android:layout_centerVertical="true"/>
+    <Button
+        android:id="@+id/common_button_retry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:background="@null"
+        android:layout_below="@id/common_hint_message"
+        android:layout_centerHorizontal="true"
+        android:text="@string/str_comm_load_retry"
+        android:textColor="@color/color_retry_btn_txt" />
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="30dp"
+    android:orientation="horizontal" >
+
+    <com.hylg.igolf.ui.widget.XRTextView
+        android:id="@+id/comment_user_name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    
+     <TextView
+         android:visibility="gone"
+        android:id="@+id/comment_to_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="回复"/>
+     
+      <TextView
+          android:visibility="gone"
+        android:textColor="@color/color_friend_item_praiser_name"
+        android:id="@+id/comment_toname_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/comment_contents_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":哎哟喂，不错哦"/>
+
+</LinearLayout>

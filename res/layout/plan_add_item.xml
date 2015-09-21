@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/frame_bkg" >
+    <ImageView
+        android:id="@+id/start_sts_plan_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="8dip"
+        android:layout_alignParentRight="true" />
+    <TextView
+        android:layout_toLeftOf="@id/start_sts_plan_img"
+        android:id="@+id/start_sts_plan_teetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="5dip"
+         />
+    <TextView
+        android:layout_toLeftOf="@id/start_sts_plan_teetime"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/start_sts_plan_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="5dip"
+         />
+</RelativeLayout>

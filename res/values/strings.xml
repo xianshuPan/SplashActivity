@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">爱高尔夫</string>
+	<string name="str_exit_msg">再按一次返回键退出!</string>
+	<string name="str_no_value">--</string>
+	<string name="str_update_title">版本更新</string>
+	
+	<!--  login -->
+	<string name="str_acc_login">登录</string>
+	<string name="str_acc_register">注册</string>
+	<string name="str_acc_reset">忘记密码？</string>
+	<string name="str_acc_login_def_msg">登录失败，请稍后再试…</string>
+	
+	<!--  share_menu_item -->
+	<string name="str_share_menu_micro_blog">新浪微博</string>
+	<string name="str_share_menu_micro_message_friend">微信好友</string>
+	<string name="str_share_menu_micro_message_friend_circle">微信朋友圈</string>
+	<string name="str_share_menu_QQ">QQ好友</string>
+	<string name="str_share_menu_QQ_zone">QQ空间</string>
+	
+    <!-- register -->
+    <string name="str_reg_phone_submit_title">填写手机号</string>
+    <string name="str_reg_phone_submit_hint">陌生用户无权限查看您的手机号</string>
+    <string name="str_reg_phone_verify_title">手机验证</string>
+    <string name="str_reg_info_setup_title">填写个人信息</string>
+    <string name="str_reg_info_setup_hint">填写完整信息，可提高约球成功率</string>
+    <string name="str_reg_info_setup_do">完成注册</string>
+    <string name="str_toast_avatar_null">请设置头像！</string>
+    <string name="str_toast_register_success">注册成功！</string>
+    <string name="str_account_yearsexp_wrap"> %1$d年</string>
+    <string name="str_account_hoursexp_wrap"> %1$d小时</string>
+    <string name="str_account_age_wrap"> %1$d岁</string>
+    
+    <!-- reset password -->
+    <string name="str_reset_phone_submit_title">填写手机号</string>
+    <string name="str_reset_phone_submit_hint">如果你无法通过注册手机号接收短信验证码,也可以拨打客服人工电话找回：%1$s</string>
+    <string name="str_reset_phone_submit_num">028&#8211;64042202</string>
+    <string name="str_reset_phone_verify_title">手机验证</string>
+    <string name="str_reset_do_title">重置密码</string>
+    <string name="str_btn_reset">重置</string>
+    
+    <string name="str_verify_content">我们将发送验证码短信到这个号码：\n%1s</string>
+    <string name="str_verify_hint">我们已经发送验证码短信到您的手机：</string>
+    <string name="str_toast_input_phone">请输入手机号码。</string>
+    <string name="str_toast_invalid_phone">手机号码格式不正确。</string>
+    <string name="str_btn_renew">重新获取</string>
+    <string name="str_btn_renew_time">60秒</string>
+    <string name="str_toast_input_verify">请输入验证码！</string>
+    <string name="str_toast_error_verify">验证码错误，请重新输入！</string>
+    <string name="str_toast_modify_success">修改成功！</string>
+    <string name="str_positive_handicap">%1$s</string>
+    <string name="str_negative_handicap">%1$s</string>
+    
+    <!-- golfers -->
+    <string name="str_golfers_home_title">球友</string>
+    <string name="str_golfers_search_result_title">球友搜索结果</string>
+    <string name="str_golfers_label_hint">点击标签找感兴趣的球友</string>
+    <string name="str_golfers_selection_hint">设置筛选条件</string>
+    <string name="str_golfers_req_no_data_hint">无数据，请修改条件重新查询！</string>
+    <string name="str_golfers_li_invate_btn">约球</string>
+    <string name="str_golfers_li_handicapi_title">成绩</string>
+    <string name="str_golfers_li_yearsexp_title">球龄：</string>
+    <string name="str_golfers_li_yearsexp"> %1$d年</string>
+    <string name="str_golfers_li_no_more">没有更多球友信息</string>
+    <string name="str_golfers_search_hint">昵称搜索</string>
+    <string name="str_toast_keyword_null">请输入球友昵称！</string>
+    <string name="str_golfers_search_result_hint">搜索到 %1$d 位，与 \"%2$s\" 相关的球友</string>
+    <string name="str_golfers_search_result_no_hint">未搜索到与 \"%1$s\" 相关的球友</string>
+    <string name="str_golfers_toast_label_industry">\"同行切磋\"，不可选择行业。</string>
+    
+    <!-- coachers -->
+    <string name="str_coachers_home_title">教练</string>
+    <string name="str_coachers_name">姓名</string>
+    <string name="str_coachers_select_all">综合</string>
+    <string name="str_coachers_teach_time">教龄:</string>
+    <string name="str_coachers_handicapIndex">差点:</string>
+    <string name="str_coachers_apply_title">申请教练</string>
+    <string name="str_coachers_apply_id">身份证</string>
+    <string name="str_coachers_apply_special">教学特长</string>
+    <string name="str_coachers_apply_place">常驻球场</string>
+    <string name="str_coachers_apply_teach_age">教龄</string>
+    <string name="str_coachers_apply_graduate">高尔夫专业毕业证</string>
+    <string name="str_coachers_apply_certificate">教练资格证</string>
+    <string name="str_coachers_apply_award">所获奖项</string>
+    <string name="str_coachers_order">排序</string>
+    <string name="str_coachers_type">类型</string>
+    <string name="str_coachers_search">搜索</string>
+    <string name="str_coach_info_detail_title">教练详情</string>
+    <string name="str_coach_invite_not_end">教学还没有结束</string>
+    
+    <string name="str_coach_invite_no_avatar">请上传头像</string>
+    <string name="str_coach_invite_no_name">请填写姓名</string>
+    <string name="str_coach_invite_no_sex">请选择性别</string>
+    <string name="str_coach_invite_no_age">请选择年龄</string>
+    <string name="str_coach_invite_no_id_frond">请上传身份证前面</string>
+    <string name="str_coach_invite_no_id_back">请上传身份证背面</string>
+    <string name="str_coach_invite_no_award">请上传奖项证书</string>
+    <string name="str_coach_invite_no_course">请选择球场</string>
+    <string name="str_coach_invite_no_teach_age">请选择教龄</string>
+    <string name="str_coach_invite_no_special">请填写教学特长</string>
+    <string name="str_coach_invite_no_graduate_or_certificate">请至少上传毕业证或者资格证</string>
+    <string name="str_coach_apply_status_waiting">待审核</string>
+    <string name="str_coach_apply_status_success">通过审核</string>
+    <string name="str_coach_apply_status_fail">审核失败</string>
+    
+    <string name="str_coach_start_teaching_title">确定开始教学</string>
+    <string name="str_coach_start_teaching_message">请告知学员,教学开始</string>
+    
+    <string name="str_coach_end_teaching_title">确定结束教学</string>
+    <string name="str_coach_end_teaching_message">请告知学员,及时支付</string>
+
+    
+    <string name="str_coachers_info_student_comment">学员评价</string>
+    <string name="str_coachers_info_place">常驻球场</string>
+    <string name="str_coachers_apply_order_title">教学明细</string>
+    <string name="str_coachers_apply_order_teach_time">学时</string>
+    <string name="str_coachers_apply_order_start_time">开始时间</string>
+    <string name="str_coachers_apply_order_end_time">结束时间</string>
+    <string name="str_coachers_apply_order_pause_time">暂停时间</string>
+    <string name="str_coachers_apply_order_teach_total_time">教学学时</string>
+    <string name="str_coachers_apply_order_fee_unit">收费标准</string>
+    <string name="str_coachers_apply_order_fee_total">费用总额</string>
+    <string name="str_coachers_invite_title">约教练</string>
+    
+    
+    <!-- hall -->
+    <string name="str_hall_home_title">约球</string>
+    <string name="str_hall_start_open_title">发起约球</string>
+    <string name="str_hall_start_sts_title">发起约球</string>
+    <string name="str_hall_tab_open">约球大厅</string>
+    <string name="str_hall_tab_sts">我的约球</string>
+    <string name="str_hall_invite_open_list_title">@string/str_hall_tab_open</string>
+    <string name="str_hall_invite_sts_list_title">@string/str_hall_tab_sts</string>
+    <string name="str_btn_hall_open_btn_retrieve">检索</string>
+    <string name="str_hall_preset_selection_hint">设置筛选条件</string>
+    <string name="str_hall_preset_invite_hint">您还可以直接发起自己的约球</string>
+    <string name="str_hall_preset_btn_invite">发起约球</string>
+    <string name="str_start_invite_open_success">发起约球成功！</string>
+    <string name="str_start_invite_sts_success">约球邀请已发送成功，可在“我的约球”中查看！</string>
+    <string name="str_invite_sts_plan_title">添加约球方案</string>
+    <string name="str_invite_sts_plan_confirm">添加方案</string>
+    <string name="str_invite_sts_plan_del_title">删除提醒</string>
+    <string name="str_invite_sts_plan_del_msg">确认删除该方案？</string>
+    <string name="str_invite_starting_sts">正在发起邀约，请稍候…</string>
+    <string name="str_invite_starting_open">正在发起约球，请稍候…</string>
+    <string name="str_invite_accepting_invite">正在接受约球，请稍候…</string>
+    <string name="str_invite_revoking_invite">正在撤销约球，请稍候…</string>
+    <string name="str_hall_open_list_hint">共搜索到 %1$d 场符合条件的约球</string>
+    <string name="str_hall_open_list_no_hint">未搜索到相关的约球信息</string>
+    <string name="str_hall_open_list_click_over">此约球已经结束</string>
+    <string name="str_hall_open_list_click_mine">申请已结束，请到“我的约球”中查看</string>
+    <string name="str_hall_invite_mine_no_hint">暂无约球记录</string>
+    
+    <!-- 
+        <string name="str_invite_sts_status_">虚位以待</string>
+	    <string name="str_invite_sts_status_">添加方案</string>
+	    <string name="str_invite_sts_status_">申请结束</string>
+	    ... ...
+     -->
+     <string name="str_invite_detail_msg_other"> %1$s： %2$s</string>
+     <string name="str_invite_detail_msg_me"> 我： %1$s</string>
+     <string name="str_invite_detail_title_golfer">选手</string>
+     <string name="str_invite_detail_title_hi">差点成绩</string>
+     <string name="str_invite_detail_title_matches">场次</string>
+     <string name="str_invite_detail_title_this_hi">本次成绩</string>
+     <string name="str_invite_detail_title_rate">评价对手</string>
+	 <string name="str_invite_detail_scores_hint">请填写杆数并上传记分卡供后台审核</string>
+     <string name="str_invite_detail_scores_input_hint">请输入杆数</string>
+     <string name="str_invite_detail_scores_btn_do">记分登记</string>
+     <string name="str_invite_detail_rate_btn_do">评价</string>
+     <string name="str_invite_detail_rate_btn_done">已评价</string>
+	 <string name="str_invite_detail_rate_hint">请双方上传成绩后再评价</string>
+     <string name="str_invite_detail_request_num_txt">共 %1$d 人申请</string>
+     <string name="str_invite_detail_request_no_one">暂无人申请</string>
+     <string name="str_invite_detail_rate_subtitle">评价对手</string>
+     <string name="str_invite_detail_title">约球详情</string>
+     <string name="str_invite_detail_oper_btn_request_apply">申请</string>
+     <string name="str_invite_detail_oper_btn_request_cancel">取消申请</string>
+     
+     <string name="str_invite_end_invite_app">确定结束约球</string>
+     <string name="str_invite_end_invite_app_content">结束约球,别人不能再申请</string>
+     
+     <!-- 后台设置，撤销、撤约状态与接口名称相反，使用app_revoke和app_cancel时，注意调用 -->
+     <string name="str_invite_detail_oper_btn_app_revoke">撤销</string>
+     
+     <!-- pxs 2015.07.24 修改 接受改成约球结束 
+     <string name="str_invite_detail_oper_btn_app_accept">接受</string>
+     -->
+     <string name="str_invite_detail_oper_btn_app_accept_end">结束</string>
+     <string name="str_invite_detail_oper_btn_app_refuse">拒绝</string>
+     <string name="str_invite_detail_oper_btn_app_cancel">撤约</string>
+     <string name="str_invite_detail_oper_btn_app_mark">签到</string>
+     <string name="str_invite_detail_oper_btn_app_accept_other">已接受他人</string>
+     <string name="str_invite_detail_oper_btn_app_revoke_done">已撤销</string>
+     <string name="str_invite_detail_oper_btn_app_cancel_done">已撤约</string>
+     <string name="str_invite_detail_oper_btn_app_mark_done">已签到</string>
+     <string name="str_invite_detail_oper_btn_app_complete">已完成</string>
+     <string name="str_invite_detail_oper_btn_app_refused">已拒绝</string>
+     <string name="str_invite_detail_oper_btn_app_accepted">已接受</string>
+     <string name="str_invite_detail_applicant_detail">查看详情</string>
+     
+     <string name="str_invite_no_course"> %1$s暂无球场信息，请更改地区查找</string>
+     
+     <string name="str_invite_detail_dialog_refuse_app_title">拒绝约球</string>
+     <string name="str_invite_detail_dialog_refuse_app_msg">确认拒绝此次约球？</string>
+     <string name="str_invite_detail_dialog_revoke_app_title">撤销约球</string>
+     <string name="str_invite_detail_dialog_revoke_app_msg">确认撤销此次约球？</string>
+     <string name="str_invite_detail_dialog_cacel_app_title">撤约约球</string>
+     <string name="str_invite_detail_dialog_cacel_app_msg">撤约后，也会计入约球记录。\n确认撤约？</string>
+     <string name="str_invite_detail_dialog_accept_apply_msg">确认接受 %1$s 的申请？</string>
+     
+     <string name="str_invite_detail_rate_invalid_zero">评分不能为零！</string>
+     <string name="str_invite_detail_rate_success">评价成功！</string>
+     <string name="str_invite_detail_score_null">请输入杆数！</string>
+     <string name="str_invite_detail_scorecard_null">请设置需要上传的记分卡！</string>
+     <string name="str_invite_detail_score_ex">杆数只能够输入数字！</string>
+     <string name="str_invite_detail_score_invalid">请输入大于0的数值！</string>
+     
+     <!-- friend 朋友圈 -->
+     <string name="str_friend_home_title">球友圈</string>
+     <string name="no_camera">您的手机不具备拍照功能</string>
+     <string name="reply">回复</string>
+     <string name="picture_unit">张</string>
+     <string name="str_friend_no_data">暂无数据</string>
+     
+    <!-- rank -->
+    <string name="str_rank_home_title">排行榜</string>
+    <string name="str_rank_sub_title_rank">排行</string>
+    <string name="str_rank_sub_title_golfer">选手</string>
+    <string name="str_rank_sub_title_handicapIndex">差点指数</string>
+    <string name="str_rank_sub_title_matches">场次</string>
+    <string name="str_rank_sub_title_best">最好成绩</string>
+    <string name="str_rank_own_hint">未上榜，显示原因</string>
+    <string name="str_rank_intro_hint">☆为保证排行榜的真实性：\n1.上传成绩的有效时间为开球后2&#8211;12小时；\n2.有效区域为球场半径5公里内；\n3.每张计分卡都将由后台人工审核；\n4.差点算法严格参考USGA标准。</string>
+    
+    <string name="viewpager_indicator">%1$d/%2$d</string>
+    
+    <!-- detail -->
+    <string name="str_detail_best">最好成绩</string>
+    <string name="str_detail_handicapi">差点成绩</string>
+    <string name="str_detail_matches">累计场次</string>
+    <string name="str_toast_image_load_fail">图片加载失败，请稍候再试！</string>
+    
+    <!-- customer -->
+    <string name="str_customer_home_title">我</string>
+    <string name="str_cusinfo_item_myinfo">我的资料</string>
+    <string name="str_cusinfo_item_msg">系统消息</string>
+    <string name="str_cusinfo_item_msg_detail">消息详情</string>
+    <string name="str_cusinfo_item_msg_type">系统消息</string>
+    <string name="str_cusinfo_item_history">约球历史</string>
+    <string name="str_cusinfo_item_about">关于爱高尔夫</string>
+    <string name="str_cusinfo_logout">退出登录</string>
+    <string name="str_cusinfo_btn_do_expand">更多</string>
+    <string name="str_cusinfo_btn_do_fold">收起</string>
+    <string name="str_cusinfo_list_header_time">时间</string>
+    <string name="str_cusinfo_list_header_player">对手</string>
+    <string name="str_cusinfo_list_header_palhcpi">对手成绩</string>
+    <string name="str_cusinfo_list_header_myhcpi">我的成绩</string>
+    <string name="str_cusinfo_list_header_invite">约球</string>
+    <string name="str_cusinfo_modify_pwd">修改密码</string>
+    <string name="str_cusinfo_modify_pwd_do">确认</string>
+    <string name="str_cusinfo_rebind_phone">重新绑定手机</string>
+    <string name="str_rebind_phone_verify_title">手机验证</string>
+    <string name="str_cusinfo_verify_pwd_title">输入密码</string>
+    <string name="str_cusinfo_signature_title">签名</string>
+    <string name="str_cusinfo_signature_edit">编辑</string>
+    <string name="str_cusinfo_edit">编辑资料</string>
+    <string name="str_toast_update_avatar_success">修改头像成功！</string>
+    <string name="str_toast_album_loading">图片正在加载，请稍候再试！</string>
+    <string name="str_toast_update_album_success">添加相册图片成功!</string>
+    <string name="str_about_copyright">Copyright&#169; 2013&#8211;2014，ALL Rights Reserved\n爱高尔夫约球系统</string>
+    <string name="str_about_intro">产品介绍</string>
+    <string name="str_delete_friend">确定删除这条朋友圈吗？</string>
+    <string name="str_praise_tips">点赞球友圈</string>
+    <string name="str_praise_follower">我的粉丝</string>
+    <string name="str_praise_attention">我关注的</string>
+    <string name="str_coach_comments_list_title">教练的评价</string>
+    <string name="str_coach_complain_title">投诉教练</string>
+    <string name="str_coach_refuse_title">拒接邀请</string>
+    
+    <!-- member -->
+    <string name="str_member_home_title">会员详情</string>
+    <string name="str_member_fight_record_title">交手记录</string>
+    <string name="str_member_score_history_title">成绩历史</string>
+    <string name="str_member_fightMsg">交手记录</string>
+    <string name="str_member_scoreMsg">成绩历史</string>
+    <string name="str_member_detail_oper_btn_call">电话</string>
+    <string name="str_member_detail_oper_btn_invite">邀约</string>
+    <string name="str_member_age_wrap"> %1$s岁</string>
+    <string name="str_member_myhcpi_wrap">我的成绩：%1$s</string>
+    <string name="str_member_palhcpi_wrap">球友成绩：%1$s</string>
+    <string name="str_member_score_histoyr_list_header_course">球场</string>
+    <string name="str_member_score_histoyr_list_header_teeTime">时间</string>
+    <string name="str_member_score_histoyr_list_header_handicap">差点成绩</string>
+    <string name="str_member_score_histoyr_list_header_check">查看</string>
+    <string name="str_member_score_histoyr_list_item_card">记分卡</string>
+    <string name="str_member_fight_record_none">无交手记录</string>
+    <string name="str_member_not_call">您需要与对方成功建立约球后才可通过电话联系！</string>
+    
+    <!-- loading message -->
+    <string name="str_loading_login">正在登录…</string>
+    <string name="str_loading_waiting">请稍候…</string>
+    <string name="str_loading_msg">正在加载，请稍候…</string>
+    <string name="str_loading_get_verify">正在获取验证码…</string>
+    <string name="str_loading_verify_phone">正在验证手机…</string>
+    <string name="str_loading_reset_pwd">正在修改密码…</string>
+    <string name="str_loading_register">正在注册…</string>
+    <string name="str_loading_invite_request">正在请求，请稍候…</string>
+    <string name="str_loading_verify_pwd">正在验证密码…</string>
+    <string name="str_loading_save_signature">正在保存签名…</string>
+    <string name="str_loading_gps">正在获取GPS信息，请稍候…</string>
+    <string name="str_loading_industry_request">正在获取行业信息，请稍候…</string>
+    <string name="str_loading_region_request">正在获取地区信息，请稍候…</string>
+    <string name="str_loading_version_request">正在获取应用版本信息，请稍候…</string>
+    <string name="str_loading_modify_msg">正在修改，请稍候…</string>
+    <string name="str_loading_delete_msg">正在删除，请稍候…</string>
+    <string name="str_loading_add_album">正在上传，请稍候…</string>
+    <string name="str_loading_add_comment">正在评论，请稍候…</string>
+    <string name="str_loading_avatar_album">正在设置，请稍候…</string>
+    
+    <!-- common -->
+    <string name="str_phone_input_hint">请输入手机号码</string>
+    <string name="str_verify_input_hint">请输入验证码</string>
+    <string name="str_btn_next">下一步</string>
+    <string name="str_btn_save">保存</string>
+    
+    <string name="str_comm_unset">未设置</string>
+    <string name="str_comm_def_signature">还未设置签名！</string>
+    <string name="str_comm_label">标签</string>
+    <string name="str_comm_sex">性别</string>
+    <string name="str_comm_yearsexp">球龄</string>
+    <string name="str_comm_cityrank">城市排行</string>
+    <string name="str_comm_activity">活跃度</string>
+    <string name="str_comm_heat">热度</string>
+    <string name="str_comm_region">地区</string>
+    <string name="str_comm_industry">行业</string>
+    <string name="str_comm_age">年龄</string>
+    <string name="str_comm_date">日期</string>
+    <string name="str_comm_time">时间</string>
+    <string name="str_comm_stake">球注</string>
+    <string name="str_comm_course">球场</string>
+    <string name="str_comm_plans">约球方案</string>
+    <string name="str_comm_payment">付费方式</string>
+    <string name="str_comm_handicapi">差点成绩</string>
+    <string name="str_comm_load_retry">重新加载</string>
+    <string name="str_comm_score">记分</string>
+    <string name="str_comm_rate">评价</string>
+    <string name="str_comm_reset_phone">重新绑定手机</string>
+    <string name="str_comm_modify_password">修改密码</string>
+    <string name="str_comm_old_password">原密码</string>
+    <string name="str_comm_signature">签名</string>
+    <string name="str_comm_current_bind_phone">当前绑定手机号:%1$2s</string>
+    <string name="str_comm_rebind_relogin">绑定后请使用新的手机号登录</string>
+    <string name="str_comm_avtar">头像</string>
+    <string name="str_comm_dialog_gps_title">GPS设置</string>
+    <string name="str_comm_dialog_gps_msg">请设置GPS，以获取位置信息。</string>
+    
+    <string name="str_input_pre_nickname">用户昵称</string>
+    <string name="str_input_hint_nickname">1&#8211;5常用中文称呼不可修改</string>
+    <string name="str_input_pre_pwd_first">输入密码</string>
+    <string name="str_input_hint_pwd_first">请输入密码</string>
+    <string name="str_input_hint_pwd_first_register">请输入4&#8211;8位密码</string>
+    <string name="str_input_pre_pwd_confirm">确认密码</string>
+    <string name="str_input_hint_pwd_confirm">请再次输入密码</string>
+    <string name="str_input_hint_signature">设置签名,将更容易获取约球机会</string>
+    <string name="str_input_hint_pwd_new">请输入4&#8211;8位新密码</string>
+    <string name="str_input_hint_pwd_old">请输入旧密码</string>
+    <string name="str_input_hint_pwd_login_user">请输入当前登陆者密码</string>
+    <string name="str_input_hint_phone_new">请输入手机号码</string>
+    
+    <string name="str_input_hint_open_invite">请输入简洁的邀约语。。。\n开球前2小时如无人申请，约球自动取消。请为申请者预留足够的时间。</string>
+    <string name="str_input_hint_sts_addr_name">请输入您的姓名或称呼，方便交流…</string>
+    <string name="str_input_hint_sts_invite">请输入简洁的邀约语。。。\n开球前2小时如对方未接受，约球自动取消。请为对方预留足够的时间。</string>
+    
+    <string name="str_reset_pwd_hint">@string/str_input_hint_pwd_first</string>
+    <string name="str_reset_pwd_confirm_hint">请再次输入密码</string>
+    
+    <string name="str_toast_pwd_length">请输入%1$d~%2$d位长度的密码！</string>
+    <string name="str_toast_old_pwd_input">请输入原密码！</string>
+    <string name="str_toast_new_pwd_input">请输入新密码！</string>
+    <string name="str_toast_pwd_input">请输入密码！</string>
+    <string name="str_toast_pwd_confirm_input">请输入确认密码！</string>
+    <string name="str_toast_pwd_dismatch">两次密码输入不一致，请重新输入！</string>
+    <string name="str_toast_nickname_input">请输入昵称！</string>
+    <string name="str_toast_sts_nickname_len">请输入长度为%1$d~%2$d的昵称！</string>
+    <string name="str_toast_sex_set">请设置性别！</string>
+    <string name="str_toast_yearsexp_set">请设置球龄！</string>
+    <string name="str_toast_region_set">请设置地区！</string>
+    <string name="str_toast_industry_set">请设置行业！</string>
+    <string name="str_toast_age_set">请设置年龄！</string>
+    <string name="str_toast_date_select">请设置日期！</string>
+    <string name="str_toast_time_select">请设置时间！</string>
+    <string name="str_toast_teaching_time_select">请设置学时</string>
+    <string name="str_toast_course_select">请设置球场！</string>
+    <string name="str_toast_open_invite_msg">请输入邀请语！</string>
+    <string name="str_toast_sts_invite_msg">请输入邀请语！</string>
+    <string name="str_toast_sts_invite_addr_name">请输入姓名或称呼！</string>
+    <string name="str_toast_sts_invite_addr_name_len">请输入长度为%1$d~%2$d的姓名或称呼！</string>
+    <string name="str_toast_sts_invite_add_plan">请添加约球方案！</string>
+    <string name="str_toast_signature_invalid">新的签名与旧的一致,无需更改！</string>
+        
+    <string name="str_toast_disconnect">网络异常，请检查网络连接，稍候再试！</string>
+    <string name="str_toast_request_timeout">请求超时，请检查网络，稍候再试！</string>
+    <string name="str_toast_request_exc">请求异常，稍候再试！</string>
+    <string name="str_toast_image_update_fail">图片上传失败！</string>
+    <string name="str_toast_loading">正在加载，请稍候…</string>
+    <string name="str_toast_apk_download_fail">下载客户端失败！</string>
+    <string name="str_toast_get_gps_fail">获取GPS信息失败，稍候再试！</string>
+    
+    <string name="str_photo_take">拍照</string>
+    <string name="str_photo_gallery">选择本地图片</string>
+    <string name="str_photo_cancel">取消</string>
+    <string name="str_photo_commit">确定</string>
+    
+     <!-- friend 朋友圈 -->
+     <string name="str_image_picker_title">图片</string>
+     <string name="str_image_picker_selected_done">完成</string>
+     <string name="str_loading_save_pictrue">正在保存</string>
+     <string name="str_friend_message_new_dist">发布</string>
+     <string name="str_friend_comments_add">发送</string>
+     <string name="str_friend_message_new_contens">这一刻的想法</string>
+     <string name="str_friend_location_select">我的位置</string>
+     <string name="str_friend_location_select_input_hint">搜索附近的位置</string>
+     <string name="str_friend_attention">关注</string>
+     <string name="str_friend_attented">已关注</string>
+     <string name="str_friend_praised">等觉得很赞</string>
+     <string name="str_friend_tips_count">新评论</string>
+     <string name="str_friend_tips_more">更多评论</string>
+    
+    <!-- dialog title -->
+    <string name="str_dialog_select_title_sex">性别选择</string>
+    <string name="str_dialog_select_title_industry">行业选择</string>
+    <string name="str_dialog_select_title_region">地区选择</string>
+    <string name="str_dialog_select_title_paytype">付费方式</string>
+    <string name="str_dialog_select_title_stake">球注选择</string>
+    <string name="str_dialog_select_title_label">兴趣选择</string>
+    <string name="str_dialog_select_title_tee_date">日期选择</string>
+    <string name="str_dialog_select_title_tee_time">时间选择</string>
+    <string name="str_dialog_select_title_age">年龄选择</string>
+    <string name="str_dialog_select_title_years_exp">球龄选择</string>
+    <string name="str_dialog_select_title_hour_exp">学时选择</string>
+    <string name="str_dialog_select_title_image">图片选择</string>
+    <string name="str_dialog_select_title_course">球场选择</string>
+    <string name="str_dialog_apk_downloding_msg">正在下载客户端(%1$d %2$s)</string>
+    <string name="str_dialog_apk_download_now">立即更新</string>
+    <string name="str_dialog_apk_download_after">取消</string>
+    <string name="str_dialog_set_title_tee_time">设置时间</string>
+    <string name="str_dialog_select_title_album">照片操作</string>
+    <string name="str_dialog_title_notify_departure">启程回执</string>
+    <string name="str_dialog_title_coacher_type">教练类型</string>
+    <string name="str_dialog_title_coacher_sort">教练排序</string>
+
+    <!-- pull header -->
+ 	<string name="str_pull_to_refresh_pull_label">继续下拉刷新</string>
+    <string name="str_pull_to_refresh_release_label">松开可以刷新</string>
+    <string name="str_pull_to_refresh_refreshing_label">正在刷新……</string>
+    <string name="str_pull_to_refresh_time">最后更新于:%1$s</string>
+    
+    <!-- load message -->
+    <string name="str_footer_loading">正在加载更多……</string>
+    <string name="str_footer_load_last">已加载全部</string>
+	<string name="str_footer_load_more">查看更多</string>
+	
+	<!-- refreshView -->
+	<string name="push_down_load_more">下拉加载更多</string>
+	<string name="put_off_refresh">松开刷新</string>
+	<string name="push_down_refresh">下拉刷新</string>
+	<string name="loading">正在加载...</string>
+	<string name="refreshing_cn">正在加载...</string>
+	<string name="last_refresh">最近更新</string>
+	
+	<!--listview-->
+    <string name="list_footer_load_more">上拉加载更多</string>
+    <string name="list_footer_loading">正在加载...</string>
+    
+    <string name="app_list_header_refresh_down">松手刷新</string>
+	<string name="app_list_footer_refresh_down">下拉更多</string>
+	<string name="app_list_header_refresh_last_update">上次更新于:</string>
+	<string name="is_loading">正在加载,请稍后...</string>
+	
+	<string name="border_left">Border Left</string>
+    <string name="border_right">Border Right</string>
+    <string name="image_url">Image Url</string>
+</resources>
