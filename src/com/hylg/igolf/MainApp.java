@@ -30,6 +30,9 @@ public class MainApp extends Application {
 	}
 
 	private void init() {
+
+		/*add a line*/
+
 		Utils utils = new Utils();
 		utils.LogH(false);
 //		utils.LogN(true);
