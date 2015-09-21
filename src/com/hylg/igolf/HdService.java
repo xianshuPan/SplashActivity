@@ -35,6 +35,7 @@ import com.hylg.igolf.utils.Utils;
 
 public class HdService extends Service {
 
+
 	private final String                        TAG		= "ShoppingMallService";
 	/*
 	 * 
@@ -207,7 +208,7 @@ public class HdService extends Service {
 	  
 	    /** 
 	     * 设置监听 
-	     * @param listener 
+	     * @ param listener
 	     */  
 	    public void setOnHomePressedListener(OnHomePressedListener listener) {  
 	        mListener = listener;  
