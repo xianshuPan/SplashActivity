@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+        
+        <ImageButton
+			android:id="@+id/customer_info_my_balance_record_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:id="@+id/customer_info_my_balance_record_title_text"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_praise_balance_record"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+	<LinearLayout
+		android:background="@color/color_tab_green"
+		android:layout_width="match_parent"
+		android:gravity="center_horizontal"
+		android:orientation="vertical"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_marginTop="20dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="余额(元)"
+			android:textSize="@dimen/txt_size_m"
+			android:textColor="@color/color_white"
+			/>
+		<TextView
+			android:textColor="@color/color_white"
+			android:layout_marginTop="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/customer_info_my_balance_record_text"
+			android:textSize="25sp"
+			android:text="200.00"/>
+
+		<TextView
+			android:drawablePadding="5dp"
+			android:drawableLeft="@drawable/ic_region_hl"
+			android:layout_marginBottom="20dp"
+			android:background="@drawable/xbtn_withdraw"
+			android:textColor="@color/color_white"
+			android:layout_marginTop="10dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/customer_info_my_balance_record_withdraw_text"
+			android:textSize="@dimen/txt_title_size"
+			android:paddingTop="5dp"
+			android:paddingBottom="5dp"
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:text="提现"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_marginLeft="10dp"
+		android:layout_marginTop="20dp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="余额明细"
+		android:textColor="@color/color_selection_bkg"
+		android:textSize="@dimen/txt_size_m" />
+	<View
+		android:layout_marginTop="10dp"
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@drawable/divider1"/>
+
+    <com.hylg.igolf.ui.view.EhecdListview
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:id="@+id/customer_info_my_balance_record_back_listview"
+		android:listSelector="@color/color_white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+	    android:scrollbarStyle="outsideOverlay"
+	    android:divider="@drawable/divider"  />  
+
+    <!-- content title -->
+</LinearLayout>
