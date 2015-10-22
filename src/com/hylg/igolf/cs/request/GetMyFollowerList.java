@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -72,7 +71,7 @@ public class GetMyFollowerList extends BaseRequest {
 				
 				myFollowerList.add(temp);
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

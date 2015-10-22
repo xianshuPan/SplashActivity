@@ -3,7 +3,7 @@ package com.hylg.igolf.cs.request;
 import java.io.InputStream;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -81,12 +81,12 @@ public class LoginUser extends BaseRequest {
 			for(int i=0, len=albums.length(); i<len; i++) {
 				customer.album.add(albums.getString(i));
 			}
-			customer.age = cusObj.getString(RET_AGE_STR);
+			customer.age = cusObj.getInt(RET_AGE_STR);
 			
 			// 登录成功，保存pid。推送启动时，检测是否被强制关闭过
 			SharedPref.setInt(SharedPref.PREFS_KEY_PID, Process.myPid(), context);
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

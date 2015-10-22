@@ -27,18 +27,17 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 	protected static final int TIMEOUT = 10 * 1000;
 	
 	/*获取朋友圈列表*/
-	//public static final String SERVER_IP = "http://192.168.2.112:8080";
-	//public static final String UPLOAD_PIC_PATH = "http://192.168.2.112:9988/DealPicture/pic/";
-	//public static final String SERVER_PATH = SERVER_IP+"/testConn/ci/0/";
+	public static final String SERVER_IP = "http://192.168.2.101:8080";
+	public static final String UPLOAD_PIC_PATH = "http://192.168.2.107:9988/DealPicture/pic/";
+	public static final String SERVER_PATH = SERVER_IP+"/testConn/ci/0/";
 	
-	public static final String SERVER_IP = "http://121.199.22.44:8899";
-	public static final String UPLOAD_PIC_PATH = "http://121.199.22.44:9988/DealPicture/pic/";
-	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/1/";
+//	public static final String SERVER_IP = "http://121.199.22.44:8899";
+//	public static final String UPLOAD_PIC_PATH = "http://121.199.22.44:9988/DealPicture/pic/";
+//	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/1/";
 	
 	public static final String TipsPic_Original_PATH = SERVER_IP+"/gams/tipspic/original/";
 	public static final String TipsPic_Thum_PATH = SERVER_IP+"/gams/tipspic/thum/";
-	
-	
+
 	public static final String CoachPic_Original_PATH = SERVER_IP+"/gams/coach/original/";
 	public static final String CoachPic_Thum_PATH = SERVER_IP+"/gams/coach/thum/";
 	
@@ -47,7 +46,6 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 	protected static final String PARAM = PARAM_REQ_PARAM + KV_CONN;
 	
 	private String mMethodName = "";
-	
 	protected Context context;
 	
 	/*请求体，有些参数写在请求体，发送post 请求*/
@@ -76,7 +74,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 			
 			//String url = SERVER_PATH + method + "?" + param;
 			//DebugTools.getDebug().debug_v(TAG, url);
-			//return url;
+			//return url;8
 			String url1 = SERVER_PATH + method + "?" + PARAM+param;
 			
 			DebugTools.getDebug().debug_v(TAG, url);
@@ -306,22 +304,23 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(Utils.LOG_H || Utils.TEST_MODE) {
-			String[] log = str.split(",");
-			if(Utils.TEST_MODE) {
-				StringBuilder b = new StringBuilder();
-				for(int i=0,len1=log.length; i<len1; i++) {
-					Utils.logh(TAG, log[i]);
-					b.append(log[i]);
-					b.append("\n");
-				}
-				mLogCache = b.toString();
-			} else {
-				for(int i=0,len1=log.length; i<len1; i++) {
-					Utils.logh(TAG, log[i]);
-				}
-			}
-		}
+
+//		if(Utils.LOG_H || Utils.TEST_MODE) {
+//			String[] log = str.split(",");
+//			if(Utils.TEST_MODE) {
+//				StringBuilder b = new StringBuilder();
+//				for(int i=0,len1=log.length; i<len1; i++) {
+//					Utils.logh(TAG, log[i]);
+//					b.append(log[i]);
+//					b.append("\n");
+//				}
+//				mLogCache = b.toString();
+//			} else {
+//				for(int i=0,len1=log.length; i<len1; i++) {
+//					Utils.logh(TAG, log[i]);
+//				}
+//			}
+//		}
 		return str;
 	}
 	

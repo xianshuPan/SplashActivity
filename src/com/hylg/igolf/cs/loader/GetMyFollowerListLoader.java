@@ -12,8 +12,12 @@ public class GetMyFollowerListLoader extends BaseAsyncLoader {
 	private GetMyFollowerList request;
 	private GetMyFollowerListCallback callBack;
 	
-	public GetMyFollowerListLoader(Context context, String sn, int pageNum, int pageSize, 
-			GetMyFollowerListCallback callBack) {
+	public GetMyFollowerListLoader(Context context,
+								   String sn,
+								   int pageNum,
+								   int pageSize,
+								   GetMyFollowerListCallback callBack)
+	{
 		super();
 		request = new GetMyFollowerList(context, sn, pageNum, pageSize);
 		this.callBack = callBack;

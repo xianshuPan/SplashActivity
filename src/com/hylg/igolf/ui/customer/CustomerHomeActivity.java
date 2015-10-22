@@ -87,7 +87,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 	private PopupWindow							mMainMenuPop        		= null;
 	private View 								mPopupWindowView			= null;  
 	
-	private LinearLayout 						mHistoryLinear,mAboutLinear,mExitLinear;
+	private LinearLayout 						mHistoryLinear,mMyBalanceRecordLinear,mAboutLinear,mExitLinear;
 	
 	private Activity                            mContext;
 	
@@ -161,10 +161,10 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		
 		ListView.LayoutParams LP=new ListView.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		head.setLayoutParams(LP);
-		mList.addHeaderView(head,null,false);
+		mList.addHeaderView(head, null, false);
 		
 		mList.setOnRefreshListener(new OnRefreshListener() {
-			
+
 			@Override
 			public void onRefresh() {
 				// TODO Auto-generated method stub
@@ -174,13 +174,16 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		
 		
 		/*加载头像*/
-		loadAvatar(customer.sn,customer.avatar,customerAvatar);
+		loadAvatar(customer.sn, customer.avatar, customerAvatar);
 		
-		DebugTools.getDebug().debug_v("customer.avatar", "---->>>>"+customer.avatar);
+		DebugTools.getDebug().debug_v("customer.avatar", "---->>>>" + customer.avatar);
 		
 		mPopupWindowView = mLayoutInflater.inflate(R.layout.customer_more_menu, null);
 		mHistoryLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_history_linear);
 		mHistoryLinear.setOnClickListener(this);
+		mMyBalanceRecordLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_my_balance_linear);
+		mMyBalanceRecordLinear.setOnClickListener(this);
+
 		mAboutLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_about_linear);
 		mAboutLinear.setOnClickListener(this);
 		mExitLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_exit_linear);
@@ -188,7 +191,8 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		
 		int densityDpi = mContext.getResources().getDisplayMetrics().densityDpi;
 		
-		mMainMenuPop = new PopupWindow(mPopupWindowView,densityDpi*120/160, densityDpi*120/160);  
+		mMainMenuPop = new PopupWindow(mPopupWindowView,densityDpi*120/160, densityDpi*160/160);
+
         mMainMenuPop.setFocusable(true);  
         mMainMenuPop.setOutsideTouchable(true);  
         
@@ -490,6 +494,10 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 				intent = new Intent(mContext,InviteHistoryActivity.class);
 				startActivity(intent);
 				mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				break;
+			case R.id.customer_menu_my_balance_linear:
+				MyBalanceRecordActivity.startMyBalanceRecordActivity(this);
+				this.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 				break;
 			case R.id.customer_menu_about_linear:
 				intent = new Intent(mContext,AboutIgolfActivity.class);

@@ -1,6 +1,6 @@
 package com.hylg.igolf.cs.request;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -14,7 +14,7 @@ public abstract class GetInviteDetail extends BaseRequest {
 		super(context);
 	}
 
-	protected InviteRoleInfo getInviteRoleInfo(JSONObject jo) throws JSONException {
+	protected InviteRoleInfo getInviteRoleInfo(JSONObject jo) throws Exception {
 		if(null == jo) {
 			return null;
 		}

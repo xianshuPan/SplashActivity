@@ -104,13 +104,17 @@ public class Const {
 	
 	/******我的教学订单状态*****/
 	public final static int MY_TEACHING_COMMON = 0;//公用状态开始
-	public final static int MY_TEACHING_WAITAPPLY = MY_TEACHING_COMMON + 0;//等申请			g
-	public final static int MY_TEACHING_REVOKE = MY_TEACHING_WAITAPPLY + 1;//已申请			g
-	public final static int MY_TEACHING_REFUSE = MY_TEACHING_REVOKE + 1;//待接受		y
-	public final static int MY_TEACHING_ACCEPTED = MY_TEACHING_REFUSE + 1;//有申请		y
-	public final static int MY_TEACHING_START = MY_TEACHING_ACCEPTED + 1;//已接受		g
-	public final static int MY_TEACHING_END = MY_TEACHING_START + 1;//已撤销			r
-	public final static int MY_TEACHING_FINISHED = MY_TEACHING_END + 1;//已撤约			r
+	public final static int MY_TEACHING_WAITAPPLY = MY_TEACHING_COMMON + 0;//等申请
+	public final static int MY_TEACHING_REVOKE = MY_TEACHING_WAITAPPLY + 1;//已申请
+	public final static int MY_TEACHING_REFUSE = MY_TEACHING_REVOKE + 1;//待接受
+
+	public final static int MY_TEACHING_ACCEPTED = MY_TEACHING_REFUSE + 1;//有申请
+	public final static int MY_TEACHING_START = MY_TEACHING_ACCEPTED + 1;//已接受
+	public final static int MY_TEACHING_END = MY_TEACHING_START + 1;//已撤销
+
+	public final static int MY_TEACHING_FINISHED = MY_TEACHING_END + 1;//已撤约
+
+	public final static int MY_TEACHING_CANCEL = MY_TEACHING_FINISHED + 1;//已撤约
 	// 待签到时，同时显示撤约，无不可撤约(-2~0小时)标记，请求时，后台返回不可撤约信息。
 	
 	
@@ -129,7 +133,11 @@ public class Const {
 												APP_ID = "app_id";
 	
 	public final static int                     PROFESSIONAL_COACH = 0,
-												HOBBY_COACH = 1; 
-			
+												HOBBY_COACH = 1;
+
+	public final static int                    	BING_CARD_AND_PASSWORD = 0,
+												UPDATE_CARD = 1,
+												RESET_PAY_PASSWORD = 2;
+
 
 }

@@ -915,6 +915,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
     			if (ph.max != null && ph.max.length() > 0) {
     				
     				maxPaths.add(maxPaths.size(), ph.max);
+
     			} else {
     				
     				maxPaths.add(maxPaths.size(), ph.localStr);

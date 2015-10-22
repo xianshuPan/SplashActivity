@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -149,7 +149,7 @@ public class UploadImageRequest extends BaseRequest {
 				return rn;
 			}
 
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			failMsg = context.getString(R.string.str_toast_image_update_fail);
 			if(Utils.LOG_H) failMsg += "REQ_RET_F_JSON_EXCEP";

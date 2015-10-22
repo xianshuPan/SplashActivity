@@ -51,18 +51,15 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 	
 	private static final String 				BUNDLE_KEY_MEM_SN = "memSn";
 	
-	//private TextView signatureTxtExpand;
-	//private Customer customer;
-	
 	private ImageView 							customerAvatar,moreImage;//sex,addAlbumView;
-	//private View addAlbumSpace;
+
 	private TextView 							nickName,attention,yearsExp,handicapi,best,matches,heat,rank,act;
 	
-	//private static ImageView msgAlertIv;
+
 	private GetMemberloader 					reqLoader = null;
 	
 	private GetCustomerFriendHotListLoader 		Loader1 = null;
-	//private LinearLayout albumLayout;
+
 	private Uri 								mUri;
 	
 	private ListviewBottomRefresh 				mList ;
@@ -98,8 +95,6 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-//		Bundle args = getArguments();cusinfo_logout
-		
 		setContentView(R.layout.mem_ac_detail_new);
 		
 		mContext = this;
@@ -107,7 +102,6 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 		sn = MainApp.getInstance().getCustomer().sn;
 		startPage = MainApp.getInstance().getGlobalData().startPage;
 		pageSize = MainApp.getInstance().getGlobalData().pageSize;
-		//ablumSpace = getResources().getDimensionPixelSize(R.dimen.detail_ablum_pad);
 		
 		getViews();
 		
@@ -122,8 +116,7 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 			
 			initDataAysnc();
 		}
-		
-		//refreshDataAysnc();
+
 	}
 	
 	private void getViews() {
@@ -347,10 +340,7 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 				} else if(BaseRequest.REQ_RET_OK == retId) {
 					
 					//loadFail.displayNone();
-					
 					initListView(hotList);
-					
-					//listFooter.refreshFooterView(inviteList.size(), pageSize);
 					MainApp.getInstance().getGlobalData().setHasStartNewInvite(false);
 				} else {
 					
@@ -613,14 +603,5 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 		intent.setDataAndType(Media.EXTERNAL_CONTENT_URI, "image/*");
 		startActivityForResult(intent, Const.REQUST_CODE_PHOTE_GALLERY);
 	}
-	
-	
-//	public static void updateMsgAlert(int count) {
-//		Utils.logh(TAG, "updateMsgAlert count: " + count);
-//		if(count > 0) {
-//			Utils.setVisible(msgAlertIv);
-//		} else {
-//			Utils.setGone(msgAlertIv);
-//		}
-//	}
+
 }

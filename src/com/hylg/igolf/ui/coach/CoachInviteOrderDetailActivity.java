@@ -13,7 +13,10 @@ import com.hylg.igolf.cs.request.CoachAcceptInvite;
 import com.hylg.igolf.cs.request.CoachEndTeaching;
 import com.hylg.igolf.cs.request.CoachPayCharge;
 import com.hylg.igolf.cs.request.CoachStudentComment;
+import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.cs.request.StudentRevoketInvite;
+import com.hylg.igolf.ui.customer.CustomerHomeActivity;
+import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.view.DonutProgress;
 import com.hylg.igolf.utils.Const;
@@ -29,6 +32,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -64,6 +68,8 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	private CircleImageView                 mAvatarImage = null;
 	
 	private TextView                        mComplainTxt,mNickNameTxt = null,mPhoneTxt,mQuestionTxt;
+
+	private ImageView                       mCustomerHomeImg,mAttentionImg;
 	
 	/*
 	 * 约球的时间和地点，球场
@@ -100,8 +106,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	 * */
 
 	private TextView                        mAcceptInviteTxt,mRefuseInviteTxt,mRevokeTxt,mPayTxt;
-	private LinearLayout                    mAcceptLinear;
-	private RelativeLayout                  mRevokeRelative;
+	private RelativeLayout                  mRevokeRelative,mAcceptLinear;
 	
 	
 	private Customer                        customer;
@@ -116,11 +121,16 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	
 	private int                             mMaxMinutes = 0;
 	private int                             mProgress = 0;
+	private int 							mAttentionState = -1;
 	
 	
 	private CountingTimer                   mCountingThread;
 	
 	private boolean                         mIsPaused = false;
+
+	private Context                         mContext = null;
+
+	private String                          attention_sn = "";
 	
 	
 	public static void startCoachInviteOrderDetailActivity(Context context, CoachInviteOrderDetail data) {
@@ -169,6 +179,8 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		
 		//.cancel(true);
 		DebugTools.getDebug().debug_v(TAG, "onPause..");
+
+
 		
 	}
 
@@ -176,6 +188,12 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	public void onDestroy() {
 		super.onDestroy();
 		DebugTools.getDebug().debug_v(TAG, "onDestroy..");
+
+		if (mCountingThread != null) {
+
+			mCountingThread.interrupt();
+		}
+
 	}
 	
 	@Override
@@ -187,6 +205,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	
 	/*初始化控件，及设置相关的事件监听器*/
 	private void initUI() {
+		mContext = this;
 		
 		mShare = getSharedPreferences("share", Context.MODE_PRIVATE);
 		
@@ -198,12 +217,13 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		mPhoneTxt = (TextView) findViewById(R.id.coach_invite_order_detail_phone_text);
 		mQuestionTxt = (TextView) findViewById(R.id.coach_invite_order_detail_question_text);
 		mStatusImage = (ImageView) findViewById(R.id.coach_invite_order_detail_status_image);
+		mCustomerHomeImg = (ImageView) findViewById(R.id.coach_invite_order_detail_home_image);
+		mAttentionImg = (ImageView) findViewById(R.id.coach_invite_order_detail_attention_image);
 		
 		mTeachingDateTxt = (TextView) findViewById(R.id.coach_invite_order_detail_date_text);
 		mTeachingTimeTxt = (TextView) findViewById(R.id.coach_invite_order_detail_time_text);
 		mTeachingHourTxt = (TextView) findViewById(R.id.coach_invite_order_detail_pre_teach_time_text);
 		mTeachingCourseTxt = (TextView) findViewById(R.id.coach_invite_order_detail_place_text);
-		
 		
 		mTabLinear = (LinearLayout) findViewById(R.id.coach_invite_order_detail_time_and_fee_linear);
 		mTabCountingTimeLinear = (LinearLayout) findViewById(R.id.coach_invite_order_detail_tab_count_time_linear);
@@ -225,7 +245,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		mPriceUnitTxt = (TextView) findViewById(R.id.coach_invite_order_price_unit_text);
 		mTotalFeeTxt = (TextView) findViewById(R.id.coach_invite_order_detail_fee_text);
 		
-		mAcceptLinear = (LinearLayout) findViewById(R.id.coach_invite_order_detail_accept_linear);
+		mAcceptLinear = (RelativeLayout) findViewById(R.id.coach_invite_order_detail_accept_linear);
 		mRevokeRelative = (RelativeLayout) findViewById(R.id.coach_invite_order_detail_revoke_relative);
 		mAcceptInviteTxt = (TextView) findViewById(R.id.coach_invite_order_accept_text);
 		mRefuseInviteTxt = (TextView) findViewById(R.id.coach_invite_order_refuse_text);
@@ -239,7 +259,9 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		mRefuseInviteTxt.setOnClickListener(this);
 		mTabFeeDetailLinear.setOnClickListener(this);
 		mRevokeTxt.setOnClickListener(this);
-		
+		mCustomerHomeImg.setOnClickListener(this);
+		mAttentionImg.setOnClickListener(this);
+
 		mStartLinear.setOnClickListener(this);
 		mPauseLinear.setOnClickListener(this);
 		mStopLinear.setOnClickListener(this);
@@ -262,6 +284,18 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			mData = (CoachInviteOrderDetail) getIntent().getSerializableExtra(BUNDLE_REQ_DATA);
 			
 			refreshUI () ;
+
+			mAttentionState = mData.attention;
+			if (mAttentionState == 0) {
+
+				mAttentionImg.setImageResource(R.drawable.add);
+				//attention.setBackgroundColor(getResources().getColor(R.color.color_title_txt));
+
+			} else if (mAttentionState == 1) {
+
+				mAttentionImg.setImageResource(R.drawable.subtrac);
+
+			}
 		}
 		
 	}
@@ -277,8 +311,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 			mNickNameTxt.setText(mData.student_name);
 			mPhoneTxt.setText(String.valueOf(mData.student_phone));
-			mQuestionTxt.setText(mData.msg);
-			loadAvatar(mData.teacher_sn, mData.student_avatar);
+			loadAvatar(mData.student_sn, mData.student_avatar);
 			
 			/*
 			 * 更具订单的状态，显示不同
@@ -298,10 +331,11 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 					mAcceptLinear.setVisibility(View.GONE);
 					mTeachingOperateRelative.setVisibility(View.VISIBLE);
 					mTabLinear.setVisibility(View.VISIBLE);
+					mTabCountingTimeLinear.setVisibility(View.VISIBLE);
 					mTabCountingTimeLinear.setSelected(true);
 					
 					refreshOperateStatus();
-				
+
 				break;
 				
 				case Const.MY_TEACHING_REFUSE:
@@ -315,12 +349,25 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 				case Const.MY_TEACHING_END:
 					
 					mFeeDetailLinear.setVisibility(View.VISIBLE);
+					findViewById(R.id.coach_invite_order_detail_rating_relative).setVisibility(View.GONE);
 					mCommentRating.setIsIndicator(true);
-					mCommentEdit.setBackgroundColor(getResources().getColor(R.color.color_white));
+					//mCommentEdit.setBackgroundColor(getResources().getColor(R.color.color_white));
 					mCommentEdit.setEnabled(false);
-					mTabLinear.setVisibility(View.GONE);
+					mTabLinear.setVisibility(View.VISIBLE);
+					mTabFeeDetailLinear.setVisibility(View.VISIBLE);
 				
 				break;
+
+				case Const.MY_TEACHING_FINISHED:
+
+					mFeeDetailLinear.setVisibility(View.VISIBLE);
+					mTabLinear.setVisibility(View.VISIBLE);
+					mTabFeeDetailLinear.setVisibility(View.VISIBLE);
+					mPayTxt.setVisibility(View.GONE);
+					mCommentEdit.setEnabled(false);
+					mRevokeRelative.setVisibility(View.GONE);
+
+					break;
 			}
 		
 		/*当前登录者是学员*/
@@ -336,23 +383,35 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 					mRevokeRelative.setVisibility(View.VISIBLE);
 					mRevokeTxt.setVisibility(View.VISIBLE);
 					
-				break;
+					break;
 					
 				case Const.MY_TEACHING_REVOKE:
 					
 					mAcceptLinear.setVisibility(View.GONE);
 					this.finish();
 				
-				break;
+					break;
 				
 				case Const.MY_TEACHING_END:
 					
 					mFeeDetailLinear.setVisibility(View.VISIBLE);
-					mTabLinear.setVisibility(View.GONE);
+					mTabLinear.setVisibility(View.VISIBLE);
+					mTabFeeDetailLinear.setVisibility(View.VISIBLE);
 					mPayTxt.setVisibility(View.VISIBLE);
 					mRevokeRelative.setVisibility(View.VISIBLE);
 				
-				break;
+					break;
+
+				case Const.MY_TEACHING_FINISHED:
+
+					mFeeDetailLinear.setVisibility(View.VISIBLE);
+					mTabLinear.setVisibility(View.VISIBLE);
+					mTabFeeDetailLinear.setVisibility(View.VISIBLE);
+					mPayTxt.setVisibility(View.GONE);
+					mCommentEdit.setEnabled(false);
+					mRevokeRelative.setVisibility(View.GONE);
+
+					break;
 			}
 			
 			
@@ -362,12 +421,56 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			
 			loadAvatar(mData.teacher_sn, mData.teacher_avatar);
 		}
-		
+
+		switch (mData.status) {
+
+			case Const.MY_TEACHING_WAITAPPLY:
+
+				mStatusImage.setImageResource(R.drawable.teaching_wait);
+
+				break;
+			case Const.MY_TEACHING_REVOKE:
+
+				mStatusImage.setImageResource(R.drawable.teaching_revoke);
+
+				break;
+			case Const.MY_TEACHING_REFUSE:
+
+				mStatusImage.setImageResource(R.drawable.teaching_refuse);
+
+				break;
+			case Const.MY_TEACHING_ACCEPTED:
+
+				mStatusImage.setImageResource(R.drawable.teaching_teach);
+
+				break;
+			case Const.MY_TEACHING_START:
+
+				mStatusImage.setImageResource(R.drawable.teaching_teached);
+
+				break;
+			case Const.MY_TEACHING_END:
+
+				mStatusImage.setImageResource(R.drawable.teaching_end);
+
+				break;
+			case Const.MY_TEACHING_FINISHED:
+
+				mStatusImage.setImageResource(R.drawable.teaching_payed);
+
+				break;
+			case Const.MY_TEACHING_CANCEL:
+
+				mStatusImage.setImageResource(R.drawable.teaching_cancel);
+
+				break;
+		}
+
+		mQuestionTxt.setText(mData.msg);
 		mTeachingDateTxt.setText(mData.coachDate);
 		mTeachingTimeTxt.setText(mData.coachTime);
 		mTeachingCourseTxt.setText(mData.course_abbr);
-		mTeachingHourTxt.setText(String.valueOf(mData.times));
-		
+		mTeachingHourTxt.setText(String.valueOf(mData.times)+getResources().getString(R.string.str_coachers_apply_order_teach_time));
 		mStartTimeTxt.setText(Utils.longTimeToString(mData.start_time));
 		mEndTimeTxt.setText(Utils.longTimeToString(mData.end_time));
 		mPauseTimeTxt.setText(Utils.longTimePeriodToString(mData.pause_time));
@@ -403,10 +506,14 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 				mStartLinear.setEnabled(false);
 				mPauseLinear.setEnabled(true);
 				mStopLinear.setEnabled(true);
-				
-				mCountingThread = new CountingTimer(mMaxMinutes);
-				//mCountingThread.execute(mMaxMinutes);
-				mCountingThread.start();
+
+				if (mCountingThread == null) {
+
+					mCountingThread = new CountingTimer(mMaxMinutes);
+					//mCountingThread.execute(mMaxMinutes);
+					mCountingThread.start();
+				}
+
 				
 				mProgress = (int)((System.currentTimeMillis() - mFirstStartTime - mPausedTimes)/1000);
 				mTeachingProgress.setProgress(mProgress);
@@ -448,7 +555,10 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			});
 		}
 	}
-	
+
+	/*
+	* the counting thread must using Thread , can not using asyntask
+	* */
 	private class CountingTimer extends Thread{
 		
 		int countTimes = 0;
@@ -531,128 +641,155 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 		
-		case R.id.coach_invite_order_detail_back:
-			
-			this.finish();
-			break;
-			
-		case R.id.coach_invite_order_detail_complain_text:
-			
-			startComplainOrRefuseFrg (0) ;
-			break;
-			
-		case R.id.coach_invite_order_accept_text:
+			case R.id.coach_invite_order_detail_back:
 
-			CoachAcceptOrStartInvite (0);
-			
-			break;
-			
-		case R.id.coach_invite_order_refuse_text:
-
-			startComplainOrRefuseFrg(1);
-			
-			break;
-			
-		case R.id.coach_invite_order_revoke_text:
-
-			StudentRevokeInvite ();
-			
-			break;
-			
-		case R.id.coach_invite_order_detail_tab_fee_detial_linear:
-
-			if (mData.status < Const.MY_TEACHING_END) {
-				
-				Toast.makeText(this, R.string.str_coach_invite_not_end, Toast.LENGTH_SHORT).show();
+				this.finish();
 				break;
-			}
-			
-			mTeachingOperateRelative.setVisibility(View.GONE);
-			mFeeDetailLinear.setVisibility(View.VISIBLE);
-			
-			mTabCountingTimeLinear.setSelected(false);
-			mTabFeeDetailLinear.setSelected(true);
-			
-			
-			break;
-			
-		case R.id.coach_invite_order_detail_tab_count_time_linear:
-			
-			mTeachingOperateRelative.setVisibility(View.VISIBLE);
-			mFeeDetailLinear.setVisibility(View.GONE);
-			
-			mTabCountingTimeLinear.setSelected(true);
-			mTabFeeDetailLinear.setSelected(false);
-			
-			
-			break;
-			
-		case R.id.coach_invite_order_detail_count_time_start_linear:
-			
-			/*
-			 * 开始教学
-			 * */
-			
-			mStartTime = System.currentTimeMillis();
-			saveShare(Const.START_TIME,mStartTime);
-			
-			/*没有点击过开始按钮*/
-			if (mAppId <= 0) {
-				
-				showStart();
-				
-			} else {
-				
-				/*计算暂停的时间*/
-				if (mAppId == mData.id) {
-					
-					mPausedTimes = mPausedTimes+mStartTime-mPauseTime;
-					
-					saveShare(Const.PAUSED_TIMES,mPausedTimes);
-					
-					mCountingThread = new CountingTimer(mMaxMinutes);
-					//mCountingThread.execute(mMaxMinutes);
-					mCountingThread.start();
-					mIsPaused = false;
-					
-					//mCountingThread.start();
-					refreshOperateStatus();
-					
+
+			case R.id.coach_invite_order_detail_complain_text:
+
+				startComplainOrRefuseFrg (0) ;
+				break;
+
+			case R.id.coach_invite_order_detail_home_image :
+
+
+				if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
+
+					MemDetailActivityNew.startMemDetailActivity(mContext, mData.student_sn);
+
 				} else {
-					
-					Toast.makeText(this, "您有未结束的教学", Toast.LENGTH_SHORT).show();
+
+					MemDetailActivityNew.startMemDetailActivity(mContext, mData.teacher_sn);
 				}
-				
-			}
+
+
+				break;
+			case R.id.coach_invite_order_detail_phone_text:
+
+				String phoneStr = mPhoneTxt.getText().toString();
+				if (phoneStr != null && phoneStr.length() > 0) {
+
+					Intent data = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneStr));
+					startActivity(data);
+
+				} else {
+
+					Toast.makeText(mContext,R.string.str_toast_invalid_phone,Toast.LENGTH_SHORT).show();
+				}
+
+				break;
+
+			case R.id.coach_invite_order_detail_attention_image :
+
+				attention();
+
+				break;
 			
-			
-			break;
-			
-		case R.id.coach_invite_order_detail_count_time_pause_linear:
-			
-			mPauseTime = System.currentTimeMillis();
-			saveShare(Const.PAUSE_TIME,mPauseTime);
-			
-			mIsPaused = true;
-			mCountingThread.interrupt();
-			refreshOperateStatus();
-			
-			break;
-			
-		case R.id.coach_invite_order_detail_count_time_stop_linear:
-			
-			showEnd();
-			
-			break;
-			
-		case R.id.coach_invite_order_detail_pay_text:
-			
-			studentCommentCoach();
-			
-			getChargeInfo();
-			
-			break;
-			
+			case R.id.coach_invite_order_accept_text:
+
+				CoachAcceptOrStartInvite (0);
+
+				break;
+
+			case R.id.coach_invite_order_refuse_text:
+
+				startComplainOrRefuseFrg(1);
+
+				break;
+
+			case R.id.coach_invite_order_revoke_text:
+
+				StudentRevokeInvite ();
+
+				break;
+
+			case R.id.coach_invite_order_detail_tab_fee_detial_linear:
+
+				if (mData.status < Const.MY_TEACHING_END) {
+
+					Toast.makeText(this, R.string.str_coach_invite_not_end, Toast.LENGTH_SHORT).show();
+					break;
+				}
+
+				mTeachingOperateRelative.setVisibility(View.GONE);
+				mFeeDetailLinear.setVisibility(View.VISIBLE);
+
+				mTabCountingTimeLinear.setSelected(false);
+				mTabFeeDetailLinear.setSelected(true);
+
+
+				break;
+
+			case R.id.coach_invite_order_detail_tab_count_time_linear:
+
+				mTeachingOperateRelative.setVisibility(View.VISIBLE);
+				mFeeDetailLinear.setVisibility(View.GONE);
+
+				mTabCountingTimeLinear.setSelected(true);
+				mTabFeeDetailLinear.setSelected(false);
+
+
+				break;
+
+			case R.id.coach_invite_order_detail_count_time_start_linear:
+
+				/*
+				 * 开始教学
+				 * */
+
+				mStartTime = System.currentTimeMillis();
+				saveShare(Const.START_TIME,mStartTime);
+
+				/*没有点击过开始按钮*/
+				if (mAppId <= 0) {
+
+					showStart();
+
+				} else {
+
+					/*计算暂停的时间*/
+					if (mAppId == mData.id) {
+
+						mPausedTimes = mPausedTimes+mStartTime-mPauseTime;
+						saveShare(Const.PAUSED_TIMES,mPausedTimes);
+						mIsPaused = false;
+						refreshOperateStatus();
+
+					} else {
+
+						Toast.makeText(this, "您有未结束的教学", Toast.LENGTH_SHORT).show();
+					}
+
+				}
+
+				break;
+
+			case R.id.coach_invite_order_detail_count_time_pause_linear:
+
+				mPauseTime = System.currentTimeMillis();
+				saveShare(Const.PAUSE_TIME,mPauseTime);
+
+				mIsPaused = true;
+				mCountingThread.interrupt();
+				refreshOperateStatus();
+
+				break;
+
+			case R.id.coach_invite_order_detail_count_time_stop_linear:
+
+				showEnd();
+
+				break;
+
+			case R.id.coach_invite_order_detail_pay_text:
+
+				studentCommentCoach();
+
+				getChargeInfo();
+
+				break;
+
 		}
 	}
 	
@@ -679,14 +816,14 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	}
 	
 	/*
-	 * 教练接受邀请
+	 * 教练接受邀请 or 开始教学
 	 * */
 	private void CoachAcceptOrStartInvite (final int type) {
 		
 		if(!Utils.isConnected(this)) {
 			return ;
 		}
-		WaitDialog.showWaitDialog(this, R.string.str_invite_accepting_invite);
+		WaitDialog.showWaitDialog(this, R.string.is_loading);
 		new AsyncTask<Object, Object, Integer>() {
 			
 			CoachAcceptInvite request = new CoachAcceptInvite(CoachInviteOrderDetailActivity.this, mData.id,type);
@@ -721,8 +858,10 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 						mAppId = mData.id;
 						saveShare(Const.FIRST_START_TIME,mFirstStartTime);
 						saveShare(Const.APP_ID,mAppId);
+						mData.status = Const.MY_TEACHING_START;
 						
 						refreshOperateStatus();
+						refreshUI ();
 					}
 					
 					
@@ -760,7 +899,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 				WaitDialog.dismissWaitDialog();
 				if(BaseRequest.REQ_RET_OK == result) {
 					
-					Toast.makeText(CoachInviteOrderDetailActivity.this, R.string.str_start_invite_open_success, Toast.LENGTH_SHORT).show();
+					Toast.makeText(CoachInviteOrderDetailActivity.this, R.string.str_invite_detail_oper_btn_app_revoke_done, Toast.LENGTH_SHORT).show();
 					mData.status = Const.MY_TEACHING_REVOKE;
 					refreshUI () ;
 					
@@ -813,7 +952,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 						return ;
 					}
 					
-					WaitDialog.showWaitDialog(CoachInviteOrderDetailActivity.this, R.string.str_invite_revoking_invite);
+					WaitDialog.showWaitDialog(CoachInviteOrderDetailActivity.this, R.string.is_loading);
 					
 					/*如果是处于暂停状态*/
 					if (mPauseTime > mStartTime) {
@@ -827,7 +966,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			.setNegativeButton(R.string.str_photo_cancel, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					//checkIndustry();
+
 				}
 			})
 			.setCancelable(true)
@@ -877,8 +1016,12 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 		new AsyncTask<Object, Object, Integer>() {
 			
-			CoachStudentComment request = new CoachStudentComment(CoachInviteOrderDetailActivity.this, mData.id, mData.student_id,
-					mData.teacher_id,mCommentRating.getRating(),mCommentEdit.getText().toString());
+			CoachStudentComment request = new CoachStudentComment(CoachInviteOrderDetailActivity.this,
+					mData.id,
+					mData.student_id,
+					mData.teacher_id,
+					mCommentRating.getRating(),
+					mCommentEdit.getText().toString());
 			
 			@Override
 			protected Integer doInBackground(Object... params) {
@@ -961,6 +1104,59 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			mHandler.sendMessage(msg);
 		}
 	}
+
+	/*
+	 * 添加关注
+	 * */
+	private void attention() {
+
+		/*添加或取消关注*/
+		WaitDialog.showWaitDialog(this, R.string.str_loading_waiting);
+
+		if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
+
+			attention_sn = mData.student_sn;
+		} else {
+
+			attention_sn = mData.teacher_sn;
+		}
+		new AsyncTask<Object, Object, Integer>() {
+
+
+			FriendAttentionAdd request = new FriendAttentionAdd(mContext,customer.sn,attention_sn,mAttentionState);
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrlGet();
+			}
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				if(BaseRequest.REQ_RET_OK == result) {
+
+					mAttentionState = mAttentionState == 1 ? 0 : 1;
+					mData.attention = mAttentionState;
+
+					if (mAttentionState == 0) {
+
+						mAttentionImg.setImageResource(R.drawable.add);
+						//attention.setBackgroundColor(getResources().getColor(R.color.color_title_txt));
+
+					} else if (mAttentionState == 1) {
+
+						mAttentionImg.setImageResource(R.drawable.subtrac);
+
+					}
+
+				} else {
+
+
+				}
+				WaitDialog.dismissWaitDialog();
+			}
+		}.execute(null, null, null);
+	}
 	
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -982,6 +1178,15 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 	            DebugTools.getDebug().debug_v("ping++ 支付的结果 result", result);
 	            DebugTools.getDebug().debug_v("ping++ 支付的结果 errorMsg", errorMsg);
 	            DebugTools.getDebug().debug_v("ping++ 支付的结果 extraMsg", extraMsg);
+
+				if (result != null && result.equals("success")) {
+
+					Toast.makeText(this, "支付成功", Toast.LENGTH_SHORT).show();
+					this.finish();
+				} else if (result != null && result.equals("fail")) {
+
+					Toast.makeText(this, "支付失败", Toast.LENGTH_SHORT).show();
+				}
 	        }
 	    }
 	}

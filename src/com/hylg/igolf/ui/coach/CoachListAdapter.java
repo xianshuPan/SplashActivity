@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import cn.gl.lib.view.RoundedImageView;
 
@@ -43,6 +44,7 @@ public class CoachListAdapter extends IgBaseAdapter {
 	private String 							bundleKey;
 	private int 							starSize;
 	private GlobalData 						gd;
+
 	
 	
 	public CoachListAdapter(Activity context, Handler handle, String bundleKey, ArrayList<CoachItem> list) {
@@ -78,7 +80,7 @@ public class CoachListAdapter extends IgBaseAdapter {
 			holder.avatarIv = (RoundedImageView) convertView.findViewById(R.id.coach_item_avatar);
 			holder.typeIv = (ImageView) convertView.findViewById(R.id.coach_item_type_image);
 			holder.handicapiTv = (TextView) convertView.findViewById(R.id.coach_item_handicapIndex_text);
-			
+			holder.star = (RatingBar) convertView.findViewById(R.id.coach_item_rating);
 			holder.nicknameTv = (TextView) convertView.findViewById(R.id.coach_item_nickname);
 			holder.teachTimeTv = (TextView) convertView.findViewById(R.id.coach_item_teach_times_text);
 			holder.ageTv = (TextView) convertView.findViewById(R.id.coach_item_teach_years_text);
@@ -112,9 +114,9 @@ public class CoachListAdapter extends IgBaseAdapter {
 		holder.teachTimeTv.setText(String.valueOf(item.teachTimes));
 		holder.ageTv.setText(String.valueOf(item.teachYear));
 		holder.specialTv.setText(item.special);
-		holder.distanceTv.setText(String.valueOf(item.distance));
-		holder.distanceTimeTv.setText(String.valueOf(item.distanceTime));
-		
+		holder.distanceTv.setText(String.valueOf(item.distance)+"km");
+		holder.distanceTimeTv.setText(Utils.handTime(item.distanceTime));
+		holder.star.setRating(item.rate);
 		convertView.setOnClickListener(new OnItemChildClickListener(GOLFERS_INDEX_ITEM, position));
 		holder.avatarIv.setOnClickListener(new OnItemChildClickListener(GOLFERS_INDEX_AVATAR, position));
 		
@@ -129,6 +131,8 @@ public class CoachListAdapter extends IgBaseAdapter {
 		protected RoundedImageView avatarIv;
 		protected ImageView sexIv;
 		protected ImageView typeIv;
+
+		protected RatingBar star ;
 		
 		protected TextView handicapiTv;
 		protected TextView nicknameTv;

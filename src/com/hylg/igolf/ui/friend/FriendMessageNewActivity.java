@@ -395,6 +395,9 @@ public class FriendMessageNewActivity extends Activity implements OnClickListene
 			
 			
 			content = mContentsEdit.getText().toString();
+			DebugTools.getDebug().debug_e(TAG, "___-------------------->>>"+content);
+
+
 			if( (Config.drr == null || Config.drr.size() <= 0) && (content == null || content.length() <= 0)) {
 				
 				Toast.makeText(this, "不能发布空朋友圈", Toast.LENGTH_SHORT).show();

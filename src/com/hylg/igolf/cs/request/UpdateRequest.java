@@ -2,7 +2,7 @@ package com.hylg.igolf.cs.request;
 
 import java.io.InputStream;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -49,7 +49,7 @@ public class UpdateRequest extends BaseRequest {
 			versionInfo.region = jo.getInt(RET_REGION);
 			versionInfo.industry = jo.getInt(RET_INDUSTRY);
 			versionInfo.downLoadUrl = jo.optString("downLoadUrl");
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

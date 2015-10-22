@@ -97,6 +97,8 @@ public class CoachListActivity extends Activity implements
 		reqData.sn = customer.sn;
 		reqData.pageSize = gd.pageSize;
 		reqData.pageNum = 1;
+		reqData.lat = MainApp.getInstance().getGlobalData().getLat();
+		reqData.lng = MainApp.getInstance().getGlobalData().getLng();
 		
 		getViews(reqData);
 		initListDataAsync(reqData);
@@ -182,7 +184,7 @@ public class CoachListActivity extends Activity implements
 				Utils.setGone(flowBar);
 				InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
 				if(imm.isActive()) {
-					imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+					imm.hideSoftInputFromWindow(searchEt.getWindowToken(),
 							InputMethodManager.HIDE_NOT_ALWAYS);
 				}
 			}

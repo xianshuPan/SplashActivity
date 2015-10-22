@@ -2,7 +2,7 @@ package com.hylg.igolf.cs.request;
 
 import java.io.InputStream;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import com.hylg.igolf.cs.data.RivalData;
@@ -47,7 +47,7 @@ public class RateGolfer extends BaseRequest {
 			}
 			rivalData.rivalRate = jo.optInt(RET_RIVAL_RATE);
 			rivalData.rivalScore = jo.optInt(RET_RIVAL_SCORE);
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

@@ -248,7 +248,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 		if(!Utils.isConnected(getActivity())) {
 			return ;
 		}
-		//WaitDialog.showWaitDialog(getActivity(), R.string.str_loading_msg);
+		WaitDialog.showWaitDialog(getActivity(), R.string.str_loading_msg);
 		clearLoader();
 		
 		startPage = 1;
@@ -274,7 +274,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 					loadFail.displayFail(msg);
 					Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
-				//WaitDialog.dismissWaitDialog();
+				WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
 		});
@@ -298,6 +298,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 			public void callBack(int retId, String msg, ArrayList<CoachInviteOrderDetail> inviteList) {
 				listView.onRefreshComplete();
 				if(BaseRequest.REQ_RET_OK == retId) {
+
 					myTeachingAdapter.refreshListData(inviteList);
 	
 				} else if(BaseRequest.REQ_RET_F_NO_DATA == retId) { // do not exists in common
@@ -450,56 +451,51 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 //			}
 			
 			/*判断自己是不是教练*/
-			
-			holder.sex.setVisibility(View.GONE);
+
 			if (data.teacher_sn.equalsIgnoreCase(customer.sn)) {
 				
-				loadAvatar(getActivity(), data.teacher_sn, data.teacher_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
+				loadAvatar(getActivity(), data.student_sn, data.student_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
 				holder.nickname.setText(data.student_name);
 				
 				holder.description.setText("您被学员邀请");
 				
-//				if(Const.SEX_MALE == data.palSex) {
-//					holder.sex.setImageResource(R.drawable.ic_male);
-//				} else {
-//					holder.sex.setImageResource(R.drawable.ic_female);
-//				}
+				if(Const.SEX_MALE == data.teacher_sex) {
+					holder.sex.setImageResource(R.drawable.ic_male);
+				} else {
+					holder.sex.setImageResource(R.drawable.ic_female);
+				}
 			} else {
 				
-				loadAvatar(getActivity(), data.student_sn, data.student_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
+				loadAvatar(getActivity(), data.teacher_sn, data.teacher_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
 				holder.nickname.setText(data.teacher_name);
 				holder.description.setText("您邀请的教练");
+				if(Const.SEX_MALE == data.student_sex) {
+					holder.sex.setImageResource(R.drawable.ic_male);
+				} else {
+					holder.sex.setImageResource(R.drawable.ic_female);
+				}
 			}
-			
-			
-			
+
 			holder.teetime.setText(data.coachDate+" "+data.coachTime);
 			holder.course.setText(data.course_abbr);
 			
 			switch(data.status) {
-				case Const.MY_INVITE_WAITAPPLY:
-				case Const.MY_INVITE_APPlYED:
-				case Const.MY_INVITE_ACCEPTED:
+				case Const.MY_TEACHING_WAITAPPLY:
+
 					holder.state.setBackgroundResource(R.drawable.invite_list_status_green_bkg);
 					break;
-				case Const.MY_INVITE_WAITACCEPT:
-					// 待接受：我发起的是绿颜色，他人发起的是黄颜色
-					if(data.student_sn.equals(customer.sn)) {
-						holder.state.setBackgroundResource(R.drawable.invite_list_status_green_bkg);
-						break;
-					}
-				case Const.MY_INVITE_HAVEAPPLY:
-				case Const.MY_INVITE_WAITSIGN:
-				case Const.MY_INVITE_PLAYING:
-				case Const.MY_INVITE_SIGNED:
+				case Const.MY_TEACHING_ACCEPTED:
+				case Const.MY_TEACHING_START:
+				case Const.MY_TEACHING_END:
 					holder.state.setBackgroundResource(R.drawable.invite_list_status_yellow_bkg);
 					break;
-				case Const.MY_INVITE_CANCELED:
-				case Const.MY_INVITE_REVOKED:
-				case Const.MY_INVITE_REFUSED:
+
+				case Const.MY_TEACHING_REVOKE:
+				case Const.MY_TEACHING_REFUSE:
+				case Const.MY_TEACHING_CANCEL:
 					holder.state.setBackgroundResource(R.drawable.invite_list_status_red_bkg);
 					break;
-				case Const.MY_INVITE_COMPLETE:
+				case Const.MY_TEACHING_FINISHED:
 					holder.state.setBackgroundResource(R.drawable.invite_list_status_blue_bkg);
 					break;
 			}

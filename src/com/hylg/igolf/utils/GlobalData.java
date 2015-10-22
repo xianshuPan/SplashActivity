@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -48,6 +47,10 @@ public class GlobalData {
 	
 	public int msgNumSys = 0;
 	public int msgNumInvite = 0;
+
+	public String card_no = "";
+	public double balance = 0;
+	public String bank_name = "";
 	
 	/*
 	 * 2015.08.17
@@ -61,6 +64,80 @@ public class GlobalData {
 	// 在大厅列表中，申请+1、取消-1，计数判断标记更新
 //	private boolean hasStartNew = false;
 	private int inviteRefreshCount = 0;
+
+
+	public double lat = 0;
+	public double lng = 0;
+
+	public void setCardNo (String no) {
+
+		if (no == null || no.length() <= 0) {
+			 return;
+		}
+
+		card_no = no;
+	}
+
+	public String getCardNo () {
+
+		return card_no;
+	}
+
+	public void setBankName (String name) {
+
+		if (name == null || name.length() <= 0) {
+			return;
+		}
+
+		bank_name = name;
+	}
+
+	public String getBankName () {
+
+		return bank_name;
+	}
+
+	public void setBalance (double latt) {
+
+		if (latt <= 0) {
+			return;
+		}
+
+		balance  = latt;
+	}
+
+	public double getBalance  () {
+
+		return balance ;
+	}
+
+	public void setLat (double latt) {
+
+		if (latt <= 0) {
+			return;
+		}
+
+		lat = latt;
+	}
+
+	public double getLat () {
+
+		return lat;
+	}
+
+	public void setLng (double long1) {
+
+		if (long1 <= 0) {
+			return;
+		}
+
+		lng = long1;
+	}
+
+	public double getLng () {
+
+		return lng;
+	}
 	
 	public boolean hasStartNewInvite() {
 		if(inviteRefreshCount > 0) {
@@ -137,7 +214,7 @@ public class GlobalData {
 				JSONObject obj = ja.getJSONObject(i);
 				industryMap.put(obj.getString("dictKey"), obj.getString("name"));
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -199,7 +276,7 @@ public class GlobalData {
 					regionData.nation = new RegionData(obj.getString("name"), key);
 				}
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

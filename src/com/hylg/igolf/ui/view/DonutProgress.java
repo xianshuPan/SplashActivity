@@ -362,7 +362,7 @@ public class DonutProgress extends View {
         
         int Hours = progress/3600;
         
-        int hours = progress % 3600;
+        int hours = progress%3600;
         
         int Minites = hours /60;
         
@@ -370,8 +370,16 @@ public class DonutProgress extends View {
         
 
        // String text = this.text != null ? this.text : prefixText + progress + suffixText;
+
+        String result = "";
+
+        result = Hours <= 9 ? result+"0"+Hours : result +Hours;
+
+        result = Minites <= 9 ? result+":0"+Minites : result +":"+Minites;
+
+        result = minites <= 9 ? result+":0"+minites : result +":"+minites;
         
-        String text = this.text != null ? this.text : prefixText + Hours+":" +Minites+":"+minites;
+        String text = this.text != null ? this.text : prefixText + result;
         
         if (!TextUtils.isEmpty(text)) {
             float textHeight = textPaint.descent() + textPaint.ascent();

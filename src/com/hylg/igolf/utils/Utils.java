@@ -293,6 +293,27 @@ public class Utils extends BaseUtils {
     	
     	return result;
     }
+
+	/*
+     * 把长整型的时间，转换成字符串
+     * */
+	public  static String longTime1000ToString (long time) {
+
+		if (time <= 0) {
+
+			return "";
+		}
+
+		time = time/1000;
+
+		Date date = new Date(time);
+
+		SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
+		String result = sdf.format(date);
+
+		return result;
+	}
     
     public static String longTimePeriodToString (long progress) {
     	

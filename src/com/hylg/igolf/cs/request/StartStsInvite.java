@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -33,7 +33,7 @@ public class StartStsInvite extends BaseRequest {
 				jo.put("index", plan.index);
 				jo.put("teeCourse", plan.teeCourse);
 				jo.put("teeTime", plan.teeTime);
-			} catch (JSONException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			ja.put(jo);
@@ -67,7 +67,7 @@ public class StartStsInvite extends BaseRequest {
 				failMsg = jo.getString(RET_MSG);
 				return rn;
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

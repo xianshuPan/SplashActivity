@@ -2,10 +2,13 @@ package com.hylg.igolf.cs.request;
 
 import java.io.InputStream;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.os.Debug;
+
+import com.hylg.igolf.DebugTools;
 
 
 public class ModifyCustomer extends BaseRequest {
@@ -30,12 +33,14 @@ public class ModifyCustomer extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+			DebugTools.getDebug().debug_v("modifyCustomer","------>>>"+jo);
+
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
 				failMsg = jo.getString(RET_MSG);
 				return rn;
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

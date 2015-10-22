@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -113,6 +112,7 @@ public class GetNewTipsList extends BaseRequest {
 					reviewItemHash.put("name", reviewItem.getString("name"));
 					reviewItemHash.put("tosn", reviewItem.getString("tosn"));
 					reviewItemHash.put("toname", reviewItem.getString("toname"));
+					reviewItemHash.put("commentstime", reviewItem.getString("commentstime"));
 					
 					item.comments.add(reviewItemHash);
 					
@@ -120,7 +120,7 @@ public class GetNewTipsList extends BaseRequest {
 				
 				hotList.add(item);
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			
 			
 			e.printStackTrace();

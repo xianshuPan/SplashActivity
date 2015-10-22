@@ -3,14 +3,19 @@ package com.hylg.igolf.ui.coach;
 import java.util.ArrayList;
 
 import com.hylg.igolf.DebugTools;
+import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.CoachComemntsItem;
 import com.hylg.igolf.cs.data.CoachItem;
+import com.hylg.igolf.cs.data.Customer;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.GetCoachCommentsListLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.loader.GetCoachCommentsListLoader.GetCoachCommentsCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.cs.request.FriendAttentionAdd;
+import com.hylg.igolf.ui.customer.CustomerHomeActivity;
+import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.Utils;
@@ -19,6 +24,8 @@ import com.hylg.igolf.utils.WaitDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -43,7 +50,8 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 	
 	private CircleImageView                 mAvatarImage = null;
 	
-	private TextView                        mNickNameTxt = null;
+	private TextView                        mNickNameTxt = null,mAttentionTxt;
+	private ImageView                       mAttentionImage = null;
 	
 	private RatingBar                       mRating = null;
 	
@@ -57,20 +65,23 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 	
 	private ProgressBar                     mProgress;
 	
-	private TextView                        mCoursePhone,mCourseName,mCourseAddress;
-	
-	private TextView                        mTeachYearTxt,mSpecialTxt;
+	private TextView                        mCoursePhone,mCourseName,mCourseAddress,mTeachYearTxt,mSpecialTxt;
 	
 	private ImageView                       mAwardImage;
 	
 	private TextView                        mInviteCoachTxt;
 	
 	private CoachItem                       mCoachInfoDetail;
-	
-	
+
 	private GetCoachCommentsListLoader      reqLoader;
 	
 	private CoachCommentsAdapter            mAdapter = null;
+
+	private int 							mAttentionState = -1;
+
+	private Customer                        customer = null;
+
+	private FragmentActivity                mContext = null;
 	
 	public static void startCoachInfoDetail(Context context, CoachItem data) {
 		Intent intent = new Intent();
@@ -131,32 +142,27 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 	
 	/*初始化控件，及设置相关的事件监听器*/
 	private void initUI() {
+
+		mContext = this;
 		
 		mBack = (ImageButton) findViewById(R.id.coach_info_detail_back);
-		
 		mAvatarImage = (CircleImageView) findViewById(R.id.coach_info_detail_avatar_image);
-		
 		mNickNameTxt = (TextView) findViewById(R.id.coach_info_detail_name_text);
 		mRating = (RatingBar) findViewById(R.id.coach_info_detail_rating);
-		
 		mHomeLinear = (LinearLayout) findViewById(R.id.coach_info_detail_home_linear);
 		mAttentionLinear = (LinearLayout) findViewById(R.id.coach_info_detail_attention_linear);
-		
+		mAttentionImage = (ImageView) findViewById(R.id.coach_info_detail_attention_image);
+		mAttentionTxt = (TextView) findViewById(R.id.coach_info_detail_attention_text);
 		mMoreCommentsRelative  = (RelativeLayout) findViewById(R.id.coach_info_detial_comments_ll);
-		
 		mCommentsCountTxt = (TextView) findViewById(R.id.coach_info_detail_comments_count_text);
 		mProgress = (ProgressBar) findViewById(R.id.coach_info_detail_comments_progress);
 		mCommentsList = (ListView) findViewById(R.id.coach_info_detail_comments_list);
-		
 		mCoursePhone = (TextView) findViewById(R.id.coach_info_detail_place_phone_text);
 		mCourseName = (TextView) findViewById(R.id.coach_info_detail_place_name_text);
 		mCourseAddress = (TextView) findViewById(R.id.coach_info_detail_place_address_text);
-		
 		mTeachYearTxt = (TextView) findViewById(R.id.coach_info_detail_teach_age_content_text);
 		mSpecialTxt = (TextView) findViewById(R.id.coach_info_detail_special_content_text);
-		
 		mAwardImage = (ImageView) findViewById(R.id.coach_info_detail_award_iamge);
-		
 		mInviteCoachTxt = (TextView) findViewById(R.id.coach_info_detail_invite_coach_text);
 		
 		mBack.setOnClickListener(this);
@@ -165,36 +171,49 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 		mMoreCommentsRelative.setOnClickListener(this);
 		mCoursePhone.setOnClickListener(this);
 		mInviteCoachTxt.setOnClickListener(this);
+
+		customer = MainApp.getInstance().getCustomer();
 		
 		if (getIntent() != null && getIntent().getSerializableExtra(BUNDLE_REQ_DATA) != null) {
 			
 			mCoachInfoDetail = (CoachItem) getIntent().getSerializableExtra(BUNDLE_REQ_DATA);
 			
-			loadAvatar(mCoachInfoDetail.sn,mCoachInfoDetail.avatar);
+			loadAvatar(mCoachInfoDetail.sn, mCoachInfoDetail.avatar);
 			
 			mNickNameTxt.setText(mCoachInfoDetail.nickname);
 			mRating.setRating(mCoachInfoDetail.rate);
-			
 			mCoursePhone.setText(String.valueOf(mCoachInfoDetail.course_tel));
 			mCourseName.setText(mCoachInfoDetail.course_name);
 			mCourseAddress.setText(mCoachInfoDetail.course_address);
-			
 			mTeachYearTxt.setText(String.valueOf(mCoachInfoDetail.teachYear));
 			mSpecialTxt.setText(mCoachInfoDetail.special);
 			
-			DownLoadImageTool.getInstance(this).displayImage(BaseRequest.CoachPic_Original_PATH+mCoachInfoDetail.award, mAwardImage, null);
-			
+			DownLoadImageTool.getInstance(this).displayImage(BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.award, mAwardImage, null);
+
 			initListDataAsync();
-			
+
+			mAttentionState = mCoachInfoDetail.attention;
+			if (mAttentionState == 0) {
+
+				mAttentionTxt.setText(R.string.str_friend_attention);
+				mAttentionImage.setImageResource(R.drawable.add);
+				//attention.setBackgroundColor(getResources().getColor(R.color.color_title_txt));
+
+			} else if (mAttentionState == 1) {
+
+				mAttentionTxt.setText(R.string.str_friend_attented);
+				mAttentionImage.setImageResource(R.drawable.subtrac);
+
+			}
+
+
 		}
 		
 	}
 	
 	
 	/**
-	 * 
-	 * @param data
-	 * @param init
+	 *
 	 * true: do init the first time, or fail retry.
 	 * false: init by change the filter condition.
 	 */
@@ -203,7 +222,7 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 			return ;
 		}
 		mProgress.setVisibility(View.VISIBLE);
-		
+		mMoreCommentsRelative.setEnabled(false);
 		clearLoader();
 		reqLoader = new GetCoachCommentsListLoader(this, mCoachInfoDetail.id, 1, 2, new GetCoachCommentsCallback() {
 
@@ -217,9 +236,10 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 		
 						Toast.makeText(CoachInfoDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
 						
-					} else if(BaseRequest.REQ_RET_OK == retId) {
+					} else if (BaseRequest.REQ_RET_OK == retId) {
 						
 						initListView(commentsList);
+						mMoreCommentsRelative.setEnabled(true);
 						
 					} else {
 
@@ -268,31 +288,107 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 		} else {
 			mAvatarImage.setImageResource(R.drawable.avatar_loading);
 			AsyncImageLoader.getInstance().loadAvatar(this, sn, filename,
-				new ImageCallback() {
-					@Override
-					public void imageLoaded(Drawable imageDrawable) {
-						if(null != imageDrawable && null != mAvatarImage) {
-							mAvatarImage.setImageDrawable(imageDrawable);
+					new ImageCallback() {
+						@Override
+						public void imageLoaded(Drawable imageDrawable) {
+							if (null != imageDrawable && null != mAvatarImage) {
+								mAvatarImage.setImageDrawable(imageDrawable);
+							}
 						}
-					}
-			});
+					});
 		}
+	}
+
+	/*
+	 * 添加关注
+	 * */
+	private void attention() {
+
+		/*添加或取消关注*/
+		WaitDialog.showWaitDialog(this, R.string.str_loading_waiting);
+		new AsyncTask<Object, Object, Integer>() {
+
+			FriendAttentionAdd request = new FriendAttentionAdd(mContext,customer.sn,mCoachInfoDetail.sn,mAttentionState);
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrlGet();
+			}
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				if(BaseRequest.REQ_RET_OK == result) {
+
+					mAttentionState = mAttentionState == 1 ? 0 : 1;
+
+					if (mAttentionState == 0) {
+
+						mAttentionTxt.setText(R.string.str_friend_attention);
+						mAttentionImage.setImageResource(R.drawable.add);
+						//attention.setBackgroundColor(getResources().getColor(R.color.color_title_txt));
+
+					} else if (mAttentionState == 1) {
+
+						mAttentionTxt.setText(R.string.str_friend_attented);
+						mAttentionImage.setImageResource(R.drawable.subtrac);
+
+					}
+
+				} else {
+
+
+				}
+				WaitDialog.dismissWaitDialog();
+			}
+		}.execute(null, null, null);
 	}
 
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
+
+			case R.id.coach_info_detail_back :
+
+				mContext.finish();
+
+				break;
 		
-		case R.id.coach_info_detail_invite_coach_text:
+			case R.id.coach_info_detail_invite_coach_text:
 			
-			CoachInviteActivity.startCoachInviteActivity(this, mCoachInfoDetail);
-			break;
+				CoachInviteActivity.startCoachInviteActivity(this, mCoachInfoDetail);
+				break;
 			
-		case R.id.coach_info_detial_comments_ll:
+			case R.id.coach_info_detial_comments_ll:
 			
-			CoachCommentsListActivity.startCoachCommentsListActivity(this, mCoachInfoDetail.id);
-			break;
+				CoachCommentsListActivity.startCoachCommentsListActivity(this, mCoachInfoDetail.id);
+				break;
+
+			case R.id.coach_info_detail_home_linear:
+
+				MemDetailActivityNew.startMemDetailActivity(mContext,mCoachInfoDetail.sn);
+
+				break;
+			case R.id.coach_info_detail_attention_linear:
+
+				attention();
+
+				break;
+
+			case R.id.coach_info_detail_place_phone_text:
+
+				if (mCoachInfoDetail.course_tel != null && mCoachInfoDetail.course_tel.length() > 0) {
+
+					Intent data = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mCoachInfoDetail.course_tel));
+					startActivity(data);
+
+				} else {
+
+					Toast.makeText(mContext,R.string.str_toast_invalid_phone,Toast.LENGTH_SHORT).show();
+				}
+
+				break;
 		}
 	}
 }

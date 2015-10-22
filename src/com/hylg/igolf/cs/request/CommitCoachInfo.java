@@ -2,7 +2,7 @@ package com.hylg.igolf.cs.request;
 
 import java.io.InputStream;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import com.hylg.igolf.DebugTools;
@@ -54,7 +54,7 @@ public class CommitCoachInfo extends BaseRequest {
 				failMsg = jo.getString(RET_MSG);
 				return rn;
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

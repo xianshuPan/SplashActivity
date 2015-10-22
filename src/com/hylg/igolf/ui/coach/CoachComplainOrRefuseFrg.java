@@ -239,7 +239,8 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 				WaitDialog.dismissWaitDialog();
 				
 				if ( result == BaseRequest.REQ_RET_OK){
-					
+
+					getActivity().finish();
 					
 				}
 				
@@ -319,13 +320,6 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 			
 			return convertView;
 		}
-	
-		
-	class ViewHolder {
-		
-			private ImageView selectImage;
-			private TextView reason;
-		}
 		
 		@Override
 		public int getCount() {
@@ -340,4 +334,9 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 	}
 
 
+	class ViewHolder {
+
+		private ImageView selectImage;
+		private TextView reason;
+	}
 }

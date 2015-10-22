@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -43,13 +42,12 @@ public class GetMyTeachingList extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+			DebugTools.getDebug().debug_v("我的教学列表", "------》》》"+jo);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
 				failMsg = jo.getString(RET_MSG);
 				return rn;
 			}
-			
-			DebugTools.getDebug().debug_v("我的教学列表", "------》》》"+jo);
 			
 			JSONArray ja = jo.optJSONArray("coachApps");
 			
@@ -67,6 +65,7 @@ public class GetMyTeachingList extends BaseRequest {
 				JSONObject courseJson = obj.optJSONObject("course");
 				JSONObject studentJson = obj.optJSONObject("student");
 				JSONObject teacherJson = obj.optJSONObject("teacher");
+				JSONObject coachCommentsJson = obj.optJSONObject("coachComments");
 				
 				JSONObject teacherFeeJson = teacherJson.optJSONObject("fee");
 				
@@ -104,11 +103,12 @@ public class GetMyTeachingList extends BaseRequest {
 				
 				item.course_id = courseJson.optLong("id");
 				item.course_abbr = courseJson.optString("abbr");
-						
+
+				item.attention = obj.optInt("attention");
 
 				teachingList.add(item);
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

@@ -31,7 +31,7 @@ public class Customer implements Serializable{
 	public int best;
 //	public String [] album = null; // 图片名称
 	public ArrayList<String> album = new ArrayList<String>(); // 图片名称
-	public String age;
+	public int age;
 	
 	public int attention;
 }

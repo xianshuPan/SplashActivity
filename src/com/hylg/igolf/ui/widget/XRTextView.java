@@ -1,7 +1,7 @@
 package com.hylg.igolf.ui.widget;
 
 import org.json.JSONArray;  
-import org.json.JSONException;  
+
 
 import com.hylg.igolf.MainApp;
   
@@ -85,9 +85,9 @@ public class XRTextView extends TextView{
      * 传入一个索引，判断当前字是否被高亮 
      * @param index 
      * @return 
-     * @throws JSONException  
+     * @throws Exception
      */  
-    public boolean isColor(int index) throws JSONException{  
+    public boolean isColor(int index) throws Exception{
         if(colorIndex == null){  
             return false;  
         }  
@@ -134,7 +134,7 @@ public class XRTextView extends TextView{
             boolean color = false;  
             try {  
                 color = isColor(i);  
-            } catch (JSONException e1) {  
+            } catch (Exception e1) {
                 e1.printStackTrace();  
             }  
               

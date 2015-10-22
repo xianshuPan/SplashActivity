@@ -257,6 +257,7 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 					Calendar sd = Calendar.getInstance();
 					
 					sd.setTime(date);
+
 					
 					holder.time.setText(sd.get(Calendar.HOUR)+":"+sd.get(Calendar.MINUTE));
 				}

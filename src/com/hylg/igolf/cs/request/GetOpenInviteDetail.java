@@ -3,7 +3,7 @@ package com.hylg.igolf.cs.request;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -61,7 +61,7 @@ public class GetOpenInviteDetail extends GetInviteDetail {
 			detail.paymentType = oid.getInt(RET_PAYMENT_TYPE);
 			detail.isApplied = oid.optBoolean("isApplied");
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

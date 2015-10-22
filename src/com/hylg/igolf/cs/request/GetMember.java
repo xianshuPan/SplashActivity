@@ -3,7 +3,6 @@ package com.hylg.igolf.cs.request;
 import java.io.InputStream;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -82,7 +81,7 @@ public class GetMember extends BaseRequest {
 					member.phone = memObj.optString(RET_PHONE,"");
 					member.sex = memObj.getInt(RET_SEX);
 					member.yearsExpStr = memObj.getString(RET_YEAR_EXP_STR);
-					member.age = memObj.getString(RET_AGE_STR);
+					member.age = memObj.getInt(RET_AGE_STR);
 					member.city = memObj.getString(RET_CITY);
 					member.industry = memObj.getString(RET_INDUSTRY);
 					member.signature = memObj.optString(RET_SIGNATURE,"");
@@ -103,7 +102,7 @@ public class GetMember extends BaseRequest {
 					}
 				}
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

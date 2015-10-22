@@ -2,7 +2,7 @@ package com.hylg.igolf.cs.request;
 
 import java.io.InputStream;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import com.hylg.igolf.DebugTools;
@@ -57,11 +57,13 @@ public class GetCoachApplyInfo extends BaseRequest {
 				JSONObject feeJson = coachJson.optJSONObject("fee");
 				
 				item.id = coachJson.optInt("id");
-				item.age = customerJson.optInt("age");
+				item.sn = customerJson.optString("sn");
+				item.age = customerJson.optInt("ageStr");
+				item.age_str = customerJson.optString("ageStr")+"岁";
 				item.sex = customerJson.optInt("sex");
 				item.type = feeJson.optInt("type");
 				item.teach_age = coachJson.optInt("teaching_age");
-				
+				item.special = coachJson.optString("specialty");
 				item.avatar = customerJson.optString("avatar");
 				
 				String id_card_str = coachJson.optString("idcard");
@@ -98,7 +100,7 @@ public class GetCoachApplyInfo extends BaseRequest {
 			}
 			
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

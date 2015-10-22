@@ -162,7 +162,7 @@ public class GolfersListActivity extends Activity
 				Utils.setGone(flowBar);
 				InputMethodManager imm = (InputMethodManager) getSystemService(Service.INPUT_METHOD_SERVICE);
 				if(imm.isActive()) {
-					imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+					imm.hideSoftInputFromWindow(searchEt.getWindowToken(),
 							InputMethodManager.HIDE_NOT_ALWAYS);
 				}
 			}

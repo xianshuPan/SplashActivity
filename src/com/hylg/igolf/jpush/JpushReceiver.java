@@ -85,7 +85,7 @@ public class JpushReceiver extends BroadcastReceiver {
 //					if (null != extraJson && extraJson.length() > 0) {
 //						msgIntent.putExtra(MainActivity.KEY_EXTRAS, extras);
 //					}
-//				} catch (JSONException e) {
+//				} catch (Exception e) {
 //
 //				}
 //

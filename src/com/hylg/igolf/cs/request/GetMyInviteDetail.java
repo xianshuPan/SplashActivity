@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -41,7 +41,7 @@ public class GetMyInviteDetail extends GetInviteDetail {
 	}
 	
 	
-	protected InviteRoleInfo getInviteRoleInfo(JSONObject jo,boolean applicants) throws JSONException {
+	protected InviteRoleInfo getInviteRoleInfo(JSONObject jo,boolean applicants) throws Exception {
 		if(null == jo) {
 			return null;
 		}
@@ -207,7 +207,7 @@ public class GetMyInviteDetail extends GetInviteDetail {
 				
 				
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -44,6 +43,8 @@ public class GetCoachList extends BaseRequest {
 		
 		s.append(PARAM_REQ_PAGE_SIZE); s.append(KV_CONN); s.append(data.pageSize);
 		param = s.toString();
+
+
 	}
 	
 	public ArrayList<CoachItem> getCoachList() {
@@ -102,16 +103,19 @@ public class GetCoachList extends BaseRequest {
 				item.price = feeJson.optInt("price");
 				item.distance = obj.optDouble("distance");
 				item.distanceTime = obj.optLong("last_login");
-				
+				item.special = obj.optString("specialty");
+
 				item.course_id = courseJson.optString("id");
 				item.course_name = courseJson.optString("name");
 				item.course_address = courseJson.optString("address");
 				item.course_tel = courseJson.optString("tel");
-				//item.course_distance = courseJson.optString("specialty");
+
+				item.commentsAmount = obj.optInt("commentsAmount");
+				item.attention = obj.optInt("attention");
 
 				coachList.add(item);
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

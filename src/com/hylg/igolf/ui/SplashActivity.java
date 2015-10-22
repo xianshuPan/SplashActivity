@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -24,6 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.location.Location;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +37,11 @@ import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.ConfigInfo;
@@ -49,8 +55,15 @@ import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 public class SplashActivity extends Activity {
+
+
+
+	/*高德定位操作*/
+	private LocationManagerProxy 				mLocationManagerProxy;
+	private myAMapLocationListener      		mAMapLocationListener;
 	
 	public static void startSplashActivityFromReceiver(Context context, Bundle bundle) {
 		context.startActivity(
@@ -86,6 +99,8 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+
+		MobclickAgent.updateOnlineConfig(this);
 		/*
 		 * Get previously and current version code, 
 		 * to check whether display user guide.
@@ -102,6 +117,7 @@ public class SplashActivity extends Activity {
 				intent.setClass(this, UserGuideActivity.class);
 				startActivityForResult(intent, Const.REQUST_CODE_USER_GUIDE);
 				overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+
 				
 			} else {
 				
@@ -120,6 +136,39 @@ public class SplashActivity extends Activity {
 			e.printStackTrace();
 		}
 	
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this);
+
+		mLocationManagerProxy = LocationManagerProxy.getInstance(this);
+
+		mAMapLocationListener = new myAMapLocationListener();
+
+		//此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
+		//注意设置合适的定位时间的间隔，并且在合适时间调用removeUpdates()方法来取消定位请求
+		//在定位结束后，在合适的生命周期调用destroy()方法
+		//其中如果间隔时间为-1，则定位只定一次
+		mLocationManagerProxy.requestLocationData(
+				LocationProviderProxy.AMapNetwork, 60 * 1000, 15, mAMapLocationListener);
+
+		mLocationManagerProxy.setGpsEnable(false);
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+
+		if (mLocationManagerProxy != null) {
+			mLocationManagerProxy.removeUpdates(mAMapLocationListener);
+			mLocationManagerProxy.destory();
+		}
+
+		mAMapLocationListener = null;
+		mLocationManagerProxy = null;
 	}
 
 	@Override
@@ -282,7 +331,7 @@ public class SplashActivity extends Activity {
 //				current_version = jo.getInt("region");
 //			} catch (FileNotFoundException e) {
 //				e.printStackTrace();
-//			} catch (JSONException e) {
+//			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
 //			Utils.logh("region info: ", "server_version: " + region_version
@@ -352,7 +401,7 @@ public class SplashActivity extends Activity {
 //				current_version = jo.getInt("industry");
 //			} catch (FileNotFoundException e) {
 //				e.printStackTrace();
-//			} catch (JSONException e) {
+//			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
 //			Utils.logh("industry info: ", "server_version: " + industry_version
@@ -582,7 +631,7 @@ public class SplashActivity extends Activity {
 		URL url;
 		try {
 			url = new URL(down_url);
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -681,4 +730,48 @@ public class SplashActivity extends Activity {
 		}
 		
 	});
+
+	private class myAMapLocationListener implements AMapLocationListener {
+
+		@Override
+		public void onLocationChanged(Location arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProviderDisabled(String arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProviderEnabled(String arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onLocationChanged(AMapLocation amapLocation) {
+			// TODO Auto-generated method stub
+			if(amapLocation != null && amapLocation.getAMapException().getErrorCode() == 0){
+				//获取位置信息
+				double lat = amapLocation.getLatitude();
+				double lng = amapLocation.getLongitude();
+
+				MainApp.getInstance().getGlobalData().setLat(lat);
+				MainApp.getInstance().getGlobalData().setLng(lng);
+
+				DebugTools.getDebug().debug_v(TAG, "splash_lat------------------>>>"+lat);
+				DebugTools.getDebug().debug_v(TAG, "splash_lng------------------>>>"+lng);
+			}
+		}
+
+	}
 }

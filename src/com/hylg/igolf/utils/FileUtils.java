@@ -160,6 +160,12 @@ public class FileUtils extends BaseFileUtils {
 	}
 	
 	public static String getCusPicName(String name) {
+
+		if (name == null || name.length() <= 0) {
+
+			return "";
+		}
+
 		int index = name.lastIndexOf(".");
 		if(-1 == index) {
 			return name;

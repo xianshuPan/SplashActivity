@@ -230,32 +230,36 @@ public class CoachInviteActivity extends FragmentActivity implements
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
+			case R.id.coach_invite_back:
+
+				this.finish();
+				break;
 		
-		case R.id.coach_invite_date_text :
-			
-			TeeDateSelectActivity.startTeeDateSelect(this, false, mReqPara.coachDate);
-			break;
-			
-		case R.id.coach_invite_time_text :
-			
-			setTimeForResult();
-			break;
-			
-		case R.id.coach_invite_pre_teach_time_text :
-	
-			HourExpSelectActivity.startHourExpSelect(this, mReqPara.times);
-			break;
-	
-		case R.id.coach_invite_place_text :
-	
-			getCourseList();
-			break;
-	
-		case R.id.coach_invite_commit_text :
-	
-			commitCoachInvite();
-			
-			break;
+			case R.id.coach_invite_date_text :
+
+				TeeDateSelectActivity.startTeeDateSelect(this, false, mReqPara.coachDate);
+				break;
+
+			case R.id.coach_invite_time_text :
+
+				setTimeForResult();
+				break;
+
+			case R.id.coach_invite_pre_teach_time_text :
+
+				HourExpSelectActivity.startHourExpSelect(this, mReqPara.times);
+				break;
+
+			case R.id.coach_invite_place_text :
+
+				getCourseList();
+				break;
+
+			case R.id.coach_invite_commit_text :
+
+				commitCoachInvite();
+
+				break;
 		}
 	}
 	
@@ -345,6 +349,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 				if(BaseRequest.REQ_RET_OK == result) {
 					
 					Toast.makeText(CoachInviteActivity.this, R.string.str_start_invite_open_success, Toast.LENGTH_SHORT).show();
+					CoachInviteActivity.this.finish();
 					
 				} else {
 

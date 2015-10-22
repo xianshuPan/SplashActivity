@@ -92,7 +92,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 		footView = (LinearLayout)inflater.inflate(R.layout.ehecd_listview_footer, null);
 		footProgressBar  = (ProgressBar)footView.findViewById(R.id.refresh_list_footer_progressbar);
 		footTipsTextview = (TextView)footView.findViewById(R.id.refresh_list_footer_text);
-		footTipsTextview.setText(R.string.push_down_load_more);
+		footTipsTextview.setText(R.string.list_footer_load_more);
 		
 		measureView(headView);  
 		DebugTools.getDebug().debug_v("headWide", "======="+headView.getWidth());
@@ -374,7 +374,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	             
 	             footProgressBar.setVisibility(View.INVISIBLE);
 	             footTipsTextview.setVisibility(View.VISIBLE);
-	             footTipsTextview.setText(R.string.push_down_load_more);
+	             footTipsTextview.setText(R.string.list_footer_load_more);
 	             Log.v(TAG, "��ǰ״̬��done");  
 	            break;  
 	        }  

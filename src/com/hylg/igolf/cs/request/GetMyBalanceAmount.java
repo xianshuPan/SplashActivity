@@ -6,7 +6,7 @@ import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.MyBalanceRecordInfo;
 
 import org.json.JSONArray;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -15,20 +15,22 @@ import java.util.ArrayList;
 public class GetMyBalanceAmount extends BaseRequest {
 	private String param;
 
-	private ArrayList<MyBalanceRecordInfo> myBalanceRecordList = null;
+	private double balance;
+
+	public String card_no;
 
 	public GetMyBalanceAmount(Context context, long id) {
 		super(context);
-		myBalanceRecordList = new ArrayList<MyBalanceRecordInfo>();
+
 		StringBuilder s = new StringBuilder();
 		s.append("custid"); s.append(KV_CONN); s.append(id);
 		
 		param = s.toString();
 	}
 	
-	public ArrayList<MyBalanceRecordInfo> getMyBalanceRecordList() {
+	public double getMyBalance() {
 
-		return myBalanceRecordList;
+		return balance;
 	}
 	
 	@Override
@@ -50,7 +52,11 @@ public class GetMyBalanceAmount extends BaseRequest {
 				return rn;
 			}
 
-		} catch (JSONException e) {
+			balance = jo.optDouble("balance");
+
+			card_no = jo.optString("union_num");
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

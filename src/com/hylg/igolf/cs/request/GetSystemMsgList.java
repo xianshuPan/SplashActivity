@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -56,7 +55,7 @@ public class GetSystemMsgList extends BaseRequest {
 				msgInfo.sendTimestamp = obj.getString(RET_SEND_TIMESTAMP);
 				sysMsgList.add(msgInfo);
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

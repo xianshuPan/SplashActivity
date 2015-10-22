@@ -13,6 +13,7 @@ public class CoachApplyInfoReqParam implements Serializable {
 	public String avatar;
 	public String name;
 	public int age = -1;
+	public String age_str = "";
 	public int sex = -1;
 	public int type;
 	

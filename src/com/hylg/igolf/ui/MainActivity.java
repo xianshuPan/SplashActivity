@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Set;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.app.ActionBar;
@@ -25,6 +25,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -46,6 +47,11 @@ import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationListener;
+import com.amap.api.location.LocationManagerProxy;
+import com.amap.api.location.LocationProviderProxy;
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.HdService;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -55,6 +61,7 @@ import com.hylg.igolf.cs.loader.GetNewMsgCountLoader;
 import com.hylg.igolf.cs.loader.GetNewMsgCountLoader.GetNewMsgCountCallback;
 import com.hylg.igolf.cs.loader.GetTipsCountLoader;
 import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.cs.request.CommitCoachLocation;
 import com.hylg.igolf.cs.request.SendPushMsg;
 import com.hylg.igolf.cs.request.UpdateRequest;
 import com.hylg.igolf.jpush.JpushVariable;
@@ -71,7 +78,7 @@ import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 
-public class MainActivity extends FragmentActivity implements OnClickListener, TagAliasCallback  {
+public class MainActivity extends FragmentActivity implements OnClickListener, TagAliasCallback {
 	private final static String TAG = "MainActivity";
 	private final static int CONTAINER = R.id.navigate_container;
 	private HashMap<String, View> mSelectViewMap = null;
@@ -91,6 +98,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	private ImageView naviNewMsg, naviNewInvite;
 	private static boolean isForeground = false;
 	private final static String BUNDLE_KEY_FROM_SETUP = "from_setup";
+
+	/*高德定位操作*/
+	private LocationManagerProxy 				mLocationManagerProxy;
+	private myAMapLocationListener      		mAMapLocationListener;
 
 	public static void startMainActivity(Context context) {
 		
@@ -143,6 +154,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 //        }
 		
 		setContentView(R.layout.activity_main);
+
+		//naviNewMsg.setBackgroundResource(R.drawable.about_logo);
 		
 		if(null == savedInstanceState) {
 			FragmentManager fm = getSupportFragmentManager();
@@ -238,6 +251,19 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		
 		/*获取未读消息数量*/
 		getTipsCount();
+
+		mLocationManagerProxy = LocationManagerProxy.getInstance(this);
+
+		mAMapLocationListener = new myAMapLocationListener();
+
+		//此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
+		//注意设置合适的定位时间的间隔，并且在合适时间调用removeUpdates()方法来取消定位请求
+		//在定位结束后，在合适的生命周期调用destroy()方法
+		//其中如果间隔时间为-1，则定位只定一次
+		mLocationManagerProxy.requestLocationData(
+				LocationProviderProxy.AMapNetwork, 60 * 1000, 15, mAMapLocationListener);
+
+		mLocationManagerProxy.setGpsEnable(false);
 	}
 
 
@@ -246,6 +272,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		isForeground = false;
 		super.onPause();
 		JPushInterface.onPause(this);
+
+		if (mLocationManagerProxy != null) {
+			mLocationManagerProxy.removeUpdates(mAMapLocationListener);
+			mLocationManagerProxy.destory();
+		}
+
+		mAMapLocationListener = null;
+		mLocationManagerProxy = null;
+
+
+		if (MainApp.getInstance().getGlobalData().getLng() > 0) {
+
+			saveCoachLocation();
+		}
+
+
 	}
 	
 	public static boolean isMainForeground() {
@@ -294,6 +336,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		naviNewInvite = (ImageView) findViewById(R.id.navi_item_hall_msg_hint);
 		naviNewMsg = (ImageView) findViewById(R.id.navi_item_coach_msg_hint);
 		mSelectViewMap.get(mCurTag).setSelected(true);
+	}
+
+	private void saveCoachLocation() {
+
+		new AsyncTask<Object, Object, Integer>() {
+			final long start = System.currentTimeMillis();
+
+			final CommitCoachLocation request = new CommitCoachLocation(MainActivity.this,MainApp.getInstance().getCustomer().id,
+					MainApp.getInstance().getGlobalData().getLat(),MainApp.getInstance().getGlobalData().getLng());
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrl();
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+			}
+		}.execute(null, null, null);
 	}
 	
 	/**/
@@ -536,7 +599,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 //				current_version = jo.getInt("industry");
 //			} catch (FileNotFoundException e) {
 //				e.printStackTrace();
-//			} catch (JSONException e) {
+//			} catch (Exception e) {
 //				e.printStackTrace();
 //			}
 //			Utils.logh("industry info: ", "server_version: " + industry_version
@@ -684,7 +747,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 							showConfirmDialog(bundle.getString("cn.jpush.android.ALERT"));
 							break;
 					}
-				} catch (JSONException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -740,6 +803,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 				public void onClick(DialogInterface dialog, int which) { }
 			})
 			.show();
+
 	}
 
 	private void navigateToHall() {
@@ -812,7 +876,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	 * to display different background.
 	 * @param view The map value.
 	 * @param tag The map key.
-	 * @see resetSelection
+	 * @see
 	 */
 	private void addSelectView(View view, String tag) {
 		Utils.logh(TAG, "addSelectView :  " + tag);
@@ -825,7 +889,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	 * Reset the selection background by select status
 	 * @param tag The map key
 	 * @return True if the same as current selection;
-	 * @see addSelectView
+	 * @see
 	 */
 	private boolean resetSelection(String tag) {
 		if(!tag.equals(mCurTag)) {
@@ -1009,6 +1073,52 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 //				Utils.logh(TAG, "push setAliasAndTags Failed with errorCode = " + code + " alias = " + alias + "; tags = " + tags);
 				break;
 		}
+	}
+
+	private class myAMapLocationListener implements AMapLocationListener {
+
+		@Override
+		public void onLocationChanged(Location arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProviderDisabled(String arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onProviderEnabled(String arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onStatusChanged(String arg0, int arg1, Bundle arg2) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onLocationChanged(AMapLocation amapLocation) {
+			// TODO Auto-generated method stub
+			if(amapLocation != null && amapLocation.getAMapException().getErrorCode() == 0){
+				//获取位置信息
+				double lat = amapLocation.getLatitude();
+				double lng = amapLocation.getLongitude();
+
+				MainApp.getInstance().getGlobalData().setLat(lat);
+				MainApp.getInstance().getGlobalData().setLng(lng);
+
+				DebugTools.getDebug().debug_v(TAG, "lat------------------>>>"+lat);
+				DebugTools.getDebug().debug_v(TAG, "lng------------------>>>"+lng);
+
+				saveCoachLocation();
+			}
+		}
+
 	}
 	
 }

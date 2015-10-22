@@ -67,6 +67,8 @@ public class CoachInviteOrderDetail implements Serializable {
 	public long period_time ;
 	
 	public double fee ;
+
+	public int attention ;
 	
 	
 }

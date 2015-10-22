@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -185,7 +185,7 @@ public class FriendMessageNew extends BaseRequest {
 				return rn;
 			}
 			
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

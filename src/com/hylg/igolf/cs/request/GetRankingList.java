@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
@@ -68,14 +67,14 @@ public class GetRankingList extends BaseRequest {
 			for(int i=0, len=ja.length(); i<len; i++) {
 				rankList.add(getRankInfo(ja.getJSONObject(i)));
 			}
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}
 		return REQ_RET_OK;
 	}
 	
-	private RankingInfo getRankInfo(JSONObject obj) throws JSONException {
+	private RankingInfo getRankInfo(JSONObject obj) throws Exception {
 		RankingInfo ri = new RankingInfo();
 		ri.id = obj.getLong(RET_ID);
 		ri.sn = obj.getString(RET_SN);

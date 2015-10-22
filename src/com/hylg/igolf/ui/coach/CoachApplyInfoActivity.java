@@ -37,6 +37,7 @@ import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow.OnDismissListener;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.CourseInfo;
@@ -70,6 +71,7 @@ import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+import com.umeng.analytics.MobclickAgent;
 
 public class CoachApplyInfoActivity extends Activity implements 
 												OnClickListener,onSexSelectListener, 
@@ -78,24 +80,23 @@ public class CoachApplyInfoActivity extends Activity implements
 	
 	private static final String 				TAG = "CoachInfoActivity";
 	
-	private ImageButton                         mBack = null;
-	
 	private TextView                            mStatusTxt = null;
 	private ImageView                           mTitleTipsImage = null;
 	
 	private EditText                            nickNameTxt;
-	private TextView 							ageTxt,sexTxt,idTxt,specialTxt,placeTxt,teachAgeTxt,graduateTxt,certificateTxt,awardTxt,mCommitTxt;
+	private TextView 							ageTxt,sexTxt,placeTxt,teachAgeTxt;
 	
 	/*
 	 * 选择业余教练还是职业教练
 	 * 
 	 * */
-	private LinearLayout                        mHobbyCoachLinear,mProfessionalCoachLinear;
+	private LinearLayout                        mRootLinear,mHobbyCoachLinear,mProfessionalCoachLinear;
 	
 	/*
 	 * 上传省份证相关
 	 * */
-	private ImageView                           mIDFrondSelectImage,mIDBackSelectImage,mIDFrondSelectOkImage,mIDBackSelectOkImage;
+	private ImageView                           mIDFrondSelectImage,mIDBackSelectImage,
+												mIDFrondSelectOkImage,mIDBackSelectOkImage;
 	private ProgressBar                         mIDFrondProgress,mIDBackProgress;
 	private TextView                            mIDFrondTipsTxt,mIDBackTipsTxt;
 	
@@ -105,7 +106,7 @@ public class CoachApplyInfoActivity extends Activity implements
 	private ImageView                           mGraduateSelectImage,mCertificateSelectImage,mAwardSelectImage,
 												mGraduateSelectOkImage,mCertificateSelectOkImage,mAwardSelectOkImage;
 	private ProgressBar                         mGraduateProgress,mCertificateProgress,mAwardProgress;
-	private TextView                            mGraduateTipsTxt,mCertificateTipsTxt,mAwardTipsTxt;
+	private TextView                            mGraduateTipsTxt,mCertificateTipsTxt,mAwardTipsTxt,mCommiTxt;
 	private EditText							mSpecialEdit;
 	
 	/*
@@ -138,6 +139,8 @@ public class CoachApplyInfoActivity extends Activity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		DebugTools.getDebug().debug_v(TAG,"----->>>onCreate");
 		
 		ExitToLogin.getInstance().addActivity(this);
 		setContentView(R.layout.coach_apply_ac_info);
@@ -151,22 +154,17 @@ public class CoachApplyInfoActivity extends Activity implements
 	 * 
 	 * */
 	private void getViews(){
-		
-		mBack = (ImageButton) findViewById(R.id.coach_applay_info_back);
+
+		mRootLinear = (LinearLayout) findViewById(R.id.coach_applay_root_linear);
 		mStatusTxt = (TextView) findViewById(R.id.coach_applay_info_status_text);
 		mTitleTipsImage = (ImageView) findViewById(R.id.coach_applay_info_title_tips_image);
 		nickNameTxt = (EditText) findViewById(R.id.coach_apply_info_name_selection);
 		ageTxt = (TextView) findViewById(R.id.coach_apply_info_age_selection);
 		sexTxt = (TextView) findViewById(R.id.coach_apply_info_sex_selection);
-		idTxt = (TextView) findViewById(R.id.coach_apply_info_id_selection);
-		specialTxt = (TextView) findViewById(R.id.coach_apply_info_special_selection);
 		mSpecialEdit = (EditText) findViewById(R.id.coach_apply_info_special_edit);
 		placeTxt = (TextView) findViewById(R.id.coach_apply_info_place_selection);
 		teachAgeTxt = (TextView) findViewById(R.id.coach_apply_info_teach_age_selection);
-		graduateTxt = (TextView) findViewById(R.id.coach_apply_info_graduate_selection);
-		certificateTxt = (TextView) findViewById(R.id.coach_apply_info_certificate_selection);
-		
-		awardTxt = (TextView) findViewById(R.id.coach_apply_info_award_selection);
+
 		avatarView = (ImageView) findViewById(R.id.coach_apply_info_avtar);
 		mIDFrondProgress = (ProgressBar) findViewById(R.id.coach_apply_info_id_front_progress);
 		mIDBackProgress = (ProgressBar) findViewById(R.id.coach_apply_info_id_back_progress);
@@ -191,8 +189,11 @@ public class CoachApplyInfoActivity extends Activity implements
 		mHobbyCoachLinear.setSelected(true);
 		mProfessionalCoachLinear = (LinearLayout) findViewById(R.id.coach_apply_info_professional_linear);
 		mProfessionalSelectInputRelative = (RelativeLayout) findViewById(R.id.coach_apply_info_professional_select_input_relative);
+
+		mCommiTxt = (TextView) findViewById(R.id.coach_apply_info_commit_text);
 		
 		findViewById(R.id.coach_applay_info_back).setOnClickListener(this);
+
 		findViewById(R.id.coach_applay_info_title_tips_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_avtar_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_age_ll).setOnClickListener(this);
@@ -209,21 +210,22 @@ public class CoachApplyInfoActivity extends Activity implements
 		findViewById(R.id.coach_apply_info_certificate_selected_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_award_selected_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_commit_text).setOnClickListener(this);
+		//mCommiTxt.setOnClickListener(this);
 		
 		mSpecialEdit.setFocusable(true);
 		mSpecialEdit.requestFocus();
 		nickNameTxt.setOnFocusChangeListener(new OnFocusChangeListener() {
-			
+
 			@Override
 			public void onFocusChange(View arg0, boolean arg1) {
 				// TODO Auto-generated method stub
-				
+
 				if (arg1) {
-					
+
 					nickNameTxt.setBackgroundResource(R.drawable.frame_bkg);
-					
+
 				} else {
-					
+
 					nickNameTxt.setBackgroundColor(getResources().getColor(R.color.color_white));
 				}
 			}
@@ -231,6 +233,7 @@ public class CoachApplyInfoActivity extends Activity implements
 
 		
 		mContext = this;
+		mCommiTxt.setEnabled(false);
 		
 		customer = MainApp.getInstance().getCustomer();
 		
@@ -381,7 +384,7 @@ public class CoachApplyInfoActivity extends Activity implements
 		
 		tipsTxt.setText(reqParam.auditString);
 		mDesPopWin = new PopupWindow(sv, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
-		mDesPopWin.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+		mDesPopWin.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_gray));
 		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
 		sv.setOnClickListener(new OnClickListener() {
 			@Override
@@ -492,28 +495,33 @@ public class CoachApplyInfoActivity extends Activity implements
 
 	@Override
 	public void onYearsExpSelect(int newYearsExp) {
-		doModifyCustomerInfo(RequestParam.PARAM_REQ_YEARSEXP_STR,String.valueOf(newYearsExp),teachAgeTxt,
-				String.format(getString(R.string.str_account_yearsexp_wrap), newYearsExp));
+//		doModifyCustomerInfo(RequestParam.PARAM_REQ_YEARSEXP_STR,String.valueOf(newYearsExp),teachAgeTxt,
+//				String.format(getString(R.string.str_account_yearsexp_wrap), newYearsExp));
 		
 		//customer.yearsExpStr = String.valueOf(newYearsExp);
+
+		teachAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap), newYearsExp));
 		reqParam.teach_age = newYearsExp;
+
 	}
 
 	
 	@Override
 	public void onAgeSelect(int newAge) {
-		doModifyCustomerInfo(RequestParam.PARAM_REQ_AGE,String.valueOf(newAge), 
-				ageTxt,String.format(getString(R.string.str_account_age_wrap), newAge));
+//		doModifyCustomerInfo(RequestParam.PARAM_REQ_AGE,String.valueOf(newAge),
+//				ageTxt,String.format(getString(R.string.str_account_age_wrap), newAge));
 		//customer.age = String.valueOf(newAge);
 		reqParam.age = newAge;
+		ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), newAge));
 	}
 
 
 	@Override
 	public void onSexSelect(int newSex) {
-		doModifyCustomerInfo(RequestParam.PARAM_REQ_SEX,String.valueOf(newSex),
-				sexTxt,goGlobalData.getSexName(newSex));
+//		doModifyCustomerInfo(RequestParam.PARAM_REQ_SEX,String.valueOf(newSex),
+//				sexTxt,goGlobalData.getSexName(newSex));
 
+		sexTxt.setText(goGlobalData.getSexName(newSex));
 		reqParam.sex = newSex;
 	}
 	
@@ -608,31 +616,31 @@ public class CoachApplyInfoActivity extends Activity implements
 	/*
 	 * 修改教练信息
 	 * */
-	private void doModifyCustomerInfo(final String key,final String value,final TextView textView,final String textValue){
-		WaitDialog.showWaitDialog(this,
-				R.string.str_loading_modify_msg);
-		if(!Utils.isConnected(this)){
-			return;
-		}
-		new AsyncTask<Object, Object, Integer>() {
-			ModifyCustomer request = new ModifyCustomer(mContext, customer.sn, key, value);
-			@Override
-			protected Integer doInBackground(Object... params) {
-				return request.connectUrl();
-			}
-			@Override
-			protected void onPostExecute(Integer result) {
-				super.onPostExecute(result);
-				if(BaseRequest.REQ_RET_OK == result) {
-					textView.setText(textValue);
-					changedFlag = true;
-				} else {
-					Toast.makeText(mContext,request.getFailMsg(), Toast.LENGTH_SHORT).show();
-				}
-				WaitDialog.dismissWaitDialog();
-			}
-		}.execute(null, null, null);
-	}
+//	private void doModifyCustomerInfo(final String key,final String value,final TextView textView,final String textValue){
+//		WaitDialog.showWaitDialog(this,
+//				R.string.str_loading_modify_msg);
+//		if(!Utils.isConnected(this)){
+//			return;
+//		}
+//		new AsyncTask<Object, Object, Integer>() {
+//			ModifyCustomer request = new ModifyCustomer(mContext, customer.sn, key, value);
+//			@Override
+//			protected Integer doInBackground(Object... params) {
+//				return request.connectUrl();
+//			}
+//			@Override
+//			protected void onPostExecute(Integer result) {
+//				super.onPostExecute(result);
+//				if(BaseRequest.REQ_RET_OK == result) {
+//					textView.setText(textValue);
+//					changedFlag = true;
+//				} else {
+//					Toast.makeText(mContext,request.getFailMsg(), Toast.LENGTH_SHORT).show();
+//				}
+//				WaitDialog.dismissWaitDialog();
+//			}
+//		}.execute(null, null, null);
+//	}
 	
 	/*
 	 * 启动裁减功能
@@ -771,7 +779,7 @@ public class CoachApplyInfoActivity extends Activity implements
 						
 						break;
 						
-					case  Const.AWARD	:
+					case  Const.AWARD:
 						
 						reqParam.award_name = fileName;
 						
@@ -863,14 +871,14 @@ public class CoachApplyInfoActivity extends Activity implements
 						
 						reqParam = request.item;
 						
-						loadAvatar(customer.sn,reqParam.avatar);
+						loadAvatar(reqParam.sn,reqParam.avatar);
 				
 						sexTxt.setText(goGlobalData.getSexName(reqParam.sex));
-						//ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), reqParam.age));
+						ageTxt.setText(reqParam.age_str);
 						nickNameTxt.setText(reqParam.name);
 						placeTxt.setText(reqParam.course_name);
 						teachAgeTxt.setText(String.valueOf(reqParam.teach_age));
-						specialTxt.setText(reqParam.special);
+						mSpecialEdit.setText(reqParam.special);
 						
 						if(reqParam.type == Const.PROFESSIONAL_COACH) {
 							
@@ -898,11 +906,32 @@ public class CoachApplyInfoActivity extends Activity implements
 						if(reqParam.audit == 0) {
 							
 							mStatusTxt.setText(R.string.str_coach_apply_status_waiting);
+							mCommiTxt.setEnabled(false);
+							mRootLinear.setEnabled(false);
+							findViewById(R.id.coach_apply_info_avtar_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_age_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_sex_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_name_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_hobby_linear).setEnabled(false);
+							findViewById(R.id.coach_apply_info_professional_linear).setEnabled(false);
+							findViewById(R.id.coach_apply_info_id_front_selected_image).setEnabled(false);
+							findViewById(R.id.coach_apply_info_id_back_selected_image).setEnabled(false);
+							findViewById(R.id.coach_apply_info_special_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_place_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_teach_age_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_graduate_selected_image).setEnabled(false);
+							findViewById(R.id.coach_apply_info_certificate_selected_image).setEnabled(false);
+							findViewById(R.id.coach_apply_info_award_selected_image).setEnabled(false);
+							nickNameTxt.setEnabled(false);
+							mSpecialEdit.setEnabled(false);
+							mCommiTxt.setBackgroundColor(getResources().getColor(R.color.gray));
+							mCommiTxt.setText(R.string.str_coach_apply_status_waiting);
 							mStatusTxt.setTextColor(getResources().getColor(R.color.color_yellow));
 							
 						} else if(reqParam.audit == 1) {
 													
 							mStatusTxt.setText(R.string.str_coach_apply_status_success);
+							mCommiTxt.setEnabled(true);
 							mStatusTxt.setTextColor(getResources().getColor(R.color.color_white));
 							
 						} else if(reqParam.audit == 2) {
@@ -910,6 +939,7 @@ public class CoachApplyInfoActivity extends Activity implements
 							mStatusTxt.setTextColor(getResources().getColor(R.color.color_red));
 							mStatusTxt.setText(R.string.str_coach_apply_status_fail);
 							mTitleTipsImage.setVisibility(View.VISIBLE);
+							mCommiTxt.setEnabled(true);
 						}
 						
 					/*
@@ -918,9 +948,9 @@ public class CoachApplyInfoActivity extends Activity implements
 					} else {
 						
 						loadAvatar(customer.sn,customer.avatar);
-						
+						mCommiTxt.setEnabled(true);
 						sexTxt.setText(goGlobalData.getSexName(customer.sex));
-						//ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), customer.age));
+						ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), customer.age));
 						nickNameTxt.setText(customer.nickname);
 						
 						reqParam.type = Const.HOBBY_COACH;
@@ -951,11 +981,12 @@ public class CoachApplyInfoActivity extends Activity implements
 			return false;
 		}
 		
-		if (reqParam.name == null || reqParam.name.length() <= 0) {
+		if (nickNameTxt == null || nickNameTxt.getText().toString().length() <= 0) {
 			
 			Toast.makeText(mContext, R.string.str_coach_invite_no_name, Toast.LENGTH_SHORT).show();
 			return false;
 		}
+		reqParam.name = nickNameTxt.getText().toString();
 		
 		if (reqParam.sex < 0) {
 			

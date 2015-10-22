@@ -149,7 +149,7 @@ public class ModifyInfoActivity extends Activity implements OnClickListener,onSe
 		loadAvatar(customer.sn,customer.avatar);
 		goGlobalData = MainApp.getInstance().getGlobalData();
 		sexView.setText(goGlobalData.getSexName(customer.sex));
-		ageView.setText(String.format(getString(R.string.str_account_age_wrap), Integer.parseInt(customer.age)));
+		ageView.setText(String.format(getString(R.string.str_account_age_wrap), customer.age));
 		phoneView.setText(customer.phone);
 		regionView.setText(goGlobalData.getRegionName(customer.city));
 		String sign = customer.signature.trim();
@@ -228,7 +228,7 @@ public class ModifyInfoActivity extends Activity implements OnClickListener,onSe
 	public void onAgeSelect(int newAge) {
 		doModifyCustomerInfo(RequestParam.PARAM_REQ_AGE,String.valueOf(newAge),
 				ageView,String.format(getString(R.string.str_account_age_wrap), newAge));
-		customer.age = String.valueOf(newAge);
+		customer.age = newAge;
 	}
 
 	@Override

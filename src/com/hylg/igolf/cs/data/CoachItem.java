@@ -29,7 +29,7 @@ public class CoachItem implements Serializable{
 	
 	public double distance;
 	
-	public double distanceTime;
+	public long distanceTime;
 	
 	public String course_id;
 	public String course_name;
@@ -37,5 +37,7 @@ public class CoachItem implements Serializable{
 	public String course_tel;
 	public String course_distance;
 	
-	
+	public int commentsAmount = 0;
+
+	public int attention = -1;
 }
