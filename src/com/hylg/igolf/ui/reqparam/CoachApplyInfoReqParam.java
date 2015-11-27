@@ -22,6 +22,8 @@ public class CoachApplyInfoReqParam implements Serializable {
 	public int teach_age;
 	
 	public long courseid;
+
+	public String state;
 	
 	public String special;
 	public String course_name;

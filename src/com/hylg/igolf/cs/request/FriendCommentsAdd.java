@@ -13,7 +13,7 @@ public class FriendCommentsAdd extends BaseRequest {
 	
 	private String param;
 
-	public FriendCommentsAdd(Context context, String sn, String name,
+	public FriendCommentsAdd(Context context, String sn, String name,String avatar,
 						String tipId, String tosn, String toname,
 						String content) {
 		super(context);
@@ -21,6 +21,8 @@ public class FriendCommentsAdd extends BaseRequest {
 		s.append(PARAM_REQ_SN); s.append(KV_CONN); s.append(sn);
 		s.append(PARAM_CONN);
 		s.append("name"); s.append(KV_CONN); s.append(name);
+		s.append(PARAM_CONN);
+		s.append("avatar"); s.append(KV_CONN); s.append(avatar);
 		s.append(PARAM_CONN);
 		s.append("tipid"); s.append(KV_CONN); s.append(tipId);
 		s.append(PARAM_CONN);

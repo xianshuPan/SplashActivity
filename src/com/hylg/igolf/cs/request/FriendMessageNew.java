@@ -66,8 +66,10 @@ public class FriendMessageNew extends BaseRequest {
 	        
 			con.setRequestProperty(HTTP.CONTENT_TYPE,"multipart/form-data;boundary="+boundary);
 			
-			DataOutputStream ds = new DataOutputStream(con.getOutputStream()); 
-			
+			DataOutputStream ds = new DataOutputStream(con.getOutputStream());
+
+			ds.writeBytes(twoHyphens + boundary + end);
+
 			if (mFriendMessageNewItem != null && mFriendMessageNewItem.localImageURL != null && mFriendMessageNewItem.localImageURL.size() > 0) {
 				         
 	   
@@ -99,7 +101,7 @@ public class FriendMessageNew extends BaseRequest {
 					
 				}
 				
-				ds.writeBytes(twoHyphens + boundary + end);          
+
 				ds.writeBytes("Content-Disposition:form-data;"+ "name=\"imgNames\""+ end);
 				ds.writeBytes(end);
 				 
@@ -164,7 +166,7 @@ public class FriendMessageNew extends BaseRequest {
 //			}
 			return REQ_RET_F_UPDATE_AVATAR_FAIL;
 //			return REQ_RET_OK; // 异常，但实际上传成功
-		};
+		}
 
 		return REQ_RET_OK;
 	}
@@ -193,6 +195,6 @@ public class FriendMessageNew extends BaseRequest {
 	}
 
 	public interface getRivalDataCallback {
-		public abstract void getRivalData(RivalData rivalData);
+		void getRivalData(RivalData rivalData);
 	}
 }

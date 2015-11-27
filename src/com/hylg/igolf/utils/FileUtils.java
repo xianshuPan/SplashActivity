@@ -76,8 +76,7 @@ public class FileUtils extends BaseFileUtils {
 	}
 	
 	public static String getApkPath(Context context) {
-		String path = getFilePathName(externalFilesDir(context), CACHE_DIR_APK);
-		return path;
+		return getFilePathName(externalFilesDir(context), CACHE_DIR_APK);
 	}
 	
 	public static File createDatabaseFile(Context context, String db) {
@@ -103,19 +102,15 @@ public class FileUtils extends BaseFileUtils {
 	
 	/**
 	 * 用户图片存储路径
-	 * @param sn
-	 * @return
+	 * @param context
 	 */
 	public static String getMemberPath(Context context) {
-		String path = getFilePathName(externalFilesDir(context),
-				IMG_PATH_MEMSHIP);
-		return path;
+		return getFilePathName(externalFilesDir(context), IMG_PATH_MEMSHIP);
 	}
 
 	/**
 	 * 获取用户记分卡路径
 	 * @param context
-	 * @return
 	 */
 	public static String getCustomerScorecardPath(Context context) {
 		return getFilePathName(externalFilesDir(context),
@@ -144,7 +139,6 @@ public class FileUtils extends BaseFileUtils {
 	 * 获取会员头像存储全路径
 	 * @param sn 会员编号
 	 * @param name 头像名称
-	 * @return
 	 */
 	public static String getAvatarPathBySn(Context context, String sn, String name) {
 		if(Utils.LOG_H && name.isEmpty()) {
@@ -177,7 +171,6 @@ public class FileUtils extends BaseFileUtils {
 	 * 获取记分卡存储全路径
 	 * @param userSn 会员编号
 	 * @param card 记分卡名称
-	 * @return
 	 */
 	public static String getScorecardPathBySn(Context context, String card, String userSn) {
 		if(Utils.LOG_H && card.isEmpty()) {
@@ -200,7 +193,6 @@ public class FileUtils extends BaseFileUtils {
 	 * 获取会员相册存储全路径
 	 * @param sn 会员编号
 	 * @param name 头像名称
-	 * @return
 	 */
 	private static String getAlbumPathBySn(Context context, String sn, String name,String type) {
 		if(Utils.LOG_H && name.isEmpty()) {
@@ -224,7 +216,6 @@ public class FileUtils extends BaseFileUtils {
 	
 	/**
 	 * 获取配置文件信息
-	 * @return
 	 */
 	private static String getExternalCfgPath(Context context) {
 		String path = getFilePathName(externalFilesDir(context), CONFIG_PATH);
@@ -284,7 +275,7 @@ public class FileUtils extends BaseFileUtils {
 		String str = null;
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
-		int len = 0;
+		int len;
 		try {
 			while ((len = is.read(buffer)) != -1) {
 				outStream.write(buffer, 0, len);

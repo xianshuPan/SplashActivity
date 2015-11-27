@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,17 +34,17 @@ import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
-import com.tencent.mm.sdk.openapi.BaseReq;
 
 public class CoachComplainOrRefuseFrg extends Fragment {
 	
-	private static final String 					TAG = "HallMyTeachingFrg";
-	
-	private GetMyTeachingListLoader 				reqLoader = null;
+	private static final String 					TAG = "CoachComplainOrRefuseFrg";
+
 	private LoadFail 								loadFail;
 	private ListView 								listView;
 	
 	private EditText                                mReasonEdit ;
+
+	private ImageButton 							mBack;
 	
 	private TextView                                mTitleTxt,mCommitTxt;
 	
@@ -83,7 +84,8 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		LinearLayout view = (LinearLayout) inflater.inflate(R.layout.coach_complain_list_frg, container, false);
 		listView = (ListView) view.findViewById(R.id.coach_complain_list_listview);
-		
+
+		mBack  = (ImageButton) view.findViewById(R.id.coach_complain_list_back);
 		mTitleTxt = (TextView) view.findViewById(R.id.coach_complain_list_title_text);
 		mReasonEdit = (EditText) view.findViewById(R.id.coach_complain_reason_edit);
 		mCommitTxt = (TextView) view.findViewById(R.id.coach_complain_commit_text);
@@ -95,6 +97,18 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 				// TODO Auto-generated method stub
 				
 				coachComplainOrRefuseCommit();
+			}
+		});
+		mBack.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+
+				if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+
+					getActivity().getSupportFragmentManager().popBackStackImmediate();
+				}
 			}
 		});
 		
@@ -143,10 +157,6 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 		Utils.logh(TAG, " --- onDestroyViewparent: " + parent);
 		if(null != parent) {
 			parent.removeAllViews();
-		}
-		if(null != reqLoader) {
-			reqLoader.stopTask(true);
-			reqLoader = null;
 		}
 
 	}
@@ -204,10 +214,10 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 		if(!Utils.isConnected(getActivity())) {
 			return ;
 		}
-		
-		if (mSelectedReasonArray == null || mSelectedReasonArray.size() <= 0) {
-			
-			Toast.makeText(getActivity(), "请至少选择一条理由", Toast.LENGTH_SHORT).show();
+		final String strEdit = mReasonEdit.getText().toString();
+		if (( mSelectedReasonArray.size() <= 0) && (strEdit == null || strEdit.length() <= 0)) {
+
+			Toast.makeText(getActivity(), "请至少选择一条理由或填写您自己的理由", Toast.LENGTH_SHORT).show();
 			return ;
 		}
 		
@@ -224,7 +234,7 @@ public class CoachComplainOrRefuseFrg extends Fragment {
 		new AsyncTask<Object, Object, Integer>() {
 			
 			CoachComplainOrRefuseCommit request = new CoachComplainOrRefuseCommit(getActivity(), mType, mTeacherID, mStudentId, mAppID,
-					mSelectReasonIds, mReasonEdit.getText().toString());
+					mSelectReasonIds, strEdit);
 			
 			@Override
 			protected Integer doInBackground(Object... params) {

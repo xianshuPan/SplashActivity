@@ -64,22 +64,22 @@ public class GetFriendHotList extends BaseRequest {
 				JSONObject obj = ja.getJSONObject(i);
 				FriendHotItem item = new FriendHotItem();
 				
-				item.tipid = obj.getString("tipid");
-				item.sn = obj.getString("sn");
-				item.name = obj.getString("name");
-				item.avatar = obj.getString("avatar");
-				item.imageURL = obj.getString("imageURL");
+				item.tipid = obj.optString("tipid");
+				item.sn = obj.optString("sn");
+				item.name = obj.optString("name");
+				item.avatar = obj.optString("avatar");
+				item.imageURL = obj.optString("imageURL");
 				
-				String contentStr = obj.getString("content");
+				String contentStr = obj.optString("content");
 				
 				if (contentStr != null && contentStr.length() > 0 && !contentStr.equalsIgnoreCase("null")) {
 					
 					item.content = contentStr;
 				}
 				
-				item.attention = obj.getInt("attention");
-				item.praise = obj.getInt("praise");
-				item.releaseTime = obj.getLong("releaseTime");	
+				item.attention = obj.optInt("attention");
+				item.praise = obj.optInt("praise");
+				item.releaseTime = obj.optLong("releaseTime");
 				
 				item.praises = new ArrayList<HashMap<String,String>>();
 				JSONArray praises = obj.getJSONArray("praises");
@@ -89,10 +89,10 @@ public class GetFriendHotList extends BaseRequest {
 					JSONObject reviewItem = praises.getJSONObject(j);
 					
 					HashMap<String, String> reviewItemHash = new HashMap<String, String>();
-					reviewItemHash.put("id", reviewItem.getString("id"));	
-					reviewItemHash.put("tipid", reviewItem.getString("tipid"));
-					reviewItemHash.put("sn", reviewItem.getString("sn"));
-					reviewItemHash.put("name", reviewItem.getString("name"));	
+					reviewItemHash.put("id", reviewItem.optString("id"));
+					reviewItemHash.put("tipid", reviewItem.optString("tipid"));
+					reviewItemHash.put("sn", reviewItem.optString("sn"));
+					reviewItemHash.put("name", reviewItem.optString("name"));
 					
 					item.praises.add(reviewItemHash);
 					
@@ -103,16 +103,16 @@ public class GetFriendHotList extends BaseRequest {
 				
 				for (int j =0 ; j < comments.length() ; j++) {
 					
-					JSONObject reviewItem = comments.getJSONObject(j);
+					JSONObject reviewItem = comments.optJSONObject(j);
 					
 					HashMap<String, String> reviewItemHash = new HashMap<String, String>();
-					reviewItemHash.put("id", reviewItem.getString("id"));	
-					reviewItemHash.put("tipid", reviewItem.getString("tipid"));
-					reviewItemHash.put("sn", reviewItem.getString("sn"));
-					reviewItemHash.put("content", reviewItem.getString("content"));	
-					reviewItemHash.put("name", reviewItem.getString("name"));
-					reviewItemHash.put("tosn", reviewItem.getString("tosn"));
-					reviewItemHash.put("toname", reviewItem.getString("toname"));
+					reviewItemHash.put("id", reviewItem.optString("id"));
+					reviewItemHash.put("tipid", reviewItem.optString("tipid"));
+					reviewItemHash.put("sn", reviewItem.optString("sn"));
+					reviewItemHash.put("content", reviewItem.optString("content"));
+					reviewItemHash.put("name", reviewItem.optString("name"));
+					reviewItemHash.put("tosn", reviewItem.optString("tosn"));
+					reviewItemHash.put("toname", reviewItem.optString("toname"));
 					
 					item.comments.add(reviewItemHash);
 					

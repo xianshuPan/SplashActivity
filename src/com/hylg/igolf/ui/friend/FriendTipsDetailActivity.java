@@ -75,6 +75,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 										attention_sn                = "",
 										tosn                        = "",
 										name                        = "",
+										avatar                      = "",
 										toname                      = "",
 										tipsId                      = "";
 	
@@ -141,7 +142,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		mBack =  (ImageButton)  findViewById(R.id.friend_tips_detial_back);
 		
 		mBack.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -168,6 +169,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		mInputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		sn = MainApp.getInstance().getCustomer().sn;
 		name = MainApp.getInstance().getCustomer().nickname;
+		avatar = MainApp.getInstance().getCustomer().avatar;
 		
 		mCommentsPopView = mContext.getLayoutInflater().inflate(R.layout.friend_add_comments_view, null, false);
 		mCommentsEdit = (EditText) mCommentsPopView.findViewById(R.id.friend_comments_input_edit);
@@ -875,9 +877,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
     
     /**
 	 * 处理图片数据
-	 * 
-	 * @param photo
-	 * @return
+	 *
 	 */
 	private ArrayList<Photos> getPhotos(FriendHotItem item) {
 
@@ -889,7 +889,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			
 			String[] photos = photo.split(",");
 			
-			if (photo != null && photo.length() > 0 && photos != null && photos.length > 0) {
+			if (photo != null && photo.length() > 0 && !photo.equalsIgnoreCase("null")&& photos != null && photos.length > 0) {
 				
 				int size = photos.length;
 				Photos ph;
@@ -941,6 +941,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			mCurrentComments.put("tipid", item.tipid);
 			mCurrentComments.put("sn", sn);
 			mCurrentComments.put("name", name);
+			mCurrentComments.put("avatar", avatar);
 			mCurrentComments.put("content", commentsStr);
 			mCurrentComments.put("toname", toname);
 			mCurrentComments.put("tosn", tosn);
@@ -949,8 +950,8 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			WaitDialog.showWaitDialog(mContext, R.string.str_loading_add_comment);
 			new AsyncTask<Object, Object, Integer>() {
 			
-				FriendCommentsAdd request = new FriendCommentsAdd(mContext, mCurrentComments.get("sn"), 
-						mCurrentComments.get("name") ,mCurrentComments.get("tipid"),mCurrentComments.get("tosn"),
+				FriendCommentsAdd request = new FriendCommentsAdd(mContext, mCurrentComments.get("sn"), mCurrentComments.get("name") ,
+						mCurrentComments.get("avatar") ,mCurrentComments.get("tipid"),mCurrentComments.get("tosn"),
 						mCurrentComments.get("toname"),mCurrentComments.get("content"));
 				@Override
 				protected Integer doInBackground(Object... params) {
@@ -978,6 +979,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 						
 						/*一旦点击了发送按钮，就应该把输入框清空*/
 						mCommentsEdit.setText("");
+						mCommentAddPop.dismiss();
 						
 						initListView(item);
 						

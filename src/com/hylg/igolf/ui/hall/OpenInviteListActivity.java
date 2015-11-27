@@ -255,7 +255,7 @@ public class OpenInviteListActivity extends Activity implements OnClickListener,
 			if(null == convertView) {
 				convertView = View.inflate(OpenInviteListActivity.this, R.layout.invite_list_open_item, null);
 				holder = new ViewHolder();
-				holder.avatar = (RoundedImageView) convertView.findViewById(R.id.invite_list_open_item_avatar);
+				holder.avatar = (ImageView) convertView.findViewById(R.id.invite_list_open_item_avatar);
 				holder.nickname = (TextView) convertView.findViewById(R.id.invite_list_open_item_nickname);
 				holder.teetime = (TextView) convertView.findViewById(R.id.invite_list_open_item_teetime);
 				holder.course = (TextView) convertView.findViewById(R.id.invite_list_open_item_course);
@@ -338,7 +338,7 @@ public class OpenInviteListActivity extends Activity implements OnClickListener,
 		}
 		
 		class ViewHolder {
-			private RoundedImageView avatar;
+			private ImageView avatar;
 			private TextView nickname;
 			private TextView teetime;
 			private TextView course;

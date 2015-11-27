@@ -96,7 +96,7 @@ public class HourExpSelectActivity extends Activity {
 		
 		public AgeAdapter() {
 			HourExps = new ArrayList<Integer>();
-			for(int i=1; i<=12; i++) {
+			for(int i=1; i<=8; i++) {
 				HourExps.add(i);
 			}
 		}
@@ -141,6 +141,6 @@ public class HourExpSelectActivity extends Activity {
 	}
 	
 	public interface onHourExpSelectListener {
-		public abstract void onHourExpSelect(int newHourExp);
+		void onHourExpSelect(int newHourExp);
 	}
 }

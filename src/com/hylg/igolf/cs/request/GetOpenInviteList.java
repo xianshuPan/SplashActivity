@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.OpenInvitationInfo;
 import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
 
@@ -58,6 +59,9 @@ public class GetOpenInviteList extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+
+			DebugTools.getDebug().debug_v("getOpenInviteList02","------>>>"+jo);
+
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn && REQ_RET_F_OPEN_LIST_REFRESH != rn) {
 				failMsg = jo.getString(RET_MSG);

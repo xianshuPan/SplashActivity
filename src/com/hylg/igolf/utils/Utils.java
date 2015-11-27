@@ -3,6 +3,7 @@ package com.hylg.igolf.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -208,8 +209,7 @@ public class Utils extends BaseUtils {
 			int re = (nowYEAR-inputYEAR);
 			
 			DebugTools.getDebug().debug_v("tag", "__________>>>>>>>>>"+re);
-			String result1 = re +"年以前";
-			result = result1;
+			result = re +"年以前";
 		}
 		
 		return result;
@@ -218,8 +218,7 @@ public class Utils extends BaseUtils {
 	
 	/**
 	 * 处理时间
-	 * 
-	 * @param string
+	 *
 	 * @return
 	 */
 	public static String handTime(long time) {
@@ -229,8 +228,7 @@ public class Utils extends BaseUtils {
 		try {
 			//Date date = format.parse(time);
 			long tm = System.currentTimeMillis();// 当前时间戳
-			long tm2 = time;// 发表动态的时间戳
-			long d = (tm - tm2) / 1000;// 时间差距 单位秒
+			long d = (tm - time) / 1000;// 时间差距 单位秒
 			
 			
 			if ((d / (60 * 60 * 24 * 30 *12)) > 0) {
@@ -287,9 +285,10 @@ public class Utils extends BaseUtils {
     	
     	Date date = new Date(time);
     	
-    	SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    	
+    	SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     	String result = sdf.format(date);
+
     	
     	return result;
     }
@@ -308,7 +307,7 @@ public class Utils extends BaseUtils {
 
 		Date date = new Date(time);
 
-		SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 		String result = sdf.format(date);
 
@@ -353,5 +352,64 @@ public class Utils extends BaseUtils {
 		}
 
 		return str;
+	}
+
+	public static Calendar getCalendar (String time) {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date date_start = null;
+
+		Calendar result;
+
+		try {
+			date_start = sdf.parse(time);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		Calendar now = Calendar.getInstance();
+
+		Calendar toCalendar = Calendar.getInstance();
+		toCalendar.setTime(date_start);
+
+		int count = toCalendar.compareTo(now);
+
+		if (count == 0) {
+
+			int hour1 = toCalendar.get(Calendar.HOUR_OF_DAY);
+			int hour_now= now.get(Calendar.HOUR_OF_DAY);
+
+			if ((hour1-hour_now )> 2) {
+
+				result =  toCalendar;
+
+			} else {
+
+				toCalendar.set(Calendar.HOUR_OF_DAY,toCalendar.get(Calendar.HOUR_OF_DAY)+2);
+
+				result = toCalendar;
+			}
+
+		} else if (count < 0) {
+
+			if (now.get(Calendar.MINUTE) > 30) {
+
+				now.set(Calendar.HOUR_OF_DAY,now.get(Calendar.HOUR_OF_DAY)+3);
+				now.set(Calendar.MINUTE,0);
+
+			} else {
+
+				now.set(Calendar.HOUR_OF_DAY,now.get(Calendar.HOUR_OF_DAY)+2);
+				now.set(Calendar.MINUTE,30);
+			}
+
+			result =  now;
+
+		} else {
+
+			result =  toCalendar;
+		}
+
+		return result;
 	}
 }

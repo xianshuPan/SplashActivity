@@ -72,12 +72,12 @@ public class CoachListAdapter extends IgBaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		ViewHodler holder = null;
+		ViewHodler holder;
 		if(null == convertView) {
 			convertView = View.inflate(context, R.layout.coach_list_item, null);
 			holder = new ViewHodler();
 			
-			holder.avatarIv = (RoundedImageView) convertView.findViewById(R.id.coach_item_avatar);
+			holder.avatarIv = (ImageView) convertView.findViewById(R.id.coach_item_avatar);
 			holder.typeIv = (ImageView) convertView.findViewById(R.id.coach_item_type_image);
 			holder.handicapiTv = (TextView) convertView.findViewById(R.id.coach_item_handicapIndex_text);
 			holder.star = (RatingBar) convertView.findViewById(R.id.coach_item_rating);
@@ -109,12 +109,20 @@ public class CoachListAdapter extends IgBaseAdapter {
 			holder.typeIv.setBackgroundResource(R.drawable.white_bg);
 		}
 		
-		holder.handicapiTv.setText(String.valueOf(item.handicapIndex));
+		holder.handicapiTv.setText(Utils.getDoubleString(context, item.handicapIndex));
 		holder.nicknameTv.setText(item.nickname);
 		holder.teachTimeTv.setText(String.valueOf(item.teachTimes));
 		holder.ageTv.setText(String.valueOf(item.teachYear));
 		holder.specialTv.setText(item.special);
-		holder.distanceTv.setText(String.valueOf(item.distance)+"km");
+
+		if (item.distance <= 1) {
+
+			holder.distanceTv.setText("附近");
+		} else {
+
+			holder.distanceTv.setText(String.valueOf(item.distance)+"km");
+		}
+		//holder.distanceTv.setText(String.valueOf(item.distance)+"km");
 		holder.distanceTimeTv.setText(Utils.handTime(item.distanceTime));
 		holder.star.setRating(item.rate);
 		convertView.setOnClickListener(new OnItemChildClickListener(GOLFERS_INDEX_ITEM, position));
@@ -128,7 +136,7 @@ public class CoachListAdapter extends IgBaseAdapter {
 
 	private class ViewHodler {
 		
-		protected RoundedImageView avatarIv;
+		protected ImageView avatarIv;
 		protected ImageView sexIv;
 		protected ImageView typeIv;
 

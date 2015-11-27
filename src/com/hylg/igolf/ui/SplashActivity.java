@@ -1,41 +1,23 @@
 package com.hylg.igolf.ui;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
-
-import org.json.JSONObject;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.location.Location;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.RemoteViews;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -44,15 +26,10 @@ import com.amap.api.location.LocationProviderProxy;
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.ConfigInfo;
-import com.hylg.igolf.cs.data.VersionInfo;
 import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.cs.request.GetConfigInfo;
 import com.hylg.igolf.cs.request.LoginUser;
-import com.hylg.igolf.cs.request.UpdateRequest;
 import com.hylg.igolf.ui.account.LoginActivity;
 import com.hylg.igolf.utils.Const;
-import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.umeng.analytics.MobclickAgent;

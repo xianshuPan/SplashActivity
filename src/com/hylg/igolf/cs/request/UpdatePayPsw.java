@@ -23,17 +23,17 @@ public class UpdatePayPsw extends BaseRequest {
 		StringBuilder s = new StringBuilder();
 		s.append("custid"); s.append(KV_CONN); s.append(custid);
 		s.append(PARAM_CONN);
-		s.append("withdrwal_pwd"); s.append(KV_CONN); s.append(Base64.encode(password.getBytes()));
+		s.append("new_pwd"); s.append(KV_CONN); s.append(Base64.encode(password.getBytes()));
 		s.append(PARAM_CONN);
 		s.append("code"); s.append(KV_CONN); s.append(code);
-		s.append(PARAM_CONN);
-		s.append("name"); s.append(KV_CONN); s.append(card_bank_name);
+//		s.append(PARAM_CONN);
+//		s.append("name"); s.append(KV_CONN); s.append(card_bank_name);
 		param = s.toString();
 	}
 	
 	@Override
 	public String getRequestUrl() {
-		return getReqParam("changeWithdrwalPwd", param);
+		return getReqParam("findWithdrwalPwd", param);
 	}
 
 	@Override

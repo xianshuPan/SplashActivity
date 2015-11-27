@@ -3,6 +3,8 @@ package com.hylg.igolf.utils;
 import com.hylg.igolf.R;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -25,6 +27,19 @@ public class WaitDialog {
 		if(!waitDialog.isShowing()) {
 			waitDialog.show();
 		}
+
+		waitDialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+			@Override
+			public boolean onKey(DialogInterface dialogInterface, int i, KeyEvent keyEvent) {
+
+				if (i == KeyEvent.KEYCODE_BACK) {
+
+					dismissWaitDialog();
+				}
+				return false;
+			}
+
+		});
 	}
 	
 	public static void dismissWaitDialog() {

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -79,7 +80,7 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.customer_info_my_balance_to_cash);
 		
-		mBack =  (ImageButton)  findViewById(R.id.to_cash_topbar_back);
+		mBack = (ImageButton) findViewById(R.id.to_cash_topbar_back);
 		mBankNameTxt = (TextView) findViewById(R.id.to_cash_bank_nameText);
 		mTipsTxt = (TextView) findViewById(R.id.to_cash_tipsText);
 		mCardNoTxt = (TextView) findViewById(R.id.to_cash_card_noText);
@@ -96,6 +97,8 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+
+				MyBalanceRecordActivity.startMyBalanceRecordActivity(mContext);
 				mContext.finish();
 			}
 		});
@@ -113,7 +116,7 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 			mCardNoTxt.setText("尾号 "+card_no.substring(index-4,index));
 		}
 
-		mBankNameTxt.setText("建设银行");
+		mBankNameTxt.setText(MainApp.getInstance().getGlobalData().getBankName());
 		mAmountEdit.setHint("本次最多提现"+MainApp.getInstance().getGlobalData().getBalance()+"元");
 
 	}
@@ -122,6 +125,18 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 	protected void onResume () {
 
 		super.onResume();
+	}
+
+	@Override
+	public boolean onKeyDown(int key_code,KeyEvent envent){
+
+		if (key_code == KeyEvent.KEYCODE_BACK) {
+
+			MyBalanceRecordActivity.startMyBalanceRecordActivity(mContext);
+			mContext.finish();
+		}
+
+		return super.onKeyDown(key_code,envent);
 	}
 
 	/*
@@ -163,7 +178,7 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 		@Override
 		public void run() {
 			recLen--;
-			String str = new String(""+recLen);
+			String str = "" + recLen;
 			if(str.length()==1){
 				str = "0"+str;
 			}
@@ -182,56 +197,57 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 	private void commit() {
 
 		mAmountStr = mAmountEdit.getText().toString();
-		if (mAmountStr == null || mAmountStr.length() <= 0 || Double.valueOf(mAmountStr) <= 0 ||
+		if (mAmountStr.length() <= 0 || Double.valueOf(mAmountStr) <= 0 ||
 				Double.valueOf(mAmountStr) > MainApp.getInstance().getGlobalData().getBalance()	) {
 
 			Toast.makeText(mContext, "请输入有效金额", Toast.LENGTH_SHORT).show();
 			return;
 		}
 
-		mVerifyCodeStr = mVerifyCodeEdit.getText().toString();
-		if (mVerifyCodeStr == null || mVerifyCodeStr.length() < 6) {
+		mPayPswStr = mVerifyCodeEdit.getText().toString();
+		if (mPayPswStr.length() < 6) {
 
-			Toast.makeText(mContext, R.string.str_toast_input_verify, Toast.LENGTH_SHORT).show();
+			Toast.makeText(mContext, R.string.str_input_to_cash_pay_psw, Toast.LENGTH_SHORT).show();
 			return;
 		}
 
+		commitToCash ();
 
-		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-		View view = mContext.getLayoutInflater().inflate(R.layout.input_pay_psw, null);
-		final EditText payPsw = (EditText) view.findViewById(R.id.input_pay_pswEdit);
-		mForgotPswTxt = (TextView) view.findViewById(R.id.input_pay_psw_forgot_text);
-		mForgotPswTxt.setOnClickListener(this);
-		dialog.setView(view);
-		dialog.setTitle(getResources().getString(R.string.str_to_cash_pay_psw));
-		dialog.setPositiveButton(R.string.str_photo_commit, new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				// TODO Auto-generated method stub
-				String payPswStr = payPsw.getText().toString();
-
-				if (payPswStr == null || payPswStr.length() < 4) {
-
-					Toast.makeText(mContext, R.string.str_input_to_cash_pay_psw, Toast.LENGTH_SHORT).show();
-					return;
-				}
-
-				mPayPswStr = payPsw.getText().toString();
-
-				commitToCash ();
-			}
-		});
-		dialog.setNegativeButton(R.string.str_photo_cancel,new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		dialog.show();
+//		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+//		View view = mContext.getLayoutInflater().inflate(R.layout.input_pay_psw, null);
+//		final EditText payPsw = (EditText) view.findViewById(R.id.input_pay_pswEdit);
+//		mForgotPswTxt = (TextView) view.findViewById(R.id.input_pay_psw_forgot_text);
+//		mForgotPswTxt.setOnClickListener(this);
+//		dialog.setView(view);
+//		dialog.setTitle(getResources().getString(R.string.str_to_cash_pay_psw));
+//		dialog.setPositiveButton(R.string.str_photo_commit, new DialogInterface.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface arg0, int arg1) {
+//				// TODO Auto-generated method stub
+//				String payPswStr = payPsw.getText().toString();
+//
+//				if (payPswStr == null || payPswStr.length() < 4) {
+//
+//					Toast.makeText(mContext, R.string.str_input_to_cash_pay_psw, Toast.LENGTH_SHORT).show();
+//					return;
+//				}
+//
+//				mPayPswStr = payPsw.getText().toString();
+//
+//				commitToCash ();
+//			}
+//		});
+//		dialog.setNegativeButton(R.string.str_photo_cancel,new DialogInterface.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface arg0, int arg1) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+//
+//		dialog.show();
 
 	}
 
@@ -251,6 +267,7 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 				if(BaseRequest.REQ_RET_OK == result) {
 
 					MyBalanceRecordActivity.startMyBalanceRecordActivity(mContext);
+					mContext.finish();
 
 				} else {
 					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
@@ -267,7 +284,8 @@ public class ToCashActivity extends FragmentActivity implements OnClickListener 
 
 		if (view.getId() == mTimerTxt.getId()) {
 
-			getVerifyCode();
+			//getVerifyCode();
+			BindCardActivity.startBindCardActivity(mContext,Const.RESET_PAY_PASSWORD);
 
 		} else if (view.getId() == mCommitTxt.getId()) {
 

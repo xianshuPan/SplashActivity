@@ -323,7 +323,6 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || hotList.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -347,6 +346,7 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 					//loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				Loader1 = null;
 			}
@@ -409,8 +409,6 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 		}
 		//WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
-		
-	
 		startPage++;
 		
 		/*sn 暂时等于1*/
@@ -419,8 +417,6 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_OK == retId) {
 	
@@ -439,6 +435,7 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 
 					//Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				//WaitDialog.dismissWaitDialog();
 				Loader1 = null;
 			}
@@ -552,7 +549,6 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 		if(Const.REQUST_CODE_SIGNATURE_MY == requestCode) {}
 		if(Const.REQUST_CODE_MODIFY_MY_INFO == requestCode && null != intent){}
 		if(Const.REQUST_CODE_PHOTE_TAKE_PHOTO == requestCode) {
-			if(Activity.RESULT_OK == resultCode) {
 //				startPhotoCrop(mUri);
 				try {
 					//addAlbum(new File(new URI(mUri.toString())));
@@ -560,9 +556,8 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 					e.printStackTrace();
 				}
 				return ;
-			}
 		} else if(Const.REQUST_CODE_PHOTE_GALLERY == requestCode) {
-			if(Activity.RESULT_OK == resultCode && null != intent) {
+			if(null != intent) {
 //				startPhotoCrop(intent.getData());
 				Uri uri = intent.getData();
 				String img_path = FileUtils.getMediaImagePath(mContext, uri);
@@ -570,7 +565,7 @@ public class MemDetailActivityNew extends Activity implements View.OnClickListen
 				return ;
 			}
 		} else if(Const.REQUST_CODE_PHOTE_CROP == requestCode) {
-			if(Activity.RESULT_OK == resultCode && null != intent) {
+			if(null != intent) {
 				Bundle b = intent.getExtras();
 				if(null != b) {
 					Bitmap photo = b.getParcelable("data");

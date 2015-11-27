@@ -3,8 +3,8 @@ package com.hylg.igolf.wxapi;
 import javax.xml.transform.Source;
 
 import com.hylg.igolf.DebugTools;
-import com.tencent.mm.sdk.openapi.BaseReq;
-import com.tencent.mm.sdk.openapi.BaseResp;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 
@@ -28,8 +28,7 @@ import android.widget.TextView;
  * 
  * */
 
-public class WXPayEntryActivity extends Activity implements 
-															IWXAPIEventHandler
+public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler
 															{
 	
 	private static final String 			TAG 				= "WXPayEntryActivity";

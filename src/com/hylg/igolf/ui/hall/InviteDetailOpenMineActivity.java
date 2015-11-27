@@ -254,7 +254,7 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 						//displayAppCancel();
 						//setFinishResult(true);
 						
-						InviteDetailOpenMineActivity.this.finish();
+						//InviteDetailOpenMineActivity.this.finish();
 						
 						toastShort(msg);
 						

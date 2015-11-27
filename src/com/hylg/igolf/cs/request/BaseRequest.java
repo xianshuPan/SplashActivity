@@ -24,23 +24,23 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 	// parse data from stream, and save data
 	public abstract int parseBody(InputStream is);
 	
-	protected static final int TIMEOUT = 10 * 1000;
+	protected static final int TIMEOUT = 30 * 1000;
 	
 	/*获取朋友圈列表*/
-	public static final String SERVER_IP = "http://192.168.2.101:8080";
-	public static final String UPLOAD_PIC_PATH = "http://192.168.2.107:9988/DealPicture/pic/";
-	public static final String SERVER_PATH = SERVER_IP+"/testConn/ci/0/";
-	
-//	public static final String SERVER_IP = "http://121.199.22.44:8899";
-//	public static final String UPLOAD_PIC_PATH = "http://121.199.22.44:9988/DealPicture/pic/";
-//	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/1/";
+//	public static final String SERVER_IP = "http://192.168.2.107:8080";
+//	public static final String UPLOAD_PIC_PATH = "http://192.168.2.107:9988/DealPicture/pic/";
+//	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/0/";
+
+	public static final String SERVER_IP = "http://121.199.22.44:8080";
+	public static final String UPLOAD_PIC_PATH = "http://121.199.22.44:9988/DealPicture/pic/";
+	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/1/";
 	
 	public static final String TipsPic_Original_PATH = SERVER_IP+"/gams/tipspic/original/";
 	public static final String TipsPic_Thum_PATH = SERVER_IP+"/gams/tipspic/thum/";
 
 	public static final String CoachPic_Original_PATH = SERVER_IP+"/gams/coach/original/";
 	public static final String CoachPic_Thum_PATH = SERVER_IP+"/gams/coach/thum/";
-	
+
 	protected static final String PARAM_CONN = "&";
 	protected static final String KV_CONN = "=";
 	protected static final String PARAM = PARAM_REQ_PARAM + KV_CONN;
@@ -104,9 +104,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 			
 			DebugTools.getDebug().debug_v(TAG, url);
 			DebugTools.getDebug().debug_v(TAG, url1);
-			
 			return url;
-			
 					
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -295,7 +293,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 		String str = null;
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
-		int len = 0;
+		int len;
 		try {
 			while ((len = is.read(buffer)) != -1) {
 				outStream.write(buffer, 0, len);

@@ -93,7 +93,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 	
 	private LayoutInflater                      mLayoutInflater = null;
 	
-	public static final CustomerHomeActivity getInstance() {
+	public static CustomerHomeActivity getInstance() {
 		if(null == customerFrg) {
 			customerFrg = new CustomerHomeActivity();
 		}
@@ -124,9 +124,15 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		
 		View head  = mLayoutInflater.inflate(R.layout.customer_info_head, null, false);
 		
-		
 		head.findViewById(R.id.cusinfo_myinfo_ll).setOnClickListener(this);
 		head.findViewById(R.id.cusinfo_more_relative).setVisibility(View.VISIBLE);
+
+		if(customer.is_coach == 0) {
+
+			head.findViewById(R.id.cusinfo_my_balance_text).setVisibility(View.VISIBLE);
+			head.findViewById(R.id.cusinfo_my_balance_text).setOnClickListener(this);
+		}
+
 		head.findViewById(R.id.cusinfo_praise_text).setOnClickListener(this);
 		head.findViewById(R.id.cusinfo_follower_text).setOnClickListener(this);
 		head.findViewById(R.id.cusinfo_attention_text).setOnClickListener(this);
@@ -181,7 +187,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		mPopupWindowView = mLayoutInflater.inflate(R.layout.customer_more_menu, null);
 		mHistoryLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_history_linear);
 		mHistoryLinear.setOnClickListener(this);
-		mMyBalanceRecordLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_my_balance_linear);
+		mMyBalanceRecordLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_linear);
 		mMyBalanceRecordLinear.setOnClickListener(this);
 
 		mAboutLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_about_linear);
@@ -189,15 +195,22 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		mExitLinear = (LinearLayout) mPopupWindowView.findViewById(R.id.customer_menu_exit_linear);
 		mExitLinear.setOnClickListener(this);
 		
-		int densityDpi = mContext.getResources().getDisplayMetrics().densityDpi;
-		
-		mMainMenuPop = new PopupWindow(mPopupWindowView,densityDpi*120/160, densityDpi*160/160);
+		float scale = mContext.getResources().getDisplayMetrics().scaledDensity;
+
+		int height = mMyBalanceRecordLinear.getHeight();
+
+		if (scale < 2) {
+
+			scale = 1.5f;
+		}
+
+		mMainMenuPop = new PopupWindow(mPopupWindowView,(int)(scale*120), (int)(120*scale));
 
         mMainMenuPop.setFocusable(true);  
         mMainMenuPop.setOutsideTouchable(true);  
         
         // �����Ϊ�˵��������Back��Ҳ��ʹ����ʧ�����Ҳ�����Ӱ����ı�����ʹ�ø÷����������֮�⣬�ſɹرմ���  
-        mMainMenuPop.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.bg_gray));  
+        mMainMenuPop.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.white_bg));
 
         //���ý��롢��������Ч��  
         //mMainMenuPop.setAnimationStyle(R.style.popupwindow);  
@@ -223,7 +236,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		
 		if(null != mFriendHotAdapter && mFriendHotAdapter.list != null && mFriendHotAdapter.list.size() > 0) {
 			
-			mList.setAdapter(mFriendHotAdapter);
+			//mList.setAdapter(mFriendHotAdapter);
 			//Utils.logh(TAG, "exist myInviteAdapter " + myInviteAdapter);
 			
 		} else {
@@ -233,9 +246,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 //			loadFail.displayFail("加载失败！");
 		}
 		
-		initDataAysnc();
-		
-		refreshDataAysnc();
+		//refreshDataAysnc();
 		
 		
 		if (Config.mFriendMessageNewItem != null && mFriendHotAdapter != null) {
@@ -249,7 +260,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 			
 			//Utils.setGone(msgAlertIv);
 			msgAlertIv.setVisibility(View.GONE);
-		}else{
+		} else {
 			
 			//Utils.setVisible(msgAlertIv);
 			msgAlertIv.setVisibility(View.VISIBLE);
@@ -299,7 +310,6 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || hotList.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -326,6 +336,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 					//loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				Loader1 = null;
 			}
@@ -402,7 +413,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 					new ImageCallback() {
 						@Override
 						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != iv) {
+							if (null != imageDrawable && null != iv) {
 								iv.setImageDrawable(imageDrawable);
 							}
 						}
@@ -420,7 +431,6 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		}
 		//WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
-		
 	
 		startPage++;
 		
@@ -430,8 +440,6 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_OK == retId) {
 	
@@ -449,6 +457,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 
 					//Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				//WaitDialog.dismissWaitDialog();
 				Loader1 = null;
 			}
@@ -474,14 +483,24 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		Intent intent = null;
 		switch(v.getId()) {
 			case R.id.customer_menu_exit_linear:
+
 				LoginActivity.backWithPhone(mContext, MainApp.getInstance().getCustomer().phone);
 				ExitToLogin.getInstance().exitToLogin();
 				JPushInterface.stopPush(mContext);
+
+				MainApp.getInstance().getGlobalData().setBalance(0.0);
+				MainApp.getInstance().getGlobalData().setCardNo("");
+				MainApp.getInstance().getGlobalData().setBankName("");
+
 				break;
 			case R.id.cusinfo_myinfo_ll:
 				intent = new Intent(mContext,ModifyInfoActivity.class);
 				startActivityForResult(intent, Const.REQUST_CODE_MODIFY_MY_INFO);
 				mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				break;
+			case R.id.cusinfo_my_balance_text:
+				MyBalanceRecordActivity.startMyBalanceRecordActivity(this);
+				this.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 				break;
 			case R.id.customer_home_head_message_image:
 				
@@ -495,10 +514,10 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 				startActivity(intent);
 				mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 				break;
-			case R.id.customer_menu_my_balance_linear:
-				MyBalanceRecordActivity.startMyBalanceRecordActivity(this);
-				this.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
-				break;
+//			case R.id.customer_menu_my_balance_linear:
+//				MyBalanceRecordActivity.startMyBalanceRecordActivity(this);
+//				this.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+//				break;
 			case R.id.customer_menu_about_linear:
 				intent = new Intent(mContext,AboutIgolfActivity.class);
 				startActivity(intent);
@@ -571,7 +590,6 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 		    }
 		}
 		if(Const.REQUST_CODE_PHOTE_TAKE_PHOTO == requestCode) {
-			if(Activity.RESULT_OK == resultCode) {
 //				startPhotoCrop(mUri);
 				try {
 					//addAlbum(new File(new URI(mUri.toString())));
@@ -579,9 +597,8 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 					e.printStackTrace();
 				}
 				return ;
-			}
 		} else if(Const.REQUST_CODE_PHOTE_GALLERY == requestCode) {
-			if(Activity.RESULT_OK == resultCode && null != intent) {
+			if(null != intent) {
 //				startPhotoCrop(intent.getData());
 				Uri uri = intent.getData();
 				String img_path = FileUtils.getMediaImagePath(mContext, uri);
@@ -589,7 +606,7 @@ public class CustomerHomeActivity extends FragmentActivity implements View.OnCli
 				return ;
 			}
 		} else if(Const.REQUST_CODE_PHOTE_CROP == requestCode) {
-			if(Activity.RESULT_OK == resultCode && null != intent) {
+			if(null != intent) {
 				Bundle b = intent.getExtras();
 				if(null != b) {
 					Bitmap photo = b.getParcelable("data");

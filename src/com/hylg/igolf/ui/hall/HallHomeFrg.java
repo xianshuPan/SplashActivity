@@ -54,7 +54,7 @@ public class HallHomeFrg extends Fragment {
     private DisplayMetrics dm; 
     
     
-	public static final HallHomeFrg getInstance() {
+	public static HallHomeFrg getInstance() {
 		if(null == hallFrg) {
 			hallFrg = new HallHomeFrg();
 		}
@@ -97,7 +97,7 @@ public class HallHomeFrg extends Fragment {
 		
 		fragmentList.add(new HallOpenPresetFrg());
 		fragmentList.add(new HallMyInvitesFrg());
-		fragmentList.add(new HallMyTeachingFrg());
+		//fragmentList.add(new HallMyTeachingFrg());
 		
 		mTabsIndicater = (PagerSlidingTabStrip) view.findViewById(R.id.hall_frg_tab);
 		
@@ -220,7 +220,7 @@ public class HallHomeFrg extends Fragment {
     
     public class FragmentViewPagerAdapter extends FragmentPagerAdapter {  
     	
-    	private final String[] TITLES = { "约球大厅", "我的约球","我的教学"};
+    	private final String[] TITLES = { "约球大厅", "我的约球"};
       
         public FragmentViewPagerAdapter(FragmentManager fm) {
 			super(fm);

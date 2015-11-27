@@ -73,9 +73,9 @@ public class YearsExpSelectActivity extends Activity {
 			public void onItemClick(AdapterView<?> av, View v, int pos,long id) {
 				int value = (Integer) adapter.getItem(pos);
 				Utils.logh(TAG, " ------- pos : " + pos + " value: " + value + " curYearsExp: " + curYearsExp);
-				if(curYearsExp != value) {
+				//if(curYearsExp != value) {
 					listener.onYearsExpSelect(value);				
-				}
+				//}
 				finish();
 			}
 		});
@@ -141,6 +141,6 @@ public class YearsExpSelectActivity extends Activity {
 	}
 	
 	public interface onYearsExpSelectListener {
-		public abstract void onYearsExpSelect(int newYearsExp);
+		void onYearsExpSelect(int newYearsExp);
 	}
 }

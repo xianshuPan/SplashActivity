@@ -29,6 +29,7 @@ import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.FriendMessageNew;
 import com.hylg.igolf.cs.request.FriendMessageNewPictureUpload;
+import com.hylg.igolf.cs.request.RequestParam;
 import com.hylg.igolf.imagepicker.Config;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.Utils;
@@ -62,6 +63,9 @@ public class HdService extends Service {
 	private Notification 						notification = null;
 	
 	private RemoteViews 						rViews;
+
+
+	private FriendMessageNewPictureUpload 		request1 = null;
 
 	@Override
 	public void onDestroy() {
@@ -184,8 +188,8 @@ public class HdService extends Service {
 	
 	  // 回调接口  
     public interface OnHomePressedListener {  
-        public void onHomePressed();  
-        public void onHomeLongPressed();  
+        void onHomePressed();
+        void onHomeLongPressed();
     }  
 	
 	/** 
@@ -302,12 +306,23 @@ public class HdService extends Service {
 			};
 			
 			mUploadFriendTips.execute(null, null, null);
-			
 
 			/*开启上传朋友圈图片的线程*/
-			FriendMessageNewPictureUpload request1 = new FriendMessageNewPictureUpload(HdService.this);
-			request1.start();
-			
+			for (int i=0 ; i < Config.drr.size(); i++) {
+
+				String path = Config.drr.get(i);
+
+				request1 = new FriendMessageNewPictureUpload(HdService.this, path, new FriendMessageNewPictureUpload.FriendTipsPicUploadCallback() {
+					@Override
+					public void callBack(int retId, String msg) {
+						if (retId == 1) {
+
+							request1.start();
+						}
+					}
+				});
+				request1.start();
+			}
 			
 		/*开启下载 爱高尔夫的apk 线程 */
 		} else if (intent != null && intent.getStringExtra("DownLoadUrl") != null) {
@@ -349,7 +364,7 @@ public class HdService extends Service {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				boolean error = false;
+				boolean error;
 				final Message message = new Message();
 				try {
 					if (downloadUpdateFile(down_url, filePath) > 0) {
@@ -424,9 +439,8 @@ public class HdService extends Service {
 			}
 
 		}
-		if (httpURLConnection != null) {
-			httpURLConnection.disconnect();
-		}
+
+		httpURLConnection.disconnect();
 		inputStream.close();
 		outputStream.close();
 

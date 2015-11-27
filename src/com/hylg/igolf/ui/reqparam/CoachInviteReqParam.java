@@ -9,7 +9,8 @@ public class CoachInviteReqParam implements Serializable {
 	public long studentid;
 	
 	public long coachid;
-	public String courseid ;
+	public long courseid ;
+	public String state;
 	public int times;
 	
 	public int coachDate ;

@@ -147,17 +147,17 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	
 	public interface OnRefreshListener
 	{
-		public void onRefresh();
+		void onRefresh();
 	}
 	
 	public interface OnLoadMoreListener
 	{
-		public void onLoadMore();
+		void onLoadMore();
 	}
 	
 	public interface OnChangeMarginListener
 	{
-		public void OnChangeMargin();
+		void OnChangeMargin();
 	}
 	
 	@Override
@@ -314,7 +314,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	}
 	
 	// ��״̬�ı�ʱ�򣬵��ø÷������Ը��½���  
-	private void changeHeaderViewByState() {  
+	public void changeHeaderViewByState() {
 	        switch (state) {  
 	        case RELEASE_To_REFRESH:  
 	             arrowImageView.setVisibility(View.VISIBLE);  
@@ -371,13 +371,25 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	             arrowImageView.setImageResource(R.drawable.refresh_list_pull_down);  
 	             tipsTextview.setText(R.string.push_down_refresh);  
 	             lastUpdatedTextView.setVisibility(View.VISIBLE);  
-	             
+
 	             footProgressBar.setVisibility(View.INVISIBLE);
 	             footTipsTextview.setVisibility(View.VISIBLE);
 	             footTipsTextview.setText(R.string.list_footer_load_more);
 	             Log.v(TAG, "��ǰ״̬��done");  
 	            break;  
-	        }  
+	        }
+
+
+			if (getAdapter() != null) {
+
+				int count = getAdapter().getCount();
+				if (count < 10) {
+
+					footView.setVisibility(View.GONE);
+				}
+
+			}
+
 	     }  
 	     
 	private void onRefresh() {  

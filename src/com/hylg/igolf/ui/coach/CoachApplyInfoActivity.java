@@ -6,11 +6,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,12 +23,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
@@ -47,21 +42,20 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CommitCoachInfo;
 import com.hylg.igolf.cs.request.GetCoachApplyInfo;
-import com.hylg.igolf.cs.request.GetCourseInfoList;
-import com.hylg.igolf.cs.request.ModifyCustomer;
-import com.hylg.igolf.cs.request.RequestParam;
+import com.hylg.igolf.cs.request.GetCourseAllInfoList;
+
 import com.hylg.igolf.cs.request.UpdateAvatar;
 import com.hylg.igolf.cs.request.UploadImageRequest;
 import com.hylg.igolf.ui.common.AgeSelectActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity.onAgeSelectListener;
+import com.hylg.igolf.ui.common.CourseAllSelectActivity;
 import com.hylg.igolf.ui.common.ImageSelectActivity;
 import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
+import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity.onYearsExpSelectListener;
-import com.hylg.igolf.ui.hall.CourseSelectActivity;
-import com.hylg.igolf.ui.hall.CourseSelectActivity.onCourseSelectListener;
 import com.hylg.igolf.ui.reqparam.CoachApplyInfoReqParam;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.DownLoadImageTool;
@@ -71,12 +65,12 @@ import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
-import com.umeng.analytics.MobclickAgent;
 
 public class CoachApplyInfoActivity extends Activity implements 
 												OnClickListener,onSexSelectListener, 
 												onAgeSelectListener,onYearsExpSelectListener, 
-												onImageSelectListener ,onCourseSelectListener{
+												onImageSelectListener ,RegionSelectActivity.onRegionSelectListener,
+												CourseAllSelectActivity.onCourseAllSelectListener {
 	
 	private static final String 				TAG = "CoachInfoActivity";
 	
@@ -84,7 +78,7 @@ public class CoachApplyInfoActivity extends Activity implements
 	private ImageView                           mTitleTipsImage = null;
 	
 	private EditText                            nickNameTxt;
-	private TextView 							ageTxt,sexTxt,placeTxt,teachAgeTxt;
+	private TextView 							ageTxt,sexTxt,regionTxt,placeTxt,teachAgeTxt;
 	
 	/*
 	 * 选择业余教练还是职业教练
@@ -96,7 +90,8 @@ public class CoachApplyInfoActivity extends Activity implements
 	 * 上传省份证相关
 	 * */
 	private ImageView                           mIDFrondSelectImage,mIDBackSelectImage,
-												mIDFrondSelectOkImage,mIDBackSelectOkImage;
+												mIDFrondSelectOkImage,mIDBackSelectOkImage,
+												mIDFrondSelectDeleteImage,mIDBackSelectDeleteImage;
 	private ProgressBar                         mIDFrondProgress,mIDBackProgress;
 	private TextView                            mIDFrondTipsTxt,mIDBackTipsTxt;
 	
@@ -104,15 +99,11 @@ public class CoachApplyInfoActivity extends Activity implements
 	 * 职业教练选填相关项
 	 * */
 	private ImageView                           mGraduateSelectImage,mCertificateSelectImage,mAwardSelectImage,
-												mGraduateSelectOkImage,mCertificateSelectOkImage,mAwardSelectOkImage;
+												mGraduateSelectOkImage,mCertificateSelectOkImage,mAwardSelectOkImage,
+												mGraduateSelectDeleteImage,mCertificateSelectDeleteImage,mAwardSelectDeleteImage;
 	private ProgressBar                         mGraduateProgress,mCertificateProgress,mAwardProgress;
 	private TextView                            mGraduateTipsTxt,mCertificateTipsTxt,mAwardTipsTxt,mCommiTxt;
 	private EditText							mSpecialEdit;
-	
-	/*
-	 * 职业教练选填项
-	 * */
-	private RelativeLayout                      mProfessionalSelectInputRelative;
 	
 	private GlobalData 							goGlobalData;
 	private ImageView 							avatarView;
@@ -163,6 +154,7 @@ public class CoachApplyInfoActivity extends Activity implements
 		sexTxt = (TextView) findViewById(R.id.coach_apply_info_sex_selection);
 		mSpecialEdit = (EditText) findViewById(R.id.coach_apply_info_special_edit);
 		placeTxt = (TextView) findViewById(R.id.coach_apply_info_place_selection);
+		regionTxt = (TextView) findViewById(R.id.coach_apply_info_region_selection);
 		teachAgeTxt = (TextView) findViewById(R.id.coach_apply_info_teach_age_selection);
 
 		avatarView = (ImageView) findViewById(R.id.coach_apply_info_avtar);
@@ -183,17 +175,20 @@ public class CoachApplyInfoActivity extends Activity implements
 		mCertificateSelectOkImage = (ImageView) findViewById(R.id.coach_apply_info_certificate_selected_ok_image);
 		mGraduateSelectOkImage = (ImageView) findViewById(R.id.coach_apply_info_graduate_selected_ok_image);
 		mAwardSelectOkImage = (ImageView) findViewById(R.id.coach_apply_info_award_selected_ok_image);
-		
+
+		mIDFrondSelectDeleteImage = (ImageView) findViewById(R.id.coach_apply_info_id_front_selected_delete_image);
+		mIDBackSelectDeleteImage = (ImageView) findViewById(R.id.coach_apply_info_id_back_selected_delete_image);
+		mCertificateSelectDeleteImage = (ImageView) findViewById(R.id.coach_apply_info_certificate_selected_delete_image);
+		mGraduateSelectDeleteImage = (ImageView) findViewById(R.id.coach_apply_info_graduate_selected_delete_image);
+		mAwardSelectDeleteImage = (ImageView) findViewById(R.id.coach_apply_info_award_selected_delete_image);
 		
 		mHobbyCoachLinear = (LinearLayout) findViewById(R.id.coach_apply_info_hobby_linear);
 		mHobbyCoachLinear.setSelected(true);
 		mProfessionalCoachLinear = (LinearLayout) findViewById(R.id.coach_apply_info_professional_linear);
-		mProfessionalSelectInputRelative = (RelativeLayout) findViewById(R.id.coach_apply_info_professional_select_input_relative);
 
 		mCommiTxt = (TextView) findViewById(R.id.coach_apply_info_commit_text);
 		
 		findViewById(R.id.coach_applay_info_back).setOnClickListener(this);
-
 		findViewById(R.id.coach_applay_info_title_tips_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_avtar_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_age_ll).setOnClickListener(this);
@@ -205,15 +200,22 @@ public class CoachApplyInfoActivity extends Activity implements
 		findViewById(R.id.coach_apply_info_id_back_selected_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_special_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_place_ll).setOnClickListener(this);
+		findViewById(R.id.coach_apply_info_region_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_teach_age_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_graduate_selected_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_certificate_selected_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_award_selected_image).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_commit_text).setOnClickListener(this);
+
+		mIDFrondSelectDeleteImage.setOnClickListener(this);
+		mIDBackSelectDeleteImage.setOnClickListener(this);
+		mCertificateSelectDeleteImage.setOnClickListener(this);
+		mGraduateSelectDeleteImage.setOnClickListener(this);
+		mAwardSelectDeleteImage.setOnClickListener(this);
 		//mCommiTxt.setOnClickListener(this);
 		
 		mSpecialEdit.setFocusable(true);
-		mSpecialEdit.requestFocus();
+
 		nickNameTxt.setOnFocusChangeListener(new OnFocusChangeListener() {
 
 			@Override
@@ -278,6 +280,11 @@ public class CoachApplyInfoActivity extends Activity implements
 				AgeSelectActivity.startAgeSelect(this, reqParam.age);
 				overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 				break;
+
+			case R.id.coach_apply_info_region_ll:
+
+				RegionSelectActivity.startRegionSelect(mContext, RegionSelectActivity.REGION_TYPE_SELECT_COURSE, reqParam.state);
+				break;
 				
 			case R.id.coach_apply_info_place_ll:
 				
@@ -289,9 +296,11 @@ public class CoachApplyInfoActivity extends Activity implements
 				
 				mHobbyCoachLinear.setSelected(true);
 				mProfessionalCoachLinear.setSelected(false);
-				mProfessionalSelectInputRelative.setVisibility(View.GONE);
+				//mProfessionalSelectInputRelative.setVisibility(View.GONE);
 				reqParam.type = Const.HOBBY_COACH;
-				findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.GONE);
+//				findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.GONE);
+//				findViewById(R.id.coach_apply_info_graduate_selected_relative).setVisibility(View.GONE);
+//				findViewById(R.id.coach_apply_info_certificate_selected_relative).setVisibility(View.GONE);
 
 				break;
 				
@@ -299,9 +308,10 @@ public class CoachApplyInfoActivity extends Activity implements
 				
 				mHobbyCoachLinear.setSelected(false);
 				mProfessionalCoachLinear.setSelected(true);
-				mProfessionalSelectInputRelative.setVisibility(View.VISIBLE);
+				//mProfessionalSelectInputRelative.setVisibility(View.VISIBLE);
 				reqParam.type = Const.PROFESSIONAL_COACH;
-				findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.VISIBLE);
+//				findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.VISIBLE);
+//				findViewById(R.id.coach_apply_info_graduate_selected_relative).s
 				
 				break;
 				
@@ -359,6 +369,53 @@ public class CoachApplyInfoActivity extends Activity implements
 				}
 				
 				break;
+
+			case R.id.coach_apply_info_id_front_selected_delete_image:
+
+				reqParam.id_fron_name = "";
+				mIDFrondSelectImage.setImageResource(R.drawable.id_front);
+				mIDFrondSelectDeleteImage.setVisibility(View.GONE);
+				mIDFrondSelectOkImage.setVisibility(View.GONE);
+
+				break;
+
+			case R.id.coach_apply_info_id_back_selected_delete_image:
+
+				reqParam.id_back_name = "";
+				mIDBackSelectImage.setImageResource(R.drawable.id_back);
+				mIDBackSelectDeleteImage.setVisibility(View.GONE);
+				mIDBackSelectOkImage.setVisibility(View.GONE);
+
+				break;
+
+			case R.id.coach_apply_info_certificate_selected_delete_image:
+
+				reqParam.certificate_name = "";
+				mCertificateSelectImage.setImageResource(R.drawable.addpic);
+				mCertificateSelectDeleteImage.setVisibility(View.GONE);
+				mCertificateSelectOkImage.setVisibility(View.GONE);
+
+				break;
+
+			case R.id.coach_apply_info_award_selected_delete_image:
+
+				reqParam.award_name = "";
+				mAwardSelectImage.setImageResource(R.drawable.addpic);
+				mAwardSelectDeleteImage.setVisibility(View.GONE);
+				mAwardSelectOkImage.setVisibility(View.GONE);
+
+				break;
+
+			case R.id.coach_apply_info_graduate_selected_delete_image:
+
+				reqParam.graduate_name = "";
+				mGraduateSelectImage.setImageResource(R.drawable.addpic);
+				mGraduateSelectDeleteImage.setVisibility(View.GONE);
+				mGraduateSelectOkImage.setVisibility(View.GONE);
+
+				break;
+
+
 				
 			case R.id.coach_apply_info_commit_text:
 
@@ -457,7 +514,7 @@ public class CoachApplyInfoActivity extends Activity implements
 	private void setupCourse() {
 		WaitDialog.showWaitDialog(this, R.string.str_loading_msg);
 		new AsyncTask<Object, Object, Integer>() {
-			GetCourseInfoList request = new GetCourseInfoList(mContext, customer.state);
+			GetCourseAllInfoList request = new GetCourseAllInfoList(mContext, reqParam.state);
 			@Override
 			protected Integer doInBackground(Object... params) {
 				return request.connectUrl();
@@ -466,7 +523,7 @@ public class CoachApplyInfoActivity extends Activity implements
 			protected void onPostExecute(Integer result) {
 				super.onPostExecute(result);
 				if(BaseRequest.REQ_RET_OK == result) {
-					CourseSelectActivity.startCourseSelect(mContext, request.getCourseList());
+					CourseAllSelectActivity.startCourseSelect(mContext, request.getCourseList());
 				} else {
 //					if(BaseRequest.REQ_RET_F_NO_DATA == result) { }
 					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
@@ -524,11 +581,24 @@ public class CoachApplyInfoActivity extends Activity implements
 		sexTxt.setText(goGlobalData.getSexName(newSex));
 		reqParam.sex = newSex;
 	}
-	
+
 	@Override
-	public void onCourseSelect(CourseInfo course) {
-		// TODO Auto-generated method stub
-		
+	public void onRegionSelect(String newRegion) {
+
+		reqParam.state = newRegion;
+		regionTxt.setText(goGlobalData.getRegionName(newRegion));
+		// 修改地区后，清楚球场信息
+		if(Long.MAX_VALUE != reqParam.courseid) {
+
+			reqParam.courseid = -1;
+			placeTxt.setText(R.string.str_comm_unset);
+		}
+	}
+
+
+	@Override
+	public void onCourseAllSelect(CourseInfo course) {
+
 		reqParam.courseid = course.id;
 		placeTxt.setText(course.abbr);
 	}
@@ -567,34 +637,34 @@ public class CoachApplyInfoActivity extends Activity implements
 						case  Const.ID_FRONT:
 							
 							doUploadPhoto(avatarBmp, mCurrentPhotoSelectTypeInt,"recieveIdCard", "idCards",
-									mIDFrondSelectOkImage,mIDFrondProgress,mIDFrondSelectImage);
+									mIDFrondSelectOkImage,mIDFrondSelectDeleteImage,mIDFrondProgress,mIDFrondSelectImage);
 							break;
 							
 						case  Const.ID_BACK:
 							
 							doUploadPhoto(avatarBmp, mCurrentPhotoSelectTypeInt,"recieveIdCard", "idCards",
-									mIDBackSelectOkImage,mIDBackProgress,mIDBackSelectImage);
+									mIDBackSelectOkImage,mIDBackSelectDeleteImage,mIDBackProgress,mIDBackSelectImage);
 							
 							break;
 							
 						case  Const.GRADUATE:
 							
 							doUploadPhoto(avatarBmp, mCurrentPhotoSelectTypeInt,"recieveOtherCards", "otherCards",
-									mGraduateSelectOkImage,mGraduateProgress,mGraduateSelectImage);
+									mGraduateSelectOkImage,mGraduateSelectDeleteImage,mGraduateProgress,mGraduateSelectImage);
 							
 							break;
 							
 						case  Const.CERTIFICATE:
 							
 							doUploadPhoto(avatarBmp, mCurrentPhotoSelectTypeInt,"recieveOtherCards", "otherCards",
-									mCertificateSelectOkImage,mCertificateProgress,mCertificateSelectImage);
+									mCertificateSelectOkImage,mCertificateSelectDeleteImage,mCertificateProgress,mCertificateSelectImage);
 							
 							break;
 							
 						case  Const.AWARD	:
 
 							doUploadPhoto(avatarBmp, mCurrentPhotoSelectTypeInt,"recieveOtherCards", "otherCards",
-									mAwardSelectOkImage,mAwardProgress,mAwardSelectImage);
+									mAwardSelectOkImage,mAwardSelectDeleteImage,mAwardProgress,mAwardSelectImage);
 							
 							break;
 						
@@ -712,7 +782,7 @@ public class CoachApplyInfoActivity extends Activity implements
 	 * @ para selectedImage 上传图片成功之后，显示图片
 	 * */
 	private void doUploadPhoto(final Bitmap bitmap,final int type,final String methodName,final String bodyName,
-								final ImageView okImage,final ProgressBar progress,final ImageView selectedImage) {
+								final ImageView okImage,final ImageView deleteImage,final ProgressBar progress,final ImageView selectedImage) {
 		if(!Utils.isConnected(this)){
 			return;
 		}
@@ -721,7 +791,7 @@ public class CoachApplyInfoActivity extends Activity implements
 		final String fileName = System.currentTimeMillis()+".jpg";
 		
 		new AsyncTask<Object, Object, Integer>() {
-			UploadImageRequest request = new UploadImageRequest(mContext,bitmap,type,methodName,bodyName,fileName,okImage,progress,selectedImage) ;
+			UploadImageRequest request = new UploadImageRequest(mContext,bitmap,type,methodName,bodyName,fileName,okImage,deleteImage,progress,selectedImage) ;
 			@Override
 			protected Integer doInBackground(Object... params) {
 				
@@ -733,6 +803,7 @@ public class CoachApplyInfoActivity extends Activity implements
 				
 				request.progress.setVisibility(View.VISIBLE);
 				request.okImageView.setVisibility(View.GONE);
+				request.deleteImageView.setVisibility(View.GONE);
 				
 				super.onPreExecute();
 			}
@@ -746,6 +817,7 @@ public class CoachApplyInfoActivity extends Activity implements
 				if(BaseRequest.REQ_RET_OK == result) {
 
 					request.okImageView.setVisibility(View.VISIBLE);
+					request.deleteImageView.setVisibility(View.VISIBLE);
 					request.selectedImage.setImageBitmap(bitmap);
 					
 					switch (request.type) {
@@ -829,6 +901,10 @@ public class CoachApplyInfoActivity extends Activity implements
 
 					mContext.finish();
 
+					MainApp.getInstance().getCustomer().nickname = reqParam.name;
+					MainApp.getInstance().getCustomer().age = reqParam.age;
+					MainApp.getInstance().getCustomer().sex = reqParam.sex;
+
 				} else {
 					
 					Toast.makeText(mContext,request.getFailMsg(), Toast.LENGTH_SHORT).show();
@@ -871,35 +947,67 @@ public class CoachApplyInfoActivity extends Activity implements
 						
 						reqParam = request.item;
 						
-						loadAvatar(reqParam.sn,reqParam.avatar);
+						loadAvatar(reqParam.sn, reqParam.avatar);
 				
 						sexTxt.setText(goGlobalData.getSexName(reqParam.sex));
 						ageTxt.setText(reqParam.age_str);
 						nickNameTxt.setText(reqParam.name);
 						placeTxt.setText(reqParam.course_name);
-						teachAgeTxt.setText(String.valueOf(reqParam.teach_age));
+						regionTxt.setText(goGlobalData.getRegionName(reqParam.state));
+						teachAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap), reqParam.teach_age));
 						mSpecialEdit.setText(reqParam.special);
 						
 						if(reqParam.type == Const.PROFESSIONAL_COACH) {
 							
 							mProfessionalCoachLinear.setSelected(true);
 							mHobbyCoachLinear.setSelected(false);
-							mProfessionalSelectInputRelative.setVisibility(View.VISIBLE);
+							//mProfessionalSelectInputRelative.setVisibility(View.VISIBLE);
+							findViewById(R.id.coach_apply_info_graduate_selected_relative).setVisibility(View.VISIBLE);
+							findViewById(R.id.coach_apply_info_certificate_selected_relative).setVisibility(View.VISIBLE);
 							findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.VISIBLE);
 							
 						} else {
 							
 							mProfessionalCoachLinear.setSelected(false);
 							mHobbyCoachLinear.setSelected(true);
-							mProfessionalSelectInputRelative.setVisibility(View.GONE);
-							findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.GONE);
+							//mProfessionalSelectInputRelative.setVisibility(View.GONE);
+							//findViewById(R.id.coach_apply_info_graduate_selected_relative).setVisibility(View.GONE);
+							//findViewById(R.id.coach_apply_info_certificate_selected_relative).setVisibility(View.GONE);
+							//findViewById(R.id.coach_apply_info_professional_tips_text).setVisibility(View.GONE);coach_apply_info_award_relative
 						}
 						
 						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.id_fron_name, mIDFrondSelectImage, null);
 						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.id_back_name, mIDBackSelectImage, null);
-						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.award_name, mAwardSelectImage, null);
-						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.certificate_name, mCertificateSelectImage, null);
-						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.graduate_name, mGraduateSelectImage, null);
+
+						if (reqParam.award_name != null && reqParam.award_name.length() > 0 && !reqParam.award_name.equalsIgnoreCase("null")) {
+
+							DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.award_name, mAwardSelectImage, null);
+
+						} else {
+
+							//findViewById(R.id.coach_apply_info_award_relative).setVisibility(View.GONE);
+						}
+
+						if (reqParam.certificate_name != null && reqParam.certificate_name.length() > 0 && !reqParam.certificate_name.equalsIgnoreCase("null")) {
+
+							DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.certificate_name, mCertificateSelectImage, null);
+
+						} else {
+
+							//findViewById(R.id.coach_apply_info_certificate_selected_relative).setVisibility(View.GONE);
+						}
+
+						if (reqParam.graduate_name != null && reqParam.graduate_name.length() > 0 && !reqParam.graduate_name.equalsIgnoreCase("null")) {
+
+							DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.graduate_name, mGraduateSelectImage, null);
+
+						} else {
+
+							//findViewById(R.id.coach_apply_info_graduate_selected_relative).setVisibility(View.GONE);
+						}
+
+//						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.certificate_name, mCertificateSelectImage, null);
+//						DownLoadImageTool.getInstance(mContext).displayImage(BaseRequest.CoachPic_Original_PATH+reqParam.graduate_name, mGraduateSelectImage, null);
 						
 						
 						mStatusTxt.setVisibility(View.VISIBLE);
@@ -918,6 +1026,7 @@ public class CoachApplyInfoActivity extends Activity implements
 							findViewById(R.id.coach_apply_info_id_back_selected_image).setEnabled(false);
 							findViewById(R.id.coach_apply_info_special_ll).setEnabled(false);
 							findViewById(R.id.coach_apply_info_place_ll).setEnabled(false);
+							findViewById(R.id.coach_apply_info_region_ll).setEnabled(false);
 							findViewById(R.id.coach_apply_info_teach_age_ll).setEnabled(false);
 							findViewById(R.id.coach_apply_info_graduate_selected_image).setEnabled(false);
 							findViewById(R.id.coach_apply_info_certificate_selected_image).setEnabled(false);
@@ -947,8 +1056,10 @@ public class CoachApplyInfoActivity extends Activity implements
 					 * */
 					} else {
 						
-						loadAvatar(customer.sn,customer.avatar);
+						loadAvatar(customer.sn, customer.avatar);
 						mCommiTxt.setEnabled(true);
+
+						regionTxt.setText(goGlobalData.getRegionName(customer.state));
 						sexTxt.setText(goGlobalData.getSexName(customer.sex));
 						ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), customer.age));
 						nickNameTxt.setText(customer.nickname);
@@ -957,6 +1068,7 @@ public class CoachApplyInfoActivity extends Activity implements
 						reqParam.avatar = customer.avatar;
 						reqParam.age = Integer.valueOf(customer.age);
 						reqParam.sex = customer.sex;
+						reqParam.state = customer.state;
 						reqParam.name = customer.nickname;
 						
 					}
@@ -1012,13 +1124,13 @@ public class CoachApplyInfoActivity extends Activity implements
 			return false;
 		}
 		
-		if (reqParam.award_name == null || reqParam.award_name.length() <= 0) {
-			
-			Toast.makeText(mContext, R.string.str_coach_invite_no_award, Toast.LENGTH_SHORT).show();
-			return false;
-		}
+//		if (reqParam.award_name == null || reqParam.award_name.length() <= 0) {
+//
+//			Toast.makeText(mContext, R.string.str_coach_invite_no_award, Toast.LENGTH_SHORT).show();
+//			return false;
+//		}
 		
-		if (reqParam.courseid < 0) {
+		if (reqParam.courseid <= 0) {
 			
 			Toast.makeText(mContext, R.string.str_coach_invite_no_course, Toast.LENGTH_SHORT).show();
 			return false;
@@ -1043,7 +1155,8 @@ public class CoachApplyInfoActivity extends Activity implements
 		if(reqParam.type == Const.PROFESSIONAL_COACH) {
 			
 			if ((reqParam.graduate_name == null || reqParam.graduate_name.length() <= 0) &&
-				(reqParam.certificate_name == null || reqParam.certificate_name.length() <= 0)) {
+					(reqParam.certificate_name == null || reqParam.certificate_name.length() <= 0) &&
+					(reqParam.award_name == null || reqParam.award_name.length() <= 0)) {
 					
 				Toast.makeText(mContext, R.string.str_coach_invite_no_graduate_or_certificate, Toast.LENGTH_SHORT).show();
 				return false;

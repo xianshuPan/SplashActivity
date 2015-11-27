@@ -13,6 +13,10 @@ public class GetLastAppCoach extends BaseRequest {
 	
 	private CoachItem item;
 
+	public double professional_price;
+
+	public double hobby_price;
+
 	public GetLastAppCoach(Context context, long id, double lat , double lng) {
 		super(context);
 		item = new CoachItem();
@@ -50,12 +54,11 @@ public class GetLastAppCoach extends BaseRequest {
 				failMsg = jo.getString(RET_MSG);
 				return rn;
 			}
-			
+
+			item = new CoachItem();
 			JSONObject obj = jo.optJSONObject("coach");
 			
 			if (obj != null) {
-
-				item = new CoachItem();
 
 				JSONObject courseJson = obj.optJSONObject("course");
 				JSONObject customerJson = obj.optJSONObject("customer");
@@ -73,19 +76,29 @@ public class GetLastAppCoach extends BaseRequest {
 
 				item.award = obj.optString("award");
 
-				item.handicapIndex = customerJson.optDouble("handicapIndex");
+				item.handicapIndex = customerJson.optDouble("handicapIndex", Double.MAX_VALUE);
 				item.price = feeJson.optInt("price");
 				item.distance = obj.optDouble("distance");
 				item.distanceTime = obj.optLong("last_login");
+				item.special = obj.optString("specialty");
 
-				item.course_id = courseJson.optString("id");
-				item.course_name = courseJson.optString("name");
+				item.course_id = courseJson.optLong("id");
+				item.state = courseJson.optString("state");
+				item.course_name = courseJson.optString("abbr");
 				item.course_address = courseJson.optString("address");
 				item.course_tel = courseJson.optString("tel");
 
 				item.commentsAmount = obj.optInt("commentsAmount");
 				item.attention = obj.optInt("attention");
 			}
+
+			JSONObject prefession = jo.optJSONObject("prefession");
+
+			professional_price = prefession.optDouble("price");
+
+			JSONObject amateour = jo.optJSONObject("amateour");
+
+			hobby_price = amateour.optDouble("price");
 
 		} catch (Exception e) {
 			

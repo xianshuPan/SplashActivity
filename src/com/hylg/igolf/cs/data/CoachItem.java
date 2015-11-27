@@ -14,6 +14,8 @@ public class CoachItem implements Serializable{
 	public String special;
 	
 	public String award;
+	public String certificate;
+	public String graduate;
 	
 	public int teachTimes;
 	
@@ -31,7 +33,8 @@ public class CoachItem implements Serializable{
 	
 	public long distanceTime;
 	
-	public String course_id;
+	public long course_id;
+	public String state;
 	public String course_name;
 	public String course_address;
 	public String course_tel;

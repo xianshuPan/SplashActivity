@@ -97,7 +97,10 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 	@Override
 	public void onResume() {
 	
-		initDataAysnc();
+		//initDataAysnc();
+
+		startPage = MainApp.getInstance().getGlobalData().startPage;
+		refreshDataAysnc(startPage);
 		super.onResume();
 	}
 	
@@ -255,7 +258,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 		reqLoader = new GetMyTeachingListLoader(getActivity(), customer.id, startPage, pageSize, new GetMyTeachingListCallback() {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachInviteOrderDetail> inviteList) {
-				listView.onRefreshComplete();
+
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || inviteList.size() == 0) {
 					if(msg.trim().length() == 0) {
 						msg = getString(R.string.str_hall_invite_mine_no_hint);
@@ -274,6 +277,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 					loadFail.displayFail(msg);
 					Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
+				listView.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
@@ -296,16 +300,25 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 		reqLoader = new GetMyTeachingListLoader(getActivity(), customer.id, startPage, pageSize, new GetMyTeachingListCallback() {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachInviteOrderDetail> inviteList) {
-				listView.onRefreshComplete();
+
 				if(BaseRequest.REQ_RET_OK == retId) {
 
-					myTeachingAdapter.refreshListData(inviteList);
+
+					if(myTeachingAdapter == null) {
+
+						initListView(inviteList);
+
+					} else {
+
+						myTeachingAdapter.refreshListData(inviteList);
+					}
 	
 				} else if(BaseRequest.REQ_RET_F_NO_DATA == retId) { // do not exists in common
 					
 				} else {
 					Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
+				listView.onRefreshComplete();
 				reqLoader = null;
 			}
 		});
@@ -321,7 +334,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 		reqLoader = new GetMyTeachingListLoader(getActivity(), customer.id, startPage, pageSize, new GetMyTeachingListCallback() {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachInviteOrderDetail> inviteList) {
-				listView.onRefreshComplete();
+
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || inviteList.size() == 0) {
 
 				} else if(BaseRequest.REQ_RET_OK == retId) {
@@ -331,6 +344,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 
 					Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
+				listView.onRefreshComplete();
 				reqLoader = null;
 			}
 		});
@@ -370,7 +384,6 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 		if(isLoading()) {
 			GetMyTeachingListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -431,7 +444,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 				convertView = View.inflate(getActivity(), R.layout.invite_list_mime_item, null);
 				holder = new ViewHolder();
 				holder.alert = (ImageView) convertView.findViewById(R.id.invite_list_mime_item_alert);
-				holder.avatar = (RoundedImageView) convertView.findViewById(R.id.invite_list_mime_item_avatar);
+				holder.avatar = (ImageView) convertView.findViewById(R.id.invite_list_mime_item_avatar);
 				holder.nickname = (TextView) convertView.findViewById(R.id.invite_list_mime_item_nickname);
 				holder.teetime = (TextView) convertView.findViewById(R.id.invite_list_mime_item_teetime);
 				holder.course = (TextView) convertView.findViewById(R.id.invite_list_mime_item_course);
@@ -459,7 +472,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 				
 				holder.description.setText("您被学员邀请");
 				
-				if(Const.SEX_MALE == data.teacher_sex) {
+				if(Const.SEX_MALE == data.student_sex) {
 					holder.sex.setImageResource(R.drawable.ic_male);
 				} else {
 					holder.sex.setImageResource(R.drawable.ic_female);
@@ -469,7 +482,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 				loadAvatar(getActivity(), data.teacher_sn, data.teacher_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
 				holder.nickname.setText(data.teacher_name);
 				holder.description.setText("您邀请的教练");
-				if(Const.SEX_MALE == data.student_sex) {
+				if(Const.SEX_MALE == data.teacher_sex) {
 					holder.sex.setImageResource(R.drawable.ic_male);
 				} else {
 					holder.sex.setImageResource(R.drawable.ic_female);
@@ -485,8 +498,8 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 					holder.state.setBackgroundResource(R.drawable.invite_list_status_green_bkg);
 					break;
 				case Const.MY_TEACHING_ACCEPTED:
-				case Const.MY_TEACHING_START:
-				case Const.MY_TEACHING_END:
+//				case Const.MY_TEACHING_START:
+//				case Const.MY_TEACHING_END:
 					holder.state.setBackgroundResource(R.drawable.invite_list_status_yellow_bkg);
 					break;
 
@@ -523,7 +536,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 		
 		class ViewHolder {
 			private ImageView alert;
-			private RoundedImageView avatar;
+			private ImageView avatar;
 			private TextView nickname;
 			private TextView teetime;
 			private TextView course;

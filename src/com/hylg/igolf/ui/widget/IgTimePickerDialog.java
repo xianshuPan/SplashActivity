@@ -17,10 +17,14 @@
 package com.hylg.igolf.ui.widget;
 
 import java.util.Calendar;
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.widget.Toast;
+
 import com.hylg.igolf.R;
 import com.hylg.igolf.ui.widget.IgTimePicker.OnIgTimeChangedListener;
 
@@ -30,18 +34,23 @@ public class IgTimePickerDialog extends AlertDialog implements OnClickListener {
     private OnIgTimeSetListener mOnIgTimeSetListener;
     private IgTimePicker mIgTimePicker;
 
+    private Context mContext;
+
     public IgTimePickerDialog(Context context, long date, boolean is24HourView) {
         super(context);
         mIgTimePicker = new IgTimePicker(context, date, is24HourView);
         setView(mIgTimePicker);
         mIgTimePicker.setOnIgTimeChangedListener(new OnIgTimeChangedListener() {
-			@Override
-			public void onIgTimeChanged(IgTimePicker view, int hourOfDay,
-					int minute) {
-              mDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
-              mDate.set(Calendar.MINUTE, minute);
-			}
+            @Override
+            public void onIgTimeChanged(IgTimePicker view, int hourOfDay,
+                                        int minute) {
+                mDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                mDate.set(Calendar.MINUTE, minute);
+            }
+
         });
+
+        mContext = context;
         mDate.setTimeInMillis(date);
         Calendar cal = mIgTimePicker.getResetCalendar();
         mDate.set(Calendar.SECOND, 0);
@@ -58,7 +67,12 @@ public class IgTimePickerDialog extends AlertDialog implements OnClickListener {
 
     public void onClick(DialogInterface arg0, int arg1) {
         if (BUTTON_POSITIVE == arg1 && mOnIgTimeSetListener != null) {
-        	mOnIgTimeSetListener.OnIgTimeSet(this, mDate.getTimeInMillis());
+
+
+            mOnIgTimeSetListener.OnIgTimeSet(this, mDate.getTimeInMillis());
+
+
+
         }
     }
     

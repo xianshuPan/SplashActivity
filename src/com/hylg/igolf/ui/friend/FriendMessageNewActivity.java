@@ -328,7 +328,7 @@ public class FriendMessageNewActivity extends Activity implements OnClickListene
 		
 		 if (mLocationManagerProxy != null) {
 			 mLocationManagerProxy.removeUpdates(mAMapLocationListener);
-			 mLocationManagerProxy.destory();
+			 mLocationManagerProxy.destroy();
 		  }
 		 
 		 mAMapLocationListener = null;
@@ -395,12 +395,12 @@ public class FriendMessageNewActivity extends Activity implements OnClickListene
 			
 			
 			content = mContentsEdit.getText().toString();
-			DebugTools.getDebug().debug_e(TAG, "___-------------------->>>"+content);
+			DebugTools.getDebug().debug_e(TAG, "-------------------->>>"+content);
 
 
-			if( (Config.drr == null || Config.drr.size() <= 0) && (content == null || content.length() <= 0)) {
+			if( (Config.drr == null || Config.drr.size() <= 0)) {
 				
-				Toast.makeText(this, "不能发布空朋友圈", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "请添加美图", Toast.LENGTH_SHORT).show();
 				
 				return;
 			}

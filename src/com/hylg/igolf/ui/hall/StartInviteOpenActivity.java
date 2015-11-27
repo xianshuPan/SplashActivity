@@ -1,6 +1,7 @@
 package com.hylg.igolf.ui.hall;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -57,6 +58,8 @@ public class StartInviteOpenActivity extends Activity
 	private GlobalData gd;
 	private static onStartRefreshListener refreshListener = null;
 
+	private long mSelectTime = 0;
+
 	/**
 	 * 设置页面，发起约球，成功后，根据发起条件，查询大厅列表
 	 * @param context
@@ -70,7 +73,6 @@ public class StartInviteOpenActivity extends Activity
 	/**
 	 * 大厅列表中，发起约球，成功后，根据发起条件，更新大厅列表
 	 * @param context
-	 * @param listener
 	 */
 	public static void startOpenInviteRefresh(Context context) {
 		try {
@@ -155,6 +157,9 @@ public class StartInviteOpenActivity extends Activity
 			@Override
 			public void OnIgTimeSet(AlertDialog dialog, long date) {
 				curTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(date));
+
+				mSelectTime = date;
+
 				timeTv.setText(curTime);
 			}
 			
@@ -203,6 +208,19 @@ public class StartInviteOpenActivity extends Activity
 			msgEt.requestFocus();
 			return ;
 		}
+
+		Calendar now_time = Calendar.getInstance();
+
+		Calendar select_time = Calendar.getInstance();
+
+		select_time.setTimeInMillis(mSelectTime);
+
+		if (now_time.after(select_time) && curTeeDate == 1) {
+
+			Toast.makeText(StartInviteOpenActivity.this,"时间无效",Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		int payType = payTypeAdapter.getSelectValue();
 		int stake = stakeAdapter.getSelectValue();
 		Utils.logh(TAG, "payType: " + payType + " stake: " + stake);

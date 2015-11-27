@@ -14,12 +14,12 @@ public class CoachPayCharge extends BaseRequest {
 	
 	public String charge;
 
-	public CoachPayCharge(Context context, long id) {
+	public CoachPayCharge(Context context, long id,String pay_chanel) {
 		super(context);
 		StringBuilder s = new StringBuilder();
 		s.append("appid"); s.append(KV_CONN); s.append(id);s.append(PARAM_CONN);
 		
-		s.append("channel"); s.append(KV_CONN); s.append("alipay");s.append(PARAM_CONN);
+		s.append("channel"); s.append(KV_CONN); s.append(pay_chanel);s.append(PARAM_CONN);
 		
 		s.append("client_ip"); s.append(KV_CONN); s.append("192.168.2.102");
 		

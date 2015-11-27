@@ -14,6 +14,7 @@ import com.hylg.igolf.utils.Utils;
 import com.xc.lib.utils.Tools;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import cn.gl.lib.view.RoundedImageView;
@@ -45,13 +47,13 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 	 * 最近约过的教练
 	 * */
 	private View                                mInvitedCoachLinear = null;
-	protected RoundedImageView 					avatarIv;
+	protected ImageView 						avatarIv;
 	protected ImageView 						sexIv;
 	protected ImageView 						typeIv;
 
 	protected TextView 							handicapiTv;
 	protected TextView 							nicknameTv;
-
+	private RatingBar                           star;
 	protected TextView 							teachTimeTv;
 	protected TextView 							ageTv;
 	protected TextView 							specialTv;
@@ -61,7 +63,7 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 	
 	private GetLastAppCoachLoader               mGetLastAppCoachLoader = null;
 	
-	private TextView                            mApplyCoachInfoTxt = null;
+	private TextView                            mApplyCoachInfoTxt = null,mMyTeachingTxt= null;
 	
 	private long 								id = 0;
 
@@ -120,7 +122,7 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 		mInvitedCoachLinear =  view.findViewById(R.id.coach_frg_home_invited_coacher_linear);
 		mInvitedCoachLinear.setOnClickListener(this);
 
-		avatarIv = (RoundedImageView) mInvitedCoachLinear.findViewById(R.id.coach_item_avatar);
+		avatarIv = (ImageView) mInvitedCoachLinear.findViewById(R.id.coach_item_avatar);
 		typeIv = (ImageView) mInvitedCoachLinear.findViewById(R.id.coach_item_type_image);
 		handicapiTv = (TextView) mInvitedCoachLinear.findViewById(R.id.coach_item_handicapIndex_text);
 
@@ -130,13 +132,18 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 		specialTv = (TextView) mInvitedCoachLinear.findViewById(R.id.coach_item_special_text);
 		distanceTv = (TextView) mInvitedCoachLinear.findViewById(R.id.coach_item_distance_text);
 		distanceTimeTv = (TextView) mInvitedCoachLinear.findViewById(R.id.coach_item_distance_time_text);
-		
+		star = (RatingBar) mInvitedCoachLinear.findViewById(R.id.coach_item_rating);
+
 		mApplyCoachInfoTxt = (TextView) view.findViewById(R.id.coach_frg_home_apply_coach_text);
+		mMyTeachingTxt = (TextView) view.findViewById(R.id.coach_frg_home_my_teaching_text);
 		
 		mHobbyImage.setOnClickListener(this);
 		mApplyCoachInfoTxt.setOnClickListener(this);
+		mMyTeachingTxt.setOnClickListener(this);
 		mProfessionalImage.setOnClickListener(this);
 		id = MainApp.getInstance().getCustomer().id;
+
+		mApplyCoachInfoTxt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 		
 		/*
 		 * 获取用户的最近约国的教练
@@ -150,11 +157,26 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 
 				if (retId == BaseRequest.REQ_RET_OK) {
 
-					mInvitedCoachLinear.setBackgroundResource(R.drawable.list_item_even_bkg);
-					mInvitedCoachLinear.setVisibility(View.VISIBLE);
-
 					coachItem = item;
 
+					if (mGetLastAppCoachLoader.request.hobby_price > 0) {
+
+						mHobbyPirceTxt.setText(String.valueOf(mGetLastAppCoachLoader.request.hobby_price)+getResources().getString(R.string.str_coach_price_unit));
+					}
+
+					if (mGetLastAppCoachLoader.request.professional_price > 0) {
+
+						mProfessionalPriceTxt.setText(String.valueOf(mGetLastAppCoachLoader.request.professional_price)+getResources().getString(R.string.str_coach_price_unit));
+					}
+
+
+					if (coachItem == null || coachItem.sn == null || coachItem.sn.length() <= 0) {
+
+						return;
+					}
+
+					mInvitedCoachLinear.setBackgroundResource(R.drawable.list_item_even_bkg);
+					mInvitedCoachLinear.setVisibility(View.VISIBLE);
 					if (item.type == Const.PROFESSIONAL_COACH) {
 
 						typeIv.setBackgroundResource(R.drawable.professional);
@@ -164,13 +186,14 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 						typeIv.setBackgroundResource(R.drawable.white_bg);
 					}
 
-					handicapiTv.setText(String.valueOf(item.handicapIndex));
+					handicapiTv.setText(Utils.getDoubleString(getActivity(), item.handicapIndex));
 					nicknameTv.setText(item.nickname);
 					teachTimeTv.setText(String.valueOf(item.teachTimes));
 					ageTv.setText(String.valueOf(item.teachYear));
 					specialTv.setText(item.special);
+					star.setRating(item.rate);
 
-					if (item.distance <= 0) {
+					if (item.distance <= 1) {
 
 						distanceTv.setText("附近");
 					} else {
@@ -245,6 +268,14 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 			case R.id.coach_frg_home_invited_coacher_linear :
 
 				CoachInfoDetailActivity.startCoachInfoDetail(getActivity(), coachItem);
+				getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+
+				break;
+
+			case R.id.coach_frg_home_my_teaching_text :
+
+				Intent intent2 = new Intent(getActivity(), CoachMyTeachingActivity.class);
+				startActivity(intent2);
 				getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 
 				break;

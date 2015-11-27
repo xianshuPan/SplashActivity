@@ -159,6 +159,6 @@ public class CourseSelectActivity extends Activity {
 	}
 	
 	public interface onCourseSelectListener {
-		public abstract void onCourseSelect(CourseInfo course);
+		void onCourseSelect(CourseInfo course);
 	}
 }

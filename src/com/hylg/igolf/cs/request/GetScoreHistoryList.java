@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.ScoreHistoryInfo;
 
 public class GetScoreHistoryList extends BaseRequest {
@@ -40,6 +41,9 @@ public class GetScoreHistoryList extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+
+			DebugTools.getDebug().debug_v("getScoreHistoryList","----->>>"+jo);
+
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
 				failMsg = jo.getString(RET_MSG);

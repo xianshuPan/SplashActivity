@@ -68,10 +68,11 @@ public class GlobalData {
 
 	public double lat = 0;
 	public double lng = 0;
+	public String province_Str = "";
 
 	public void setCardNo (String no) {
 
-		if (no == null || no.length() <= 0) {
+		if (no == null || no.length() < 0) {
 			 return;
 		}
 
@@ -85,7 +86,7 @@ public class GlobalData {
 
 	public void setBankName (String name) {
 
-		if (name == null || name.length() <= 0) {
+		if (name == null || name.length() < 0) {
 			return;
 		}
 
@@ -97,9 +98,24 @@ public class GlobalData {
 		return bank_name;
 	}
 
+
+	public void setProvinceStr (String name) {
+
+		if (name == null || name.length() <= 0) {
+			return;
+		}
+
+		province_Str = name;
+	}
+
+	public String getProvinceStr () {
+
+		return province_Str;
+	}
+
 	public void setBalance (double latt) {
 
-		if (latt <= 0) {
+		if (latt < 0) {
 			return;
 		}
 

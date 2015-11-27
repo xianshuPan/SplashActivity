@@ -1,6 +1,7 @@
 package com.hylg.igolf.ui;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -77,6 +78,7 @@ import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
+import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, TagAliasCallback {
 	private final static String TAG = "MainActivity";
@@ -205,7 +207,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		copyCameraIconToSdcard();
 		
 		/*开启检查更新的任务*/
-
 		asynTask();
 	}
 	
@@ -420,7 +421,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	new AsyncTask<Object, Object, Integer>() {
 		final long start = System.currentTimeMillis();
 		
-		final UpdateRequest request = new UpdateRequest(MainActivity.this);
+		//final UpdateRequest request = new UpdateRequest(MainActivity.this);
 		@Override
 		protected Integer doInBackground(Object... params) {
 	        Class<?> c = null;
@@ -451,7 +452,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			/* pxs  2015.04.13.09 
 			 * 注释下面一行代码 ，并直接返回 0  //return 0;
 			 * */
-			return request.connectUrl();
+			//return request.connectUrl();
+			UmengUpdateAgent.update(MainActivity.this);
+			return 0;
 		}
 
 		@Override
@@ -461,7 +464,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			/* pxs  2015.04.13.09 
 			 * 注释下面一行代码 ,加上startMainActivity()，直接调转到 主页 //startMainActivity();
 			 * */
-			dealWithUpdate(result, request.getFailMsg(), request.getVersionInfo());
+			//dealWithUpdate(result, request.getFailMsg(), request.getVersionInfo());
 			
 			
 //			WaitDialog.dismissWaitDialog();
@@ -558,30 +561,34 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			return;
 		}
 		File industry = new File(pathInd);
-		if (!industry.exists()) {
+
+		//if (!industry.exists()) {
 			InputStream is = null;
 			try {
-				is = getAssets().open(FileUtils.getAssetsCfgIndustryPath());
+				String asdf= FileUtils.getAssetsCfgIndustryPath();
+				is = getAssets().open(asdf);
+
 				FileUtils.save(industry, is);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		//}
 
 		String pathReg = FileUtils.getExternalCfgRegionPath(this);
 		if (null == pathReg) {
 			return;
 		}
 		File region = new File(pathReg);
-		if (!region.exists()) {
-			InputStream is = null;
+		//if (!region.exists()) {
+			InputStream is_region = null;
 			try {
-				is = getAssets().open(FileUtils.getAssetsCfgRegionPath());
-				FileUtils.save(region, is);
+				String sdf = FileUtils.getAssetsCfgRegionPath();
+				is_region = getAssets().open(sdf);
+				FileUtils.save(region, is_region);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
+		//}
 	}
 	
 	
@@ -1109,12 +1116,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 				double lat = amapLocation.getLatitude();
 				double lng = amapLocation.getLongitude();
 
+				String province = amapLocation.getProvince();
 				MainApp.getInstance().getGlobalData().setLat(lat);
 				MainApp.getInstance().getGlobalData().setLng(lng);
+				MainApp.getInstance().getGlobalData().setProvinceStr(province);
 
-				DebugTools.getDebug().debug_v(TAG, "lat------------------>>>"+lat);
+				DebugTools.getDebug().debug_v(TAG, "lat------------------>>>" + lat);
 				DebugTools.getDebug().debug_v(TAG, "lng------------------>>>"+lng);
-
+				DebugTools.getDebug().debug_v(TAG, "province------------------>>>"+province);
 				saveCoachLocation();
 			}
 		}

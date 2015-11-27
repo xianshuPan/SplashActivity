@@ -108,6 +108,7 @@ public class GetNewTipsList extends BaseRequest {
 					reviewItemHash.put("id", reviewItem.getString("id"));	
 					reviewItemHash.put("tipid", reviewItem.getString("tipid"));
 					reviewItemHash.put("sn", reviewItem.getString("sn"));
+					reviewItemHash.put("avatar", reviewItem.getString("avatar"));
 					reviewItemHash.put("content", reviewItem.getString("content"));	
 					reviewItemHash.put("name", reviewItem.getString("name"));
 					reviewItemHash.put("tosn", reviewItem.getString("tosn"));

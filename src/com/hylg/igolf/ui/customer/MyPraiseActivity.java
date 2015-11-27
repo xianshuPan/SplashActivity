@@ -11,11 +11,9 @@ import com.hylg.igolf.cs.loader.GetMyPraiseTipsListLoader.GetMyPraisedTipsListCa
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.imagepicker.Config;
 import com.hylg.igolf.ui.friend.FriendCircleAdapter;
+import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.LoadFail;
-import com.hylg.igolf.ui.view.RefreshView;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
-import com.hylg.igolf.ui.view.RefreshView.OnLoadMoreListener;
-import com.hylg.igolf.ui.view.RefreshView.OnRefreshListener;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -39,9 +37,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 
 	private ImageButton  				mBack 						= null;
 	
-	private RefreshView					mRefreshView                = null;
-	
-	private ListView                    mList                       = null;
+	private EhecdListview 				mList                       = null;
 	private FriendCircleAdapter			mFriendHotAdapter			= null;
 	
 	private GetMyPraiseTipsListLoader 	reqLoader 					= null;
@@ -90,23 +86,22 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 	public void initUI() {
 		
 		mBack           	= (ImageButton) findViewById(R.id.customer_info_my_praise_back);
-		mRefreshView    	= (RefreshView) findViewById(R.id.customer_info_my_praise_refresh);
 		
-		mList           	= (ListView) findViewById(R.id.customer_info_my_praise_listview);
+		mList           	= (EhecdListview) findViewById(R.id.customer_info_my_praise_listview);
 		
 		
 		mBack.setOnClickListener(this);
-		
-		mRefreshView.setOnRefreshListener(new OnRefreshListener() {
+
+		mList.setOnRefreshListener(new EhecdListview.OnRefreshListener() {
 			
 			@Override
-			public void onRefreshData() {
+			public void onRefresh() {
 				// TODO Auto-generated method stub
 				refreshData();
 			}
 		});
-		
-		mRefreshView.setOnLoadMoreListener(new OnLoadMoreListener() {
+
+		mList.setOnLoadMoreListener(new EhecdListview.OnLoadMoreListener() {
 			
 			@Override
 			public void onLoadMore() {
@@ -195,7 +190,6 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 
 				// TODO Auto-generated method stub
-				mRefreshView.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || hotList.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -219,6 +213,8 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 					loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			
@@ -232,7 +228,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 	private void refreshData() {
 		if(!Utils.isConnected(mContext)) {
 			
-			mRefreshView.onRefreshComplete();
+			mList.onRefreshComplete();
 			return ;
 		}
 		
@@ -244,7 +240,6 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mRefreshView.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_OK == retId) {
 					
@@ -264,6 +259,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 					
 					//Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				//WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
@@ -276,7 +272,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		
 		if(!Utils.isConnected(mContext)) {
 			
-			mRefreshView.onRefreshComplete();
+			mList.onRefreshComplete();
 			return ;
 		}
 		//WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
@@ -290,7 +286,6 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mRefreshView.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_OK == retId) {
 	
@@ -309,6 +304,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 
 					//Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				//WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
@@ -336,7 +332,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		
 		DebugTools.getDebug().debug_d(TAG, "-----》》》为什么执行了两次");
 		
-		mFriendHotAdapter = new FriendCircleAdapter(mContext,inviteList, mList, mRefreshView,false);
+		mFriendHotAdapter = new FriendCircleAdapter(mContext,inviteList, mList, null,false);
 		
 		if (Config.mFriendMessageNewItem != null ) {
 			

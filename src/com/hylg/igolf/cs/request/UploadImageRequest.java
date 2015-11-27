@@ -32,6 +32,8 @@ public class UploadImageRequest extends BaseRequest {
 	private String imageFileName ;
 	
 	public ImageView okImageView;
+
+	public ImageView deleteImageView;
 	
 	public ProgressBar progress;
 	
@@ -40,7 +42,7 @@ public class UploadImageRequest extends BaseRequest {
 	public int type;
 	
 	public UploadImageRequest(Context context, Bitmap bitmap, int type, String method, String bodyName, 
-								String fileName,ImageView okImage,ProgressBar progress,ImageView selectedImage) {
+								String fileName,ImageView okImage,ImageView deleteImage,ProgressBar progress,ImageView selectedImage) {
 		super(context);
 		
 		this.type = type;
@@ -50,6 +52,7 @@ public class UploadImageRequest extends BaseRequest {
 		this.imageFileName = fileName;
 		this.progress = progress;
 		this.okImageView = okImage;
+		this.deleteImageView = deleteImage;
 		this.selectedImage = selectedImage;
 	}
 	
@@ -128,7 +131,7 @@ public class UploadImageRequest extends BaseRequest {
 //			}
 			return REQ_RET_F_UPDATE_AVATAR_FAIL;
 //			return REQ_RET_OK; // 异常，但实际上传成功
-		};
+		}
 
 		return REQ_RET_OK;
 	}

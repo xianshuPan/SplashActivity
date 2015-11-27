@@ -15,6 +15,7 @@ import com.hylg.igolf.cs.loader.GetCoachCommentsListLoader.GetCoachCommentsCallb
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.ui.customer.CustomerHomeActivity;
+import com.hylg.igolf.ui.friend.PhotoViewActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.utils.DownLoadImageTool;
@@ -66,8 +67,9 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 	private ProgressBar                     mProgress;
 	
 	private TextView                        mCoursePhone,mCourseName,mCourseAddress,mTeachYearTxt,mSpecialTxt;
-	
-	private ImageView                       mAwardImage;
+
+	private RelativeLayout                  mAwardRelative,mGraduateRelative,mCertificateRelative;
+	private ImageView                       mAwardImage,mGraduateImage,mCertificateImage;
 	
 	private TextView                        mInviteCoachTxt;
 	
@@ -162,7 +164,9 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 		mCourseAddress = (TextView) findViewById(R.id.coach_info_detail_place_address_text);
 		mTeachYearTxt = (TextView) findViewById(R.id.coach_info_detail_teach_age_content_text);
 		mSpecialTxt = (TextView) findViewById(R.id.coach_info_detail_special_content_text);
-		mAwardImage = (ImageView) findViewById(R.id.coach_info_detail_award_iamge);
+		mAwardImage = (ImageView) findViewById(R.id.coach_detail_info_award_selected_image);
+		mGraduateImage = (ImageView) findViewById(R.id.coach_detail_info_graduate_selected_image);
+		mCertificateImage = (ImageView) findViewById(R.id.coach_detail_info_certificate_selected_image);
 		mInviteCoachTxt = (TextView) findViewById(R.id.coach_info_detail_invite_coach_text);
 		
 		mBack.setOnClickListener(this);
@@ -171,6 +175,10 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 		mMoreCommentsRelative.setOnClickListener(this);
 		mCoursePhone.setOnClickListener(this);
 		mInviteCoachTxt.setOnClickListener(this);
+
+		mAwardImage.setOnClickListener(this);
+		mGraduateImage.setOnClickListener(this);
+		mCertificateImage.setOnClickListener(this);
 
 		customer = MainApp.getInstance().getCustomer();
 		
@@ -185,10 +193,27 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 			mCoursePhone.setText(String.valueOf(mCoachInfoDetail.course_tel));
 			mCourseName.setText(mCoachInfoDetail.course_name);
 			mCourseAddress.setText(mCoachInfoDetail.course_address);
-			mTeachYearTxt.setText(String.valueOf(mCoachInfoDetail.teachYear));
+			mTeachYearTxt.setText(String.valueOf(mCoachInfoDetail.teachYear)+"年");
 			mSpecialTxt.setText(mCoachInfoDetail.special);
-			
-			DownLoadImageTool.getInstance(this).displayImage(BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.award, mAwardImage, null);
+
+			if (mCoachInfoDetail.award != null && mCoachInfoDetail.award.length() > 0 && !mCoachInfoDetail.award.equalsIgnoreCase("null")) {
+
+				findViewById(R.id.coach_detail_info_award_relative).setVisibility(View.VISIBLE);
+				DownLoadImageTool.getInstance(this).displayImage(BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.award, mAwardImage, null);
+			}
+
+			if (mCoachInfoDetail.graduate != null && mCoachInfoDetail.graduate.length() > 0 && !mCoachInfoDetail.graduate.equalsIgnoreCase("null")) {
+
+				findViewById(R.id.coach_detail_info_graduate_selected_relative).setVisibility(View.VISIBLE);
+				DownLoadImageTool.getInstance(this).displayImage(BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.graduate, mGraduateImage, null);
+			}
+
+			if (mCoachInfoDetail.certificate != null && mCoachInfoDetail.certificate.length() > 0 && !mCoachInfoDetail.certificate.equalsIgnoreCase("null")) {
+
+				findViewById(R.id.coach_apply_info_certificate_selected_relative).setVisibility(View.VISIBLE);
+				DownLoadImageTool.getInstance(this).displayImage(BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.certificate, mCertificateImage, null);
+			}
+
 
 			initListDataAsync();
 
@@ -234,7 +259,8 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 							msg = getString(R.string.str_golfers_req_no_data_hint);
 						}
 		
-						Toast.makeText(CoachInfoDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
+						//Toast.makeText(CoachInfoDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
+						mCommentsCountTxt.setText("暂无评价");
 						
 					} else if (BaseRequest.REQ_RET_OK == retId) {
 						
@@ -367,9 +393,40 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 
 			case R.id.coach_info_detail_home_linear:
 
-				MemDetailActivityNew.startMemDetailActivity(mContext,mCoachInfoDetail.sn);
+				MemDetailActivityNew.startMemDetailActivity(mContext, mCoachInfoDetail.sn);
 
 				break;
+
+			case R.id.coach_detail_info_award_selected_image:
+
+				ArrayList<String> maxPaths = new ArrayList<String>();
+				maxPaths.add(0,BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.award);
+				Intent data = new Intent(mContext, PhotoViewActivity.class);
+				data.putStringArrayListExtra("Photos", maxPaths);
+				data.putExtra("Index", 0);
+				mContext.startActivity(data);
+				break;
+
+			case R.id.coach_detail_info_certificate_selected_image:
+
+				ArrayList<String> maxPaths1 = new ArrayList<String>();
+				maxPaths1.add(0,BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.certificate);
+				Intent data1 = new Intent(mContext, PhotoViewActivity.class);
+				data1.putStringArrayListExtra("Photos", maxPaths1);
+				data1.putExtra("Index", 0);
+				mContext.startActivity(data1);
+				break;
+
+			case R.id.coach_detail_info_graduate_selected_image:
+
+				ArrayList<String> maxPaths2 = new ArrayList<String>();
+				maxPaths2.add(0,BaseRequest.CoachPic_Original_PATH + mCoachInfoDetail.graduate);
+				Intent data2 = new Intent(mContext, PhotoViewActivity.class);
+				data2.putStringArrayListExtra("Photos", maxPaths2);
+				data2.putExtra("Index", 0);
+				mContext.startActivity(data2);
+				break;
+
 			case R.id.coach_info_detail_attention_linear:
 
 				attention();
@@ -380,8 +437,8 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 
 				if (mCoachInfoDetail.course_tel != null && mCoachInfoDetail.course_tel.length() > 0) {
 
-					Intent data = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mCoachInfoDetail.course_tel));
-					startActivity(data);
+					Intent data3 = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + mCoachInfoDetail.course_tel));
+					startActivity(data3);
 
 				} else {
 

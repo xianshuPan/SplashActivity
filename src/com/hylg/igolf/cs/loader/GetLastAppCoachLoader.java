@@ -8,7 +8,7 @@ import com.hylg.igolf.cs.request.GetLastAppCoach;
 
 public class GetLastAppCoachLoader extends BaseAsyncLoader {
 	
-	private GetLastAppCoach request;
+	public GetLastAppCoach request;
 	
 	private GetLastAppCoachCallback callBack;
 	
@@ -41,6 +41,6 @@ public class GetLastAppCoachLoader extends BaseAsyncLoader {
 	}
 
 	public interface GetLastAppCoachCallback {
-		public abstract void callBack(int retId, String msg,CoachItem item);
+		void callBack(int retId, String msg,CoachItem item);
 	}
 }

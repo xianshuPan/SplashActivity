@@ -172,7 +172,6 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 		if(isLoading()) {
 			GetNewTipsLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -218,7 +217,7 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 		@Override
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			// TODO Auto-generated method stub
-			ViewHolder holder = null;
+			ViewHolder holder ;
 			
 			if (arg1 == null) {
 				
@@ -246,7 +245,8 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 			if (comments != null && comments.size() > 0) {
 				
 				holder.userName.setText(comments.get(comments.size()-1).get("name"));
-				holder.content.setText(comments.get(comments.size()-1).get("content"));
+				holder.content.setText(comments.get(comments.size() - 1).get("content"));
+				loadAvatar(mContext, comments.get(comments.size() - 1).get("sn"), comments.get(comments.size() - 1).get("avatar"), holder.avatarImage);
 				
 				if (comments.get(comments.size()-1).get("commentstime") != null && 
 					comments.get(comments.size()-1).get("commentstime").length() > 0) {
@@ -258,12 +258,8 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 					
 					sd.setTime(date);
 
-					
-					holder.time.setText(sd.get(Calendar.HOUR)+":"+sd.get(Calendar.MINUTE));
+					holder.time.setText(sd.get(Calendar.HOUR_OF_DAY)+":"+sd.get(Calendar.MINUTE));
 				}
-			
-				
-				loadAvatar(mContext, list.get(arg0).sn, list.get(arg0).avatar, holder.avatarImage);
 				
 				if (imageUrlStr != null && imageUrlStr.indexOf(",") > 0) {
 					

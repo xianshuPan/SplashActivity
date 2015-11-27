@@ -115,12 +115,12 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 	
 	public interface OnRefreshListener
 	{
-		public void onRefresh();
+		void onRefresh();
 	}
 	
 	public interface OnChangeMarginListener
 	{
-		public void OnChangeMargin();
+		void OnChangeMargin();
 	}
 	
 	@Override
@@ -230,7 +230,7 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 	             footProgressBar.setVisibility(View.VISIBLE);
 	             footTipsTextview.setVisibility(View.VISIBLE);
 	             footTipsTextview.setText(R.string.list_footer_loading);
-	             Log.v(TAG, "��ǰ״̬,����ˢ��...");  
+
 	             break;  
 	             
 	         case DONE:  
@@ -241,11 +241,22 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 	             //removeFooterView(footView);
 	             //footTipsTextview.setVisibility(View.GONE);
 	             footTipsTextview.setText(R.string.list_footer_load_more);
-	             Log.v(TAG, "��ǰ״̬��done");  
+
 	            break;  
-	        }  
-	     }  
-	     
+	        }
+
+
+		if (getAdapter() != null) {
+
+			int count = getAdapter().getCount();
+			if (count < 10) {
+
+				footView.setVisibility(View.GONE);
+			}
+
+		}
+	}
+
 	private void onRefresh() {  
 		if (refreshListener != null) {  
 			refreshListener.onRefresh();  

@@ -1,12 +1,17 @@
 package com.hylg.igolf.cs.request;
 
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 
 import org.json.JSONArray;
 
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.os.Environment;
 import android.os.Process;
 
 import com.hylg.igolf.DebugTools;
@@ -20,8 +25,12 @@ import com.hylg.igolf.utils.SharedPref;
 public class LoginUser extends BaseRequest {
 	private String param;
 
+	private Context mContext;
+
 	public LoginUser(Context context, String phone, String password) {
 		super(context);
+
+		mContext = context;
 		StringBuilder s = new StringBuilder();
 		s.append(PARAM_REQ_PHONE); s.append(KV_CONN); s.append(phone);
 		s.append(PARAM_CONN);
@@ -39,22 +48,23 @@ public class LoginUser extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+
+			DebugTools.getDebug().debug_v("login", "login----->>>>"+jo);
+
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
 				failMsg = jo.getString(RET_MSG);
 				return rn;
 			}
-			
-			
-			DebugTools.getDebug().debug_v("login", "login----->>>>"+jo);
-			
-			
+
 			GlobalData gd = MainApp.getInstance().getGlobalData();
 			gd.msgNumSys = jo.getInt(RET_MSG_NUM_SYS);
 			gd.msgNumInvite = jo.getInt(RET_MSG_NUM_INVITE);
+
 			Customer customer = MainApp.getInstance().getCustomer();
 			JSONObject cusObj = new JSONObject(jo.getString(RET_CUSTOMER));
 			customer.id = cusObj.getLong(RET_ID);
+			customer.is_coach = jo.getInt("isCoach");
 			customer.sn = cusObj.getString(RET_SN);
 			customer.nickname = cusObj.getString(RET_NICKNAME);
 			customer.avatar = cusObj.getString(RET_AVATAR);
@@ -84,6 +94,24 @@ public class LoginUser extends BaseRequest {
 			customer.age = cusObj.getInt(RET_AGE_STR);
 			
 			// 登录成功，保存pid。推送启动时，检测是否被强制关闭过
+
+			File file = mContext.getFilesDir();
+
+			String path = file.getAbsolutePath()+File.separator+"user.txt";
+
+			File file2 = new File(path);
+
+			if (!file2.exists()) {
+
+				file2.createNewFile();
+			}
+
+			FileOutputStream fos = new FileOutputStream(file2);
+
+			ObjectOutputStream dos = new ObjectOutputStream(fos);
+
+			dos.writeObject(customer);
+
 			SharedPref.setInt(SharedPref.PREFS_KEY_PID, Process.myPid(), context);
 			
 		} catch (Exception e) {

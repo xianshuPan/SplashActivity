@@ -23,8 +23,8 @@ public class FiltersAdapter extends BaseAdapter {
 	public FiltersAdapter(FragmentActivity context, OnFilterItemClickListener listener, String... args) {
 		this.context = context;
 		this.listener = listener;
-		String [] items = args;
-		final int len = items.length;
+
+		final int len = args.length;
 		filters = new ArrayList<FilterData>();
 		Resources res = context.getResources();
 		String[] titles = res.getStringArray(R.array.golfers_filter_title_array);
@@ -33,7 +33,7 @@ public class FiltersAdapter extends BaseAdapter {
 			FilterData data = new FilterData();
 			data.srcId = imgTa.getResourceId(i, R.drawable.ic_launcher);
 			data.title = titles[i];
-			data.content = items[i];
+			data.content = args[i];
 			filters.add(data);
 		}
 		imgTa.recycle();
@@ -65,6 +65,7 @@ public class FiltersAdapter extends BaseAdapter {
 			holder.title = (TextView) convertView.findViewById(R.id.golfers_filter_item_title);
 			convertView.setTag(holder);
 		} else {
+
 			holder = (FilterViewHolder) convertView.getTag();
 		}
 		FilterData data = filters.get(position);
@@ -110,7 +111,7 @@ public class FiltersAdapter extends BaseAdapter {
 	}
 
 	public interface OnFilterItemClickListener {
-		public abstract void onFilterItemClick(int position);
+		void onFilterItemClick(int position);
 	}
 
 }

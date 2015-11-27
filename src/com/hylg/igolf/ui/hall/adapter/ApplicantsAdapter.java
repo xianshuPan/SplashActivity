@@ -40,7 +40,6 @@ public class ApplicantsAdapter extends BaseAdapter {
 	/**
 	 * 
 	 * @param context
-	 * @param applicatants
 	 * @param selectable
 	 * @param sn 已经接受申请人的会员编号
 	 */
@@ -124,13 +123,13 @@ public class ApplicantsAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder = null;
+		ViewHolder holder;
 		if(null == convertView) {
 			holder = new ViewHolder();
 			convertView = View.inflate(context, R.layout.invite_applicant_item, null);
 			holder.itemSelectRegion = (RelativeLayout) convertView.findViewById(R.id.invite_applicant_item_select_region);
 			holder.itemDetailBtn = (TextView) convertView.findViewById(R.id.invite_applicant_item_detail_btn);
-			holder.itemAvatar = (RoundedImageView) convertView.findViewById(R.id.invite_applicant_item_avatar);
+			holder.itemAvatar = (ImageView) convertView.findViewById(R.id.invite_applicant_item_avatar);
 			holder.itemNickname = (TextView) convertView.findViewById(R.id.invite_applicant_item_nickname);
 			holder.itemSex = (ImageView) convertView.findViewById(R.id.invite_applicant_item_sex);
 			holder.itemImg = (ImageView) convertView.findViewById(R.id.invite_applicant_item_img);
@@ -245,7 +244,7 @@ public class ApplicantsAdapter extends BaseAdapter {
 	class ViewHolder {
 		protected RelativeLayout itemSelectRegion;
 		protected TextView itemDetailBtn;
-		protected RoundedImageView itemAvatar;
+		protected ImageView itemAvatar;
 		protected ImageView itemSex;
 		protected TextView itemNickname;
 		protected ImageView itemImg;
@@ -355,15 +354,12 @@ public class ApplicantsAdapter extends BaseAdapter {
 				String snSelect = selectedApplicantsList.get(i).sn;
 				
 				if (sn.equalsIgnoreCase(snSelect)) {
-					
-					result = true;
-					
-					return result;
+
+					return true;
 				}
 			}
 			
 		}
-		
 		
 		return result ;
 		

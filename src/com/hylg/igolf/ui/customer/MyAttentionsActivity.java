@@ -146,9 +146,6 @@ public class MyAttentionsActivity extends FragmentActivity {
 			public void callBack(int retId, String msg, ArrayList<MyFolloweInfo> List) {
 				// TODO Auto-generated method stub
 
-				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
-				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || List.size() == 0) {
 					if(msg.trim().length() == 0) {
 						msg = getString(R.string.str_friend_no_data);
@@ -168,6 +165,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 					//loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;	
 			
@@ -193,9 +191,6 @@ public class MyAttentionsActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<MyFolloweInfo> List) {
 				// TODO Auto-generated method stub
-
-				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || List.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -216,6 +211,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 					//loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;	
 			
@@ -239,9 +235,6 @@ public class MyAttentionsActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<MyFolloweInfo> List) {
 				// TODO Auto-generated method stub
-
-				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || List.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -262,6 +255,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 					//loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;	
 			

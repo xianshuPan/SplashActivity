@@ -2,6 +2,7 @@ package com.hylg.igolf.ui.coach;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -18,10 +19,13 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.loader.GetCoachCommentsListLoader.GetCoachCommentsCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CoachInviteCommit;
+import com.hylg.igolf.cs.request.GetCourseAllInfoList;
 import com.hylg.igolf.cs.request.GetCourseInfoList;
 import com.hylg.igolf.cs.request.StartOpenInvite;
+import com.hylg.igolf.ui.common.CourseAllSelectActivity;
 import com.hylg.igolf.ui.common.HourExpSelectActivity.onHourExpSelectListener;
 import com.hylg.igolf.ui.common.HourExpSelectActivity;
+import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity.onTeeDateSelectListener;
 import com.hylg.igolf.ui.common.TeeTimeSelectActivity;
@@ -36,6 +40,7 @@ import com.hylg.igolf.ui.reqparam.StartOpenReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
+import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
@@ -64,7 +69,8 @@ public class CoachInviteActivity extends FragmentActivity implements
 															OnClickListener,
 															onTeeDateSelectListener,
 															onHourExpSelectListener,
-															onCourseSelectListener{
+															RegionSelectActivity.onRegionSelectListener,
+		CourseAllSelectActivity.onCourseAllSelectListener {
 	
 	private final String 					TAG = "CoachInviteActivity";
 	
@@ -78,7 +84,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 	
 	private RatingBar                       mRating = null;
 	
-	private TextView                        mDateSelectTxt,mTimeSelectTxt,mTeachingHoursTxt,mCourseSelectTxt;
+	private TextView                        mDateSelectTxt,mTimeSelectTxt,mTeachingHoursTxt,mRegionTxt,mCourseSelectTxt;
 	
 	private EditText                        mQuestionEdit;
 	
@@ -91,6 +97,10 @@ public class CoachInviteActivity extends FragmentActivity implements
 	private CoachInviteReqParam             mReqPara ;
 	
 	private Customer                        customer;
+
+	private GlobalData 						goGlobalData;
+
+	private long 							mSelectTime = 0;
 	
 	
 	public static void startCoachInviteActivity(Context context, CoachItem data) {
@@ -152,6 +162,8 @@ public class CoachInviteActivity extends FragmentActivity implements
 	
 	/*初始化控件，及设置相关的事件监听器*/
 	private void initUI() {
+
+		goGlobalData = MainApp.getInstance().getGlobalData();
 		
 		mBack = (ImageButton) findViewById(R.id.coach_invite_back);
 		
@@ -165,6 +177,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 		mDateSelectTxt = (TextView) findViewById(R.id.coach_invite_date_text);
 		mTimeSelectTxt = (TextView) findViewById(R.id.coach_invite_time_text);
 		mTeachingHoursTxt = (TextView) findViewById(R.id.coach_invite_pre_teach_time_text);
+		mRegionTxt = (TextView) findViewById(R.id.coach_invite_region_text);
 		mCourseSelectTxt = (TextView) findViewById(R.id.coach_invite_place_text);
 		
 		mQuestionEdit  = (EditText) findViewById(R.id.coach_invite_question_edit);
@@ -175,6 +188,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 		mTimeSelectTxt.setOnClickListener(this);
 		mTeachingHoursTxt.setOnClickListener(this);
 		mCourseSelectTxt.setOnClickListener(this);
+		mRegionTxt.setOnClickListener(this);
 		mCommitTxt.setOnClickListener(this);
 
 		
@@ -188,12 +202,13 @@ public class CoachInviteActivity extends FragmentActivity implements
 			mTeachingTimesTxt.setText(String.valueOf(mCoachItem.teachTimes));
 			
 			mReqPara = new CoachInviteReqParam();
-			
 			customer = MainApp.getInstance().getCustomer();
 			
 			mReqPara.studentid = customer.id;
 			mReqPara.coachid = mCoachItem.id;
 			mReqPara.courseid = mCoachItem.course_id;
+			mReqPara.state = mCoachItem.state;
+			mRegionTxt.setText(goGlobalData.getRegionName(mCoachItem.state));
 			mCourseSelectTxt.setText(mCoachItem.course_name);
 			
 			mReqPara.times = 1;
@@ -250,6 +265,11 @@ public class CoachInviteActivity extends FragmentActivity implements
 				HourExpSelectActivity.startHourExpSelect(this, mReqPara.times);
 				break;
 
+			case R.id.coach_invite_region_text :
+
+				RegionSelectActivity.startRegionSelect(this, RegionSelectActivity.REGION_TYPE_SELECT_COURSE, mReqPara.state);
+				break;
+
 			case R.id.coach_invite_place_text :
 
 				getCourseList();
@@ -270,6 +290,8 @@ public class CoachInviteActivity extends FragmentActivity implements
 			@Override
 			public void OnIgTimeSet(AlertDialog dialog, long date) {
 				mReqPara.coachTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date(date));
+
+				mSelectTime = date;
 				mTimeSelectTxt.setText(mReqPara.coachTime);
 			}
 			
@@ -283,7 +305,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 	private void getCourseList() {
 		WaitDialog.showWaitDialog(this, R.string.str_loading_msg);
 		new AsyncTask<Object, Object, Integer>() {
-			GetCourseInfoList request = new GetCourseInfoList(CoachInviteActivity.this, customer.state);
+			GetCourseAllInfoList request = new GetCourseAllInfoList(CoachInviteActivity.this, mReqPara.state);
 			@Override
 			protected Integer doInBackground(Object... params) {
 				return request.connectUrl();
@@ -292,7 +314,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 			protected void onPostExecute(Integer result) {
 				super.onPostExecute(result);
 				if(BaseRequest.REQ_RET_OK == result) {
-					CourseSelectActivity.startCourseSelect(CoachInviteActivity.this, request.getCourseList());
+					CourseAllSelectActivity.startCourseSelect(CoachInviteActivity.this, request.getCourseList());
 				} else {
 //					if(BaseRequest.REQ_RET_F_NO_DATA == result) { }
 					Toast.makeText(CoachInviteActivity.this, request.getFailMsg(), Toast.LENGTH_SHORT).show();
@@ -322,13 +344,32 @@ public class CoachInviteActivity extends FragmentActivity implements
 			return;
 		}
 		
-		if (mReqPara.courseid == null || mReqPara.courseid.length() <= 0) {
+		if (mReqPara.courseid <= 0) {
 			
 			Toast.makeText(this, R.string.str_toast_course_select, Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
-		mReqPara.msg = mQuestionEdit.getText().toString();
+
+		String strEdit = mQuestionEdit.getText().toString();
+		if (strEdit == null || strEdit.length() <=0 ) {
+
+			Toast.makeText(this, R.string.str_toast_input_invite_msg, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		mReqPara.msg = strEdit;
+
+		Calendar now_time = Calendar.getInstance();
+
+		Calendar select_time = Calendar.getInstance();
+
+		select_time.setTimeInMillis(mSelectTime);
+
+		if (now_time.after(select_time) && mReqPara.coachDate == 1) {
+
+			Toast.makeText(CoachInviteActivity.this,"时间无效",Toast.LENGTH_SHORT).show();
+			return;
+
+		}
 		
 		if(!Utils.isConnected(this)) {
 			return ;
@@ -348,8 +389,9 @@ public class CoachInviteActivity extends FragmentActivity implements
 				WaitDialog.dismissWaitDialog();
 				if(BaseRequest.REQ_RET_OK == result) {
 					
-					Toast.makeText(CoachInviteActivity.this, R.string.str_start_invite_open_success, Toast.LENGTH_SHORT).show();
+					Toast.makeText(CoachInviteActivity.this, R.string.str_start_invite_coach_success, Toast.LENGTH_SHORT).show();
 					CoachInviteActivity.this.finish();
+					CoachMyTeachingActivity.startCoachMyTeachingActivity(CoachInviteActivity.this);
 					
 				} else {
 
@@ -367,13 +409,25 @@ public class CoachInviteActivity extends FragmentActivity implements
 		mDateSelectTxt.setText(MainApp.getInstance().getGlobalData().getTeeDateName(newTeeDate));
 	}
 
+	@Override
+	public void onRegionSelect(String newRegion) {
+
+		mReqPara.state = newRegion;
+		mRegionTxt.setText(goGlobalData.getRegionName(newRegion));
+		// 修改地区后，清楚球场信息
+		if(Long.MAX_VALUE != mReqPara.courseid) {
+
+			mReqPara.courseid = -1;
+			mCourseSelectTxt.setText(R.string.str_comm_unset);
+		}
+	}
+
 
 	@Override
-	public void onCourseSelect(CourseInfo course) {
-		// TODO Auto-generated method stub
-		
-		mReqPara.courseid = String.valueOf(course.id);
-		
+	public void onCourseAllSelect(CourseInfo course) {
+
+		mReqPara.courseid = course.id;
+
 		mCourseSelectTxt.setText(course.abbr);
 	}
 
@@ -385,4 +439,6 @@ public class CoachInviteActivity extends FragmentActivity implements
 		
 		mTeachingHoursTxt.setText(newHourExp+"小时");
 	}
+
+
 }

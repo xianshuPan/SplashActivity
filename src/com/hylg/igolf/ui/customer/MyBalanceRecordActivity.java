@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import com.hylg.igolf.cs.loader.GetMyBalanceRecordListLoader.GetBalanceRecordLis
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.GetMyBalanceAmount;
 import com.hylg.igolf.cs.request.GetMyBalanceDefaultInfo;
+import com.hylg.igolf.ui.MainActivity;
 import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.EhecdListview.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.EhecdListview.OnRefreshListener;
@@ -83,6 +85,8 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
+
+				MainActivity.startMainActivity(mContext);
 				mContext.finish();
 
 			}
@@ -91,12 +95,15 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 			@Override
 			public void onClick(View view) {
 
-				if (MainApp.getInstance().getGlobalData().getBalance() > 0) {
+				double balance = MainApp.getInstance().getGlobalData().getBalance();
+
+				if (balance > 0) {
 
 					if (MainApp.getInstance().getGlobalData().getCardNo() == null ||
 							MainApp.getInstance().getGlobalData().getCardNo().length() <16) {
 
 						BindCardActivity.startBindCardActivity(mContext, Const.BING_CARD_AND_PASSWORD);
+						mContext.finish();
 
 					} else {
 
@@ -144,6 +151,18 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 
 		super.onResume();
 	}
+
+	@Override
+	public boolean onKeyDown(int key_code,KeyEvent envent){
+
+		if (key_code == KeyEvent.KEYCODE_BACK) {
+
+			MainActivity.startMainActivity(mContext);
+			mContext.finish();
+		}
+
+		return super.onKeyDown(key_code,envent);
+	}
 	
 	private void getMyBalanceAmount() {
 
@@ -169,6 +188,7 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 					mBalanceTxt.setText(String.valueOf(request.getMyBalance()));
 					MainApp.getInstance().getGlobalData().setBalance(request.getMyBalance());
 					MainApp.getInstance().getGlobalData().setCardNo(request.card_no);
+					MainApp.getInstance().getGlobalData().setBankName(request.card_name);
 				}
 
 				//WaitDialog.dismissWaitDialog();
@@ -191,7 +211,6 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<MyBalanceRecordInfo> List) {
 				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || List.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -212,6 +231,7 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 					//loadFail.displayFail(msg);
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
+				mList.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;	
 			}
@@ -236,7 +256,6 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<MyBalanceRecordInfo> List) {
 				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || List.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -261,6 +280,7 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
 				//WaitDialog.dismissWaitDialog();
+				mList.onRefreshComplete();
 				reqLoader = null;	
 			}
 		});
@@ -283,7 +303,6 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<MyBalanceRecordInfo> List) {
 				// TODO Auto-generated method stub
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || List.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -303,7 +322,9 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 					Toast.makeText(mContext, msg, Toast.LENGTH_SHORT).show();
 				}
 				//WaitDialog.dismissWaitDialog();
-				reqLoader = null;	
+				mList.onRefreshComplete();
+				reqLoader = null;
+
 			}
 		});
 		reqLoader.requestData();
@@ -313,7 +334,6 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 		if(isLoading()) {
 			GetMyBalanceRecordListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -375,9 +395,8 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 		@Override
 		public View getView(int arg0, View arg1, ViewGroup arg2) {
 			// TODO Auto-generated method stub
-			
-			final int index = arg0;
-			ViewHolder holder = null;
+
+			ViewHolder holder;
 			
 			if (arg1 == null) {
 				

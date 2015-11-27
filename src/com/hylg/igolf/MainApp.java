@@ -21,6 +21,11 @@ import com.hylg.igolf.utils.Utils;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.ObjectInputStream;
+
 public class MainApp extends Application {
 
     private final String TAG = "MainApp";
@@ -39,7 +44,7 @@ public class MainApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        DebugTools.getDebug().debug_v(TAG,"---------->>>>>onCreate");
+        DebugTools.getDebug().debug_v(TAG, "---------->>>>>onCreate");
         init();
     }
 
@@ -55,7 +60,27 @@ public class MainApp extends Application {
         new SharedPref(MainApp.class.getPackage().getName());
         Utils.logh("MainApp", SharedPref.getSpName());
         mainApp = this;
+
         customer = new Customer();
+
+        File file = this.getFilesDir();
+        String path = file.getAbsolutePath()+ File.separator+"user.txt";
+        File file1 = new File(path);
+        FileInputStream fis;
+        try {
+            fis = new FileInputStream(file1);
+            ObjectInputStream dis = new ObjectInputStream(fis);
+            customer = (Customer)dis.readObject();
+
+            DebugTools.getDebug().debug_v(TAG,"customer.id-------->>>>file_read-"+customer.id);
+
+        } catch (Exception e) {
+
+            customer = new Customer();
+            e.printStackTrace();
+        }
+
+
         globalData = new GlobalData(this);
         Utils.ConnectionCheck(this);
         IntentFilter filter = new IntentFilter();
@@ -100,12 +125,28 @@ public class MainApp extends Application {
 
         if (mLocationManagerProxy != null) {
             mLocationManagerProxy.removeUpdates(mAMapLocationListener);
-            mLocationManagerProxy.destory();
+            mLocationManagerProxy.destroy();
         }
 
         mAMapLocationListener = null;
         mLocationManagerProxy = null;
 
+    }
+
+    @Override
+    public void onLowMemory() {
+
+        DebugTools.getDebug().debug_v(TAG, "---------->>>>>onLowMemory");
+
+        super.onLowMemory();
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+
+        DebugTools.getDebug().debug_v(TAG, "---------->>>>>onTrimMemory");
+
+        super.onTrimMemory(level);
     }
 
     private HylgReceiver hylgReceiver = new HylgReceiver();

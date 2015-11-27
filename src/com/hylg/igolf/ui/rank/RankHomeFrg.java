@@ -52,7 +52,7 @@ public class RankHomeFrg extends Fragment
 	private LinearLayout ownInfoLl;
 	private TextView ownNumTv;
 	private ImageView ownNumIv;
-	private RoundedImageView ownAvatar;
+	private ImageView ownAvatar;
 	private TextView ownNickname;
 	private TextView ownHi;
 	private TextView ownMatches;
@@ -74,7 +74,7 @@ public class RankHomeFrg extends Fragment
 	
 	private ImageView mCustomerImage = null;
 	
-	public static final RankHomeFrg getInstance(GetRankingReqParam data) {
+	public static RankHomeFrg getInstance(GetRankingReqParam data) {
 		if(null == rankFrg) {
 			rankFrg = new RankHomeFrg();
 		}
@@ -121,7 +121,7 @@ public class RankHomeFrg extends Fragment
 		ownInfoLl = (LinearLayout) ownInfo.findViewById(R.id.rank_own_ll);
 		ownNumTv = (TextView) ownInfo.findViewById(R.id.rank_own_rank_num);
 		ownNumIv = (ImageView) ownInfo.findViewById(R.id.rank_own_rank_img);
-		ownAvatar = (RoundedImageView) ownInfo.findViewById(R.id.rank_own_golfer_avatar);
+		ownAvatar = (ImageView) ownInfo.findViewById(R.id.rank_own_golfer_avatar);
 		ownNickname = (TextView) ownInfo.findViewById(R.id.rank_own_golfer_nickname);
 		ownHi = (TextView) ownInfo.findViewById(R.id.rank_own_handicapi);
 		ownMatches = (TextView) ownInfo.findViewById(R.id.rank_own_matches);
@@ -240,7 +240,7 @@ public class RankHomeFrg extends Fragment
 		LinearLayout sv = (LinearLayout) LayoutInflater.from(getActivity())
 				.inflate(R.layout.rank_hint_popwin, null);
 		mDesPopWin = new PopupWindow(sv, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
-		mDesPopWin.setBackgroundDrawable(new ColorDrawable(android.R.color.transparent));
+		mDesPopWin.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
 		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
 		sv.setOnClickListener(new OnClickListener() {
 			@Override
@@ -271,7 +271,6 @@ public class RankHomeFrg extends Fragment
 		if(isLoading()) {
 			GetRankingListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 			Utils.logh(TAG, "reqLoader: " + reqLoader);
 		}
 	}
@@ -283,7 +282,6 @@ public class RankHomeFrg extends Fragment
 	/**
 	 * 
 	 * @param data
-	 * @param init
 	 * 			true: do init the first time, or fail retry.
 	 * 			false: init by change the filter condition.
 	 */
@@ -372,7 +370,6 @@ public class RankHomeFrg extends Fragment
 						break;
 					case 3:
 						ownNumIv.setImageResource(R.drawable.rank_bronze);
-						txtColor = R.color.color_rank_bronze;
 						txtColor = getResources().getColor(R.color.color_rank_bronze);
 						break;
 				}
@@ -512,13 +509,13 @@ public class RankHomeFrg extends Fragment
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHodler holder = null;
+			ViewHodler holder;
 			if(null == convertView) {
 				convertView = View.inflate(getActivity(), R.layout.rank_list_item, null);
 				holder = new ViewHodler();
 				holder.rankIv = (ImageView) convertView.findViewById(R.id.rank_li_rank_img);
 				holder.rankTv = (TextView) convertView.findViewById(R.id.rank_li_rank_num);
-				holder.avatarIv = (RoundedImageView) convertView.findViewById(R.id.rank_li_golfer_avatar);
+				holder.avatarIv = (ImageView) convertView.findViewById(R.id.rank_li_golfer_avatar);
 				holder.nicknameTv = (TextView) convertView.findViewById(R.id.rank_li_golfer_nickname);
 				holder.handicapiTv = (TextView) convertView.findViewById(R.id.rank_li_handicapi);
 				holder.matchesTv = (TextView) convertView.findViewById(R.id.rank_li_matches);
@@ -545,7 +542,6 @@ public class RankHomeFrg extends Fragment
 						break;
 					case 3:
 						holder.rankIv.setImageResource(R.drawable.rank_bronze);
-						txtColor = R.color.color_rank_bronze;
 						txtColor = getResources().getColor(R.color.color_rank_bronze);
 						break;
 				}
@@ -589,7 +585,7 @@ public class RankHomeFrg extends Fragment
 		private class ViewHodler {
 			protected ImageView rankIv;
 			protected TextView rankTv;
-			protected RoundedImageView avatarIv;
+			protected ImageView avatarIv;
 			protected TextView nicknameTv;
 			protected TextView handicapiTv;
 			protected TextView matchesTv;
@@ -631,6 +627,6 @@ public class RankHomeFrg extends Fragment
 	}
 
 	private interface ChangeCallback {
-		public abstract void callBack();
+		void callBack();
 	}
 }

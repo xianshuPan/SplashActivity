@@ -22,9 +22,11 @@ public class IgTimePicker extends FrameLayout {
     private static final int HOUR_SPINNER_MAX_VAL_24_HOUR_VIEW = 23;
     private static final int HOUR_SPINNER_MIN_VAL_12_HOUR_VIEW = 1;
     private static final int HOUR_SPINNER_MAX_VAL_12_HOUR_VIEW = 12;
+
     private static final int MINUT_SPINNER_MIN_VAL = 0;
-    private static final int MINUT_SPINNER_MAX_VAL = 3;//59;
-    private static final int MINUT_STEP = 15;
+    private static final int MINUT_SPINNER_MAX_VAL = 1;//59;
+    private static final int MINUT_STEP = 30;
+
     private static final int AMPM_SPINNER_MIN_VAL = 0;
     private static final int AMPM_SPINNER_MAX_VAL = 1;
 
@@ -33,7 +35,7 @@ public class IgTimePicker extends FrameLayout {
     private final NumberPicker mAmPmSpinner;
     private Calendar mDate;
 
-    private String[] mMinutDisplayValues = {"0", "15", "30", "45"};
+    private String[] mMinutDisplayValues = {"0", "30"};
     private boolean mIsAm;
 
     private boolean mIs24HourView;
@@ -95,13 +97,15 @@ public class IgTimePicker extends FrameLayout {
             if (oldVal == maxValue && newVal == minValue) {
                 offset += 1;
             } else if (oldVal == minValue && newVal == maxValue) {
+
                 offset -= 1;
             }
 //        	Utils.logh("", "oldVal: " + oldVal + " newVal: " + newVal + " minValue: " + minValue + " maxValue: " + maxValue
 //        			+ "\n ====== offset: " + offset);
             if (offset != 0) {
-                mDate.add(Calendar.HOUR_OF_DAY, offset * MINUT_STEP);
+                mDate.add(Calendar.HOUR_OF_DAY, offset );
                 mHourSpinner.setValue(getCurrentHour());
+
                 int newHour = getCurrentHourOfDay();
                 if (newHour >= HOURS_IN_HALF_DAY) {
                     mIsAm = false;

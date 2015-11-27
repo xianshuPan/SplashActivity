@@ -59,6 +59,8 @@ public class GetMyBalanceRecordList extends BaseRequest {
 
 				return REQ_RET_F_NO_DATA;
 			}
+
+			long sdf = System.currentTimeMillis();
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
 				

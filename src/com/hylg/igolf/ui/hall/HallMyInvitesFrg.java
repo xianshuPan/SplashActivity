@@ -128,7 +128,7 @@ public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 				resetList();
 			}
 		}
-	};
+	}
 	
 //	private MyInviteInfo curInfo;
 	private void startInviteDetail(MyInviteInfo myInviteInfo) {
@@ -380,7 +380,6 @@ public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 		if(isLoading()) {
 			GetMyInviteListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -440,7 +439,7 @@ public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 				convertView = View.inflate(getActivity(), R.layout.invite_list_mime_item, null);
 				holder = new ViewHolder();
 				holder.alert = (ImageView) convertView.findViewById(R.id.invite_list_mime_item_alert);
-				holder.avatar = (RoundedImageView) convertView.findViewById(R.id.invite_list_mime_item_avatar);
+				holder.avatar = (ImageView) convertView.findViewById(R.id.invite_list_mime_item_avatar);
 				holder.nickname = (TextView) convertView.findViewById(R.id.invite_list_mime_item_nickname);
 				holder.teetime = (TextView) convertView.findViewById(R.id.invite_list_mime_item_teetime);
 				holder.course = (TextView) convertView.findViewById(R.id.invite_list_mime_item_course);
@@ -515,7 +514,7 @@ public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 		
 		class ViewHolder {
 			private ImageView alert;
-			private RoundedImageView avatar;
+			private ImageView avatar;
 			private TextView nickname;
 			private TextView teetime;
 			private TextView course;

@@ -1,5 +1,6 @@
 package com.hylg.igolf.imagepicker;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -83,7 +85,7 @@ public class ImageGridActivity extends BaseActivity implements OnClickListener,O
 			switch (msg.what) {
 			case 0:
 				Toast.makeText(ImageGridActivity.this,
-						"最多选择" + Config.SELECT_MAX_NUM + "张图片", 400).show();
+						"最多选择" + Config.SELECT_MAX_NUM + "张图片", Toast.LENGTH_SHORT).show();
 				break;
 
 			default:
@@ -346,7 +348,7 @@ public class ImageGridActivity extends BaseActivity implements OnClickListener,O
 			
 			if (requestCode == 101) {
 				
-				Bitmap bitmap = null;
+				Bitmap bitmap;
 				
 				String mTimeStampStr = new SimpleDateFormat("yyyy-MM-dd_HHmmss").format(new Date());
 				File pictrueFile = FileTool.getInstance(this).getInternalOutputMediaFile(0,mTimeStampStr);
@@ -382,35 +384,55 @@ public class ImageGridActivity extends BaseActivity implements OnClickListener,O
 					return;
 				}
 				
-				
-				
+
 				if (bitmap != null && pictrueFile != null) {
 					
 					FileOutputStream fos;
 					try {
 						fos = new FileOutputStream(pictrueFile);
 						
-						int bitMapCount = bitmap.getByteCount();
-						
-						if (bitMapCount < 200*1024) {
-							
-							//fos.write(bitmap.);
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-							
-						} else if (bitMapCount > 200*1024 && bitMapCount  < 1000*1024) {
-							
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
-							
-						} else if (bitMapCount  > 1000*1024 && bitMapCount < 3000*1024) {
-							
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
-							
-						} else if (bitMapCount  > 3000*1024) {
-							
-							bitmap.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+//						int bitMapCount = bitmap.getByteCount();
+//
+//						if (bitMapCount < 200*1024) {
+//
+//							//fos.write(bitmap.);
+//							bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//
+//						} else if (bitMapCount > 200*1024 && bitMapCount  < 1000*1024) {
+//
+//							bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fos);
+//
+//						} else if (bitMapCount  > 1000*1024 && bitMapCount < 3000*1024) {
+//
+//							bitmap.compress(Bitmap.CompressFormat.JPEG, 50, fos);
+//
+//						} else if (bitMapCount  > 3000*1024) {
+//
+//							bitmap.compress(Bitmap.CompressFormat.JPEG, 20, fos);
+//						}
+
+
+						ByteArrayOutputStream out = new ByteArrayOutputStream();
+						bitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+						float zoom = (float)Math.sqrt(64 * 1024 / (float)out.toByteArray().length);
+
+						Matrix matrix = new Matrix();
+						matrix.setScale(zoom, zoom);
+
+						Bitmap result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+						result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+						while(out.toByteArray().length > 64 * 1024){
+							System.out.println(out.toByteArray().length);
+							matrix.setScale(0.9f, 0.9f);
+							result = Bitmap.createBitmap(result, 0, 0, result.getWidth(), result.getHeight(), matrix, true);
+							out.reset();
+							result.compress(Bitmap.CompressFormat.JPEG, 85, out);
 						}
-						
-						//bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+
+						out.writeTo(fos);
 						
 						if (Config.drr.size() < Config.SELECT_MAX_NUM) {
 			        		
@@ -427,9 +449,12 @@ public class ImageGridActivity extends BaseActivity implements OnClickListener,O
 					} catch (FileNotFoundException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+					} catch (IOException e) {
+
+						e.printStackTrace();
 					}
-					
-					
+
+
 				}
 				
 				

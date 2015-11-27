@@ -56,7 +56,7 @@ public class CoachCommentsAdapter extends IgBaseAdapter {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHodler holder = null;
+		ViewHodler holder;
 		if(null == convertView) {
 			convertView = View.inflate(context, R.layout.coach_comments_item, null);
 			
@@ -81,8 +81,8 @@ public class CoachCommentsAdapter extends IgBaseAdapter {
 		
 		holder.nickNameTxt.setText(data.student_nick_name);
 		holder.contentTxt.setText(data.content);
-		holder.timeTxt.setText(Utils.handTime(data.commentTime));
-		holder.rating.setRating(Float.valueOf(data.star));
+		holder.timeTxt.setText(Utils.longTimeToString(data.commentTime));
+		holder.rating.setRating(data.star);
 
 		return convertView;
 	}

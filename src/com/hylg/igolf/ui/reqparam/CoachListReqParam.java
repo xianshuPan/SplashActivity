@@ -9,7 +9,7 @@ public class CoachListReqParam implements Serializable {
 	
 	public int rangeBy;
 	public int type;
-	public int sex;
+	public int sex = -1;
 	
 	public int pageNum;
 	public int pageSize;

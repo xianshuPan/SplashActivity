@@ -36,6 +36,8 @@ public class CoachInviteOrderDetail implements Serializable {
 	public float teacher_star;
 	
 	public long teacher_phone;
+
+	public long teacher_experience;
 	
 	public int teacher_sex;
 	
@@ -60,6 +62,7 @@ public class CoachInviteOrderDetail implements Serializable {
 	/*约的球场信息*/
 	public long course_id;
 	public String course_abbr;
+	public String course_state;
 	
 	public long start_time ;
 	public long end_time ;
@@ -70,5 +73,9 @@ public class CoachInviteOrderDetail implements Serializable {
 
 	public int attention ;
 	
-	
+	public double comment_star;
+
+	public String comment_content;
+
+	public String refuse_content;
 }

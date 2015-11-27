@@ -70,6 +70,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 										tipid                		= "",
 										attention_sn                = "",
 										name                        = "",
+										avatar                      = "",
 										tosn                        = "",
 										toname                      = "";
 	
@@ -123,6 +124,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 		mInputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		sn = MainApp.getInstance().getCustomer().sn;
 		name = MainApp.getInstance().getCustomer().nickname;
+		avatar = MainApp.getInstance().getCustomer().avatar;
 		
 		mCommentsPopView = mContext.getLayoutInflater().inflate(R.layout.friend_add_comments_view, null, false);
 		mCommentsEdit = (EditText) mCommentsPopView.findViewById(R.id.friend_comments_input_edit);
@@ -247,8 +249,9 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 		
 		final int index = arg0;
 		
-		ViewHolder holder = null;
-		
+		ViewHolder holder;
+		holder = null;
+
 		if (arg1 ==  null) {
 			
 			arg1 = mContext.getLayoutInflater().inflate(R.layout.friend_frg_hot_item, null);
@@ -295,8 +298,8 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
-				
-				
+
+
 				int indexInt = index;
 				mCurrentPositionInt = indexInt;
 				
@@ -845,8 +848,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 	
 	/**
 	 * 处理图片数据
-	 * 
-	 * @param photo
+	 *
 	 * @return
 	 */
 	private ArrayList<Photos> getPhotos(FriendHotItem item) {
@@ -859,7 +861,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			
 			String[] photos = photo.split(",");
 			
-			if (photo != null && photo.length() > 0 && photos != null && photos.length > 0) {
+			if (photo != null && photo.length() > 0 && !photo.equalsIgnoreCase("null")&& photos != null && photos.length > 0) {
 				
 				int size = photos.length;
 				Photos ph;
@@ -872,17 +874,17 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 				}
 				return phs;
 			}
-			
+
 			/*解析本地的图片*/
-			if (item.localImageURL != null && item.localImageURL.size() > 0) {
-				
+			if (item.localImageURL != null && item.localImageURL.size() > 0 ) {
+
 				int size = item.localImageURL.size();
 				Photos ph;
 				for (int i = 0; i < size; i++) {
 					ph = new Photos();
 					ph.localStr = item.localImageURL.get(i);
 					DebugTools.getDebug().debug_v(TAG,"ph.localStr----->>>"+ph.localStr);
-					
+
 					phs.add(ph);
 				}
 				return phs;
@@ -1011,8 +1013,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
     			finalBit.display(holder.imageView, "file:///"+ph.localStr);
     			//DownLoadImageTool.getInstance(getActivity()).displayImage("file:///"+ph.localStr, holder.imageView);
     		}
-    		
-    		
+
     		//DownLoadImageTool.getInstance(getActivity()).displayImage(ph.max, holder.imageView);
     		
     		return convertView;
@@ -1054,8 +1055,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
         		
         		mCommentsEdit.setHint("回复:"+toname);
         	}
-        	
-        
+
         } else {  
         	
         	mCommentAddPop.dismiss();  
@@ -1079,6 +1079,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			mCurrentComments.put("tipid", list.get(mCurrentPositionInt).tipid);
 			mCurrentComments.put("sn", sn);
 			mCurrentComments.put("name", name);
+			mCurrentComments.put("avatar", avatar);
 			mCurrentComments.put("content", commentsStr);
 			mCurrentComments.put("toname", toname);
 			mCurrentComments.put("tosn", tosn);
@@ -1088,8 +1089,8 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			new AsyncTask<Object, Object, Integer>() {
 			
 				FriendCommentsAdd request = new FriendCommentsAdd(mContext, mCurrentComments.get("sn"), 
-						mCurrentComments.get("name") ,mCurrentComments.get("tipid"),mCurrentComments.get("tosn"),
-						mCurrentComments.get("toname"),mCurrentComments.get("content"));
+						mCurrentComments.get("name") ,mCurrentComments.get("avatar") ,mCurrentComments.get("tipid"),
+						mCurrentComments.get("tosn"), mCurrentComments.get("toname"),mCurrentComments.get("content"));
 				@Override
 				protected Integer doInBackground(Object... params) {
 
@@ -1117,6 +1118,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 						
 						/*一旦点击了发送按钮，就应该把输入框清空*/
 						mCommentsEdit.setText("");
+						mCommentAddPop.dismiss();
 						
 					} else {
 						

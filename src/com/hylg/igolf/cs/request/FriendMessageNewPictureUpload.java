@@ -1,18 +1,25 @@
 package com.hylg.igolf.cs.request;
 
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 
 import com.hylg.igolf.DebugTools;
+import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.imagepicker.Config;
 import com.hylg.igolf.utils.Utils;
 
@@ -22,24 +29,29 @@ public class FriendMessageNewPictureUpload  extends Thread {
 	
 	//private String sn = "";
 	//private String name = "";
-	//private String content = "";
+	private String path= "";
+
+	private FriendTipsPicUploadCallback callBack = null;
 	
 	public static final String UPLOAD_PIC_PATH = BaseRequest.UPLOAD_PIC_PATH+"recievePic";
 	
 	//private FriendHotItem	mFriendMessageNewItem   = null;
 	
-	public FriendMessageNewPictureUpload(Context context) {
-		
-//		this.sn = item.sn;
-//		this.name = item.name;
-//		this.content = item.content;
-//		
-//		mFriendMessageNewItem = item;
+	public FriendMessageNewPictureUpload(Context context,String path_input,FriendTipsPicUploadCallback callBack) {
+
+		path = path_input;
+		this.callBack = callBack;
 	}
 	
 	
 	
 	public int connectUrl() {
+
+		if (path == null || path.length() <= 0) {
+
+			return 2;
+		}
+
 		try {
 			
 			DebugTools.getDebug().debug_v(TAG, "上传图片kaishi法？、、？？？？？？？？？");
@@ -47,6 +59,7 @@ public class FriendMessageNewPictureUpload  extends Thread {
 			String end ="\r\n";
 			String twoHyphens ="--";
 			String boundary ="----WebKitFormBoundaryQq8qE09gQABIfkff";
+
 	        URL url = new URL(UPLOAD_PIC_PATH);
 	        HttpURLConnection con = (HttpURLConnection)url.openConnection();
 	        con.setDoInput(true);
@@ -59,43 +72,72 @@ public class FriendMessageNewPictureUpload  extends Thread {
 	        
 			con.setRequestProperty(HTTP.CONTENT_TYPE,"multipart/form-data;boundary="+boundary);
 			DataOutputStream ds = new DataOutputStream(con.getOutputStream()); 
-			
-			if (Config.drr != null  && Config.drr.size() > 0) {
+
+			//if (Config.drr != null  && Config.drr.size() > 0) {
 				         
 	    		byte[] buffer =new byte[10*1024];  
 	    		
 	    		FileInputStream fStream = null;
-	    		
-				for (int i=0 ; i < Config.drr.size(); i++) {
-					
-					String path = Config.drr.get(i);
+
+				//for (int i=0 ; i < Config.drr.size(); i++) {
+
+					//String path = Config.drr.get(i);
+
+					Bitmap bitmap = BitmapFactory.decodeFile(path);
+
+					ByteArrayOutputStream out = new ByteArrayOutputStream();
+					bitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+					float zoom = (float)Math.sqrt(128 * 1024 / (float)out.toByteArray().length);
+
+					Matrix matrix = new Matrix();
+					matrix.setScale(zoom, zoom);
+
+					Bitmap result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+					result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+					while(out.toByteArray().length > 128 * 1024){
+						System.out.println(out.toByteArray().length);
+						matrix.setScale(0.9f, 0.9f);
+						result = Bitmap.createBitmap(result, 0, 0, result.getWidth(), result.getHeight(), matrix, true);
+						out.reset();
+						result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+					}
+
 					
 					String fileName = path.substring(path.lastIndexOf("/"), path.length());
+
+					out.toByteArray();
 					
-					fStream = new FileInputStream(path);
+					//fStream = new FileInputStream(path);
 					
 					ds.writeBytes(twoHyphens + boundary + end);          
 					ds.writeBytes("Content-Disposition:form-data;"+ "name=\"imagesData\";filename=\""+fileName+"\""+ end);
 					ds.writeBytes(end);
 					
-					int length =-1;   
-					while ((length = fStream.read(buffer)) !=-1) {
-						   
-		    			ds.write(buffer, 0, length);    
-		    		}       
-					
-					if (i < Config.drr.size()-1) {
+//					int length =-1;
+//					while ((length = out.read(buffer)) !=-1) {
+//
+//		    			ds.write(buffer, 0, length);
+//		    		}
+
+					ds.write(out.toByteArray());
+
+
+					//if (i < Config.drr.size()-1) {
 						
-						ds.writeBytes(end+twoHyphens + boundary + end);    
-					}
-					      
-					
-				}
+						//ds.writeBytes(end + twoHyphens + boundary + end);
+					//}
+
+				//ds.writeBytes(end+twoHyphens + boundary + end);
+
+				//}
 				
-				fStream.close();
-			}
+				//fStream.close();
+			//}
 			
-			ds.writeBytes(end+twoHyphens + boundary + twoHyphens + end); 
+			ds.writeBytes(end+twoHyphens + boundary + twoHyphens + end);
 			
 			ds.flush();
 			
@@ -108,19 +150,14 @@ public class FriendMessageNewPictureUpload  extends Thread {
 			
 			DebugTools.getDebug().debug_v(TAG, "上传图片成功法？、、？？？？？？？？？");
 
-		} catch (IOException e) {
-			e.printStackTrace();
-//			failMsg = context.getString(R.string.str_toast_image_update_fail);
-//			if(Utils.LOG_H) {
-//				failMsg += "REQ_RET_F_UPDATE_AVATAR_FAIL";
-//			}
-			
+		} catch (Exception e) {
 			e.printStackTrace();
 			
 			DebugTools.getDebug().debug_v(TAG, "上传图片失败法？、、？？？？？？？？？");
+
+			callBack.callBack(1,"exception");
 			return 1;
-//			return REQ_RET_OK; // 异常，但实际上传成功
-		};
+		}
 
 		return 0;
 	}
@@ -134,7 +171,11 @@ public class FriendMessageNewPictureUpload  extends Thread {
 			
 			DebugTools.getDebug().debug_v("", "朋友圈上传图片的结果 ----->>>"+jo);
 			
-			//int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
+			int rn = jo.optInt("result", 1);
+
+			String msg = jo.optString("msg");
+
+			callBack.callBack(rn,msg);
 			
 		} catch (Exception e) {
 			
@@ -148,5 +189,10 @@ public class FriendMessageNewPictureUpload  extends Thread {
 	public void run() {
 		// TODO Auto-generated method stub
 		connectUrl();
+	}
+
+
+	public interface FriendTipsPicUploadCallback {
+		void callBack(int retId, String msg);
 	}
 }

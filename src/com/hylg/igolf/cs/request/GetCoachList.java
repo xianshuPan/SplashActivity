@@ -34,7 +34,7 @@ public class GetCoachList extends BaseRequest {
 		
 		s.append("lat"); s.append(KV_CONN); s.append(data.lat);
 		s.append(PARAM_CONN);
-		
+
 		s.append("lng"); s.append(KV_CONN); s.append(data.lng);
 		s.append(PARAM_CONN);	
 		
@@ -65,8 +65,11 @@ public class GetCoachList extends BaseRequest {
 			DebugTools.getDebug().debug_v("coachlist", "------->>>>"+jo);
 			
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
+
+			failMsg = jo.getString(RET_MSG);
+
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+
 				return rn;
 			}
 			
@@ -98,15 +101,18 @@ public class GetCoachList extends BaseRequest {
 				item.rate = obj.optInt("star");
 				
 				item.award = obj.optString("award");
+				item.graduate = obj.optString("diploma");
+				item.certificate = obj.optString("certification");
 				
-				item.handicapIndex = customerJson.optDouble("handicapIndex");
+				item.handicapIndex = customerJson.optDouble("handicapIndex", Double.MAX_VALUE);
 				item.price = feeJson.optInt("price");
 				item.distance = obj.optDouble("distance");
 				item.distanceTime = obj.optLong("last_login");
 				item.special = obj.optString("specialty");
 
-				item.course_id = courseJson.optString("id");
-				item.course_name = courseJson.optString("name");
+				item.course_id = courseJson.optLong("id");
+				item.state = courseJson.optString("state");
+				item.course_name = courseJson.optString("abbr");
 				item.course_address = courseJson.optString("address");
 				item.course_tel = courseJson.optString("tel");
 

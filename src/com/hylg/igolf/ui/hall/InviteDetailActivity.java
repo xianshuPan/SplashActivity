@@ -132,7 +132,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		
 		 if (mLocationManagerProxy != null) {
 			 mLocationManagerProxy.removeUpdates(mAMapLocationListener);
-			 mLocationManagerProxy.destory();
+			 mLocationManagerProxy.destroy();
 		  }
 		 
 		 mAMapLocationListener = null;
@@ -214,14 +214,14 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	
 	private void getLeftInfoViews() {
 		leftInfoVh = new InfoViewHolder();
-		leftInfoVh.avatar = (RoundedImageView) findViewById(R.id.invite_detail_avatar_left);
+		leftInfoVh.avatar = (ImageView) findViewById(R.id.invite_detail_avatar_left);
 		leftInfoVh.nickname = (TextView) findViewById(R.id.invite_detail_nickname_left);
 		leftInfoVh.sex = (ImageView) findViewById(R.id.invite_detail_sex_left);
 	}
 
 	private void getRightInfoViews() {
 		rightInfoVh = new InfoViewHolder();
-		rightInfoVh.avatar = (RoundedImageView) findViewById(R.id.invite_detail_avatar_right);
+		rightInfoVh.avatar = (ImageView) findViewById(R.id.invite_detail_avatar_right);
 		rightInfoVh.nickname = (TextView) findViewById(R.id.invite_detail_nickname_right);
 		rightInfoVh.sex = (ImageView) findViewById(R.id.invite_detail_sex_right);
 		
@@ -231,12 +231,12 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 //		right0InfoVh.sex = (ImageView) findViewById(R.id.invite_detail_sex_right0);
 		
 		right1InfoVh = new InfoViewHolder();
-		right1InfoVh.avatar = (RoundedImageView) findViewById(R.id.invite_detail_avatar_right1);
+		right1InfoVh.avatar = (ImageView) findViewById(R.id.invite_detail_avatar_right1);
 		right1InfoVh.nickname = (TextView) findViewById(R.id.invite_detail_nickname_right1);
 		right1InfoVh.sex = (ImageView) findViewById(R.id.invite_detail_sex_right1);
 		
 		right2InfoVh = new InfoViewHolder();
-		right2InfoVh.avatar = (RoundedImageView) findViewById(R.id.invite_detail_avatar_right2);
+		right2InfoVh.avatar = (ImageView) findViewById(R.id.invite_detail_avatar_right2);
 		right2InfoVh.nickname = (TextView) findViewById(R.id.invite_detail_nickname_right2);
 		right2InfoVh.sex = (ImageView) findViewById(R.id.invite_detail_sex_right2);
 	}
@@ -623,7 +623,6 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 	/**
 	 * 显示评分区域
-	 * @param rate
 	 * 			0: 未评分
 	 * 			>0: 已经评分
 	 * @return 
@@ -841,8 +840,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	
 	
 	/**
-	 * 
-	 * @param applicants 申请列表
+	 *
 	 * @param selectable 是否可选
 	 * @param inviteeSn 被选申请者会员编号
 	 * @return
@@ -870,7 +868,6 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 
 	/**
 	 * 添加、替换底部操作按钮。
-	 * @param child
 	 */
 	protected void addOperBarLayout(ViewGroup vg) {
 		operBarLl.removeAllViews();
@@ -974,7 +971,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		 * @param status 状态是否有变化
 		 * @param alert 标记是否有变化
 		 */
-		public abstract void callback(boolean status, boolean alert);
+		void callback(boolean status, boolean alert);
 	}
 	
 	public void setOnResultCallback(onResultCallback callback) {
@@ -1006,7 +1003,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 	
 	protected interface getMyInviteDetailCallback {
-		public abstract void callBack(int retId, String msg, MyInviteDetail detail);
+		void callBack(int retId, String msg, MyInviteDetail detail);
 	}
 	
 	/**
@@ -1037,7 +1034,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 	
 	protected interface applyOpenInviteCallback {
-		public abstract void callBack(int retId, int applyNum, String msg);
+		 void callBack(int retId, int applyNum, String msg);
 	}
 	
 	/**
@@ -1068,7 +1065,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 	
 	protected interface cancelOpenInviteCallback {
-		public abstract void callBack(int retId, int applyNum, String msg);
+		void callBack(int retId, int applyNum, String msg);
 	}
 	
 	
@@ -1117,11 +1114,11 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 
 	protected interface revokeInviteAppCallback {
-		public abstract void callBack(int retId, String msg);
+		void callBack(int retId, String msg);
 	}
 
 	private class InfoViewHolder {
-		protected RoundedImageView avatar;
+		protected ImageView avatar;
 		protected TextView nickname;
 		protected ImageView sex;
 	}

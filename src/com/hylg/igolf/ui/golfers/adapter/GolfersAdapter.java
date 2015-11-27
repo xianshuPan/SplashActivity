@@ -17,6 +17,7 @@ import cn.gl.lib.view.RoundedImageView;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.GolferInfo;
+import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.GlobalData;
@@ -63,12 +64,12 @@ public class GolfersAdapter extends IgBaseAdapter {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHodler holder = null;
+		ViewHodler holder;
 		if(null == convertView) {
 			convertView = View.inflate(context, R.layout.golfers_list_item, null);
 			holder = new ViewHodler();
 			holder.inviteBtn = (Button) convertView.findViewById(R.id.golfers_li_invite_btn);
-			holder.avatarIv = (RoundedImageView) convertView.findViewById(R.id.golfers_li_avatar);
+			holder.avatarIv = (ImageView) convertView.findViewById(R.id.golfers_li_avatar);
 			holder.sexIv = (ImageView) convertView.findViewById(R.id.golfers_li_sex);
 			holder.nicknameTv = (TextView) convertView.findViewById(R.id.golfers_li_nickname);
 			holder.handicapiTv = (TextView) convertView.findViewById(R.id.golfers_li_handicapi);
@@ -109,7 +110,7 @@ public class GolfersAdapter extends IgBaseAdapter {
 
 	private class ViewHodler {
 		protected Button inviteBtn;
-		protected RoundedImageView avatarIv;
+		protected ImageView avatarIv;
 		protected ImageView sexIv;
 		protected TextView handicapiTv;
 		protected TextView nicknameTv;

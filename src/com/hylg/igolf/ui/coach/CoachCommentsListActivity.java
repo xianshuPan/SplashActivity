@@ -148,7 +148,7 @@ public class CoachCommentsListActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachComemntsItem> commentsList) {
 				
-				mList.onRefreshComplete();
+
 					
 					if(BaseRequest.REQ_RET_F_NO_DATA == retId || commentsList.size() == 0) {
 						if(msg.trim().length() == 0) {
@@ -168,6 +168,7 @@ public class CoachCommentsListActivity extends FragmentActivity {
 					reqLoader = null;
 					
 					WaitDialog.dismissWaitDialog();
+					mList.onRefreshComplete();
 				}
 			
 		});
@@ -189,7 +190,7 @@ public class CoachCommentsListActivity extends FragmentActivity {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachComemntsItem> commentsList) {
 					
-				mList.onRefreshComplete();
+
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || commentsList.size() == 0) {
 						if(msg.trim().length() == 0) {
 							msg = getString(R.string.str_golfers_req_no_data_hint);
@@ -207,7 +208,7 @@ public class CoachCommentsListActivity extends FragmentActivity {
 						Toast.makeText(CoachCommentsListActivity.this, msg, Toast.LENGTH_SHORT).show();
 					}
 					reqLoader = null;
-					
+					mList.onRefreshComplete();
 					WaitDialog.dismissWaitDialog();
 				}
 			
@@ -229,8 +230,6 @@ public class CoachCommentsListActivity extends FragmentActivity {
 
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachComemntsItem> commentsList) {
-					
-				mList.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || commentsList.size() == 0) {
 						if(msg.trim().length() == 0) {
@@ -249,6 +248,7 @@ public class CoachCommentsListActivity extends FragmentActivity {
 						Toast.makeText(CoachCommentsListActivity.this, msg, Toast.LENGTH_SHORT).show();
 					}
 					reqLoader = null;
+					mList.onRefreshComplete();
 					WaitDialog.dismissWaitDialog();
 				} 
 			

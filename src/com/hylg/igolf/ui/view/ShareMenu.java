@@ -26,10 +26,10 @@ import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
 import com.tencent.mm.sdk.openapi.IWXAPI;
-import com.tencent.mm.sdk.openapi.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.mm.sdk.openapi.WXMediaMessage;
-import com.tencent.mm.sdk.openapi.WXWebpageObject;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
@@ -99,7 +99,7 @@ public class ShareMenu  implements OnClickListener {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		};
+		}
 		
 		getBitmap ();
 	}
@@ -300,21 +300,28 @@ public class ShareMenu  implements OnClickListener {
 		 
 		 ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
 		 
-		 int quality = 100;  
-		 bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayBitmapStream);
-		 
-		 while (byteArrayBitmapStream.toByteArray().length > 30 * 1024) {
-			 
-			 quality -= 10;
-			 byteArrayBitmapStream.reset();
+		 int quality = 100;
+
+		 byte[] b = null;
+
+		 if (bitmap != null) {
+
 			 bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayBitmapStream);
-			 
+
+			 while (byteArrayBitmapStream.toByteArray().length > 30 * 1024) {
+
+				 quality -= 10;
+				 byteArrayBitmapStream.reset();
+				 bitmap.compress(Bitmap.CompressFormat.JPEG, quality, byteArrayBitmapStream);
+
+			 }
+
+			 b = byteArrayBitmapStream.toByteArray();
+
+			 bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
+
 		 }
-		
-		 byte[] b = byteArrayBitmapStream.toByteArray(); 
-		 
-		 bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
-		 
+
 		 return b;
 	 }
 	
@@ -389,7 +396,7 @@ public class ShareMenu  implements OnClickListener {
     private Bitmap getBitmap () {
     	
     	String imageUrlStr = mFriendHotItem.imageURL;
-		String imageUrlStrResult = "";
+		String imageUrlStrResult;
 		
 		if (imageUrlStr != null && imageUrlStr.length() > 0 && imageUrlStr.indexOf(",") > 0) {
 			
@@ -441,13 +448,16 @@ public class ShareMenu  implements OnClickListener {
 					}
 					
 				}
-				
-				if (bitmap == null) {
-					
-					bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.avatar_loading); 
-				}
 			}
 			
+		}
+
+		imageUrlStrResult = BaseRequest.TipsPic_Thum_PATH+"about_logo.png";
+
+		imageUrl = imageUrlStrResult;
+		if (bitmap == null) {
+
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.about_logo);
 		}
     	
     	return bitmap;

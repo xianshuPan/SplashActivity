@@ -18,6 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.CoachItem;
@@ -101,7 +102,9 @@ public class CoachListActivity extends Activity implements
 		reqData.lng = MainApp.getInstance().getGlobalData().getLng();
 		
 		getViews(reqData);
-		initListDataAsync(reqData);
+		//initListDataAsync(reqData);
+
+		DebugTools.getDebug().debug_v(TAG,"---------->>>>>onCreate");
 	}
 
 	@Override
@@ -111,6 +114,15 @@ public class CoachListActivity extends Activity implements
 			reqLoader.stopTask(true);
 			reqLoader = null;
 		}
+	}
+
+	@Override
+	protected void onResume () {
+
+		DebugTools.getDebug().debug_v(TAG,"-------onResume");
+		reqData.pageNum = gd.startPage;
+		refreshDataAysnc(reqData);
+		super.onResume();
 	}
 
 	private void getViews(CoachListReqParam data) {
@@ -350,7 +362,6 @@ public class CoachListActivity extends Activity implements
 	/**
 	 * 
 	 * @param data
-	 * @param init
 	 * true: do init the first time, or fail retry.
 	 * false: init by change the filter condition.
 	 */
@@ -363,7 +374,7 @@ public class CoachListActivity extends Activity implements
 		reqLoader = new GetCoachListLoader(CoachListActivity.this, data, new GetCoachListCallback() {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachItem> golfersList) {
-				listView.onRefreshComplete();
+
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || golfersList.size() == 0) {
 					if(msg.trim().length() == 0) {
 						msg = getString(R.string.str_golfers_req_no_data_hint);
@@ -381,6 +392,7 @@ public class CoachListActivity extends Activity implements
 					loadFail.displayFail(msg);
 					Toast.makeText(CoachListActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
+				listView.onRefreshComplete();
 				reqLoader = null;
 				WaitDialog.dismissWaitDialog();
 			}
@@ -406,19 +418,30 @@ public class CoachListActivity extends Activity implements
 			return ;
 		}
 		clearLoader();
+
+		findViewById(R.id.coach_list_progress).setVisibility(View.VISIBLE);
 		reqLoader = new GetCoachListLoader(CoachListActivity.this, data, new GetCoachListCallback() {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachItem> golfersList) {
-				listView.onRefreshComplete();
+
+				findViewById(R.id.coach_list_progress).setVisibility(View.GONE);
 				if(BaseRequest.REQ_RET_OK == retId) {
-					   
-					coachAdapter.refreshListInfo(golfersList);
+
+					if (coachAdapter != null) {
+
+						coachAdapter.refreshListInfo(golfersList);
+
+					} else {
+
+						initListView(golfersList);
+					}
 
 				} else {
 					// do not change previous data if fail, just toast fail message.
 //					if(BaseRequest.REQ_RET_F_NO_DATA == retId) { }
 					Toast.makeText(CoachListActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
+				listView.onRefreshComplete();
 				reqLoader = null;
 			}
 		});
@@ -434,7 +457,7 @@ public class CoachListActivity extends Activity implements
 		reqLoader = new GetCoachListLoader(CoachListActivity.this, data, new GetCoachListCallback() {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<CoachItem> golfersList) {
-				listView.onRefreshComplete();
+
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || golfersList.size() == 0) {
 
 					Toast.makeText(CoachListActivity.this, R.string.str_golfers_li_no_more, Toast.LENGTH_SHORT).show();
@@ -445,6 +468,7 @@ public class CoachListActivity extends Activity implements
 				} else {
 					Toast.makeText(CoachListActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
+				listView.onRefreshComplete();
 				reqLoader = null;
 			}
 
@@ -480,7 +504,13 @@ public class CoachListActivity extends Activity implements
 		//filterChgLoad(Const.INVALID_SELECTION_INT, null, null, newSex);
 		sexTv.setText(gd.getSexName(newSex));
 		reqData.sex = newSex;
-		initListDataAsync(reqData);
+
+		//initListDataAsync(reqData);
+
+		reqData.pageNum = gd.startPage;
+		refreshDataAysnc(reqData);
+		listView.state = EhecdListview.REFRESHING;
+		listView.changeHeaderViewByState();
 	}
 
 
@@ -491,7 +521,11 @@ public class CoachListActivity extends Activity implements
 		typeTv.setText(gd.getCoachTypeName(newType));
 		reqData.type = newType;
 		
-		initListDataAsync(reqData);
+		//initListDataAsync(reqData);
+		reqData.pageNum = gd.startPage;
+		refreshDataAysnc(reqData);
+		listView.state = EhecdListview.REFRESHING;
+		listView.changeHeaderViewByState();
 	}
 
 	@Override
@@ -500,7 +534,11 @@ public class CoachListActivity extends Activity implements
 		
 		orderTv.setText(gd.getCoachSortItemName(newSortItem));
 		reqData.rangeBy = newSortItem;
-		initListDataAsync(reqData);
+		//initListDataAsync(reqData);
+		reqData.pageNum = gd.startPage;
+		refreshDataAysnc(reqData);
+		listView.state = EhecdListview.REFRESHING;
+		listView.changeHeaderViewByState();
 	}
 	
 }

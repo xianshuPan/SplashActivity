@@ -26,7 +26,7 @@ import com.hylg.igolf.utils.WaitDialog;
 public class LoginActivity extends Activity {
 	private static final String TAG = "LoginActivity";
 	private static final String BUNDLE_PHONE = "login_phone";
-	private RoundedImageView avatarIv;
+	private ImageView avatarIv;
 	private EditText phoneInput;
 	private EditText pwdInput;
 	private String prefPhone;
@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	private void getViews() {
-		avatarIv = (RoundedImageView) findViewById(R.id.account_login_avatar);
+		avatarIv = (ImageView) findViewById(R.id.account_login_avatar);
 		phoneInput = (EditText) findViewById(R.id.account_login_phone_input);
 		pwdInput = (EditText) findViewById(R.id.account_login_pwd_input);
 	}
@@ -235,7 +235,7 @@ public class LoginActivity extends Activity {
 					new ImageCallback() {
 						@Override
 						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != iv) {
+							if(null != imageDrawable ) {
 								iv.setImageDrawable(imageDrawable);
 							}
 						}

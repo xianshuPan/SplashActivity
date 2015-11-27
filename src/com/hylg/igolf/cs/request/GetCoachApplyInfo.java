@@ -3,6 +3,7 @@ package com.hylg.igolf.cs.request;
 import java.io.InputStream;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.hylg.igolf.DebugTools;
@@ -82,10 +83,15 @@ public class GetCoachApplyInfo extends BaseRequest {
 				item.award_name = coachJson.optString("award");
 				item.graduate_name = coachJson.optString("diploma");
 				item.certificate_name = coachJson.optString("certification");
-				
-				item.courseid = courseJson.optLong("id");
-				
-				item.course_name = courseJson.optString("abbr");
+
+				if (courseJson != null) {
+
+					item.courseid = courseJson.optLong("id");
+
+					item.course_name = courseJson.optString("abbr");
+
+					item.state = courseJson.optString("state");
+				}
 				
 				item.lat = coachJson.optDouble("lat");
 				
@@ -98,9 +104,8 @@ public class GetCoachApplyInfo extends BaseRequest {
 				item.auditString = jo.optString("auditResult");
 				
 			}
-			
-			
-		} catch (Exception e) {
+
+		} catch (JSONException e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;
 		}

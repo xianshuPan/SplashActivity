@@ -128,7 +128,7 @@ public class FriendHomeFrg extends Fragment {
 			getTipsCountLoader = new GetTipsCountLoader(getActivity(), MainApp.getInstance().getCustomer().sn);
 		}
 		
-		if (getTipsCountLoader != null && getTipsCountLoader.isRunning()) {
+		if (getTipsCountLoader.isRunning()) {
 			
 			return;
 		}
@@ -337,7 +337,7 @@ public class FriendHomeFrg extends Fragment {
         // 设置Tab的分割线是透明的  
     	mTabsIndicater.setDividerColor(Color.TRANSPARENT);  
         // 设置Tab底部线的高度  
-    	mTabsIndicater.setUnderlineHeight((int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 1, dm));  
+    	mTabsIndicater.setUnderlineHeight((int) TypedValue.applyDimension(  TypedValue.COMPLEX_UNIT_DIP, 1, dm));
         // 设置Tab Indicator的高度  
     	mTabsIndicater.setIndicatorHeight((int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 3, dm));  
         // 设置Tab标题文字的大小  

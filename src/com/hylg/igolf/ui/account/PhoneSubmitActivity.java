@@ -32,6 +32,8 @@ public class PhoneSubmitActivity extends Activity implements View.OnClickListene
 	private static final String BUNDLE_SUBMIT_TYPE = "submit_type";
 	private int operType;
 	private EditText inputPhoneEt;
+
+	private LinearLayout mAgreementLinea = null;
 	
 	public static void submitPhoneForRegister(Context context) {
 		Intent intent = new Intent(context, PhoneSubmitActivity.class);
@@ -68,12 +70,18 @@ public class PhoneSubmitActivity extends Activity implements View.OnClickListene
 		TextView title = (TextView) findViewById(R.id.account_psubmit_title);
 		TextView regHint = (TextView) findViewById(R.id.account_psubmit_reg_hint);
 		LinearLayout resetRegion = (LinearLayout) findViewById(R.id.account_psubmit_reset);
+
+		mAgreementLinea = (LinearLayout) findViewById(R.id.account_psubmit_agreement_linear);
+		mAgreementLinea.setOnClickListener(this);
 		if(AccConst.OPER_TYPE_REGISTER == operType) {
+
 			title.setText(R.string.str_reg_phone_submit_title);
 			Utils.setVisibleGone(regHint, resetRegion);
+
 		} else if(AccConst.OPER_TYPE_RESET == operType) {
 			title.setText(R.string.str_reset_phone_submit_title);
 			Utils.setVisibleGone(resetRegion, regHint);
+			Utils.setGone(mAgreementLinea);
 			resetRegion.setOnClickListener(this);
 		}
 		findViewById(R.id.account_psubmit_topbar_back).setOnClickListener(this);
@@ -214,6 +222,12 @@ public class PhoneSubmitActivity extends Activity implements View.OnClickListene
 				break;
 			case R.id.account_psubmit_reset:
 				// set call
+				break;
+
+			case R.id.account_psubmit_agreement_linear:
+
+				AgreementActivityActivity.StartAgreementActivityActivity(this);
+
 				break;
 		}
 	}

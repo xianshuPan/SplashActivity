@@ -44,8 +44,10 @@ public class GetMyTeachingList extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			DebugTools.getDebug().debug_v("我的教学列表", "------》》》"+jo);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
+
+			failMsg = jo.getString(RET_MSG);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+
 				return rn;
 			}
 			
@@ -65,11 +67,11 @@ public class GetMyTeachingList extends BaseRequest {
 				JSONObject courseJson = obj.optJSONObject("course");
 				JSONObject studentJson = obj.optJSONObject("student");
 				JSONObject teacherJson = obj.optJSONObject("teacher");
-				JSONObject coachCommentsJson = obj.optJSONObject("coachComments");
+				JSONObject refuseJson = obj.optJSONObject("refuse");
+				JSONArray coachCommentsJsonArray = obj.optJSONArray("coachComments");
 				
 				JSONObject teacherFeeJson = teacherJson.optJSONObject("fee");
-				
-				
+
 				item.appTime = obj.optLong("appTime");
 				item.status = obj.optInt("status");
 				item.coachDate = obj.optString("coachDate");
@@ -90,6 +92,7 @@ public class GetMyTeachingList extends BaseRequest {
 				item.teacher_avatar = teacher_customer_json.optString("avatar");
 				item.teacher_name = teacher_customer_json.optString("nickname");
 				item.teacher_star = teacherJson.optLong("star");
+				item.teacher_experience = teacherJson.optLong("experience");
 				item.teacher_phone = teacher_customer_json.optLong("phone");
 				item.teacher_sex = teacher_customer_json.optInt("sex");
 				item.teacher_price = teacherFeeJson.optDouble("price"); 
@@ -103,8 +106,22 @@ public class GetMyTeachingList extends BaseRequest {
 				
 				item.course_id = courseJson.optLong("id");
 				item.course_abbr = courseJson.optString("abbr");
+				item.course_state = courseJson.optString("state");
 
 				item.attention = obj.optInt("attention");
+
+				if (coachCommentsJsonArray != null && coachCommentsJsonArray.length() > 0) {
+
+					JSONObject commentItem = coachCommentsJsonArray.getJSONObject(0);
+
+					item.comment_star = commentItem.optDouble("star");
+					item.comment_content = commentItem.optString("content");
+				}
+
+				if (refuseJson != null) {
+
+					item.refuse_content = refuseJson.optString("content");
+				}
 
 				teachingList.add(item);
 			}

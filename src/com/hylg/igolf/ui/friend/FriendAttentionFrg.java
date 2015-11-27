@@ -192,7 +192,6 @@ public class FriendAttentionFrg extends Fragment {
 		if(isLoading()) {
 			GetFriendHotListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -214,7 +213,6 @@ public class FriendAttentionFrg extends Fragment {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mRefreshView.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || hotList.size() == 0) {
 					if(msg.trim().length() == 0) {
@@ -236,6 +234,7 @@ public class FriendAttentionFrg extends Fragment {
 					loadFail.displayFail(msg);
 					Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
+				mRefreshView.onRefreshComplete();
 				WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
@@ -259,7 +258,6 @@ public class FriendAttentionFrg extends Fragment {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mRefreshView.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_OK == retId) {
 					
@@ -276,6 +274,7 @@ public class FriendAttentionFrg extends Fragment {
 				} else {
 					//Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
+				mRefreshView.onRefreshComplete();
 				//WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
@@ -302,7 +301,6 @@ public class FriendAttentionFrg extends Fragment {
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
 				// TODO Auto-generated method stub
-				mRefreshView.onRefreshComplete();
 				
 				if(BaseRequest.REQ_RET_OK == retId) {
 					
@@ -320,6 +318,7 @@ public class FriendAttentionFrg extends Fragment {
 
 					//Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 				}
+				mRefreshView.onRefreshComplete();
 				//WaitDialog.dismissWaitDialog();
 				reqLoader = null;
 			}
