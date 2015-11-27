@@ -142,16 +142,11 @@
 			        style="@style/rank_item_style"
 			        android:layout_weight="9"
 			        android:orientation="horizontal" >
-				    <cn.gl.lib.view.RoundedImageView
-				        xmlns:app="http://schemas.android.com/apk/res-auto"
+				    <com.hylg.igolf.ui.view.CircleImageView
+
 				        android:id="@+id/rank_own_golfer_avatar"
 				        android:layout_width="@dimen/avatar_rank_li_size"
-				        android:layout_height="@dimen/avatar_rank_li_size"
-				        android:duplicateParentState="true"
-				        android:scaleType="fitXY"
-				        app:corner_radius="4dip"
-				        app:border_width="0dip"
-				        app:round_background="true"/>
+				        android:layout_height="@dimen/avatar_rank_li_size" />
 				    <TextView
 				        android:id="@+id/rank_own_golfer_nickname"
 				        android:layout_width="wrap_content"

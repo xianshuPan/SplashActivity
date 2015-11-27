@@ -23,6 +23,7 @@
 	        android:layout_height="wrap_content"
 	        android:textColor="@color/color_filter_title_nor"
 	        android:textSize="@dimen/txt_size_ml"
+            android:singleLine="true"
 	        android:paddingLeft="3dp" />
 	    <TextView
 	        android:visibility="gone"

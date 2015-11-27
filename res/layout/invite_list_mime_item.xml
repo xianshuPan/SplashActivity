@@ -4,19 +4,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/invite_list_bkg" >
 
-    <cn.gl.lib.view.RoundedImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    <com.hylg.igolf.ui.view.CircleImageView
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:id="@+id/invite_list_mime_item_avatar"
         android:layout_width="@dimen/avatar_invite_li_size"
         android:layout_height="@dimen/avatar_invite_li_size"
         android:layout_margin="6dp"
-        android:duplicateParentState="true"
-        android:scaleType="fitXY"
-        app:corner_radius="8dip"
-        app:border_width="0dip"
-        app:round_background="true"/>
+        android:src="@drawable/avatar_null" />
 <!--     
     <ImageView
         android:layout_alignParentRight="true"
@@ -45,6 +41,7 @@
             android:paddingLeft="@dimen/invite_item_pad_left"
              android:orientation="horizontal" >
             <ImageView
+                android:visibility="gone"
                 android:src="@drawable/ic_new_msg"
                 android:id="@+id/invite_list_mime_item_alert"
                 android:layout_width="wrap_content"
@@ -79,15 +76,14 @@
             
             <TextView
                 android:id="@+id/invite_list_mime_item_course"
-	            android:layout_toRightOf="@id/invite_list_mime_item_teetime"
-	            android:layout_alignParentTop="true"
+	            android:layout_below="@id/invite_list_mime_item_teetime"
 	            android:drawableLeft="@drawable/ic_course"
 	            android:singleLine="true"
                 style="@style/invite_mime_li_txt_style" />
             
             <TextView
                 android:id="@+id/invite_list_mime_item_desc"
-	            android:layout_below="@id/invite_list_mime_item_teetime"
+	            android:layout_below="@id/invite_list_mime_item_course"
 	            android:layout_alignParentLeft="true"
 	            android:drawableLeft="@drawable/ic_info"
 	            style="@style/invite_mime_li_txt_style" />

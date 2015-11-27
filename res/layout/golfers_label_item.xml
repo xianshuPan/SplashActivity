@@ -9,8 +9,8 @@
 	    <ImageView
 	        android:layout_marginTop="5dip"
 	        android:id="@+id/golfers_label_item_img"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
+	        android:layout_width="40dp"
+	        android:layout_height="40dp"
 	        android:background="@null"
 	        android:scaleType="centerInside"
 	        android:src="@drawable/ic_launcher"

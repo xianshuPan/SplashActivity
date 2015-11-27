@@ -20,19 +20,15 @@
 		    android:layout_height="@dimen/golfers_li_invite_btn_h"
 		    android:textColor="@color/color_white"
 		    android:text="@string/str_golfers_li_invate_btn" />
-	
-	    <cn.gl.lib.view.RoundedImageView
-	         android:layout_centerVertical="true"
-	        xmlns:app="http://schemas.android.com/apk/res-auto"
-	        android:id="@+id/golfers_li_avatar"
-	        android:layout_width="@dimen/avatar_golfers_li_size"
-	        android:layout_height="@dimen/avatar_golfers_li_size"
-	        android:duplicateParentState="true"
-	        android:layout_marginLeft="10dp"
-	        android:scaleType="fitXY"
-	        app:corner_radius="6dip"
-	        app:border_width="0dip"
-	        app:round_background="true"/>
+
+			<com.hylg.igolf.ui.view.CircleImageView
+				android:layout_centerVertical="true"
+				android:id="@+id/golfers_li_avatar"
+				android:layout_width="@dimen/avatar_golfers_li_size"
+				android:layout_height="@dimen/avatar_golfers_li_size"
+				android:layout_alignParentLeft="true"
+				android:layout_marginLeft="10dp"
+				android:src="@drawable/avatar_null" />
 	<!-- 	    	
 		<ImageView
 		    android:layout_alignParentLeft="true"

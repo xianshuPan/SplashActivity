@@ -39,7 +39,6 @@
 		    android:layout_height="wrap_content"
 		    android:drawableLeft="@drawable/ic_hint_star"
 		    android:drawablePadding="3dip"
-		    android:layout_gravity="center_horizontal"
 		    android:gravity="center_vertical"
 		    android:text="@string/str_reg_phone_submit_hint"
 		    android:textColor="@color/color_hint_txt"
@@ -56,6 +55,29 @@
 		    android:hint="@string/str_phone_input_hint"
 		    android:inputType="phone"
 		    android:textSize="@dimen/txt_hint_size" />
+
+		<LinearLayout
+			android:layout_marginBottom="15dp"
+			android:id="@+id/account_psubmit_agreement_linear"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+			<TextView
+
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/str_agreement_head"
+				android:textColor="@color/color_hint_txt"
+				android:textSize="@dimen/txt_size_small"/>
+
+			<TextView
+				android:textStyle="bold"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/str_agreement"
+				android:textColor="@color/color_hint_txt"
+				android:textSize="@dimen/txt_size_s"/>
+		</LinearLayout>
 
 		<Button
 			android:layout_marginBottom="@dimen/view_ver_distance"

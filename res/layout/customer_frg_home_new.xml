@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
      android:background="@drawable/repeat_bkg"
@@ -195,8 +194,8 @@
 		-->
 
     <com.hylg.igolf.ui.view.ListviewBottomRefresh 
-        
-        android:scrollbars="@null"
+        android:dividerHeight="@dimen/list_divider_height"
+        android:scrollbars="none"
         android:listSelector="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

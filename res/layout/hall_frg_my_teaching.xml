@@ -3,14 +3,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/repeat_bkg"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
+
+	<RelativeLayout
+		style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/coach_my_teaching_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+			android:id="@+id/hall_my_teaching_title_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_coach_my_teaching_title"
+			android:textColor="@color/color_title_txt"
+			android:textSize="@dimen/txt_title_size"
+			android:layout_centerInParent="true" />
+
+		<ProgressBar
+			android:id="@+id/hall_my_teaching_progress"
+			android:visibility="gone"
+			android:layout_marginLeft="5dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/hall_my_teaching_title_text"
+			android:layout_width="20dp"
+			android:layout_height="20dp" />
+
+		<TextView
+			android:visibility="gone"
+			android:layout_alignBottom="@+id/coach_applay_info_title_text"
+			android:layout_toRightOf="@+id/coach_applay_info_title_text"
+			android:id="@+id/coach_applay_info_status_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:text="已通过"
+			android:textColor="#fff"
+			android:textSize="@dimen/txt_size_small"/>
+
+		<ImageView
+			android:visibility="gone"
+			android:id="@+id/coach_applay_info_title_tips_image"
+			style="@style/top_bar_btn_style"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/ic_hint"
+			android:contentDescription="@null" />
+	</RelativeLayout>
 
 	<com.hylg.igolf.ui.view.EhecdListview
 	    android:id="@+id/hall_my_teaching_listview"
 	    style="@style/listview_style"
 	    android:scrollbarStyle="outsideOverlay"
-	    android:paddingLeft="10dip"
-	    android:paddingRight="15dip"
-	    android:dividerHeight="15dip"
+	    android:paddingLeft="5dip"
+	    android:paddingRight="5dip"
+	    android:dividerHeight="10dip"
 	    android:divider="@null"  />
 </LinearLayout>

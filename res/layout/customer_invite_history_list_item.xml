@@ -17,14 +17,9 @@
         android:id="@+id/invite_history_avatar_ll"
 	    android:layout_weight="9"
         android:orientation="horizontal" >
-		<cn.gl.lib.view.RoundedImageView
-		     xmlns:app="http://schemas.android.com/apk/res-auto"
+		<com.hylg.igolf.ui.view.CircleImageView
 		    android:id="@+id/invite_history_li_avatar"
 		    android:src="@drawable/avatar_null"
-		    android:scaleType="fitXY"
-		    app:corner_radius="6dip"
-			app:border_width="0dip"
-			app:round_background="true"
 		    android:layout_width="@dimen/avatar_rank_li_size"
 		    android:layout_height="@dimen/avatar_rank_li_size"
 		    android:contentDescription="@null" />

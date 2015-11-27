@@ -8,9 +8,7 @@
         android:layout_centerInParent="true"
         android:id="@+id/invite_select_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-	    android:paddingTop="3dip"
-	    android:paddingBottom="3dip"
+        android:layout_height="35dp"
 	    android:paddingRight="5dip"
 	    android:paddingLeft="5dip"
         android:background="@drawable/xbtn_selection"  />

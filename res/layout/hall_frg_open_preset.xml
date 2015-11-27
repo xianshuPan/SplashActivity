@@ -60,13 +60,11 @@
 			<Button
 				android:id="@+id/hall_open_preset_start_invite"
 				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
+				android:layout_height="40dp"
 				android:layout_gravity="center_horizontal"
 				android:background="@drawable/xbtn_gray"
 				android:paddingLeft="12dip"
-				android:paddingTop="8dip"
 				android:paddingRight="12dip"
-				android:paddingBottom="8dip"
 				android:text="@string/str_hall_preset_btn_invite"
 				android:textColor="@color/color_hint_txt"
 				android:textSize="@dimen/txt_btn_txt_size" />	

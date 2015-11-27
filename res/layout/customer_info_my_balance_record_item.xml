@@ -1,76 +1,56 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/color_white"
-    android:orientation="vertical" >
-
-    <RelativeLayout
-        android:id="@+id/personal_center_titleRelative"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
-
-        <com.hylg.igolf.ui.view.CircleImageView
-            android:id="@+id/customer_info_my_follower_headImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/avatar_null" />
 
         <RelativeLayout
-            android:id="@+id/personal_center_title_nameLinear"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/customer_info_my_follower_headImage"
-            android:orientation="horizontal" >
+            android:padding="5dp"
+            android:background="@color/color_white">
 
             <TextView
-                android:id="@+id/customer_info_my_follower_nameText"
+                android:id="@+id/customer_info_my_balance_record_item_typeText"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLength="10"
                 android:layout_marginLeft="10dp"
                 android:maxLines="1"
-                android:text="剑走偏锋"
+                android:text="收到学费"
                 android:textColor="#c7ad60"
                 android:textSize="18sp" />
 
             <TextView
                 android:textSize="15sp"
-                android:layout_below="@+id/customer_info_my_follower_nameText"
-                android:id="@+id/customer_info_my_follower_dynamicText"
+                android:layout_below="@+id/customer_info_my_balance_record_item_typeText"
+                android:id="@+id/customer_info_my_balance_record_item_timeText"
                 android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:text="25动态" />
-            
-             <TextView
-                android:textSize="15sp"
-                android:layout_toRightOf="@+id/customer_info_my_follower_dynamicText"
-                android:layout_below="@+id/customer_info_my_follower_nameText"
-                android:id="@+id/customer_info_my_follower_praiseText"
-                android:layout_marginTop="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="34赞" />
-
+                android:text="2015-9-08 10:56" />
             <TextView
-                android:text="已关注"
-               	android:gravity="center"
+                android:text="夏日蝉鸣"
                 android:textSize="15sp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
-                android:id="@+id/customer_info_my_follower_is_attention_text"
-                android:layout_width="80dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"/>
-        </RelativeLayout>
-    </RelativeLayout>
+                android:id="@+id/customer_info_my_balance_record_item_nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"/>
+            
+             <TextView
+                 android:textSize="15sp"
+                 android:layout_alignParentRight="true"
+                 android:layout_marginRight="10dp"
+                 android:layout_below="@+id/customer_info_my_balance_record_item_nameText"
+                 android:id="@+id/customer_info_my_balance_record_item_amountText"
+                 android:layout_marginTop="5dp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="10dp"
+                 android:textColor="@color/color_tab_green"
+                 android:text="+300.00" />
 
-</LinearLayout>
+
+        </RelativeLayout>

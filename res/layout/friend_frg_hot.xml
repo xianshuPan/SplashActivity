@@ -21,4 +21,5 @@
         android:layout_height="match_parent"
         android:id="@+id/friend_frg_hot_listview"
 	    android:scrollbarStyle="outsideOverlay"
-	    android:divider="@drawable/divider" />
+	    android:divider="@drawable/divider"
+        android:dividerHeight="@dimen/list_divider_height"/>

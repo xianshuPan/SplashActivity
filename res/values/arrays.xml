@@ -4,10 +4,7 @@
 	<integer-array name="user_guide_array">
 		<item>@drawable/user_guide_01</item>
 		<item>@drawable/user_guide_02</item>
-		
-		<!-- 
 		<item>@drawable/user_guide_03</item>
-		 -->
 		<item>@drawable/user_guide_04</item>
 	</integer-array>
 
@@ -81,9 +78,9 @@
 	
 	<!-- coacher sort item -->
 	<integer-array name="coacher_sort_index_array">
-		<item>-1</item>
 		<item>0</item>
 		<item>1</item>
+		<item>2</item>
 	</integer-array>
 	<string-array name="coacher_sort_name_array">
         <item>不限</item>

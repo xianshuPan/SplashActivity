@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/bind_card_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+			android:id="@+id/bind_card_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_bind_card_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+	<RelativeLayout
+		android:id="@+id/bind_card_account_relative"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="@dimen/view_ver_margin"
+	    android:layout_marginBottom="@dimen/view_ver_margin"
+	    android:background="@color/color_filter_line_nor" >
+
+		<RelativeLayout
+			android:layout_marginTop="1px"
+			android:background="@color/color_white"
+			android:id="@+id/bind_card_user_name_relative"
+			android:layout_width="match_parent"
+			android:layout_height="40dp">
+			<TextView
+				android:id="@+id/bind_card_info_user_name"
+				style="@style/setup_pre_txt_style"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true"
+				android:text="姓名" />
+			<TextView
+				android:id="@+id/bind_card_info_user_name_text"
+				style="@style/setup_info_et_style"
+				android:layout_toRightOf="@id/bind_card_info_user_name"
+				android:hint="实名认证姓名"
+				android:maxLength="@integer/password_max_length"
+				android:textSize="@dimen/txt_size_s" />
+
+			</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/bind_card_no_relative"
+			android:layout_marginTop="1px"
+			android:layout_marginBottom="1px"
+			android:background="@color/color_white"
+			android:layout_below="@+id/bind_card_user_name_relative"
+			android:layout_width="match_parent"
+			android:layout_height="40dp">
+
+			<TextView
+				android:id="@+id/bind_card_no"
+				style="@style/setup_pre_txt_style"
+				android:layout_below="@id/account_reset_pwd_line"
+				android:layout_alignParentLeft="true"
+				android:text="卡号" />
+			<EditText
+				android:id="@+id/bind_card_no_edit"
+				android:inputType="number"
+				style="@style/setup_info_et_style"
+				android:layout_toRightOf="@id/bind_card_no"
+				android:layout_below="@id/account_reset_pwd_line"
+				android:hint="请输入与实名相符的银行卡号"
+				android:textSize="@dimen/txt_size_s" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_marginTop="1px"
+			android:layout_marginBottom="1px"
+			android:background="@color/color_white"
+			android:layout_below="@+id/bind_card_no_relative"
+			android:layout_width="match_parent"
+			android:layout_height="40dp">
+
+			<TextView
+				android:id="@+id/bind_card_name"
+				style="@style/setup_pre_txt_style"
+				android:layout_below="@id/account_reset_pwd_line"
+				android:layout_alignParentLeft="true"
+				android:text="银行" />
+			<EditText
+				android:id="@+id/bind_card_name_edit"
+				android:inputType="text"
+				style="@style/setup_info_et_style"
+				android:layout_toRightOf="@id/bind_card_name"
+				android:layout_below="@id/account_reset_pwd_line"
+				android:maxLength="@integer/card_no_max_length"
+				android:textSize="@dimen/txt_size_s" />
+		</RelativeLayout>
+		
+	</RelativeLayout>
+
+
+	<RelativeLayout
+		android:id="@+id/bind_card_psw_all_relative"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/view_ver_margin"
+		android:layout_marginBottom="@dimen/view_ver_margin"
+		android:background="@color/color_filter_line_nor" >
+
+
+		<RelativeLayout
+			android:layout_marginTop="1px"
+			android:background="@color/color_white"
+			android:id="@+id/bind_card_psw_relative"
+			android:layout_width="match_parent"
+			android:layout_height="40dp">
+			<TextView
+				android:id="@+id/bind_card_psw"
+				style="@style/setup_pre_txt_style"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true"
+				android:text="提现密码" />
+			<EditText
+				android:hint="请设置4-8位密码"
+				android:id="@+id/bind_card_psw_edit"
+				style="@style/setup_info_et_style"
+				android:layout_toRightOf="@id/bind_card_psw"
+				android:inputType="textPassword"
+				android:maxLength="@integer/password_max_length"
+				android:textSize="@dimen/txt_size_s" />
+
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_marginTop="1px"
+			android:layout_marginBottom="1px"
+			android:background="@color/color_white"
+			android:id="@+id/bind_card_psw_confirm_relative"
+			android:layout_below="@+id/bind_card_psw_relative"
+			android:layout_width="match_parent"
+			android:layout_height="40dp">
+
+			<TextView
+				android:id="@+id/bind_card_psw_confirm"
+				style="@style/setup_pre_txt_style"
+				android:layout_below="@id/account_reset_pwd_line"
+				android:layout_alignParentLeft="true"
+				android:text="@string/str_input_pre_pwd_confirm" />
+			<EditText
+				android:id="@+id/bind_card_psw_confirm_edit"
+				style="@style/setup_info_et_style"
+				android:layout_toRightOf="@id/bind_card_psw_confirm"
+				android:hint="@string/str_reset_pwd_confirm_hint"
+				android:inputType="textPassword"
+				android:maxLength="@integer/password_max_length"
+				android:textSize="@dimen/txt_size_s" />
+		</RelativeLayout>
+
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:background="@color/color_white"
+		android:layout_marginTop="@dimen/view_ver_margin"
+		android:layout_marginBottom="@dimen/view_ver_margin"
+		android:layout_width="match_parent"
+		android:layout_height="40dp">
+
+		<EditText
+			android:layout_toLeftOf="@+id/bind_card_verify_get"
+			android:paddingLeft="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:id="@+id/bind_card_verify_edit"
+			android:hint="@string/str_verify_input_hint"
+			android:maxLength="@integer/password_max_length"
+			android:textSize="@dimen/txt_hint_size" />
+		<TextView
+			android:background="@drawable/xbtn_green"
+			android:textColor="@color/color_white"
+			android:id="@+id/bind_card_verify_get"
+			android:layout_width="wrap_content"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
+			android:layout_height="30dp"
+			android:gravity="center"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="@dimen/view_ver_margin"
+			android:layout_below="@id/account_reset_pwd_line"
+			android:text="@string/str_verify_get" />
+	</RelativeLayout>
+		
+	<Button
+		android:layout_marginTop="@dimen/view_ver_distance"
+		android:layout_marginLeft="@dimen/view_hor_margin"
+		android:layout_marginRight="@dimen/view_hor_margin"
+		android:id="@+id/bind_card_commit"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/btn_height"
+		android:background="@drawable/xbtn_green"
+		android:text="@string/str_btn_next"
+		android:textColor="@android:color/white"
+		android:textSize="@dimen/txt_btn_txt_size" />
+	
+</LinearLayout>

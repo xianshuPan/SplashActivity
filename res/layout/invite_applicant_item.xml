@@ -16,16 +16,11 @@
 	        android:layout_height="wrap_content"
 	        android:gravity="center_horizontal"
 	        android:orientation="vertical" >
-	        <cn.gl.lib.view.RoundedImageView
-		        xmlns:app="http://schemas.android.com/apk/res-auto"
+	        <com.hylg.igolf.ui.view.CircleImageView
 		        android:id="@+id/invite_applicant_item_avatar"
 		        android:layout_width="@dimen/avatar_invite_detail_size"
 		        android:layout_height="@dimen/avatar_invite_detail_size"
-		        android:src="@drawable/avatar_loading"
-		        android:scaleType="fitXY"
-		        app:corner_radius="8dip"
-		        app:border_width="0dip"
-		        app:round_background="true"/>
+		        android:src="@drawable/avatar_loading" />
 		    <LinearLayout
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"

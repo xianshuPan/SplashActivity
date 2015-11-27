@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RelativeLayout
+		android:id="@+id/coach_info_detail_title_relative"
         style="@style/custom_title_style" >
 		<ImageButton
 			android:id="@+id/coach_info_detail_back"
@@ -22,11 +23,12 @@
     </RelativeLayout>
 
     <ScrollView
+		android:layout_below="@+id/coach_info_detail_title_relative"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
        	android:background="#f0f1f5"
         android:scrollbars="vertical">
-	<LinearLayout
+		<LinearLayout
 		    
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
@@ -95,8 +97,8 @@
 			        <ImageView 
 			            android:adjustViewBounds="true"
 			            android:duplicateParentState="true"
-			            android:layout_width="15dp"
-			            android:layout_height="15dp"
+			            android:layout_width="20dp"
+			            android:layout_height="20dp"
 			            android:src="@drawable/home"/>
 			        <TextView 
 			            android:layout_marginLeft="5dp"
@@ -116,13 +118,15 @@
 			    	android:layout_height="match_parent"
 			    	android:orientation="horizontal">
 				    
-			        <ImageView 
+			        <ImageView
+						android:id="@+id/coach_info_detail_attention_image"
 			            android:adjustViewBounds="true"
 			            android:duplicateParentState="true"
-			            android:layout_width="15dp"
-			            android:layout_height="15dp"
+			            android:layout_width="20dp"
+			            android:layout_height="20dp"
 			            android:src="@drawable/add"/>
-			        <TextView 
+			        <TextView
+						android:id="@+id/coach_info_detail_attention_text"
 			            android:layout_marginLeft="5dp"
 			            android:text="关注"
 			            android:layout_width="wrap_content"
@@ -215,9 +219,11 @@
 				        android:id="@+id/coach_info_detail_comments_title_right"
 						layout="@layout/include_arrow_enter"/>
 				    <TextView
-				        android:text="13983432282"
+						android:drawableLeft="@drawable/teaching_phone"
+						android:layout_width="wrap_content"
 				        style="@style/setup_info_select_style"
-				        android:layout_toLeftOf="@id/coach_info_detail_comments_title_right"
+				        android:layout_alignParentRight="true"
+
 					    android:id="@+id/coach_info_detail_place_phone_text" />
 				</RelativeLayout>
 				
@@ -229,7 +235,7 @@
 				<RelativeLayout 
 				    android:layout_below="@+id/coach_info_detail_place_title_text"
 				    android:layout_width="match_parent"
-				    android:layout_height="60dp"
+				    android:layout_height="wrap_content"
 				    >
 				    
 				    <ImageView 
@@ -240,21 +246,23 @@
 				        android:layout_height="15dp"
 				        android:src="@drawable/golfers_li_region"/>
 				    
-				    <TextView 
+				    <TextView
+						android:textSize="@dimen/txt_size_ml"
+						android:textColor="@color/gray"
 				        android:layout_marginLeft="5dp"
 				        android:layout_marginTop="10dp"
-				        android:layout_marginRight="50dp"
-				        android:text="新征地球场"
+				        android:layout_marginRight="10dp"
 				        android:layout_toRightOf="@+id/coach_info_detail_place_location_image"
 				        android:id="@+id/coach_info_detail_place_name_text"
 				        android:layout_width="match_parent"
 				        android:layout_height="wrap_content"/>
 				    
-				    <TextView 
+				    <TextView
+						android:textSize="@dimen/txt_size_ml"
+						android:textColor="@color/gray"
 				        android:layout_marginLeft="5dp"
-				        android:layout_marginTop="10dp"
-				        android:layout_marginRight="50dp"
-				        android:text="13.56   都江堰青城山"
+				        android:layout_marginTop="5dp"
+				        android:layout_marginRight="10dp"
 				        android:layout_below="@+id/coach_info_detail_place_name_text"
 				        android:layout_toRightOf="@+id/coach_info_detail_place_location_image"
 				        android:id="@+id/coach_info_detail_place_address_text"
@@ -290,16 +298,19 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content">
 					<TextView
+						android:layout_height="40dp"
 				    	android:id="@+id/coach_info_detail_teach_age_title_text"
 				    	style="@style/setup_pre_txt_style"
 				    	android:layout_alignParentLeft="true"
 				    	android:layout_alignParentTop="true"
 				    	android:text="@string/str_coachers_apply_teach_age" />
 				    <TextView
-				        android:text="13983432282"
+				        android:text="0"
+						android:textColor="@color/gray"
+						android:textSize="@dimen/txt_size_m"
 				        android:layout_marginLeft="5dp"
-				         android:layout_width="match_parent"
-				        android:layout_height="@dimen/reg_item_height"
+						android:layout_width="match_parent"
+				        android:layout_height="40dp"
 				        android:gravity="left|center_vertical"
 				        android:layout_toRightOf="@id/coach_info_detail_teach_age_title_text"
 					    android:id="@+id/coach_info_detail_teach_age_content_text" />
@@ -316,67 +327,166 @@
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content">
 					<TextView
+						android:layout_height="30dp"
 				    	android:id="@+id/coach_info_detail_special_title_text"
 				    	style="@style/setup_pre_txt_style"
 				    	android:layout_alignParentLeft="true"
 				    	android:layout_alignParentTop="true"
 				    	android:text="@string/str_coachers_apply_special" />
 				    <TextView
-				        android:text="13983432282"
+						android:paddingBottom="5dp"
+						android:text="jingsadfsdfsdfsdf"
+						android:layout_marginLeft="20dp"
+						android:layout_marginRight="10dp"
+				        android:textSize="@dimen/txt_size_ml"
+						android:textColor="@color/gray"
 				        android:layout_width="match_parent"
-				        android:layout_height="@dimen/reg_item_height"
+				        android:layout_height="wrap_content"
 				        android:gravity="left|center_vertical"
-				        android:layout_toRightOf="@id/coach_info_detail_special_title_text"
+				        android:layout_below="@id/coach_info_detail_special_title_text"
 					    android:id="@+id/coach_info_detail_special_content_text" />
 				</RelativeLayout>
 				
-				<View 
+				<View
 				     android:layout_below="@+id/coach_info_detail_special_relative"
 			    	android:layout_width="match_parent"
 			    	android:layout_height="1dp" 
 			    	android:background="@drawable/divider1"/>
-				  <RelativeLayout 
+				  	<LinearLayout
 				      android:layout_below="@+id/coach_info_detail_special_relative"
-			        android:id="@+id/coach_info_detail_award_relative"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content">
-					<TextView
-				    	android:id="@+id/coach_info_detail_award_title_text"
-				    	style="@style/setup_pre_txt_style"
-				    	android:layout_alignParentLeft="true"
-				    	android:layout_alignParentTop="true"
-				    	android:text="@string/str_coachers_apply_award" />
-					
-					<ImageView 
-					    android:layout_marginLeft="20dp"
-					    android:layout_below="@+id/coach_info_detail_award_title_text"
-					    android:id="@+id/coach_info_detail_award_iamge"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:background="@color/gray"
-					    android:src="@drawable/avatar_loading"/>
+			        	android:id="@+id/coach_info_detail_award_relative"
+			        	android:layout_width="match_parent"
+			        	android:layout_height="wrap_content">
 
-				</RelativeLayout>
+						<RelativeLayout
+							android:visibility="gone"
+							android:id="@+id/coach_detail_info_award_relative"
+							android:layout_marginLeft="10dp"
+							android:layout_width="100dp"
+							android:layout_height="120dp">
+
+							<TextView
+								android:layout_centerHorizontal="true"
+								android:textSize="@dimen/txt_size_ml"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="10dp"
+								android:layout_marginBottom="5dp"
+								android:id="@+id/coach_apply_info_award"
+								android:textColor="@color/color_hint_txt"
+								android:text="@string/str_coachers_apply_award" />
+
+							<ImageView
+								android:background="@color/gray"
+								android:padding="1px"
+									android:layout_below="@+id/coach_apply_info_award"
+									android:layout_centerHorizontal="true"
+									android:scaleType="fitXY"
+									android:src="@drawable/addpic"
+									android:id="@+id/coach_detail_info_award_selected_image"
+									android:layout_width="match_parent"
+									android:layout_height="match_parent"/>
+
+						</RelativeLayout>
+
+
+						<RelativeLayout
+							android:visibility="gone"
+							android:layout_toRightOf="@+id/coach_detail_info_award_relative"
+							android:id="@+id/coach_detail_info_graduate_selected_relative"
+							android:layout_marginLeft="10dp"
+							android:layout_width="100dp"
+							android:layout_height="120dp">
+
+							<TextView
+								android:layout_centerHorizontal="true"
+								android:textSize="@dimen/txt_size_ml"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="10dp"
+								android:layout_marginBottom="5dp"
+								android:id="@+id/coach_apply_info_graduate"
+								android:textColor="@color/color_hint_txt"
+								android:text="@string/str_coachers_apply_graduate" />
+
+
+							<ImageView
+								android:background="@color/gray"
+								android:padding="1px"
+								android:layout_below="@+id/coach_apply_info_graduate"
+									android:scaleType="fitXY"
+									android:src="@drawable/addpic"
+									android:id="@+id/coach_detail_info_graduate_selected_image"
+									android:layout_width="match_parent"
+									android:layout_height="match_parent"/>
+						</RelativeLayout>
+
+						<RelativeLayout
+							android:visibility="gone"
+							android:layout_marginLeft="10dp"
+							android:layout_toRightOf="@+id/coach_detail_info_graduate_selected_relative"
+							android:id="@+id/coach_apply_info_certificate_selected_relative"
+							android:layout_width="100dp"
+							android:layout_height="120dp">
+							<TextView
+								android:textSize="@dimen/txt_size_ml"
+								android:layout_centerHorizontal="true"
+								android:id="@+id/coach_apply_info_certificate"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="10dp"
+								android:layout_marginBottom="5dp"
+								android:textColor="@color/color_hint_txt"
+								android:text="@string/str_coachers_apply_certificate" />
+
+							<ImageView
+								android:background="@color/gray"
+								android:padding="1px"
+								android:layout_below="@+id/coach_apply_info_certificate"
+								android:scaleType="fitXY"
+								android:src="@drawable/addpic"
+								android:id="@+id/coach_detail_info_certificate_selected_image"
+								android:layout_width="match_parent"
+								android:layout_height="match_parent"/>
+
+
+						</RelativeLayout>
+
+				</LinearLayout>
 				
-				  <View 
-				      android:layout_marginTop="20dp"
+				  <View
+					  android:layout_marginTop="60dp"
 				     android:layout_below="@+id/coach_info_detail_award_relative"
 			    	android:layout_width="match_parent"
 			    	android:layout_height="1dp" 
 			    	android:background="@drawable/divider1"/>
 			</RelativeLayout>
-			
-			<TextView
-			      android:layout_margin="20dp"
-			      android:textSize="@dimen/txt_title_size"
-				  android:id="@+id/coach_info_detail_invite_coach_text"
-				  android:layout_width="match_parent"
-				  android:layout_height="40dp"
-				  android:text="约教练"
-				  android:textColor="@color/color_white"
-				  android:padding="5dp"
-				  android:gravity="center"
-				  android:background="@drawable/attented_color"/>		
 		</LinearLayout>
 	</ScrollView>
-</LinearLayout>
+
+
+	<RelativeLayout
+		android:layout_alignParentBottom="true"
+		android:background="#f0f1f5"
+		android:layout_width="match_parent"
+		android:layout_height="60dp">
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:background="@drawable/divider1"/>
+		<TextView
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_centerVertical="true"
+			android:textSize="@dimen/txt_title_size"
+			android:id="@+id/coach_info_detail_invite_coach_text"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:text="约教练"
+			android:textColor="@color/color_white"
+			android:padding="5dp"
+			android:gravity="center"
+			android:background="@drawable/attented_color"/>
+	</RelativeLayout>
+</RelativeLayout>

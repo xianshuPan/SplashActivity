@@ -35,7 +35,7 @@
 		    android:paddingRight="@dimen/view_hor_margin"
 		    android:orientation="vertical" >
 			
-			<ImageView
+			<com.hylg.igolf.ui.view.CircleImageView
 			    android:contentDescription="@null"
 			    android:id="@+id/account_info_setup_avtar"
 			    android:layout_marginBottom="@dimen/view_ver_distance"

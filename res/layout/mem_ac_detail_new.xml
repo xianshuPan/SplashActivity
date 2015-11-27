@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
      android:background="@drawable/repeat_bkg"
@@ -50,7 +49,8 @@
 
     <com.hylg.igolf.ui.view.ListviewBottomRefresh 
         android:layout_below="@+id/mem_ac_detail_new_head"
-        android:scrollbars="@null"
+        android:scrollbars="none"
+		android:dividerHeight="@dimen/list_divider_height"
         android:listSelector="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

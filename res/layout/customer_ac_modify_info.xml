@@ -58,7 +58,7 @@
 				    <include
 				        android:id="@+id/arrow_enter_avtar"
 						layout="@layout/include_arrow_enter"/>
-				    <ImageView
+				    <com.hylg.igolf.ui.view.CircleImageView
 					    android:contentDescription="@null"
 					    android:layout_toLeftOf="@id/arrow_enter_avtar"
 					    android:id="@+id/customer_my_info_avtar"
@@ -256,6 +256,7 @@
 			</RelativeLayout>
 			
 			<RelativeLayout
+				android:visibility="gone"
 				android:layout_marginBottom="@dimen/view_ver_distance"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"

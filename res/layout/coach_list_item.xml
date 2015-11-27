@@ -11,17 +11,12 @@
 	    <RelativeLayout 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content" >
-	    <cn.gl.lib.view.RoundedImageView
+	    <com.hylg.igolf.ui.view.CircleImageView
 	        android:layout_centerVertical="true"
-	        xmlns:app="http://schemas.android.com/apk/res-auto"
+
 	        android:id="@+id/coach_item_avatar"
 	        android:layout_width="@dimen/avatar_golfers_li_size"
-	        android:layout_height="@dimen/avatar_golfers_li_size"
-	        android:duplicateParentState="true"
-	        android:scaleType="fitXY"
-	        app:corner_radius="6dip"
-	        app:border_width="0dip"
-	        app:round_background="true"/>
+	        android:layout_height="@dimen/avatar_golfers_li_size" />
 	<!-- 	    	
 		<ImageView
 		    android:layout_alignParentLeft="true"
@@ -56,11 +51,13 @@
 			        android:maxLength="5"
 			        android:id="@+id/coach_item_nickname"
 			        android:layout_width="wrap_content"
-			        android:layout_height="20dp"
+			        android:layout_height="25dp"
 			        android:textColor="@color/color_friend_item_praiser_name"
 			        android:textSize="@dimen/txt_size_m"/>
 			    
 			    <ImageView
+					android:layout_marginLeft="5dp"
+					android:layout_gravity="center_vertical"
 					android:id="@+id/coach_item_type_image"
 					android:layout_width="15dp"
 					android:layout_height="15dp"/>
@@ -81,7 +78,7 @@
 				        style="@style/myratingbar"
 				        android:isIndicator="true"
 				        android:id="@+id/coach_item_rating"/>
-				 <TextView
+				<TextView
 			        android:id="@+id/coach_item_teach_times_text"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
@@ -95,8 +92,7 @@
 			        android:layout_height="wrap_content"
 			        android:textSize="@dimen/txt_size_small"
 			        android:text="次教学"
-			        android:singleLine="true"
-			        android:maxLines="3" />
+			        android:singleLine="true" />
 
 		    </LinearLayout>
 		    <LinearLayout
@@ -116,6 +112,11 @@
 			        android:layout_height="wrap_content"
 			        android:textSize="@dimen/txt_size_s"
 			        android:textColor="@color/color_filter_title_nor" />
+				<TextView
+					android:text="年"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/txt_size_small"/>
 				 <TextView
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
@@ -147,7 +148,7 @@
 		<RelativeLayout
 		    android:id="@+id/coach_item_distance_linear"
 		    android:layout_alignParentRight="true"
-		    android:layout_width="60dp"
+		    android:layout_width="80dp"
 		    
 		    android:layout_height="wrap_content"
 		    android:orientation="vertical" >
@@ -168,7 +169,7 @@
 			        android:layout_below="@+id/coach_item_distance_time_text"
 			        android:drawableLeft="@drawable/golfers_li_region"
 			        android:layout_marginTop="5dp"
-					android:text="3km"
+					android:text="12.673km"
 					android:singleLine="true"
 					android:textSize="@dimen/txt_size_s"
 					android:id="@+id/coach_item_distance_text"

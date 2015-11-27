@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/to_cash_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+			android:id="@+id/to_cash_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_to_cash_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    
+
+	<View
+		android:layout_marginTop="@dimen/view_ver_margin"
+		android:layout_width="wrap_content"
+		android:layout_height="1px"
+		android:background="@drawable/divider1">
+
+	</View>
+	<RelativeLayout
+			android:id="@+id/to_cash_cardRelative"
+			android:background="@color/color_white"
+			android:layout_width="fill_parent"
+			android:layout_height="60dp"
+			android:layout_marginTop="1px"
+			android:layout_marginBottom="1px">
+
+			<com.hylg.igolf.ui.view.CircleImageView
+				android:visibility="gone"
+				android:layout_centerVertical="true"
+				android:id="@+id/to_cash_bankImage"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_alignParentLeft="true"
+				android:layout_marginLeft="10dp"
+				android:src="@drawable/avatar_loading" />
+
+			<RelativeLayout
+				android:layout_centerVertical="true"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_toRightOf="@+id/to_cash_bankImage"
+				android:orientation="horizontal" >
+
+				<TextView
+
+					android:id="@+id/to_cash_bank_nameText"
+					android:layout_marginTop="5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:maxLines="1"
+					android:textSize="18sp" />
+
+				<TextView
+					android:textSize="15sp"
+					android:layout_below="@+id/to_cash_bank_nameText"
+					android:id="@+id/to_cash_card_noText"
+					android:layout_marginTop="5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center_vertical"
+					android:layout_marginLeft="10dp"
+					/>
+
+
+				<ImageView
+					android:layout_marginRight="10dp"
+					android:layout_alignParentRight="true"
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:src="@drawable/icon_arrow_enter"
+					android:layout_centerVertical="true"/>
+			</RelativeLayout>
+		</RelativeLayout>
+
+	<View
+		android:layout_width="wrap_content"
+		android:layout_height="1px"
+		android:background="@drawable/divider1"/>
+
+	<TextView
+		android:layout_marginTop="5dp"
+		android:drawableLeft="@drawable/tips"
+		android:drawablePadding="5dp"
+		android:id="@+id/to_cash_tipsText"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="15dp"
+		android:layout_marginBottom="5dp"
+		android:text="每周一为结算日，结算上周提交的提现申请，到账需1-2个工作日" />
+
+
+
+
+	<View
+		android:layout_marginTop="@dimen/view_ver_margin"
+		android:layout_width="wrap_content"
+		android:layout_height="1px"
+		android:background="@drawable/divider1"/>
+		<RelativeLayout
+			android:layout_marginTop="1px"
+			android:layout_marginBottom="1px"
+			android:background="@color/color_white"
+			android:layout_width="match_parent"
+			android:layout_height="50dp">
+			<TextView
+				android:id="@+id/to_cash_amount_titleText"
+				style="@style/setup_pre_txt_style"
+				android:layout_alignParentLeft="true"
+				android:layout_alignParentTop="true"
+				android:text="@string/str_to_cash_amount"/>
+			<EditText
+				android:inputType="numberDecimal"
+				android:id="@+id/to_cash_amount_edit"
+				style="@style/setup_info_et_style"
+				android:layout_toRightOf="@id/to_cash_amount_titleText"
+				android:maxLength="@integer/password_max_length"
+				android:textSize="@dimen/txt_hint_size" />
+
+		</RelativeLayout>
+
+	<View
+		android:layout_width="wrap_content"
+		android:layout_height="1px"
+		android:background="@drawable/divider1"/>
+	<RelativeLayout
+		android:background="@color/color_white"
+		android:layout_marginBottom="@dimen/view_ver_margin"
+		android:layout_width="match_parent"
+		android:layout_height="50dp">
+
+		<EditText
+			android:layout_toLeftOf="@+id/to_cash_verify_get"
+			android:paddingLeft="15dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:id="@+id/to_cash_verify_edit"
+			android:hint="@string/str_verify_input_to_cash_psw"
+			android:inputType="textPassword"
+			android:maxLength="@integer/password_max_length"
+			android:textSize="@dimen/txt_hint_size" />
+		<TextView
+
+			android:textColor="#1baae0"
+			android:id="@+id/to_cash_verify_get"
+			android:layout_width="wrap_content"
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="@dimen/view_ver_margin"
+			android:layout_below="@id/account_reset_pwd_line"
+			android:textSize="@dimen/txt_size_ml"
+			android:text="忘记密码?" />
+	</RelativeLayout>
+		
+	<Button
+		android:layout_marginTop="@dimen/view_ver_distance"
+		android:layout_marginLeft="@dimen/view_hor_margin"
+		android:layout_marginRight="@dimen/view_hor_margin"
+		android:id="@+id/to_cash_commit"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/btn_height"
+		android:background="@drawable/xbtn_green"
+		android:text="提现"
+		android:textColor="@android:color/white"
+		android:textSize="@dimen/txt_btn_txt_size" />
+	
+</LinearLayout>
