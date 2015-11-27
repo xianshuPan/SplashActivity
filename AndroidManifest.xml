@@ -23,8 +23,9 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>  
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"></uses-permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
     
     <!-- share sdk 权限 -->
 	<uses-permission android:name="android.permission.GET_TASKS" />
@@ -63,6 +64,7 @@
         <activity
             android:name="com.hylg.igolf.ui.SplashActivity"
         	android:theme="@style/NoTitleFullBaseTheme"
+
         	android:screenOrientation="portrait"
             android:label="@string/app_name" >
             
@@ -82,9 +84,8 @@
          </activity>
 
         <!-- account -->
-        <activity android:name=".ui.account.LoginActivity" android:theme="@style/NoTitleBaseTheme"
-            android:launchMode="singleTask" android:screenOrientation="portrait" />
-         
+        <activity android:name=".ui.account.LoginActivity" android:theme="@style/NoTitleBaseTheme" android:launchMode="singleTask" android:screenOrientation="portrait" />
+        <activity  android:name=".ui.account.AgreementActivityActivity" android:theme="@style/TranslucentTheme"  android:screenOrientation="portrait" />
         <activity  android:name=".ui.account.PhoneSubmitActivity" android:theme="@style/TranslucentTheme"  android:screenOrientation="portrait" />
         <activity android:name=".ui.account.PhoneVerifyActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.account.InfoSetupActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
@@ -100,17 +101,20 @@
         <activity android:name=".ui.coach.CoachInfoDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.coach.CoachInviteActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".ui.coach.CoachCommentsListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.coach.CoachInviteOrderDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ui.coach.CoachInviteOrderDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.coach.CoachMyTeachingActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity android:name=".ui.coach.CoachInviteAgainActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         
         <!-- hall -->
         <activity android:name=".ui.hall.InviteDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailOpenOtherActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailOpenMineActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailOtherOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-         <activity android:name=".ui.hall.InviteDetailOtherStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.hall.InviteDetailOtherStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailMyOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailMyStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.CourseSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
+        <activity android:name=".ui.common.CourseAllSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.OpenInviteListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.StartInviteOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.StartInviteStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
@@ -136,6 +140,9 @@
         <activity android:name=".ui.customer.MyAttentionsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.MyPraiseActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.CustomerHomeActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.customer.MyBalanceRecordActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.customer.BindCardActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.customer.ToCashActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
 
         <!-- common -->
         <activity android:name=".ui.common.LabelSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
@@ -158,8 +165,7 @@
         <activity android:name=".ui.common.CoacherSortItemSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
         <activity android:name=".ui.common.CoacherTypeSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
         
-        <activity android:name=".ui.common.AlbumPagerActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait"
-            		android:windowSoftInputMode="stateAlwaysHidden|stateUnspecified" />
+        <activity android:name=".ui.common.AlbumPagerActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|stateUnspecified" />
         
         
         <!-- image picker -->
@@ -374,6 +380,19 @@
 		    android:configChanges="orientation|keyboardHidden|navigation"
 		    android:exported="false"
 		    android:screenOrientation="behind" />
+
+        <!--umeng  -->
+        <meta-data android:value="561e177b67e58e87bb00345c" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="${UMENG_CHANNEL_VALUE}" android:name="UMENG_CHANNEL"/>
+
+        <service
+            android:name="com.umeng.update.net.DownloadingService"
+            android:process=":DownloadingService" >
+        </service>
+        <activity
+            android:name="com.umeng.update.UpdateDialogActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>
