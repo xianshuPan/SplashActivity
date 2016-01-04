@@ -40,6 +40,8 @@ public class InvitePlanActivity extends Activity implements OnClickListener,
 	private final static String TAG = "InvitePlanActivity";
 	public final static String BUNDLE_KEY_SETUP_PLAN = "setup_plan";
 	private final static String BUNDLE_KEY_PLAN_INDEX = "plan_index";
+
+	private final static String BUNDLE_KEY_PLAN = "plan";
 	private PlanSubmitInfo curPlan;
 	private TextView dateTv, timeTv, regionTv, courseTv;
 	private Calendar curDate = null, curTime = null;
@@ -53,6 +55,13 @@ public class InvitePlanActivity extends Activity implements OnClickListener,
 		Intent intent = new Intent();
 		intent.setClass(context, InvitePlanActivity.class);
 		intent.putExtra(BUNDLE_KEY_PLAN_INDEX, index);
+		((Activity) context).startActivityForResult(intent, Const.REQUST_CODE_INVITE_PLAN);
+	}
+
+	public static void startSexSelectForResult(Context context,PlanSubmitInfo curPlan ) {
+		Intent intent = new Intent();
+		intent.setClass(context, InvitePlanActivity.class);
+		intent.putExtra(BUNDLE_KEY_PLAN, curPlan);
 		((Activity) context).startActivityForResult(intent, Const.REQUST_CODE_INVITE_PLAN);
 	}
 	
@@ -79,11 +88,41 @@ public class InvitePlanActivity extends Activity implements OnClickListener,
 
 	private void setData() {
 		int index = getIntent().getExtras().getInt(BUNDLE_KEY_PLAN_INDEX);
+
+		curPlan = (PlanSubmitInfo) getIntent().getSerializableExtra(BUNDLE_KEY_PLAN);
+
 		Utils.logh(TAG, "index: " + index);
-		curPlan = new PlanSubmitInfo(index);
+
+		if (curPlan == null) {
+
+			curPlan = new PlanSubmitInfo(index);
+			curRegion = MainApp.getInstance().getCustomer().state;
+			curPlan.region = curRegion;
+			regionTv.setText(MainApp.getInstance().getGlobalData().getRegionName(curRegion));
+		}
+		else {
+
+			curRegion = curPlan.region;
+			regionTv.setText(MainApp.getInstance().getGlobalData().getRegionName(curRegion));
+
+			curDate = Calendar.getInstance();
+			curDate.setTimeInMillis(curPlan.teeTime);
+
+			curTime  = Calendar.getInstance();
+			curTime.setTimeInMillis(curPlan.teeTime);
+
+			dateTv.setText(new SimpleDateFormat("yyyy-MM-dd",
+					Locale.getDefault()).format(
+					new Date(curDate.getTimeInMillis())));
+
+			timeTv.setText(new SimpleDateFormat("HH:mm",
+					Locale.getDefault()).format(new Date(curTime.getTimeInMillis())));
+			courseTv.setText(curPlan.courseStr);
+
+		}
+
 		// 设置默认省份为用户所在省份
-		curRegion = MainApp.getInstance().getCustomer().state;
-		regionTv.setText(MainApp.getInstance().getGlobalData().getRegionName(curRegion));
+
 	}
 
 	private void onPlanConfirm() {
@@ -108,6 +147,7 @@ public class InvitePlanActivity extends Activity implements OnClickListener,
 		c.set(Calendar.MINUTE, curTime.get(Calendar.MINUTE));
 		c.set(Calendar.SECOND, 0);
 		curPlan.teeTime = c.getTimeInMillis();
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault());
 		curPlan.timeStr = sdf.format(new Date(curPlan.teeTime));
 		
@@ -226,6 +266,7 @@ public class InvitePlanActivity extends Activity implements OnClickListener,
 	@Override
 	public void onRegionSelect(String newRegion) {
 		curRegion = newRegion;
+		curPlan.region = curRegion;
 		regionTv.setText(MainApp.getInstance().getGlobalData().getRegionName(newRegion));
 		// 修改地区后，清楚球场信息
 		if(0 != curPlan.teeCourse) {

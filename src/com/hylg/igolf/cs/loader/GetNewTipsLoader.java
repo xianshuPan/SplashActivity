@@ -43,6 +43,6 @@ public class GetNewTipsLoader extends BaseAsyncLoader {
 	}
 
 	public interface GetNewTipsListCallback {
-		public abstract void callBack(int retId, String msg,ArrayList<FriendHotItem> list);
+		void callBack(int retId, String msg,ArrayList<FriendHotItem> list);
 	}
 }

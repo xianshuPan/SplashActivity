@@ -2,8 +2,7 @@ package com.hylg.igolf.ui.rank;
 
 import java.util.ArrayList;
 
-import cn.gl.lib.view.RoundedImageView;
-
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.RankingInfo;
@@ -12,12 +11,9 @@ import com.hylg.igolf.cs.loader.GetRankingListLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.loader.GetRankingListLoader.GetRankingListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.ui.common.RegionSelectActivity;
-import com.hylg.igolf.ui.common.RegionSelectActivity.onRegionSelectListener;
+import com.hylg.igolf.ui.common.RegionAndSexSelectFragment;
+import com.hylg.igolf.ui.common.RegionAndSexSelectFragment.onRegionAndSexSelectListener;
 import com.hylg.igolf.ui.common.SexSelectActivity;
-import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
-import com.hylg.igolf.ui.customer.CustomerHomeActivity;
-import com.hylg.igolf.ui.member.MemDetailActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.GetRankingReqParam;
 import com.hylg.igolf.ui.view.ListFooter;
@@ -26,25 +22,22 @@ import com.hylg.igolf.ui.view.PullListView;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
 import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
+import com.hylg.igolf.ui.view.ShareMenuRank;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.*;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.PopupWindow.OnDismissListener;
 
 public class RankHomeFrg extends Fragment
-						implements View.OnClickListener,
-							onSexSelectListener, onRegionSelectListener {
+						implements View.OnClickListener,onRegionAndSexSelectListener
+							 {
 	private static final String TAG = "RankHomeFrg";
 	private static RankHomeFrg rankFrg = null;
 	private LinearLayout ownInfo;
@@ -72,8 +65,6 @@ public class RankHomeFrg extends Fragment
 	private RankingInfo myRank;
 	private String outOfRankMsg;
 	
-	private ImageView mCustomerImage = null;
-	
 	public static RankHomeFrg getInstance(GetRankingReqParam data) {
 		if(null == rankFrg) {
 			rankFrg = new RankHomeFrg();
@@ -86,13 +77,14 @@ public class RankHomeFrg extends Fragment
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+
+		DebugTools.getDebug().debug_v(TAG,"onCreate...");
 		super.onCreate(savedInstanceState);
 		Bundle args = getArguments();
 		reqData = (GetRankingReqParam) args.getSerializable(BUNDLE_RANKING_REQ_DATA);
 		reqData.type = TYPE_NORMAL;
 		listFooter = new ListFooter(getActivity());
-		loadFail = new LoadFail(getActivity());
-		loadFail.setOnRetryClickListener(retryListener);
+
 		Utils.logh(TAG, "onCreate reqData: " + reqData.log());
 		gd = MainApp.getInstance().getGlobalData();
 		outOfRankMsg = "";
@@ -102,7 +94,7 @@ public class RankHomeFrg extends Fragment
 	
 	@Override
 	public void onDestroy() {
-		Utils.logh(TAG, "onDestroy rankAdapter");
+		DebugTools.getDebug().debug_v(TAG, "onDestroy...");
 		super.onDestroy();
 		// 切换帐号时，需重新查询，清空数据
 		rankAdapter = null;
@@ -111,10 +103,12 @@ public class RankHomeFrg extends Fragment
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
+		DebugTools.getDebug().debug_v(TAG, "onCreateView...");
 		View view = inflater.inflate(R.layout.rank_frg_home, container, false);
 		view.findViewById(R.id.rank_home_filter_region).setOnClickListener(this);
-		regionTv = (TextView) view.findViewById(R.id.rank_home_filter_region_content);
-		view.findViewById(R.id.rank_home_filter_sex).setOnClickListener(this);
+		regionTv = (TextView) view.findViewById(R.id.rank_home_filter_region_content_text);
+		regionTv.setOnClickListener(this);
 		sexTv = (TextView) view.findViewById(R.id.rank_home_filter_sex_content);
 		ownInfo = (LinearLayout) view.findViewById(R.id.rank_own_info);
 		ownInfoHintTv = (TextView) ownInfo.findViewById(R.id.rank_own_hint);
@@ -128,35 +122,32 @@ public class RankHomeFrg extends Fragment
 		ownBest = (TextView) ownInfo.findViewById(R.id.rank_own_best);
 		listDataLL = (LinearLayout) view.findViewById(R.id.rank_list_data_ll);
 		listView = (PullListView) view.findViewById(R.id.rank_home_listview);
-		
-		mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image); 
-		mCustomerImage.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
-						startActivity(intent);
-					}
-		  });
-		view.findViewById(R.id.rank_home_titlebar_hint).setOnClickListener(this);
+
+		loadFail = new LoadFail(getActivity(),(RelativeLayout) view.findViewById(R.id.rank_load_fail));
+		loadFail.setOnRetryClickListener(retryListener);
+
+		view.findViewById(R.id.rank_home_share_image).setOnClickListener(this);
 		return view;
 	}
 	
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
+		DebugTools.getDebug().debug_v(TAG, "onViewCreated...");
 		Utils.logh(TAG, "onViewCreated " + gd.getRegionName(reqData.region) + gd.getSexName(reqData.sex));
-		regionTv.setText(gd.getRegionName(reqData.region));
+		//regionTv.setText(gd.getRegionName(reqData.region));
 		sexTv.setText(gd.getSexName(reqData.sex));
-		listDataLL.addView(loadFail.getLoadFailView(), 0);
+		//listDataLL.addView(loadFail.getLoadFailView(), 0);
 		listView.addFooterView(listFooter.getFooterView());
 		listView.setonRefreshListener(pullRefreshListener);
 		listView.setOnLoadMoreListener(mOnLoadMoreListener);
+
+
 		if(null != rankAdapter) {
 			listView.setAdapter(rankAdapter);
 			Utils.logh(TAG, "exist rankAdapter " + rankAdapter);
 			refreshOwnInfo(myRank, outOfRankMsg);
+			setListViewHeightBasedOnChildren(listView);
 		} else {
 			Utils.logh(TAG, "note exist rankAdapter");
 			initDataAysnc(reqData, null);
@@ -166,6 +157,8 @@ public class RankHomeFrg extends Fragment
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
+
+		DebugTools.getDebug().debug_v(TAG, "onDestroyView...");
 		listDataLL.removeAllViews();
 		if(null != reqLoader) {
 			reqLoader.stopTask(true);
@@ -210,13 +203,13 @@ public class RankHomeFrg extends Fragment
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-			case R.id.rank_home_filter_region:
+			case R.id.rank_home_filter_region_content_text:
 				if(isLoading()) {
 					Toast.makeText(getActivity(), R.string.str_toast_loading, Toast.LENGTH_SHORT).show();
 					return;
 				}
-				RegionSelectActivity.startRegionSelect(RankHomeFrg.this,
-						RegionSelectActivity.REGION_TYPE_FILTER_ALL, reqData.region);
+				getChildFragmentManager().popBackStack();
+				RegionAndSexSelectFragment.startRegionSelect(RankHomeFrg.this, reqData.region, reqData.sex,R.id.rank_frg_container);
 				break;
 			case R.id.rank_home_filter_sex:
 				if(isLoading()) {
@@ -225,47 +218,50 @@ public class RankHomeFrg extends Fragment
 				}
 				SexSelectActivity.startSexSelect(RankHomeFrg.this, true, reqData.sex);
 				break;
-			case R.id.rank_home_titlebar_hint:
+			case R.id.rank_home_share_image:
 //				Toast.makeText(getActivity(), R.string.str_rank_intro_hint, Toast.LENGTH_LONG).show();
-				showDesPopWin();
+				//showDesPopWin();
+
+				ShareMenuRank share = new ShareMenuRank(getActivity(),listView,reqData.region,reqData.sex);
+				share.showPopupWindow();
 				break;
 		}		
 	}
 
-	private PopupWindow mDesPopWin;
-	private void showDesPopWin() {
-		if(null != mDesPopWin && mDesPopWin.isShowing()) {
-			return ;
-		}
-		LinearLayout sv = (LinearLayout) LayoutInflater.from(getActivity())
-				.inflate(R.layout.rank_hint_popwin, null);
-		mDesPopWin = new PopupWindow(sv, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
-		mDesPopWin.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
-		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
-		sv.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dismissExchgPopwin();
-			}
-		});
-		mDesPopWin.setOnDismissListener(new OnDismissListener() {
-			@Override
-			public void onDismiss() {
-				if(null != mDesPopWin) {
-					Utils.logh(TAG, "onDismiss ");
-					mDesPopWin = null;
-				}
-			}
-		});
-		mDesPopWin.showAtLocation(sv, Gravity.CENTER, 0, 0);
-	}
-	
-	private void dismissExchgPopwin() {
-		if(null != mDesPopWin && mDesPopWin.isShowing()) {
-			mDesPopWin.dismiss();
-//			mDesPopWin = null;
-		}
-	}
+//	private PopupWindow mDesPopWin;
+//	private void showDesPopWin() {
+//		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+//			return ;
+//		}
+//		LinearLayout sv = (LinearLayout) LayoutInflater.from(getActivity())
+//				.inflate(R.layout.rank_hint_popwin, null);
+//		mDesPopWin = new PopupWindow(sv, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, true);
+//		mDesPopWin.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+//		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
+//		sv.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				dismissExchgPopwin();
+//			}
+//		});
+//		mDesPopWin.setOnDismissListener(new OnDismissListener() {
+//			@Override
+//			public void onDismiss() {
+//				if(null != mDesPopWin) {
+//					Utils.logh(TAG, "onDismiss ");
+//					mDesPopWin = null;
+//				}
+//			}
+//		});
+//		mDesPopWin.showAtLocation(sv, Gravity.CENTER, 0, 0);
+//	}
+//
+//	private void dismissExchgPopwin() {
+//		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+//			mDesPopWin.dismiss();
+////			mDesPopWin = null;
+//		}
+//	}
 	
 	private void clearLoader() {
 		if(isLoading()) {
@@ -307,6 +303,9 @@ public class RankHomeFrg extends Fragment
 						if(null != callback) {
 							callback.callBack();
 						}
+
+						setListViewHeightBasedOnChildren(listView);
+
 						break;
 					case BaseRequest.REQ_RET_F_NO_DATA:
 						Utils.setGone(ownInfo);
@@ -352,28 +351,28 @@ public class RankHomeFrg extends Fragment
 			Utils.setVisible(ownInfo);
 			Utils.setVisibleGone(ownInfoLl, ownInfoHintTv);
 			myRank = own;
-			int rank = own.rank;
-			int txtColor = getResources().getColor(R.color.color_rank_def);
-			if(rank > 3) {
-				Utils.setVisibleGone(ownNumTv, ownNumIv);
-				ownNumTv.setText(String.valueOf(rank));
-			} else {
-				Utils.setVisibleGone(ownNumIv, ownNumTv);
-				switch(rank) {
-					case 1:
-						ownNumIv.setImageResource(R.drawable.rank_gold);
-						txtColor = getResources().getColor(R.color.color_rank_gold);
-						break;
-					case 2:
-						ownNumIv.setImageResource(R.drawable.rank_silver);
-						txtColor = getResources().getColor(R.color.color_rank_silver);
-						break;
-					case 3:
-						ownNumIv.setImageResource(R.drawable.rank_bronze);
-						txtColor = getResources().getColor(R.color.color_rank_bronze);
-						break;
-				}
-			}
+			ownNumTv.setText(String.valueOf(own.rank));
+			int txtColor = getResources().getColor(R.color.color_white);
+//			if(rank > 3) {
+//				Utils.setVisibleGone(ownNumTv, ownNumIv);
+//				ownNumTv.setText(String.valueOf(rank));
+//			} else {
+//				Utils.setVisibleGone(ownNumIv, ownNumTv);
+//				switch(rank) {
+//					case 1:
+//						ownNumIv.setImageResource(R.drawable.rank_gold);
+//						txtColor = getResources().getColor(R.color.color_rank_gold);
+//						break;
+//					case 2:
+//						ownNumIv.setImageResource(R.drawable.rank_silver);
+//						txtColor = getResources().getColor(R.color.color_rank_silver);
+//						break;
+//					case 3:
+//						ownNumIv.setImageResource(R.drawable.rank_bronze);
+//						txtColor = getResources().getColor(R.color.color_rank_bronze);
+//						break;
+//				}
+//			}
 			Drawable avatar = AsyncImageLoader.getInstance().getAvatar(getActivity(), own.sn, own.avatar, 
 					(int) getResources().getDimension(R.dimen.avatar_rank_li_size));
 			if(null != avatar) {
@@ -444,6 +443,8 @@ public class RankHomeFrg extends Fragment
 						refreshOwnInfo(myRank, msg); // diffrent by myRank in method
 						rankAdapter.refreshListInfo(rankingList);
 						listFooter.refreshFooterView(rankingList.size(), data.pageSize);
+
+						setListViewHeightBasedOnChildren(listView);
 						break;
 					default: // normal fail
 						Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
@@ -468,6 +469,8 @@ public class RankHomeFrg extends Fragment
 				if(BaseRequest.REQ_RET_OK == retId) {
 					rankAdapter.appendListInfo(rankingList);
 					listFooter.refreshFooterView(rankingList.size(), data.pageSize);
+
+					setListViewHeightBasedOnChildren(listView);
 				} else {
 					if(BaseRequest.REQ_RET_F_NO_DATA == retId) {
 						listFooter.displayLast();
@@ -481,12 +484,36 @@ public class RankHomeFrg extends Fragment
 		});
 		reqLoader.requestData();
 	}
-	
+
+	public void setListViewHeightBasedOnChildren(ListView listView) {
+		// 获取ListView对应的Adapter
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			return;
+		}
+
+		int totalHeight = 0;
+		for (int i = 0, len = listAdapter.getCount(); i < len; i++) {
+			// listAdapter.getCount()返回数据项的数目
+			View listItem = listAdapter.getView(i, null, listView);
+			// 计算子项View 的宽高
+			listItem.measure(0, 0);
+			// 统计所有子项的总高度
+			totalHeight += listItem.getMeasuredHeight();
+		}
+
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		// listView.getDividerHeight()获取子项间分隔符占用的高度
+		// params.height最后得到整个ListView完整显示需要的高度
+		listView.setLayoutParams(params);
+	}
+
 	private void startMemDetail(String memSn) {
-		MemDetailActivityNew.startMemDetailActivity(getActivity(), memSn);
+		MemDetailActivityNew.startMemDetailActivity(getActivity(), memSn,1);
 		getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
-	
+
 	private class RankAdapter extends IgBaseAdapter {
 		private ArrayList<RankingInfo> list;
 		
@@ -524,27 +551,32 @@ public class RankHomeFrg extends Fragment
 			} else {
 				holder = (ViewHodler) convertView.getTag();
 			}
+
+			holder.avatarIv.setEnabled(false);
 			RankingInfo data = list.get(position);
 			int txtColor = getResources().getColor(R.color.color_rank_def);
+
+			holder.rankTv.setText(String.valueOf(data.rank));
 			if(data.rank > 3) {
-				Utils.setVisibleGone(holder.rankTv, holder.rankIv);
-				holder.rankTv.setText(String.valueOf(data.rank));
+//				Utils.setVisibleGone(holder.rankTv, holder.rankIv);
 			} else {
-				Utils.setVisibleGone(holder.rankIv, holder.rankTv);
+				//Utils.setVisibleGone(holder.rankIv, holder.rankTv);
 				switch(data.rank) {
 					case 1:
-						holder.rankIv.setImageResource(R.drawable.rank_gold);
+						//holder.rankIv.setImageResource(R.drawable.rank_gold);
 						txtColor = getResources().getColor(R.color.color_rank_gold);
 						break;
 					case 2:
-						holder.rankIv.setImageResource(R.drawable.rank_silver);
+						//holder.rankIv.setImageResource(R.drawable.rank_silver);
 						txtColor = getResources().getColor(R.color.color_rank_silver);
 						break;
 					case 3:
-						holder.rankIv.setImageResource(R.drawable.rank_bronze);
+						//holder.rankIv.setImageResource(R.drawable.rank_bronze);
 						txtColor = getResources().getColor(R.color.color_rank_bronze);
 						break;
 				}
+
+				holder.rankTv.setTextColor(txtColor);
 			}
 			loadAvatar(getActivity(), data.sn, data.avatar, holder.avatarIv);
 			holder.nicknameTv.setText(data.nickname);
@@ -555,11 +587,11 @@ public class RankHomeFrg extends Fragment
 			holder.matchesTv.setTextColor(txtColor);
 			holder.bestTv.setText(Utils.getIntString(getActivity(), data.best));
 			holder.bestTv.setTextColor(txtColor);
-			if(position % 2 == 0) {
-				convertView.setBackgroundResource(R.drawable.list_item_even_bkg);
-			} else {
-				convertView.setBackgroundResource(R.drawable.list_item_odd_bkg);
-			}
+//			if(position % 2 == 0) {
+//				convertView.setBackgroundResource(R.drawable.list_item_even_bkg);
+//			} else {
+//				convertView.setBackgroundResource(R.drawable.list_item_odd_bkg);
+//			}
 			convertView.setOnClickListener(new OnItemChildClickListener(position));
 			return convertView;
 		}
@@ -603,30 +635,38 @@ public class RankHomeFrg extends Fragment
 		}
 		
 	}
-
-	@Override
-	public void onSexSelect(final int newSex) {
-		reqData.sex = newSex;
-		initDataAysnc(reqData, new ChangeCallback() {
-			@Override
-			public void callBack() {
-				sexTv.setText(gd.getSexName(newSex));
-			}
-		});
-	}
-
-	@Override
-	public void onRegionSelect(final String newRegion) {
-		reqData.region = newRegion;
-		initDataAysnc(reqData, new ChangeCallback() {
-			@Override
-			public void callBack() {
-				regionTv.setText(gd.getRegionName(newRegion));
-			}
-		});
-	}
+//
+//	@Override
+//	public void onSexSelect(final int newSex) {
+//		reqData.sex = newSex;
+//		initDataAysnc(reqData, new ChangeCallback() {
+//			@Override
+//			public void callBack() {
+//				sexTv.setText(gd.getSexName(newSex));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public void onRegionSelect(String newRegion) {
+//		reqData.region = newRegion;
+//		initDataAysnc(reqData, new ChangeCallback() {
+//			@Override
+//			public void callBack() {
+//				regionTv.setText(gd.getRegionName(reqData.region));
+//			}
+//		});
+//	}
 
 	private interface ChangeCallback {
 		void callBack();
+	}
+
+	@Override
+	public void onRegionAndSexSelect(String newRegion, int newSex) {
+
+		reqData.sex = newSex;
+		reqData.region = newRegion;
+		initDataAysnc(reqData, null);
 	}
 }

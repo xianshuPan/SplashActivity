@@ -98,16 +98,16 @@ public class FriendAttentionFrg extends Fragment {
 		});
 		
 		mRefreshView.setOnLoadMoreListener(new OnLoadMoreListener() {
-			
+
 			@Override
 			public void onLoadMore() {
 				// TODO Auto-generated method stub
-				
+
 				loadMoreData();
 			}
 		});
-		
-		return mRefreshView;
+		mRefreshView.setShowFootBottom(true);
+		return parentView;
 	}
 	
 	@Override

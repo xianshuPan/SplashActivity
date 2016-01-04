@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -53,7 +55,7 @@ import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-public class ModifyInfoActivity extends Activity implements OnClickListener,onSexSelectListener, 
+public class ModifyInfoActivity extends FragmentActivity implements OnClickListener,onSexSelectListener,
 											onRegionSelectListener,onIndustrySelectListener,
 											onAgeSelectListener,onYearsExpSelectListener, 
 											onImageSelectListener{
@@ -66,6 +68,13 @@ public class ModifyInfoActivity extends Activity implements OnClickListener,onSe
 	private Bitmap avatarBmp = null;
 	private Customer customer;
 	private boolean changedFlag = false;
+
+	public static void startModifyInfoActivity(Activity context) {
+
+		Intent intent = new Intent(context, ModifyInfoActivity.class);
+		context.startActivity(intent);
+		context.overridePendingTransition(R.anim.ac_slide_right_in,R.anim.ac_slide_left_out);
+	}
 	
 	
 	@Override 

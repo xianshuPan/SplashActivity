@@ -45,7 +45,7 @@ public class GetMyTeachingList extends BaseRequest {
 			DebugTools.getDebug().debug_v("我的教学列表", "------》》》"+jo);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 
-			failMsg = jo.getString(RET_MSG);
+			failMsg = jo.optString(RET_MSG);
 			if(REQ_RET_OK != rn) {
 
 				return rn;
@@ -60,7 +60,7 @@ public class GetMyTeachingList extends BaseRequest {
 			
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				
 				CoachInviteOrderDetail item = new CoachInviteOrderDetail();
 				
@@ -112,7 +112,7 @@ public class GetMyTeachingList extends BaseRequest {
 
 				if (coachCommentsJsonArray != null && coachCommentsJsonArray.length() > 0) {
 
-					JSONObject commentItem = coachCommentsJsonArray.getJSONObject(0);
+					JSONObject commentItem = coachCommentsJsonArray.optJSONObject(0);
 
 					item.comment_star = commentItem.optDouble("star");
 					item.comment_content = commentItem.optString("content");

@@ -34,9 +34,10 @@ public class RebindPhoneActivity extends Activity implements OnClickListener{
 			getViews();
 		}
 	
-		public static void startRebindPhoneActivity(Context context) {
-		Intent intent = new Intent(context, RebindPhoneActivity.class);
-		context.startActivity(intent);
+		public static void startRebindPhoneActivity(Activity context) {
+			Intent intent = new Intent(context, RebindPhoneActivity.class);
+			context.startActivity(intent);
+			context.overridePendingTransition(R.anim.ac_slide_right_in,R.anim.ac_slide_left_out);
 		}
 		
 		private void getViews(){

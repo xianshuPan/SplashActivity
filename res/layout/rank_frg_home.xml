@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/repeat_bkg"
+    android:background="@color/color_white"
     android:orientation="vertical" >
 
     <RelativeLayout
+		android:id="@+id/rank_frg_head_relative"
         style="@style/custom_title_style" >
-        
-        <ImageView
-			    android:id="@+id/friend_frg_camera_customer_image"
-			    style="@style/head_customer"/>
+
+		<TextView
+			android:paddingLeft="10dp"
+			android:layout_height="match_parent"
+			android:maxLength="4"
+			android:id="@+id/rank_home_filter_region_content_text"
+			style="@style/selection_txt_style"
+			android:textSize="@dimen/txt_size_ml"
+			android:textColor="@color/color_white"
+			android:drawableRight="@drawable/icon_arrow_down"
+			android:text="@string/str_select" />
 		<TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
@@ -19,14 +27,15 @@
 		    android:textSize="@dimen/txt_title_size"
 		    android:layout_centerInParent="true" />
 		<ImageView
-			android:id="@+id/rank_home_titlebar_hint"
+			android:id="@+id/rank_home_share_image"
 			style="@style/top_bar_btn_style"
 			android:layout_alignParentRight="true"
-			android:src="@drawable/ic_hint"
+			android:src="@drawable/share_rank"
 			android:contentDescription="@null" />
     </RelativeLayout>
     
 	<LinearLayout
+		android:visibility="gone"
 	    android:baselineAligned="false"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
@@ -68,34 +77,72 @@
 	</LinearLayout>
 
     <!-- content title -->
-    <LinearLayout 
+    <LinearLayout
+		android:id="@+id/rank_frg_sub_head_linear"
+		android:layout_below="@+id/rank_frg_head_relative"
         android:baselineAligned="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/sub_title_bkg_gray"
+        android:layout_height="40dp"
+        android:background="#e8e8e8"
         android:gravity="center_vertical" >
         <TextView
             style="@style/rank_sub_title_style"
             android:text="@string/str_rank_sub_title_rank" />
         <TextView
             style="@style/rank_sub_title_style"
-            android:layout_weight="9"
             android:text="@string/str_rank_sub_title_golfer" />
         <TextView
             style="@style/rank_sub_title_style"
-            android:text="@string/str_rank_sub_title_handicapIndex" />
+            android:text="@string/str_rank_sub_title_handicap" />
         <TextView
             style="@style/rank_sub_title_style"
             android:text="@string/str_rank_sub_title_matches" />
         <TextView
             style="@style/rank_sub_title_style"
-            android:text="@string/str_rank_sub_title_best" />
+            android:text="@string/str_rank_sub_title_score" />
     </LinearLayout>
-	
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <LinearLayout
+
+	<ScrollView
+		android:layout_marginBottom="50dp"
+		android:layout_below="@+id/rank_frg_sub_head_linear"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<LinearLayout
+			android:id="@+id/rank_list_data_ll"
+			android:orientation="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" >
+			<com.hylg.igolf.ui.view.PullListView
+
+				android:layout_height="match_parent"
+				android:id="@+id/rank_home_listview"
+				style="@style/listview_style"  />
+			<TextView
+				android:layout_marginTop="5dp"
+				android:drawableLeft="@drawable/rank_star"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="true"
+				android:layout_marginLeft="10dp"
+				android:text="@string/str_rank_intro_hint_title"
+				android:textColor="@color/gray_999999"
+				android:textSize="16sp" >
+			</TextView>
+			<TextView
+				android:layout_marginLeft="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="true"
+				android:layout_marginTop="5dp"
+				android:lineSpacingExtra="1dp"
+				android:text="@string/str_rank_intro_hint"
+				android:textColor="@color/gray_999999"
+				android:textSize="@dimen/txt_size_s" >
+			</TextView>
+		</LinearLayout>
+	</ScrollView>
+
+	<LinearLayout
             android:layout_alignParentBottom="true"
             android:id="@+id/rank_own_info"
             android:layout_width="match_parent"
@@ -121,9 +168,12 @@
 			    android:orientation="horizontal" >
 			    <!-- rank_item_style -->
 			    <LinearLayout
+					android:layout_marginLeft="5dp"
+					android:paddingLeft="2dp"
 			        style="@style/rank_item_style"
 			        android:orientation="horizontal" >
 					<ImageView
+						android:visibility="gone"
 					    android:id="@+id/rank_own_rank_img"
 					    android:src="@drawable/rank_gold"
 					    android:scaleType="fitXY"
@@ -135,18 +185,21 @@
 				        android:layout_width="wrap_content"
 				        android:layout_height="wrap_content"
 				        android:textSize="@dimen/txt_size_m"
-				        android:textColor="@color/color_rank_num" />
+				        android:textColor="@color/color_white" />
+
+					<com.hylg.igolf.ui.view.CircleImageView
+						android:layout_marginLeft="5dp"
+						android:id="@+id/rank_own_golfer_avatar"
+						android:layout_width="40dp"
+						android:layout_height="40dp" />
 			    </LinearLayout>
 			    
 			    <LinearLayout
+					android:layout_marginLeft="5dp"
+					android:paddingLeft="2dp"
 			        style="@style/rank_item_style"
-			        android:layout_weight="9"
 			        android:orientation="horizontal" >
-				    <com.hylg.igolf.ui.view.CircleImageView
 
-				        android:id="@+id/rank_own_golfer_avatar"
-				        android:layout_width="@dimen/avatar_rank_li_size"
-				        android:layout_height="@dimen/avatar_rank_li_size" />
 				    <TextView
 				        android:id="@+id/rank_own_golfer_nickname"
 				        android:layout_width="wrap_content"
@@ -154,40 +207,43 @@
 				        android:paddingLeft="3dip"
 				        android:singleLine="true"
 				        android:textSize="@dimen/txt_size_ml"
-				        android:textColor="@color/color_rank_def" />
+				        android:textColor="@color/color_white" />
 			    </LinearLayout>
 			    
 			    <TextView
 			        android:id="@+id/rank_own_handicapi"
 			        style="@style/rank_item_style"
 			        android:textSize="@dimen/txt_size_m"
-			        android:textColor="@color/color_rank_def" />
+			        android:textColor="@color/color_white" />
 			    
 			    <TextView
 			        android:id="@+id/rank_own_matches"
 			        style="@style/rank_item_style"
 			        android:textSize="@dimen/txt_size_m"
-			        android:textColor="@color/color_rank_def" />
+			        android:textColor="@color/color_white" />
 			    
 			    <TextView
 			        android:id="@+id/rank_own_best"
 			        style="@style/rank_item_style"
 			        android:textSize="@dimen/txt_size_m"
-			        android:textColor="@color/color_rank_def" />    
+			        android:textColor="@color/color_white" />
 			</LinearLayout>
         </LinearLayout>
-        
-        <LinearLayout
-            android:layout_above="@id/rank_own_info"
-            android:layout_alignParentTop="true"
-            android:id="@+id/rank_list_data_ll"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-			<com.hylg.igolf.ui.view.PullListView
-			    android:id="@+id/rank_home_listview"
-			   style="@style/listview_style"  />            
-        </LinearLayout>        
 
-    </RelativeLayout>
-</LinearLayout>
+	<include
+		android:layout_below="@+id/rank_frg_head_relative"
+		android:id="@+id/rank_load_fail"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		layout="@layout/common_load_fail" />
+
+	<FrameLayout
+		android:layout_marginTop="1px"
+		android:layout_below="@+id/rank_frg_head_relative"
+		android:id="@+id/rank_frg_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+
+
+
+</RelativeLayout>

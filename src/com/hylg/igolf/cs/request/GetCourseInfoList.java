@@ -40,16 +40,16 @@ public class GetCourseInfoList extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			JSONArray ja = jo.getJSONArray("courseInfo");
+			JSONArray ja = jo.optJSONArray("courseInfo");
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				CourseInfo course = new CourseInfo();
-				course.id = obj.getLong(RET_ID);
-				course.abbr = obj.getString(RET_ABBR);
-				course.name = obj.getString(RET_NAME);
+				course.id = obj.optLong(RET_ID);
+				course.abbr = obj.optString(RET_ABBR);
+				course.name = obj.optString(RET_NAME);
 				courseList.add(course);
 			}
 		} catch (Exception e) {

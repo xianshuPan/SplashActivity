@@ -1,11 +1,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="30dp"
     android:orientation="horizontal" >
 
     <com.hylg.igolf.ui.widget.XRTextView
         android:id="@+id/comment_user_name_text"
+        android:lineSpacingExtra="1dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     

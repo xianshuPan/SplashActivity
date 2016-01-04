@@ -91,13 +91,13 @@ public class AcceptOpenInvite extends BaseRequest {
 			//inviteRole.handicapIndex = jo.optDouble("handicapIdx", Double.MAX_VALUE);
 			//inviteRole.matches = jo.optInt(RET_MATCHES, Integer.MAX_VALUE);
 			
-			String handicapIndexStr = jo.getString("handicapIdxs");
+			String handicapIndexStr = jo.optString("handicapIdxs");
 			
 			if (handicapIndexStr != null && handicapIndexStr.length() > 0) {
 				
 				String[] handicapIndexArray = handicapIndexStr.split(",");
 				
-				if (handicapIndexArray != null && handicapIndexArray.length > 0) {
+				if (handicapIndexArray.length > 0) {
 					
 					for (int i = 0; i< handicapIndexArray.length; i++) {
 						
@@ -113,13 +113,13 @@ public class AcceptOpenInvite extends BaseRequest {
 				
 			}
 			
-			String matchesStr = jo.getString("matchess");
+			String matchesStr = jo.optString("matchess");
 			
 			if (matchesStr != null && matchesStr.length() > 0) {
 				
 				String[] matchesArray = matchesStr.split(",");
 				
-				if (matchesArray != null && matchesArray.length > 0) {
+				if (matchesArray.length > 0) {
 					
 					for (int i = 0; i< matchesArray.length; i++) {
 						

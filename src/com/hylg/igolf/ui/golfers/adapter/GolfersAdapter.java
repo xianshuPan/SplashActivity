@@ -95,9 +95,9 @@ public class GolfersAdapter extends IgBaseAdapter {
 		loadAvatar(context, data.sn, data.avatar, holder.avatarIv);
 
 		if(Const.SEX_MALE == data.sex) {
-			holder.sexIv.setImageResource(R.drawable.ic_male);
+			holder.sexIv.setImageResource(R.drawable.man);
 		} else {
-			holder.sexIv.setImageResource(R.drawable.ic_female);
+			holder.sexIv.setImageResource(R.drawable.woman);
 		}
 		holder.nicknameTv.setText(data.nickname);
 		holder.handicapiTv.setText(Utils.getDoubleString(context, data.handicapIndex));

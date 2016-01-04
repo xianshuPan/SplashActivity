@@ -8,7 +8,8 @@
     
     <!-- 视图垂直，水平边距 -->
     <dimen name="view_ver_distance">20dp</dimen>
-    <dimen name="view_small_ver_distance">8dp</dimen>
+    <dimen name="view_ver_distance_divider">19dp</dimen>
+    <dimen name="view_small_ver_distance">10dp</dimen>
     <dimen name="view_hor_margin">16dp</dimen>
     <dimen name="view_ver_margin">16dp</dimen>
     <!-- 普通头像大小 -->
@@ -54,7 +55,7 @@
     <!-- custom title bar -->
     <dimen name="title_height">48dp</dimen>
     <dimen name="navigate_height">55dp</dimen>
-    <dimen name="share_menu_item_height">85dp</dimen>
+    <dimen name="share_menu_item_height">100dp</dimen>
 
     <!-- button height, eg: next button -->
     <dimen name="btn_height">35dp</dimen>
@@ -93,4 +94,18 @@
     
     <!-- 不同分辨率，设置不同 -->
     <dimen name="invite_detail_rate_height">28dp</dimen>
+
+
+    <!--字体大小-->
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_13">13sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_17">17sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+    <dimen name="sp_19">19sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+
+    <dimen name="abc_action_bar_default_height_material">56dp</dimen>
 </resources>

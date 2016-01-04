@@ -5,6 +5,7 @@ import android.content.IntentFilter;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.Handler;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -15,6 +16,10 @@ import com.amap.api.location.LocationProviderProxy;
 import com.hylg.igolf.broadcast.HylgReceiver;
 import com.hylg.igolf.cs.data.Customer;
 import com.hylg.igolf.jpush.JpushReceiver;
+import com.hylg.igolf.ui.friend.publish.AccountBean;
+import com.hylg.igolf.ui.friend.publish.SdcardUtils;
+import com.hylg.igolf.ui.friend.publish.SettingUtility;
+import com.hylg.igolf.ui.friend.publish.WeiBoUser;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
@@ -32,6 +37,8 @@ public class MainApp extends Application {
     private static MainApp mainApp = null;
     private Customer customer;
 
+    public AccountBean mAccount;
+
     private GlobalData globalData;
 
     private IWXAPI api;
@@ -46,6 +53,32 @@ public class MainApp extends Application {
 
         DebugTools.getDebug().debug_v(TAG, "---------->>>>>onCreate");
         init();
+    }
+
+    public Handler getHandler() {
+        return mHandler;
+    }
+
+    Handler mHandler = new Handler() {
+
+    };
+
+    /**
+     * 程序的文件目录，如果setting配置的是android，标志目录位于/sdcard/Application/PackageName/...下<br/>
+     * 否则，就是/sdcard/setting[root_path]/...目录
+     *
+     * @return
+     */
+    public String getAppPath() {
+        if ("android".equals(SettingUtility.getStringSetting("root_path")))
+            return getExternalCacheDir().getAbsolutePath() + File.separator;
+
+        return SdcardUtils.getSdcardPath() + File.separator + SettingUtility.getStringSetting("root_path") + File.separator;
+    }
+
+    public WeiBoUser getUser () {
+
+       return mAccount.getUser();
     }
 
     private void init() {
@@ -79,6 +112,13 @@ public class MainApp extends Application {
             customer = new Customer();
             e.printStackTrace();
         }
+
+
+        mAccount = new AccountBean();
+        WeiBoUser user = new WeiBoUser();
+        user.setIdstr(customer.sn);
+        mAccount.setUser(user);
+
 
 
         globalData = new GlobalData(this);

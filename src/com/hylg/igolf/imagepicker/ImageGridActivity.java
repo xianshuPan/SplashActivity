@@ -288,18 +288,18 @@ public class ImageGridActivity extends BaseActivity implements OnClickListener,O
 			break;
 		
 		case R.id.image_picker_done_text:
-			ArrayList<String> list = new ArrayList<String>();
-			Collection<String> c = adapter.map.values();
-			Iterator<String> it = c.iterator();
-			for (; it.hasNext();) {
-				list.add(it.next());
-			}
-
-			for (int i = 0; i < list.size(); i++) {
-				if (Config.drr.size() < Config.SELECT_MAX_NUM) {
-					Config.drr.add(list.get(i));
-				}
-			}
+//			ArrayList<String> list = new ArrayList<String>();
+//			Collection<String> c = adapter.map.values();
+//			Iterator<String> it = c.iterator();
+//			for (; it.hasNext();) {
+//				list.add(it.next());
+//			}
+//
+//			for (int i = 0; i < list.size(); i++) {
+//				if (Config.drr.size() < Config.SELECT_MAX_NUM) {
+//					Config.drr.add(list.get(i));
+//				}
+//			}
 			
 			startActivity( new Intent(this, FriendMessageNewActivity.class));
 			

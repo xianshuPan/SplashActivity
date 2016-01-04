@@ -27,7 +27,7 @@ public class GetCoachCommentsList extends BaseRequest {
 		s.append(PARAM_REQ_PAGE_SIZE); s.append(KV_CONN); s.append(pageSize);
 		param = s.toString();
 	}
-	
+
 	public ArrayList<CoachComemntsItem> getCoachCommentsList() {
 		return commentsList;
 	}
@@ -47,7 +47,7 @@ public class GetCoachCommentsList extends BaseRequest {
 			
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			
@@ -60,7 +60,7 @@ public class GetCoachCommentsList extends BaseRequest {
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
 				
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				
 				CoachComemntsItem item = new CoachComemntsItem();
 				

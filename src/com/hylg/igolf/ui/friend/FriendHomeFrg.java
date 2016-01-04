@@ -8,7 +8,6 @@ import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.loader.GetTipsCountLoader;
 import com.hylg.igolf.imagepicker.ImageGridActivity;
-import com.hylg.igolf.ui.customer.CustomerHomeActivity;
 import com.hylg.igolf.ui.view.PagerSlidingTabStrip;
 import com.hylg.igolf.ui.view.ZoomOutPageTransformer;
 
@@ -155,16 +154,16 @@ public class FriendHomeFrg extends Fragment {
 			}
 		});
         
-        mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image); 
-        mCustomerImage.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
-				startActivity(intent);
-			}
-		});
+//        intentmCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image);
+//        mCustomerImage.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View arg0) {
+//				// TODO Auto-generated method stub
+//				Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
+//				startActivity(intent);
+//			}
+//		});
         
         mTipsCountTxt = (TextView) view.findViewById(R.id.friend_frg_home_tips_count_text);
         mTipsCountTxt.setOnClickListener(new OnClickListener() {
@@ -337,12 +336,12 @@ public class FriendHomeFrg extends Fragment {
         // 设置Tab的分割线是透明的  
     	mTabsIndicater.setDividerColor(Color.TRANSPARENT);  
         // 设置Tab底部线的高度  
-    	mTabsIndicater.setUnderlineHeight((int) TypedValue.applyDimension(  TypedValue.COMPLEX_UNIT_DIP, 1, dm));
+    	mTabsIndicater.setUnderlineHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, dm));
         // 设置Tab Indicator的高度  
-    	mTabsIndicater.setIndicatorHeight((int) TypedValue.applyDimension( TypedValue.COMPLEX_UNIT_DIP, 3, dm));  
+    	mTabsIndicater.setIndicatorHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, dm));
         // 设置Tab标题文字的大小  
     	mTabsIndicater.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 15, dm));  
-    	mTabsIndicater.setTextColor(getResources().getColor(R.color.color_friend_item_praiser_name));
+    	mTabsIndicater.setTextColor(getResources().getColor(R.color.color_gold));
         // 设置Tab Indicator的颜色  
     	//mTabsIndicater.setIndicatorColor(Color.parseColor("#000"));  
         // 设置选中Tab文字的颜色 (这是我自定义的一个方法)  

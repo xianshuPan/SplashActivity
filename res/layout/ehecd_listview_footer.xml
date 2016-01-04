@@ -2,7 +2,7 @@
  
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:orientation="vertical">
     
@@ -19,4 +19,10 @@
             android:textSize="15sp"
             android:textColor="#192F06"
             android:text="@string/list_footer_load_more"/>
+    <View
+        android:visibility="gone"
+        android:id="@+id/refresh_list_footer_bottom_view"
+        android:layout_marginTop="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 </LinearLayout>

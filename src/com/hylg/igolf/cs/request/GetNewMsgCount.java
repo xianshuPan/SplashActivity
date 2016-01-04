@@ -31,12 +31,12 @@ public class GetNewMsgCount extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			GlobalData gd = MainApp.getInstance().getGlobalData();
-			gd.msgNumSys = jo.getInt(RET_MSG_NUM_SYS);
-			gd.msgNumInvite = jo.getInt(RET_MSG_NUM_INVITE);
+			gd.msgNumSys = jo.optInt(RET_MSG_NUM_SYS);
+			gd.msgNumInvite = jo.optInt(RET_MSG_NUM_INVITE);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

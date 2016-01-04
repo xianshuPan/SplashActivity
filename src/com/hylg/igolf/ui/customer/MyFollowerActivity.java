@@ -36,14 +36,19 @@ import android.widget.Toast;
 public class MyFollowerActivity extends FragmentActivity {
 	
 	private final String 				TAG 						= "MyFollowerActivity";
+
+	private static String               SN_KEY                      = "mem_sn";
 	
 	private ImageButton  				mBack 						= null;
+
+	private TextView                    mTitleTxt                   = null;
 	
 	private EhecdListview 				mList 						= null;
 	
 	private FragmentActivity 			mContext 					= null;
-	
+
 	private String 						sn							= "",
+										mem_sn                      = "",
 										attention_sn				= "";
 	
 	private int 						startPage					= 0, 
@@ -56,15 +61,26 @@ public class MyFollowerActivity extends FragmentActivity {
 	private MyFollowerAdapter           mMyFollowerAdapter			= null;
 	
 	
-	public static void startMyFollowerActivity(Activity context) {
+	public static void startMyFollowerActivity(Activity context,String sn) {
 
+		if (sn == null || sn.length() <= 0) {
+
+			return;
+		}
 		Intent intent = new Intent(context, MyFollowerActivity.class);
+
+		intent.putExtra(SN_KEY,sn);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
 	}
 	
-	public static void startMyFollowerActivity(Fragment context) {
+	public static void startMyFollowerActivity(Fragment context,String sn) {
 
+		if (sn == null || sn.length() <= 0) {
+
+			return;
+		}
 		Intent intent = new Intent(context.getActivity(), MyFollowerActivity.class);
+		intent.putExtra(SN_KEY,sn);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
 	}
 	
@@ -77,7 +93,7 @@ public class MyFollowerActivity extends FragmentActivity {
 		
 		mBack =  (ImageButton)  findViewById(R.id.customer_info_my_follower_back);
 		mList = (EhecdListview) findViewById(R.id.customer_info_my_follower_listview);
-		
+		mTitleTxt = (TextView) findViewById(R.id.customer_info_my_follower_title_text);
 		mBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -87,10 +103,19 @@ public class MyFollowerActivity extends FragmentActivity {
 			}
 		});
 		//mList.addFooterView(new ListFooter(mContext).getFooterView());
-		
-		
-		
+
+		mem_sn = getIntent().getStringExtra(SN_KEY);
 		sn = MainApp.getInstance().getCustomer().sn;
+
+		if (mem_sn.equalsIgnoreCase(sn)) {
+
+			mTitleTxt.setText(R.string.str_praise_follower);
+		}
+		else {
+
+			mTitleTxt.setText(R.string.str_mem_praise_follower);
+		}
+
 		startPage = MainApp.getInstance().getGlobalData().startPage;
 		pageSize = MainApp.getInstance().getGlobalData().pageSize;
 		
@@ -134,7 +159,7 @@ public class MyFollowerActivity extends FragmentActivity {
 		WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyFollowerListLoader(mContext,sn, startPage,pageSize,
+		reqLoader = new GetMyFollowerListLoader(mContext,sn,mem_sn, startPage,pageSize,
 				
 		new GetMyFollowerListCallback() {
 					
@@ -179,7 +204,7 @@ public class MyFollowerActivity extends FragmentActivity {
 		
 		startPage++;
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyFollowerListLoader(mContext,sn, startPage,pageSize,
+		reqLoader = new GetMyFollowerListLoader(mContext,sn, mem_sn,startPage,pageSize,
 				
 		new GetMyFollowerListCallback() {
 					
@@ -224,7 +249,7 @@ public class MyFollowerActivity extends FragmentActivity {
 		//WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyFollowerListLoader(mContext,sn, 1,startPage*pageSize,
+		reqLoader = new GetMyFollowerListLoader(mContext,sn, mem_sn,1,startPage*pageSize,
 				
 		new GetMyFollowerListCallback() {
 					
@@ -264,7 +289,6 @@ public class MyFollowerActivity extends FragmentActivity {
 		if(isLoading()) {
 			GetMyFollowerListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	

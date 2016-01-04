@@ -156,6 +156,13 @@
 					android:layout_height="wrap_content"
 					android:padding="10dp"
 					/>
+
+				<View
+					android:layout_below="@+id/coach_invite_again_question_text"
+					android:layout_marginTop="10dp"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
 			    			
 			</RelativeLayout>
 			
@@ -173,20 +180,13 @@
 			        android:layout_height="wrap_content">
 					<TextView
 					    android:drawableLeft="@drawable/teaching_date"
-					    android:layout_marginLeft="30dp"
 				    	android:id="@+id/coach_invite_again_date_title_text"
-				    	style="@style/setup_pre_txt_style"
-				    	android:layout_alignParentLeft="true"
-				    	android:layout_alignParentTop="true"
+						style="@style/invite_coach_pre_txt_style"
 				    	android:text="@string/str_comm_date" />
 				    <TextView
-
-				        android:layout_marginRight="40dp"
+						style="@style/invite_coach_content_txt_style"
 						android:drawableRight="@drawable/li_exp_collapse"
-				        android:layout_width="match_parent"
-				        android:layout_height="@dimen/reg_item_height"
-						android:textSize="@dimen/txt_size_m"
-				        android:gravity="right|center_vertical"
+						android:drawablePadding="5dp"
 				        android:layout_toRightOf="@id/coach_invite_again_date_title_text"
 					    android:id="@+id/coach_invite_again_date_text" />
 				</RelativeLayout>
@@ -195,26 +195,20 @@
 				    android:layout_marginLeft="20dp"
 				    android:layout_marginRight="20dp"
 			    	android:layout_width="match_parent"
-			    	android:layout_height="1dp" 
+			    	android:layout_height="1px"
 			    	android:background="@drawable/divider1"/>
 				<RelativeLayout 
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content">
 					<TextView
 					    android:drawableLeft="@drawable/teaching_time"
-					    android:layout_marginLeft="30dp"
 				    	android:id="@+id/coach_invite_again_time_title_text"
-				    	style="@style/setup_pre_txt_style"
-				    	android:layout_alignParentLeft="true"
-				    	android:layout_alignParentTop="true"
+						style="@style/invite_coach_pre_txt_style"
 				    	android:text="@string/str_comm_time" />
 				    <TextView
-				        android:layout_marginRight="40dp"
 						android:drawableRight="@drawable/li_exp_collapse"
-				        android:layout_width="match_parent"
-				        android:layout_height="@dimen/reg_item_height"
-						android:textSize="@dimen/txt_size_m"
-				        android:gravity="right|center_vertical"
+						android:drawablePadding="5dp"
+						style="@style/invite_coach_content_txt_style"
 				        android:layout_toRightOf="@id/coach_invite_again_time_title_text"
 					    android:id="@+id/coach_invite_again_time_text" />
 				</RelativeLayout>
@@ -223,33 +217,28 @@
 				    android:layout_marginLeft="20dp"
 				    android:layout_marginRight="20dp"
 			    	android:layout_width="match_parent"
-			    	android:layout_height="1dp" 
+			    	android:layout_height="1px"
 			    	android:background="@drawable/divider1"/>
 				<RelativeLayout 
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content">
 					<TextView
 					    android:drawableLeft="@drawable/teaching_hours"
-					    android:layout_marginLeft="30dp"
 				    	android:id="@+id/coach_invite_again_pre_teach_time_title_text"
-				    	style="@style/setup_pre_txt_style"
-				    	android:layout_alignParentLeft="true"
-				    	android:layout_alignParentTop="true"
+						style="@style/invite_coach_pre_txt_style"
 				    	android:text="@string/str_coachers_apply_order_teach_time" />
 				    <TextView
-				        android:layout_marginRight="40dp"
-						android:textSize="@dimen/txt_size_m"
+
 						android:drawableRight="@drawable/li_exp_collapse"
-				        android:layout_width="match_parent"
-				        android:layout_height="@dimen/reg_item_height"
-				        android:gravity="right|center_vertical"
+						android:drawablePadding="5dp"
+						style="@style/invite_coach_content_txt_style"
 				        android:layout_toRightOf="@id/coach_invite_again_pre_teach_time_title_text"
 					    android:id="@+id/coach_invite_again_pre_teach_time_text" />
 				</RelativeLayout>
 
 				<View
 					android:layout_width="match_parent"
-					android:layout_height="1dp"
+					android:layout_height="1px"
 					android:layout_marginLeft="20dp"
 					android:layout_marginRight="20dp"
 					android:background="@drawable/divider1" />
@@ -260,22 +249,16 @@
 
 					<TextView
 						android:id="@+id/coach_invite_again_region_title_text"
-						style="@style/setup_pre_txt_style"
-						android:layout_alignParentLeft="true"
-						android:layout_alignParentTop="true"
-						android:layout_marginLeft="30dp"
+						style="@style/invite_coach_pre_txt_style"
 						android:drawableLeft="@drawable/teaching_course"
 						android:text="@string/str_comm_region" />
 
 					<TextView
 						android:drawableRight="@drawable/li_exp_collapse"
+						style="@style/invite_coach_content_txt_style"
+						android:drawablePadding="5dp"
 						android:id="@+id/coach_invite_again_region_text"
-						android:layout_width="match_parent"
-						android:layout_height="@dimen/reg_item_height"
-						android:layout_marginRight="40dp"
-						android:textSize="@dimen/txt_size_m"
 						android:layout_toRightOf="@id/coach_invite_again_region_title_text"
-						android:gravity="right|center_vertical"
 						/>
 				</RelativeLayout>
 				
@@ -283,34 +266,28 @@
 				    android:layout_marginLeft="20dp"
 				    android:layout_marginRight="20dp"
 			    	android:layout_width="match_parent"
-			    	android:layout_height="1dp" 
+			    	android:layout_height="1px"
 			    	android:background="@drawable/divider1"/>
 				<RelativeLayout 
 			        android:layout_width="match_parent"
 			        android:layout_height="wrap_content">
 					<TextView
 					    android:drawableLeft="@drawable/teaching_course"
-					    android:layout_marginLeft="30dp"
 				    	android:id="@+id/coach_invite_again_place_title_text"
-				    	style="@style/setup_pre_txt_style"
-				    	android:layout_alignParentLeft="true"
-				    	android:layout_alignParentTop="true"
+						style="@style/invite_coach_pre_txt_style"
 				    	android:text="@string/str_comm_course" />
 				    <TextView
 						android:drawableRight="@drawable/li_exp_collapse"
-				        android:layout_marginRight="40dp"
-						android:textSize="@dimen/txt_size_m"
-				        android:layout_width="match_parent"
-				        android:layout_height="@dimen/reg_item_height"
+						android:drawablePadding="5dp"
+						style="@style/invite_coach_content_txt_style"
 						android:singleLine="true"
-				        android:gravity="right|center_vertical"
 				        android:layout_toRightOf="@id/coach_invite_again_place_title_text"
 					    android:id="@+id/coach_invite_again_place_text" />
 				</RelativeLayout>
 
 				<View
 					android:layout_width="match_parent"
-					android:layout_height="1dp"
+					android:layout_height="1px"
 					android:layout_marginLeft="20dp"
 					android:layout_marginRight="20dp"
 					android:background="@drawable/divider1" />
@@ -320,7 +297,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="80dp"
 					android:layout_margin="20dp"
-					android:background="@drawable/xbtn_gray"
+					android:background="@drawable/frame_bkg"
 					android:gravity="top"
 					android:textColor="@color/gray"
 					android:text="请教练指教"
@@ -328,10 +305,28 @@
 					android:padding="5dp" >
 					<requestFocus />
 				</EditText>
+
+				<TextView
+					android:layout_marginRight="20dp"
+					android:layout_marginLeft="20dp"
+					android:drawableLeft="@drawable/warning"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray_999999"
+					android:text="温馨提示:"/>
+				<TextView
+					android:layout_marginTop="5dp"
+					android:layout_marginRight="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray_999999"
+					android:lineSpacingExtra="1dp"
+					android:text="1.学员与教练在教练在球场打球所产生的费用由各自支付。\n2.建议您提前购置高尔夫手套和至少一只练习杆，以免在球场租赁时产生额外的费用。"/>
 			    
 				<View
 			    	android:layout_width="match_parent"
-			    	android:layout_height="1dp" 
+			    	android:layout_height="1px"
 			    	android:background="@drawable/divider1"/>
 			</LinearLayout>
 
@@ -346,7 +341,7 @@
 				android:orientation="vertical" >
 				<View
 					android:layout_width="match_parent"
-					android:layout_height="1dp"
+					android:layout_height="1px"
 					android:background="@drawable/divider1"/>
 
 				<TextView
@@ -364,7 +359,7 @@
 					android:layout_marginLeft="10dp"
 					android:layout_marginRight="10dp"
 					android:layout_width="match_parent"
-					android:layout_height="1dp"
+					android:layout_height="1px"
 					android:background="@drawable/divider1"/>
 
 				<ListView
@@ -393,7 +388,7 @@
 					android:layout_marginLeft="10dp"
 					android:layout_marginRight="10dp"
 					android:layout_width="match_parent"
-					android:layout_height="1dp"
+					android:layout_height="1px"
 					android:background="@drawable/divider1"/>
 
 			</LinearLayout>
@@ -414,7 +409,7 @@
 					android:id="@+id/coach_invite_again_commit_text"
 					android:layout_width="match_parent"
 					android:layout_height="40dp"
-					android:text="@string/str_coachers_invite_title"
+					android:text="@string/str_coachers_invite_again"
 					android:textColor="@color/color_white"
 					android:padding="5dp"
 					android:gravity="center"

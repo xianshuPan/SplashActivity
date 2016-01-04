@@ -18,7 +18,6 @@ import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.RegionSelectActivity.onRegionSelectListener;
 import com.hylg.igolf.ui.common.SexSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
-import com.hylg.igolf.ui.customer.CustomerHomeActivity;
 import com.hylg.igolf.ui.golfers.GolfersListActivity.OnClearSetupListener;
 import com.hylg.igolf.ui.golfers.adapter.FiltersAdapter;
 import com.hylg.igolf.ui.golfers.adapter.LabelAdapter;
@@ -51,7 +50,7 @@ public class GolfersHomeFrg extends Fragment
 	// 是否记录检索条件
 	public static final boolean NOTE_FILTER = false;
 	
-	public static final GolfersHomeFrg getInstance() {
+	public static  GolfersHomeFrg getInstance() {
 		if(null == golfersFrg) {
 			golfersFrg = new GolfersHomeFrg();
 			
@@ -139,16 +138,16 @@ public class GolfersHomeFrg extends Fragment
 		labelGv = (NestGridView) view.findViewById(R.id.golfers_label_gridview);
 		filtersGv = (NestGridView) view.findViewById(R.id.golfers_filters_gridview);
 		
-		mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image); 
-	    mCustomerImage.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
-					startActivity(intent);
-				}
-	     });
+//		mCustomerImageCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image);
+//	    mCustomerImage.setOnClickListener(new OnClickListener() {
+//
+//				@Override
+//				public void onClick(View arg0) {
+//					// TODO Auto-generated method stub
+//					Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
+//					startActivity(intent);
+//				}
+//	     });
 	}
 	
 	@Override

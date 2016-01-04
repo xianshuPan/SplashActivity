@@ -122,6 +122,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		Intent intent = new Intent(context, FriendTipsDetailActivity.class);
 		intent.putExtra("Data", data);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
+		context.overridePendingTransition(R.anim.ac_slide_right_in,R.anim.ac_slide_left_out);
 		
 	}
 	

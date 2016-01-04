@@ -312,12 +312,21 @@ public class HdService extends Service {
 
 				String path = Config.drr.get(i);
 
+
 				request1 = new FriendMessageNewPictureUpload(HdService.this, path, new FriendMessageNewPictureUpload.FriendTipsPicUploadCallback() {
 					@Override
 					public void callBack(int retId, String msg) {
 						if (retId == 1) {
 
-							request1.start();
+							//request1.start();
+//							if (request1.getState() == Thread.State.TERMINATED) {
+//								//request1 = new MyThread();
+//								request1.start();
+//							} else {
+//								if (!request1.isAlive()) {
+//									request1.start();
+//								}
+//							}
 						}
 					}
 				});

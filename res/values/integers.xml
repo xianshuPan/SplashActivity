@@ -13,8 +13,13 @@
     <!-- 相册长度 -->
     <integer name="album_max_length">8</integer>
     <integer name="upload_avatar_size">120</integer>
+    <integer name="crop_height">150</integer>
+    <integer name="crop_wight">240</integer>
+
     <integer name="upload_scorecard_size">400</integer>
     <integer name="upload_ablum_size">480</integer>
 
     <integer name="edit_max_length">70</integer>
+
+    <integer name="edit_max_length140">140</integer>
 </resources>

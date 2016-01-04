@@ -24,11 +24,13 @@ import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,16 +113,17 @@ public class FriendLocalFrg extends Fragment {
 		});
 		
 		mRefreshView.setOnLoadMoreListener(new OnLoadMoreListener() {
-			
+
 			@Override
 			public void onLoadMore() {
 				// TODO Auto-generated method stub
-				
+
 				loadMoreData();
 			}
 		});
-		
-		return mRefreshView;
+
+		mRefreshView.setShowFootBottom(true);
+		return parentView;
 	}
 	
 	@Override
@@ -177,6 +180,7 @@ public class FriendLocalFrg extends Fragment {
 		
 		super.onResume();
 	}
+
 	
 	private class myAMapLocationListener implements AMapLocationListener {
 
@@ -222,7 +226,7 @@ public class FriendLocalFrg extends Fragment {
 		
 		 if (mLocationManagerProxy != null) {
 			 mLocationManagerProxy.removeUpdates(mAMapLocationListener);
-			 mLocationManagerProxy.destory();
+			 mLocationManagerProxy.destroy();
 		  }
 		 
 		 mAMapLocationListener = null;
@@ -266,7 +270,6 @@ public class FriendLocalFrg extends Fragment {
 		if(isLoading()) {
 			GetFriendHotListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	

@@ -58,7 +58,7 @@ public class StartInviteStsActivity extends Activity implements OnClickListener 
 		msgEt = (EditText) findViewById(R.id.start_sts_invite_msg);
 		msgEt.addTextChangedListener(new TextWatcherBkgVariable(msgEt));
 		addrNameEt = (EditText) findViewById(R.id.start_sts_invite_addressname);
-		addrNameEt.addTextChangedListener(new TextWatcherBkgVariable(addrNameEt, true));
+		//addrNameEt.addTextChangedListener(new TextWatcherBkgVariable(addrNameEt, true));
 		findViewById(R.id.start_sts_invite_topbar_back).setOnClickListener(this);
 		findViewById(R.id.start_sts_oper_start_invite).setOnClickListener(this);
 		payTypeGv = (NestGridView) findViewById(R.id.start_sts_pay_type_gridview);
@@ -215,12 +215,13 @@ public class StartInviteStsActivity extends Activity implements OnClickListener 
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			PlanViewHolder holder = null;
+			PlanViewHolder holder ;
 			if(null == convertView) {
 				convertView = View.inflate(StartInviteStsActivity.this, R.layout.plan_add_item, null);
 				holder = new PlanViewHolder();
 				holder.planImg = (ImageView) convertView.findViewById(R.id.start_sts_plan_img);
 				holder.planCourse = (TextView) convertView.findViewById(R.id.start_sts_plan_course);
+				holder.tips = (TextView) convertView.findViewById(R.id.start_sts_plan_tips);
 				holder.planTime = (TextView) convertView.findViewById(R.id.start_sts_plan_teetime);
 				convertView.setTag(holder);
 			} else {
@@ -229,18 +230,22 @@ public class StartInviteStsActivity extends Activity implements OnClickListener 
 			
 			PlanSubmitInfo plan = plans.get(position);
 			if(plan.index == -1) {
-				holder.planImg.setImageResource(R.drawable.ic_plan_add);
-				holder.planCourse.setText(defInfo[position]);
+				holder.planImg.setImageResource(R.drawable.add_gray_circle);
+				holder.tips.setText(defInfo[position]);
+				holder.tips.setVisibility(View.VISIBLE);
 				holder.planTime.setText("");
+				holder.planCourse.setText("");
 				convertView.setOnClickListener(new onAddClickListener(position));
 				holder.planImg.setOnClickListener(new onAddClickListener(position));
 			} else {
-				holder.planImg.setImageResource(R.drawable.ic_plan_delete);
+				holder.planImg.setImageResource(R.drawable.delete_red_circle);
+				holder.tips.setVisibility(View.GONE);
 				holder.planCourse.setText(plan.courseStr);
 				holder.planTime.setText(plan.timeStr);
-				convertView.setOnClickListener(null);
+				convertView.setOnClickListener(new onUpdateClickListener(plans.get(position)));
 				holder.planImg.setOnClickListener(new onDelClickListener(position));
 			}
+
 			return convertView;
 		}
 		
@@ -252,9 +257,23 @@ public class StartInviteStsActivity extends Activity implements OnClickListener 
 			}
 			@Override
 			public void onClick(View v) {
+
 				planAdd(position);
 			}
 			
+		}
+
+		private class onUpdateClickListener implements OnClickListener {
+			private PlanSubmitInfo plan;
+
+			public onUpdateClickListener(PlanSubmitInfo position) {
+				this.plan = position;
+			}
+			@Override
+			public void onClick(View v) {
+				planUpdate(plan);
+			}
+
 		}
 		
 		private class onDelClickListener implements OnClickListener {
@@ -272,6 +291,7 @@ public class StartInviteStsActivity extends Activity implements OnClickListener 
 		
 		private class PlanViewHolder {
 			public ImageView planImg;
+			public TextView tips;
 			public TextView planTime;
 			public TextView planCourse;
 		}
@@ -282,6 +302,13 @@ public class StartInviteStsActivity extends Activity implements OnClickListener 
 		InvitePlanActivity.startSexSelectForResult(this, position);
 		overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
+
+	private void planUpdate(PlanSubmitInfo plan) {
+
+		InvitePlanActivity.startSexSelectForResult(this, plan);
+		overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+	}
+
 
 	private void planDel(final int position) {
 		new AlertDialog.Builder(this)

@@ -47,7 +47,7 @@
         android:layout_above="@id/hall_start_open_oper_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/repeat_bkg"
+		android:background="#e8e8e8"
         android:scrollbars="none">
 		<LinearLayout
 		    android:layout_width="match_parent"
@@ -195,6 +195,7 @@
 				android:drawSelectorOnTop="false" />
 			
 			<TextView
+				android:visibility="gone"
 				android:layout_marginBottom="@dimen/view_small_ver_distance"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
@@ -206,6 +207,7 @@
 			    android:focusableInTouchMode="true" />
 			
 			<cn.gl.lib.view.NestGridView
+				android:visibility="gone"
 				android:layout_marginBottom="@dimen/view_ver_margin"
 			    android:id="@+id/hall_open_start_stake_gridview"
 			    android:layout_width="match_parent"

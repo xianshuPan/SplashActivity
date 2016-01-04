@@ -53,45 +53,45 @@ public class LoginUser extends BaseRequest {
 
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 
 			GlobalData gd = MainApp.getInstance().getGlobalData();
-			gd.msgNumSys = jo.getInt(RET_MSG_NUM_SYS);
-			gd.msgNumInvite = jo.getInt(RET_MSG_NUM_INVITE);
+			gd.msgNumSys = jo.optInt(RET_MSG_NUM_SYS);
+			gd.msgNumInvite = jo.optInt(RET_MSG_NUM_INVITE);
 
 			Customer customer = MainApp.getInstance().getCustomer();
-			JSONObject cusObj = new JSONObject(jo.getString(RET_CUSTOMER));
-			customer.id = cusObj.getLong(RET_ID);
-			customer.is_coach = jo.getInt("isCoach");
-			customer.sn = cusObj.getString(RET_SN);
-			customer.nickname = cusObj.getString(RET_NICKNAME);
-			customer.avatar = cusObj.getString(RET_AVATAR);
-			customer.phone = cusObj.getString(RET_PHONE);
+			JSONObject cusObj = new JSONObject(jo.optString(RET_CUSTOMER));
+			customer.id = cusObj.optLong(RET_ID);
+			customer.is_coach = jo.optInt("isCoach");
+			customer.sn = cusObj.optString(RET_SN);
+			customer.nickname = cusObj.optString(RET_NICKNAME);
+			customer.avatar = cusObj.optString(RET_AVATAR);
+			customer.phone = cusObj.optString(RET_PHONE);
 			customer.addressName = cusObj.optString(RET_ADDRESS_NAME);
-			customer.sex = cusObj.getInt(RET_SEX);
-			customer.yearsExpStr = cusObj.getString(RET_YEAR_EXP_STR);
-			customer.state = cusObj.getString(RET_STATE);
-			customer.city = cusObj.getString(RET_CITY);
-			customer.industry = cusObj.getString(RET_INDUSTRY);
+			customer.sex = cusObj.optInt(RET_SEX);
+			customer.yearsExpStr = cusObj.optString(RET_YEAR_EXP_STR);
+			customer.state = cusObj.optString(RET_STATE);
+			customer.city = cusObj.optString(RET_CITY);
+			customer.industry = cusObj.optString(RET_INDUSTRY);
 			customer.signature = cusObj.optString(RET_SIGNATURE,"");
-			customer.rate = cusObj.getDouble(RET_RATE);
-			customer.ratedCount = cusObj.getInt(RET_RATE_COUNT);
-			customer.heat = cusObj.getInt(RET_HEAT);
-			customer.activity = cusObj.getInt(RET_ACTIVITY);
+			customer.rate = cusObj.optDouble(RET_RATE);
+			customer.ratedCount = cusObj.optInt(RET_RATE_COUNT);
+			customer.heat = cusObj.optInt(RET_HEAT);
+			customer.activity = cusObj.optInt(RET_ACTIVITY);
 			customer.rank = cusObj.optInt(RET_RANK,Integer.MAX_VALUE);
-			customer.matches = cusObj.getInt(RET_MATCHES);
-			customer.winNum = cusObj.getInt(RET_WIN_NUM);
+			customer.matches = cusObj.optInt(RET_MATCHES);
+			customer.winNum = cusObj.optInt(RET_WIN_NUM);
 			customer.handicapIndex = cusObj.optDouble(RET_HANDICAP_INDEX, Double.MAX_VALUE);
 			customer.best = cusObj.optInt(RET_BEST, Integer.MAX_VALUE);
 //			customer.album = ;
-			JSONArray albums = cusObj.getJSONArray(RET_ALBUM);
+			JSONArray albums = cusObj.optJSONArray(RET_ALBUM);
 			customer.album.clear();
 			for(int i=0, len=albums.length(); i<len; i++) {
-				customer.album.add(albums.getString(i));
+				customer.album.add(albums.optString(i));
 			}
-			customer.age = cusObj.getInt(RET_AGE_STR);
+			customer.age = cusObj.optInt(RET_AGE_STR);
 			
 			// 登录成功，保存pid。推送启动时，检测是否被强制关闭过
 
@@ -111,6 +111,8 @@ public class LoginUser extends BaseRequest {
 			ObjectOutputStream dos = new ObjectOutputStream(fos);
 
 			dos.writeObject(customer);
+
+			MainApp.getInstance().mAccount.getUser().setIdstr(customer.sn);
 
 			SharedPref.setInt(SharedPref.PREFS_KEY_PID, Process.myPid(), context);
 			

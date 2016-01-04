@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="#fff"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -30,11 +29,28 @@
 		    android:textColor="@color/color_title_txt"
 		    android:textSize="@dimen/txt_size_ml" />
     </RelativeLayout>
-    
+
+	<TextView
+		android:layout_marginTop="10dp"
+		android:layout_below="@+id/friend_message_new_head_realtive"
+		android:id="@+id/friend_message_new_txtErrorHint"
+		android:layout_width="match_parent"
+		android:layout_height="22dip"
+		android:drawableLeft="@drawable/scorecard_invalid"
+		android:drawablePadding="4dip"
+		android:gravity="center_vertical"
+		android:paddingLeft="5dp"
+		android:textColor="@color/color_red"
+		android:textSize="14sp"
+		android:visibility="gone"
+		/>
   	<EditText 
-       android:layout_below="@+id/friend_message_new_head_realtive"
+       android:layout_below="@+id/friend_message_new_txtErrorHint"
        android:hint="@string/str_friend_message_new_contens"
-		android:layout_margin="10dp"
+		android:maxLength="@integer/edit_max_length140"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginTop="5dp"
 		android:textSize="14sp"
 		android:gravity="top"
 		android:background="#fff"
@@ -45,11 +61,23 @@
 		android:layout_width="fill_parent"
 		android:layout_height="100dp"/>
 
+	<TextView
+		android:layout_below="@+id/friend_message_new_contents_edit"
+		android:id="@+id/friend_message_new_txtContentSurplus"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:gravity="right"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="10dp"
+		android:layout_marginRight="10dp"
+		/>
+
 
     <GridView
         android:layout_below="@+id/friend_message_new_contents_edit"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="50dp"
+		android:layout_marginTop="20dp"
         android:id="@+id/friend_message_new_gridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,7 +107,7 @@
 		    android:layout_centerVertical="true"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="所在位置"
+			android:textColor="@color/gray"
 		    android:textSize="@dimen/txt_size_ml" />
 		
 		

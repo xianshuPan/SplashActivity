@@ -7,8 +7,8 @@
 	<string name="str_update_title">版本更新</string>
 	
 	<!--  login -->
-	<string name="str_acc_login">登录</string>
-	<string name="str_acc_register">注册</string>
+	<string name="str_acc_login">立即登录</string>
+	<string name="str_acc_register">立即注册</string>
 	<string name="str_acc_reset">忘记密码？</string>
 	<string name="str_acc_login_def_msg">登录失败，请稍后再试…</string>
 	
@@ -179,7 +179,7 @@
     <string name="str_agreement_head">点击"下一步"表示你同意</string>
     <string name="str_agreement">《爱高尔夫用户协议》</string>
     <string name="str_phone_customer_service">联系客服</string>
-    <string name="str_reset_phone_submit_num">028&#8211;64042202</string>
+    <string name="str_reset_phone_submit_num">4000099113</string>
     <string name="str_reset_phone_verify_title">手机验证</string>
     <string name="str_reset_do_title">重置密码</string>
     <string name="str_btn_reset">重置</string>
@@ -204,8 +204,8 @@
     <string name="str_golfers_selection_hint">设置筛选条件</string>
     <string name="str_golfers_req_no_data_hint">无数据，请修改条件重新查询！</string>
     <string name="str_golfers_li_invate_btn">约球</string>
-    <string name="str_golfers_li_handicapi_title">成绩</string>
-    <string name="str_golfers_li_yearsexp_title">球龄：</string>
+    <string name="str_golfers_li_handicapi_title">成绩:</string>
+    <string name="str_golfers_li_yearsexp_title">球龄:</string>
     <string name="str_golfers_li_yearsexp"> %1$d年</string>
     <string name="str_golfers_li_no_more">没有更多球友信息</string>
     <string name="str_golfers_search_hint">昵称搜索</string>
@@ -216,6 +216,8 @@
     
     <!-- coachers -->
     <string name="str_coachers_home_title">教练</string>
+    <string name="str_coachers_profesion">职业教练</string>
+    <string name="str_coachers_hobby">业余教练</string>
     <string name="str_coach_price_unit">元/小时</string>
     <string name="str_coachers_name">姓名</string>
     <string name="str_coachers_select_all">综合</string>
@@ -238,6 +240,7 @@
     <string name="str_coach_invite_no_avatar">请上传头像</string>
     <string name="str_coach_invite_no_name">请填写姓名</string>
     <string name="str_coach_invite_no_sex">请选择性别</string>
+
     <string name="str_coach_invite_no_age">请选择年龄</string>
     <string name="str_coach_invite_no_id_frond">请上传身份证前面</string>
     <string name="str_coach_invite_no_id_back">请上传身份证背面</string>
@@ -258,6 +261,7 @@
 
     
     <string name="str_coachers_info_student_comment">学员评价</string>
+    <string name="str_coachers_info_see_all_comments">查看全部学员评价</string>
     <string name="str_coachers_info_place">常驻球场</string>
     <string name="str_coachers_apply_order_title">教学明细</string>
     <string name="str_coachers_apply_order_teach_time">学时</string>
@@ -268,6 +272,8 @@
     <string name="str_coachers_apply_order_fee_unit">收费标准</string>
     <string name="str_coachers_apply_order_fee_total">费用总额</string>
     <string name="str_coachers_invite_title">约教练</string>
+    <string name="str_coachers_invite_again">再约一次</string>
+    <string name="str_setting_title">设置</string>
     <string name="str_coachers_invite_other_title"><u>看看其他教练</u></string>
     <string name="str_pay_title">支付</string>
     
@@ -277,6 +283,8 @@
     <string name="str_hall_start_open_title">发起约球</string>
     <string name="str_hall_start_sts_title">发起约球</string>
     <string name="str_hall_tab_open">约球大厅</string>
+    <string name="str_hall_have">您有</string>
+    <string name="str_hall_hava_end">位本地粉丝，已通知</string>
     <string name="str_hall_tab_sts">我的约球</string>
     <string name="str_hall_invite_open_list_title">@string/str_hall_tab_open</string>
     <string name="str_hall_invite_sts_list_title">@string/str_hall_tab_sts</string>
@@ -311,25 +319,29 @@
      <string name="str_invite_detail_msg_other"> %1$s： %2$s</string>
      <string name="str_invite_detail_msg_me"> 我： %1$s</string>
      <string name="str_invite_detail_title_golfer">选手</string>
-     <string name="str_invite_detail_title_hi">差点成绩</string>
+     <string name="str_invite_detail_title_hi">差点指数</string>
      <string name="str_invite_detail_title_matches">场次</string>
      <string name="str_invite_detail_title_this_hi">本次成绩</string>
      <string name="str_invite_detail_title_rate">评价对手</string>
 	 <string name="str_invite_detail_scores_hint">请填写杆数并上传记分卡供后台审核</string>
      <string name="str_invite_detail_scores_input_hint">请输入杆数</string>
+    <string name="str_invite_detail_upload_cards">上传记分卡</string>
      <string name="str_invite_detail_scores_btn_do">记分登记</string>
      <string name="str_invite_detail_rate_btn_do">评价</string>
      <string name="str_invite_detail_rate_btn_done">已评价</string>
-	 <string name="str_invite_detail_rate_hint">请双方上传成绩后再评价</string>
+	 <string name="str_invite_detail_rate_hint">请大家上传成绩后再评价</string>
      <string name="str_invite_detail_request_num_txt">共 %1$d 人申请</string>
      <string name="str_invite_detail_request_no_one">暂无人申请</string>
+
+    <string name="str_invite_detail_show_invitee">查看更多详情</string>
+    <string name="str_invite_detail_show_invitee_hide">收起更多详情</string>
      <string name="str_invite_detail_rate_subtitle">评价对手</string>
      <string name="str_invite_detail_title">约球详情</string>
      <string name="str_invite_detail_oper_btn_request_apply">申请</string>
      <string name="str_invite_detail_oper_btn_request_cancel">取消申请</string>
      
      <string name="str_invite_end_invite_app">确定结束约球</string>
-     <string name="str_invite_end_invite_app_content">结束约球,别人不能再申请</string>
+     <string name="str_invite_end_invite_app_content">开球之后,别人不能再申请</string>
      
      <!-- 后台设置，撤销、撤约状态与接口名称相反，使用app_revoke和app_cancel时，注意调用 -->
      <string name="str_invite_detail_oper_btn_app_revoke">撤销</string>
@@ -338,6 +350,7 @@
      <string name="str_invite_detail_oper_btn_app_accept">接受</string>
      -->
      <string name="str_invite_detail_oper_btn_app_accept_end">结束</string>
+    <string name="str_invite_detail_oper_btn_app_accept_start">开球</string>
      <string name="str_invite_detail_oper_btn_app_refuse">拒绝</string>
      <string name="str_invite_detail_oper_btn_app_cancel">撤约</string>
      <string name="str_invite_detail_oper_btn_app_mark">签到</string>
@@ -365,6 +378,9 @@
      <string name="str_invite_detail_score_null">请输入杆数！</string>
      <string name="str_invite_detail_scorecard_null">请设置需要上传的记分卡！</string>
      <string name="str_invite_detail_score_ex">杆数只能够输入数字！</string>
+     <string name="str_invite_detail_score_invalide_range">杆数无效，大侠你确定？</string>
+
+    <string name="str_feedback_ok">大侠，说得好！多谢指教！</string>
      <string name="str_invite_detail_score_invalid">请输入大于0的数值！</string>
      
      <!-- friend 朋友圈 -->
@@ -379,21 +395,24 @@
     <string name="str_rank_sub_title_rank">排行</string>
     <string name="str_rank_sub_title_golfer">选手</string>
     <string name="str_rank_sub_title_handicapIndex">差点指数</string>
+    <string name="str_rank_sub_title_handicap">差点</string>
     <string name="str_rank_sub_title_matches">场次</string>
     <string name="str_rank_sub_title_best">最好成绩</string>
+    <string name="str_rank_sub_title_score">成绩</string>
     <string name="str_rank_own_hint">未上榜，显示原因</string>
-    <string name="str_rank_intro_hint">☆为保证排行榜的真实性：\n1.上传成绩的有效时间为开球后2&#8211;12小时；\n2.有效区域为球场半径5公里内；\n3.每张计分卡都将由后台人工审核；\n4.差点算法严格参考USGA标准。</string>
+    <string name="str_rank_intro_hint_title">为保证排行榜的真实性：</string>
+    <string name="str_rank_intro_hint">1.约球成功后才能上传成绩，系统智能过滤刷榜;\n2.上传成绩的有效时间为开球后2&#8211;12小时;\n3.有效区域为球场半径5公里内;\n4.每张计分卡都将由后台人工审核;\n5.差点算法严格参考USGA标准。</string>
     
     <string name="viewpager_indicator">%1$d/%2$d</string>
     
     <!-- detail -->
     <string name="str_detail_best">最好成绩</string>
-    <string name="str_detail_handicapi">差点成绩</string>
+    <string name="str_detail_handicapi">差点指数</string>
     <string name="str_detail_matches">累计场次</string>
     <string name="str_toast_image_load_fail">图片加载失败，请稍候再试！</string>
     
     <!-- customer -->
-    <string name="str_customer_home_title">我</string>
+    <string name="str_customer_home_title">我的</string>
     <string name="str_cusinfo_item_myinfo">我的资料</string>
     <string name="str_cusinfo_item_msg">系统消息</string>
     <string name="str_cusinfo_item_msg_detail">消息详情</string>
@@ -415,24 +434,39 @@
     <string name="str_cusinfo_verify_pwd_title">输入密码</string>
     <string name="str_cusinfo_signature_title">签名</string>
     <string name="str_cusinfo_signature_edit">编辑</string>
-    <string name="str_cusinfo_edit">编辑资料</string>
+    <string name="str_cusinfo_edit">编辑个人资料</string>
     <string name="str_toast_update_avatar_success">修改头像成功！</string>
     <string name="str_toast_album_loading">图片正在加载，请稍候再试！</string>
     <string name="str_toast_update_album_success">添加相册图片成功!</string>
     <string name="str_about_copyright">Copyright&#169; 2013&#8211;2015，ALL Rights Reserved\n爱高尔夫约球系统</string>
     <string name="str_about_intro">产品介绍</string>
     <string name="str_customer_service_phone_hint">400-0099-115</string>
-    <string name="str_customer_service_phone">4000099115</string>
+    <string name="str_customer_service_phone">4000099113</string>
     <string name="str_delete_friend">确定删除这条朋友圈吗？</string>
-    <string name="str_praise_tips">点赞球友圈</string>
-    <string name="str_praise_follower">我的粉丝</string>
+    <string name="str_praise_tips">点赞</string>
+    <string name="str_praise_follower">粉丝</string>
+    <string name="str_mem_praise_follower">粉丝</string>
     <string name="str_praise_balance_record">我的余额</string>
-    <string name="str_praise_attention">我关注的</string>
+    <string name="str_praise_attention">关注</string>
+    <string name="str_mem_praise_attention">关注</string>
     <string name="str_coach_comments_list_title">教练的评价</string>
     <string name="str_coach_complain_title">投诉教练</string>
     <string name="str_coach_refuse_title">拒接邀请</string>
 
     <string name="str_coach_my_teaching_title">我的教学</string>
+    <string name="str_my_tips_title">我的帖子</string>
+    <string name="str_my_invite_title">我的约球</string>
+    <string name="str_my_teaching_title">我的教学</string>
+    <string name="str_my_balance_title">我的余额</string>
+    <string name="str_my_coach_title">申请教练</string>
+    <string name="str_my_message_title">我的消息</string>
+    <string name="str_my_draft_title">我的草稿箱</string>
+    <string name="str_feedback">意见反馈</string>
+    <string name="str_feedback_edit">请填写您的宝贵意见</string>
+    <string name="str_feedback_tips">\t\t欢迎您提出宝贵的意见和建议，您留下的每个字都将用来改善我们的软件，希望我们能为您提供更好的服务。</string>
+    <string name="str_feedback_hint">\t\t有什么想说的?给我们发送您宝贵的意见。</string>
+    <string name="str_about">关于iGolf</string>
+    <string name="str_hot_line">客服热线</string>
 
     <string name="str_bind_card_user_name">账户姓名</string>
     <string name="str_bind_card_user_name_hint">账户姓名</string>
@@ -457,7 +491,7 @@
     <string name="str_member_palhcpi_wrap">球友成绩：%1$s</string>
     <string name="str_member_score_histoyr_list_header_course">球场</string>
     <string name="str_member_score_histoyr_list_header_teeTime">时间</string>
-    <string name="str_member_score_histoyr_list_header_handicap">差点成绩</string>
+    <string name="str_member_score_histoyr_list_header_handicap">差点指数</string>
     <string name="str_member_score_histoyr_list_header_check">查看</string>
     <string name="str_member_score_histoyr_list_item_card">记分卡</string>
     <string name="str_member_fight_record_none">无交手记录</string>
@@ -497,22 +531,28 @@
     <string name="str_comm_def_signature">还未设置签名！</string>
     <string name="str_comm_label">标签</string>
     <string name="str_comm_sex">性别</string>
+    <string name="str_no_select">不限</string>
+    <string name="str_comm_sex_man">男</string>
+    <string name="str_comm_sex_woman">女</string>
     <string name="str_comm_yearsexp">球龄</string>
     <string name="str_comm_cityrank">城市排行</string>
     <string name="str_comm_activity">活跃度</string>
     <string name="str_comm_heat">热度</string>
     <string name="str_comm_region">地区</string>
+    <string name="str_select">筛选</string>
     <string name="str_comm_industry">行业</string>
     <string name="str_comm_age">年龄</string>
+    <string name="str_year">年</string>
     <string name="str_comm_date">日期</string>
+    <string name="str_wait_select">待定</string>
     <string name="str_comm_time">时间</string>
     <string name="str_comm_stake">球注:</string>
     <string name="str_comm_course">球场</string>
     <string name="str_comm_plans">约球方案</string>
-    <string name="str_comm_payment">付费方式:</string>
-    <string name="str_comm_handicapi">差点成绩</string>
+    <string name="str_comm_payment">付费方式</string>
+    <string name="str_comm_handicapi">差点指数</string>
     <string name="str_comm_load_retry">重新加载</string>
-    <string name="str_comm_score">记分</string>
+    <string name="str_comm_score">英雄，上传积分卡，刷新你的江湖排名哦！</string>
     <string name="str_comm_rate">评价</string>
     <string name="str_comm_reset_phone">重新绑定手机</string>
     <string name="str_comm_modify_password">修改密码</string>
@@ -651,4 +691,58 @@
 	<string name="border_left">Border Left</string>
     <string name="border_right">Border Right</string>
     <string name="image_url">Image Url</string>
+
+
+
+    <string name="comm_error_noneNetwork">没有网络连接</string>
+    <string name="comm_error_resultIllegal">数据解析出错</string>
+    <string name="comm_error_timeout">网络不给力</string>
+
+
+    <!-- 发布通知 -->
+    <string name="notifer_from_aisen">来自爱高尔夫</string>
+    <string name="notifer_new_followers">%d 个新粉丝</string>
+    <string name="notifer_new_cmts">%d 个新评论</string>
+    <string name="notifer_new_mention_status">%d 个提及你的球友圈</string>
+    <string name="notifer_new_mention_cmt">%d 个提及你的评论</string>
+    <string name="notifer_new_dm">%d 条新私信</string>
+    <string name="notifer_timging_draft">定时发布，已存入草稿</string>
+    <string name="notifer_cancel_publish">撤销发布</string>
+
+    <string name="notifer_send_delay">%s秒后发送球友圈</string>
+    <string name="notifer_status_sending">正在发送球友圈</string>
+    <string name="notifer_send_success">球友圈发送成功</string>
+    <string name="notifer_send_faild">球友圈发送失败，已存入草稿</string>
+    <string name="notifer_send_cancel_save_draft">取消球友圈发送，已存入草稿</string>
+    <string name="notifer_send_cmt_delay">%s秒后发送评论</string>
+    <string name="notifer_cmt_sending">正在发送评论</string>
+    <string name="notifer_cmt_success">评论发送成功</string>
+    <string name="notifer_cmt_draft">评论发送失败，已存入草稿</string>
+    <string name="notifer_cmt_cancel">取消评论，已存入草稿</string>
+    <string name="notifer_reply_cmt_delay">%s秒后回复评论</string>
+    <string name="notifer_reply_cmt_sending">正在回复评论</string>
+    <string name="notifer_reply_cmt_success">回复评论成功</string>
+    <string name="notifer_reply_cmt_faild">回复评论失败，已存入草稿</string>
+    <string name="notifer_reply_cmt_cancel">取消回复评论，已存入草稿</string>
+    <string name="notifer_repost_delay">%s秒后转发球友圈</string>
+    <string name="notifer_repost_sending">正在转发球友圈</string>
+    <string name="notifer_repost_success">转发球友圈成功</string>
+    <string name="notifer_repost_faild">转发球友圈失败，已存入草稿</string>
+    <string name="notifer_repost_cancel">取消转发球友圈，已存入草稿</string>
+
+    <!-- 草稿箱 -->
+    <string name="title_draft">草稿箱</string>
+    <string name="draft_type_status">新球友圈</string>
+    <string name="draft_type_create_cmt">评论球友圈</string>
+    <string name="draft_type_reply_cmt">回复评论</string>
+    <string name="draft_type_repost_status">转发球友圈</string>
+    <string name="draft_timing_expired">定时发布时间已过期</string>
+    <string name="draft_timing_hint">[定时发布：%s]</string>
+    <string name="draft_del_draft_remind">请选中要删除的草稿</string>
+    <string name="draft_date_format">yyyy-MM-dd HH:mm:ss</string>
+    <string name="draft_del_confirm">确定删除选中的草稿吗？</string>
+    <string name="draft_del_draft_loading">正在删除草稿</string>
+    <string name="draft_del_draft_hint">成功删除草稿</string>
+    <string name="empty_draft">没有草稿</string>
+    <string name="publish_draft_title">是否保存到草稿？</string>
 </resources>

@@ -58,7 +58,7 @@
 		<item>1</item>
 	</integer-array>
 	<string-array name="sex_name_array">
-        <item>不限</item>
+        <item>性别不限</item>
         <item>男</item>
         <item>女</item>
     </string-array>
@@ -70,7 +70,7 @@
 		<item>1</item>
 	</integer-array>
 	<string-array name="coacher_type_name_array">
-        <item>不限</item>
+        <item>类型不限</item>
         <item>职业教练</item>
         <item>业余教练</item>
     </string-array>
@@ -83,7 +83,7 @@
 		<item>2</item>
 	</integer-array>
 	<string-array name="coacher_sort_name_array">
-        <item>不限</item>
+        <item>排序不限</item>
         <item>星级排序</item>
         <item>经验排序</item>
     </string-array>
@@ -109,24 +109,30 @@
     
 	<!-- payment -->
 	<string-array name="payment_name_array">
-        <item>不限</item>
+        <item>付款不限</item>
         <item>AA制</item>
-        <item>赢家买单</item>
-        <item>输家买单</item>
         <item>我请客</item>
         <item>男士付款</item>
-        <item>女士付款</item>
-    </string-array>
-	<integer-array name="payment_value_array">
-	    <item>-1</item>
-		<item>1</item>
-		<item>3</item>
-		<item>2</item>
-		<item>0</item>
-		<item>4</item>
-		<item>5</item>
-	</integer-array>
-	<!-- stake -->
+
+	<!--
+    <item>赢家买单</item>
+    <item>输家买单</item>
+    <item>女士付款</item>-->
+</string-array>
+<integer-array name="payment_value_array">
+    <item>-1</item>
+    <item>1</item>
+    <item>3</item>
+    <item>2</item>
+
+	<!--
+    <item>0</item>
+
+    <item>4</item>
+    <item>5</item>
+    -->
+</integer-array>
+<!-- stake -->
 	<string-array name="stake_name_array">
         <item>不限</item>
 	    <item>不下注</item>
@@ -148,7 +154,7 @@
 		<item>3</item>
 	</integer-array>
 	<string-array name="tee_date_name_array">
-        <item>不限</item>
+        <item>时间不限</item>
         <item>今天</item>
         <item>明天</item>
         <item>后天</item>
@@ -190,4 +196,25 @@
         <item>2.0秒</item>
         <item>2.5秒</item>
     </string-array>
+
+
+	<string-array name="prefValues">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+		<item>8</item>
+		<item>9</item>
+		<item>10</item>
+		<item>11</item>
+		<item>12</item>
+		<item>13</item>
+		<item>14</item>
+		<item>15</item>
+		<item>16</item>
+	</string-array>
 </resources>

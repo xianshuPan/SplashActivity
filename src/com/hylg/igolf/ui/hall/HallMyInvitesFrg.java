@@ -134,25 +134,25 @@ public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 	private void startInviteDetail(MyInviteInfo myInviteInfo) {
 //		curInfo = myInviteInfo;
 		String inviterSn = myInviteInfo.inviterSn;
-		if(Const.INVITE_TYPE_STS == myInviteInfo.type) {
-			if(sn.equalsIgnoreCase(inviterSn)) {
-				InviteDetailMyStsActivity.startInviteDetailMyStsForCallback(this, myInviteInfo);
-			} else {
-				InviteDetailOtherStsActivity.startInviteDetailOtherStsForCallback(this, myInviteInfo);
-			}
-		} else if(Const.INVITE_TYPE_OPEN == myInviteInfo.type) {
-			
-			if(sn.equalsIgnoreCase(inviterSn)) {
-				InviteDetailMyOpenActivity.startInviteDetailMyOpenForCallback(this, myInviteInfo);
-			} else {
-				InviteDetailOtherOpenActivity.startInviteDetailOtherOpenForCallback(this, myInviteInfo);
-			}
-			
-		} else {
-			if(Utils.LOG_H) {
-				throw new java.lang.IllegalArgumentException("startInviteDetail type error!");
-			}
-		}
+//		if(Const.INVITE_TYPE_STS == myInviteInfo.type) {
+//			if(sn.equalsIgnoreCase(inviterSn)) {
+//				InviteDetailMyStsActivity.startInviteDetailMyStsForCallback(this, myInviteInfo);
+//			} else {
+//				InviteDetailOtherStsActivity.startInviteDetailOtherStsForCallback(this, myInviteInfo);
+//			}
+//		} else if(Const.INVITE_TYPE_OPEN == myInviteInfo.type) {
+//
+//			if(sn.equalsIgnoreCase(inviterSn)) {
+//				InviteDetailMyOpenActivity.startInviteDetailMyOpenForCallback(this, myInviteInfo);
+//			} else {
+//				InviteDetailOtherOpenActivity.startInviteDetailOtherOpenForCallback(this, myInviteInfo);
+//			}
+//
+//		} else {
+//			if(Utils.LOG_H) {
+//				throw new java.lang.IllegalArgumentException("startInviteDetail type error!");
+//			}
+//		}
 	}
 
 	@Override

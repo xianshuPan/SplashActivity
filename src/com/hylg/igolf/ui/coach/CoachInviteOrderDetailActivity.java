@@ -10,20 +10,17 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CoachAcceptInvite;
-import com.hylg.igolf.cs.request.CoachComplainOrRefuseList;
 import com.hylg.igolf.cs.request.CoachEndTeaching;
 import com.hylg.igolf.cs.request.CoachPayCharge;
 import com.hylg.igolf.cs.request.CoachRefuseContent;
 import com.hylg.igolf.cs.request.CoachStudentComment;
 import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.cs.request.StudentRevoketInvite;
-import com.hylg.igolf.ui.customer.CustomerHomeActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.view.DonutProgress;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
-import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 import com.pingplusplus.android.PaymentActivity;
@@ -290,9 +287,11 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		mRefuseInviteTxt = (TextView) findViewById(R.id.coach_invite_order_refuse_text);
 		mRevokeTxt = (TextView) findViewById(R.id.coach_invite_order_revoke_text);
 		mPayTxt = (TextView) findViewById(R.id.coach_invite_order_detail_pay_text);
+		findViewById(R.id.coach_invite_order_detail_avatar_relative).setOnClickListener(this);
 		
 		
 		mBack.setOnClickListener(this);
+		mAvatarImage.setOnClickListener(this);
 		mPhoneTxt.setOnClickListener(this);
 		mComplainTxt.setOnClickListener(this);
 		mAcceptInviteTxt.setOnClickListener(this);
@@ -367,6 +366,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 				case Const.MY_TEACHING_WAITAPPLY:
 					
 					mAcceptLinear.setVisibility(View.VISIBLE);
+					findViewById(R.id.coach_invite_order_detail_tips).setVisibility(View.VISIBLE);
 					
 				break;
 					
@@ -882,6 +882,10 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 			case R.id.coach_invite_order_detail_home_image :
 
+			case R.id.coach_invite_order_detail_avatar_relative:
+
+			case R.id.coach_invite_order_detail_avatar_image :
+
 
 				if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
 
@@ -891,9 +895,8 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 					MemDetailActivityNew.startMemDetailActivity(mContext, mData.teacher_sn);
 				}
-
-
 				break;
+
 			case R.id.coach_invite_order_detail_phone_text:
 
 				String phoneStr = mPhoneTxt.getText().toString();

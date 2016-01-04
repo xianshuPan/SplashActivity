@@ -9,7 +9,7 @@ public class Customer implements Serializable{
 	 */
 	private static final long serialVersionUID = -927440815021434546L;
 	public long id;
-	public int is_coach;
+	public int is_coach = -1;
 	public String sn ="";
 	public String nickname;
 	public String avatar;

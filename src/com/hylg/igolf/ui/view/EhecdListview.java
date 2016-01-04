@@ -39,7 +39,8 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	private final static int 			RATIO = 3;  
 	private LayoutInflater 				inflater;  
  	private LinearLayout 				headView;  
- 	private LinearLayout 				footView;  
+ 	private LinearLayout 				footView;
+	private View                        footBottomView;
  	private TextView 					tipsTextview;  
  	private TextView 					footTipsTextview;  
 	private TextView 					lastUpdatedTextView;  
@@ -66,7 +67,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
     private boolean 					isRefreshable;  
     
     /*��һ����������ʾ���ǲ��ǵײ�ˢ��*/
-    public boolean 						isBottomRefresh = false;
+    public boolean 						isBottomRefresh = false,isBottomShow;
 
 	public EhecdListview(Context context) {
 		super(context);
@@ -79,6 +80,20 @@ public class EhecdListview extends ListView implements OnScrollListener {
 		// TODO Auto-generated constructor stub
 		initView(context);
 	}
+
+	public void setShowFootBottom(boolean is_bottom_show) {
+
+		isBottomShow = is_bottom_show;
+
+		if (isBottomShow) {
+
+			footBottomView.setVisibility(View.VISIBLE);
+		}
+		else {
+
+			footBottomView.setVisibility(View.GONE);
+		}
+	}
 	
 	void initView(Context context)
 	{
@@ -90,6 +105,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 		lastUpdatedTextView = (TextView)headView.findViewById(R.id.refresh_list_header_last_update);
 		
 		footView = (LinearLayout)inflater.inflate(R.layout.ehecd_listview_footer, null);
+		footBottomView = footView.findViewById(R.id.refresh_list_footer_bottom_view);
 		footProgressBar  = (ProgressBar)footView.findViewById(R.id.refresh_list_footer_progressbar);
 		footTipsTextview = (TextView)footView.findViewById(R.id.refresh_list_footer_text);
 		footTipsTextview.setText(R.string.list_footer_load_more);
@@ -133,7 +149,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 		if (p == null) {  
 			p = new ViewGroup.LayoutParams(  ViewGroup.LayoutParams.WRAP_CONTENT,  ViewGroup.LayoutParams.WRAP_CONTENT);  
 		}  
-		int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 + 0, p.width);  
+		int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 , p.width);
 		int lpHeight = p.height;  
 		int childHeightSpec;  
 		if (lpHeight > 0) {  

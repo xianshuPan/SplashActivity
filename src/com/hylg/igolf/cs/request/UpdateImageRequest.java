@@ -93,11 +93,12 @@ public abstract class UpdateImageRequest extends BaseRequest {
 	        StringBuffer sb = new StringBuffer();
 			InputStreamReader inputReader = new InputStreamReader(input);
 			BufferedReader reader = new BufferedReader(inputReader);
-			String inputLine = null;
+			String inputLine ;
 			while ((inputLine = reader.readLine()) != null) {
 				sb.append(inputLine);
 			}
-			Utils.logh(TAG, "result: " + sb.toString());
+
+			Utils.logh(TAG, "上传积分卡result:----->>> " + sb.toString());
 			reader.close();
 			ds.close();
 			inputReader.close();
@@ -136,7 +137,7 @@ public abstract class UpdateImageRequest extends BaseRequest {
 //			}
 			return REQ_RET_F_UPDATE_AVATAR_FAIL;
 //			return REQ_RET_OK; // 异常，但实际上传成功
-		};
+		}
 
 		return REQ_RET_OK;
 	}
@@ -147,6 +148,6 @@ public abstract class UpdateImageRequest extends BaseRequest {
 	}
 
 	public interface getRivalDataCallback {
-		public abstract void getRivalData(RivalData rivalData);
+		void getRivalData(RivalData rivalData);
 	}
 }

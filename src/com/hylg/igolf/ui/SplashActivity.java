@@ -17,6 +17,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -29,6 +33,7 @@ import com.hylg.igolf.R;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.LoginUser;
 import com.hylg.igolf.ui.account.LoginActivity;
+import com.hylg.igolf.ui.view.PagerSlidingTabStrip;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
@@ -141,7 +146,7 @@ public class SplashActivity extends Activity {
 
 		if (mLocationManagerProxy != null) {
 			mLocationManagerProxy.removeUpdates(mAMapLocationListener);
-			mLocationManagerProxy.destory();
+			mLocationManagerProxy.destroy();
 		}
 
 		mAMapLocationListener = null;
@@ -575,7 +580,7 @@ public class SplashActivity extends Activity {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				boolean error = false;
+				boolean error ;
 				final Message message = new Message();
 				try {
 					if (downloadUpdateFile(down_url, filePath) > 0) {
@@ -591,7 +596,7 @@ public class SplashActivity extends Activity {
 				}
 				if(error) {
 					File file = new File(filePath);
-					if(null != file && file.exists()) {
+					if(file.exists()) {
 						file.delete();
 					}
 					message.what = DOWN_ERROR;
@@ -633,7 +638,7 @@ public class SplashActivity extends Activity {
 		outputStream = new FileOutputStream(file, false);// overlay if file
 															// exist
 		byte buffer[] = new byte[1024];
-		int readsize = 0;
+		int readsize ;
 		while ((readsize = inputStream.read(buffer)) != -1) {
 			outputStream.write(buffer, 0, readsize);
 			downloadCount += readsize;
@@ -648,9 +653,8 @@ public class SplashActivity extends Activity {
 			}
 
 		}
-		if (httpURLConnection != null) {
-			httpURLConnection.disconnect();
-		}
+
+		httpURLConnection.disconnect();
 		inputStream.close();
 		outputStream.close();
 
@@ -751,4 +755,5 @@ public class SplashActivity extends Activity {
 		}
 
 	}
+
 }

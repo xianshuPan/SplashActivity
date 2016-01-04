@@ -711,6 +711,7 @@
 
           
 			 <LinearLayout
+
                 android:layout_marginTop="@dimen/view_small_ver_distance"
                 android:id="@+id/invite_detail_pay_type_linear"
                 android:layout_width="match_parent"
@@ -758,6 +759,7 @@
 			
             <!-- stake -->
 			 <LinearLayout
+				 android:visibility="gone"
                 android:id="@+id/invite_detail_stake_type_linear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

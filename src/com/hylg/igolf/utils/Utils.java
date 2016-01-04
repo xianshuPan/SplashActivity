@@ -12,7 +12,10 @@ import java.util.Date;
 import org.apache.http.protocol.HTTP;
 
 import com.hylg.igolf.DebugTools;
+import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
+import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.ui.friend.publish.GlobalContext;
 
 import cn.gl.lib.utils.BaseUtils;
 import android.content.Context;
@@ -64,6 +67,27 @@ public class Utils extends BaseUtils {
     	return true;
     }
 
+	public enum NetWorkType {
+		none, mobile, wifi
+	}
+	public static NetWorkType getNetworkType() {
+
+		ConnectivityManager connMgr = (ConnectivityManager) MainApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+		if (networkInfo != null) {
+			switch (networkInfo.getType()) {
+				case ConnectivityManager.TYPE_MOBILE:
+					return NetWorkType.mobile;
+				case ConnectivityManager.TYPE_WIFI:
+					return NetWorkType.wifi;
+			}
+		}
+
+		return NetWorkType.none;
+	}
+
 	public static void setLevel(Context context, LinearLayout ll, int size, double level) {
 		int lev = (int) (level * 10);
 		int on = lev / 10;
@@ -103,7 +127,7 @@ public class Utils extends BaseUtils {
 		if(value < 0) {
 			return String.format(context.getString(R.string.str_negative_handicap), String.valueOf(value));
 		}
-		return String.format(context.getString(R.string.str_positive_handicap), String.valueOf(value));
+			return String.format(context.getString(R.string.str_positive_handicap), String.valueOf(value));
 	}
 	
 	public static String getIntString(Context context, int value) {
@@ -121,6 +145,13 @@ public class Utils extends BaseUtils {
 			return context.getString(R.string.str_no_value);
 		}
 		return String.valueOf(value);
+	}
+
+	public static String getAvatarURLString(String sn) {
+		if(sn == null || sn.length() <= 0 ) {
+			return "";
+		}
+		return BaseRequest.SERVER_IP+"/gams/person/"+sn+"/avatar/original/"+sn+".jpg";
 	}
 	
 	/* 根据输入的时间显示是好久
@@ -341,7 +372,7 @@ public class Utils extends BaseUtils {
 		String str = null;
 		ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 		byte[] buffer = new byte[1024];
-		int len = 0;
+		int len ;
 		try {
 			while ((len = is.read(buffer)) != -1) {
 				outStream.write(buffer, 0, len);

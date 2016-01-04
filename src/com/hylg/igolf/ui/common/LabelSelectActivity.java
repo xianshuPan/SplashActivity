@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,6 +36,18 @@ public class LabelSelectActivity extends Activity {
 		Intent intent = new Intent(context, LabelSelectActivity.class);
 		intent.putExtra(BUNDLE_CURR_TYPE, curType);
 		context.startActivity(intent);
+	}
+
+	public static void startLabelSelect(Fragment fragment, int curType) {
+		try {
+			listener = (onLabelSelectListener) fragment;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(fragment.toString() +
+					" must implements onLabelSelectListener");
+		}
+		Intent intent = new Intent(fragment.getActivity(), LabelSelectActivity.class);
+		intent.putExtra(BUNDLE_CURR_TYPE, curType);
+		fragment.startActivity(intent);
 	}
 
 	@Override

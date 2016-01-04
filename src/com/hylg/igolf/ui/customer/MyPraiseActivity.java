@@ -35,6 +35,8 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 	
 	private final String              	TAG                          = "MyPraiseActivity";
 
+	private static String               SN_KEY                      = "sn";
+
 	private ImageButton  				mBack 						= null;
 	
 	private EhecdListview 				mList                       = null;
@@ -43,22 +45,33 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 	private GetMyPraiseTipsListLoader 	reqLoader 					= null;
 	private LoadFail 					loadFail;
 	
-	private String 						sn							= "";
+	private String 						sn							= "",
+										mem_sn                      = "";
 	private int 						startPage					= 0, 
 										pageSize					= 0;
 	
 	private FragmentActivity            mContext                    = null;
 	
 	
-	public static void startMyPraiseActivity(Activity context) {
+	public static void startMyPraiseActivity(Activity context,String sn) {
 
+		if (sn == null || sn.length() <= 0) {
+
+			return;
+		}
 		Intent intent = new Intent(context, MyPraiseActivity.class);
+		intent.putExtra(SN_KEY,sn);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
 	}
 	
-	public static void startMyPraiseActivity(Fragment context) {
+	public static void startMyPraiseActivity(Fragment context,String sn) {
 
+		if (sn == null || sn.length() <= 0) {
+
+			return;
+		}
 		Intent intent = new Intent(context.getActivity(), MyPraiseActivity.class);
+		intent.putExtra(SN_KEY,sn);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
 	}
 	
@@ -73,7 +86,8 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		mContext = this;
 		loadFail = new LoadFail(mContext);
 		loadFail.setOnRetryClickListener(retryListener);
-		
+
+		mem_sn = getIntent().getStringExtra(SN_KEY);
 		sn = MainApp.getInstance().getCustomer().sn;
 		startPage = MainApp.getInstance().getGlobalData().startPage;
 		pageSize = MainApp.getInstance().getGlobalData().pageSize;
@@ -86,12 +100,9 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 	public void initUI() {
 		
 		mBack           	= (ImageButton) findViewById(R.id.customer_info_my_praise_back);
-		
 		mList           	= (EhecdListview) findViewById(R.id.customer_info_my_praise_listview);
-		
-		
-		mBack.setOnClickListener(this);
 
+		mBack.setOnClickListener(this);
 		mList.setOnRefreshListener(new EhecdListview.OnRefreshListener() {
 			
 			@Override
@@ -164,7 +175,6 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		if(isLoading()) {
 			GetMyPraiseTipsListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -184,7 +194,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyPraiseTipsListLoader(mContext, sn, startPage, pageSize, new GetMyPraisedTipsListCallback() {
+		reqLoader = new GetMyPraiseTipsListLoader(mContext, sn, mem_sn,startPage, pageSize, new GetMyPraisedTipsListCallback() {
 			
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
@@ -235,7 +245,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		//WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyPraiseTipsListLoader(mContext, sn, 1, startPage*pageSize, new GetMyPraisedTipsListCallback() {
+		reqLoader = new GetMyPraiseTipsListLoader(mContext, sn,  mem_sn,1, startPage*pageSize, new GetMyPraisedTipsListCallback() {
 			
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {
@@ -281,7 +291,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		startPage++;
 		
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyPraiseTipsListLoader(mContext, sn, startPage, pageSize, new GetMyPraisedTipsListCallback() {
+		reqLoader = new GetMyPraiseTipsListLoader(mContext, sn, mem_sn, startPage, pageSize, new GetMyPraisedTipsListCallback() {
 			
 			@Override
 			public void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList) {

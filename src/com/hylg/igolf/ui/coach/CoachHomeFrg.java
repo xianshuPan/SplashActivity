@@ -8,10 +8,8 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.GetLastAppCoachLoader;
 import com.hylg.igolf.cs.loader.GetLastAppCoachLoader.GetLastAppCoachCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.ui.customer.CustomerHomeActivity;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
-import com.xc.lib.utils.Tools;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -25,8 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-import cn.gl.lib.view.RoundedImageView;
 
 public class CoachHomeFrg extends Fragment implements OnClickListener{
 	
@@ -211,8 +207,8 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 		});
 		mGetLastAppCoachLoader.requestData();
 		
-		mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image); 
-		mCustomerImage.setOnClickListener(this);
+//		mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image);
+//		mCustomerImage.setOnClickListener(this);
     }
 
 	/*
@@ -241,12 +237,7 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-		
-			case R.id.friend_frg_camera_customer_image:
 
-				Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
-				startActivity(intent);
-				break;
 			
 			case R.id.coach_frg_home_apply_coach_text:
 			

@@ -13,6 +13,7 @@ apply plugin: 'com.android.application'
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile 'com.umeng.analytics:analytics:latest.integration'
+
 }
 
 android {
@@ -75,6 +76,20 @@ android {
         android {}
         anzhi {}
         mobile {}
+        tencent {}
+        SanLiuLing {}
+        Union {}
+        JiFeng {}
+        YingYongHui {}
+        MuMaYi {}
+        NDuo {}
+        YouYi {}
+        FeiLiu {}
+        Oppo {}
+        Lenove {}
+        MeiZu {}
+        LiQu {}
+        MuZhiWan {}
 
         productFlavors.all { flavor ->flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]}
 

@@ -1,6 +1,9 @@
 package com.hylg.igolf.cs.data;
 
+import com.hylg.igolf.ui.hall.data.Applicant;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MyInviteInfo implements Serializable {
 	private static final long serialVersionUID = 1356316048962664806L;
@@ -23,4 +26,11 @@ public class MyInviteInfo implements Serializable {
 	public String palMsg; // 约球描述
 	public boolean haveAlert; // 是否有状态变化
 	public String inviterSn; // 发起者的sn，与type一起，判断调用哪个类
+
+	public int inviterSex;
+	public String inviterName;
+	public int payType;
+	public int local_fans;
+
+	public ArrayList<Applicant> applicants;
 }

@@ -9,10 +9,8 @@
 		        android:radius="8dp" />
 		</shape>
 	</item>
-	<item android:state_selected="true">
+	<item android:state_selected="true" android:drawable="@drawable/selec_bg">
 		<shape android:shape="rectangle" >
-		    <solid
-		        android:color="#58bf81" />
 		    <corners
 		        android:radius="8dp" />
 		</shape>

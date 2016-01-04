@@ -67,11 +67,11 @@ public class RegionSelectActivity extends Activity {
 	}
 
 	public interface onRegionSelectListener {
-		public abstract void onRegionSelect(String newRegion);
+		void onRegionSelect(String newRegion);
 	}
 	
 	// 根据key排序
-	protected class RegionSort implements Comparator<RegionData> {
+	public class RegionSort implements Comparator<RegionData> {
 		public int compare(RegionData rd0, RegionData rd1) {
 			return rd0.dictKey.compareToIgnoreCase(rd1.dictKey);
 		}

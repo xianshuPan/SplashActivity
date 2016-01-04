@@ -97,18 +97,20 @@ public class FriendHotFrg extends Fragment {
 		});
 		
 		mRefreshView.setOnLoadMoreListener(new OnLoadMoreListener() {
-			
+
 			@Override
 			public void onLoadMore() {
 				// TODO Auto-generated method stub
-				
+
 				loadMoreData();
 			}
 		});
+
+		mRefreshView.setShowFootBottom(true);
 		
 		//mFriendHotAdapter = new FriendHotAdapter();
 		//mList.setAdapter(mFriendHotAdapter);
-		return mRefreshView;
+		return parentView;
 	}
 	
 	@Override
@@ -204,7 +206,6 @@ public class FriendHotFrg extends Fragment {
 		if(isLoading()) {
 			GetFriendHotListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	

@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
+
 
 public class RevokeInviteApp extends BaseRequest {
 	private String param;
@@ -30,6 +32,9 @@ public class RevokeInviteApp extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+
+			DebugTools.getDebug().debug_v("revokeInviteApp02","----->>>"+jo);
+
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			failMsg = jo.optString(RET_MSG);
 			if(REQ_RET_OK != rn) {

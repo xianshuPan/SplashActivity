@@ -64,34 +64,36 @@ public class GetOpenInviteList extends BaseRequest {
 
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn && REQ_RET_F_OPEN_LIST_REFRESH != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			
-			retNum = jo.getInt(RET_OPEN_RET_NUM);
-			JSONArray ja = jo.getJSONArray(RET_OPEN_INVITES_LIST);
+			retNum = jo.optInt(RET_OPEN_RET_NUM);
+			JSONArray ja = jo.optJSONArray(RET_OPEN_INVITES_LIST);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				OpenInvitationInfo invitation = new OpenInvitationInfo();
-				invitation.id = obj.getLong(RET_ID);
-				invitation.sn = obj.getString(RET_SN);
-				invitation.status = obj.getInt(RET_STATUS);
-				invitation.inviterId = obj.getLong(RET_INVITER_ID);
-				invitation.inviterSn = obj.getString(RET_INVITER_SN);
-				invitation.inviterNickname = obj.getString(RET_INVITER_NICKNAME);
-				invitation.inviterSex = obj.getInt(RET_INVITER_SEX);
-				invitation.avatar = obj.getString(RET_AVATAR);
-				invitation.courseName = obj.getString(RET_COURSE_NAME);
-				invitation.teeTime = obj.getString(RET_TEE_TIME);
-				invitation.applicantsNum = obj.getInt(RET_APPLICANTS_NUM);
-				invitation.displayMsg = obj.getString(RET_DISPLAY_MSG);
-				invitation.displayStatus = obj.getInt(RET_DISPLAY_STATUS);
-				invitation.stake = obj.getInt(RET_STAKE);
-				invitation.payType = obj.getInt(RET_PAY_TYPE);
+				invitation.id = obj.optLong(RET_ID);
+				invitation.sn = obj.optString(RET_SN);
+				invitation.status = obj.optInt(RET_STATUS);
+				invitation.inviterId = obj.optLong(RET_INVITER_ID);
+				invitation.inviterSn = obj.optString(RET_INVITER_SN);
+				invitation.inviterNickname = obj.optString(RET_INVITER_NICKNAME);
+				invitation.inviterSex = obj.optInt(RET_INVITER_SEX);
+				invitation.avatar = obj.optString(RET_AVATAR);
+				invitation.courseName = obj.optString(RET_COURSE_NAME);
+				invitation.teeTime = obj.optString(RET_TEE_TIME);
+				invitation.applicantsNum = obj.optInt(RET_APPLICANTS_NUM);
+				invitation.displayMsg = obj.optString(RET_DISPLAY_MSG);
+				invitation.displayStatus = obj.optInt(RET_DISPLAY_STATUS);
+				invitation.stake = obj.optInt(RET_STAKE);
+				invitation.payType = obj.optInt(RET_PAY_TYPE);
 				invitation.inviteeId = obj.optInt("inviteeId");
 				invitation.inviteeSn = obj.optString("inviteeSn");
 				invitation.inviteeAvatar = obj.optString("inviteeAvatar");
+				invitation.invitee_sns = obj.optString("sns");
 				invitation.acceptMe = obj.optBoolean("accepted");
+				invitation.local_fans = obj.optInt("infoFans");
 				inviteList.add(invitation);
 			}
 		} catch (Exception e) {

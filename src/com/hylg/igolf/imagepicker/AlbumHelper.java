@@ -247,6 +247,7 @@ public class AlbumHelper {
 				imageItem.imageId = _id;
 				imageItem.imagePath = path;
 				imageItem.thumbnailPath = thumbnailList.get(_id);
+				imageItem.isSelected = isImageViewSelected(imageItem);
 				
 				bucket.imageList.add(imageItem);
 				
@@ -275,6 +276,29 @@ public class AlbumHelper {
 		Log.d(TAG, "use time: " + (endTime - startTime) + " ms");
 	}
 
+
+	private boolean isImageViewSelected (ImageItem imageItem ) {
+
+		boolean isSelect = false;
+
+		if (Config.drr != null && Config.drr.size() > 0) {
+
+			for (int i = 0;i < Config.drr.size(); i++) {
+
+				if (imageItem.imagePath.equalsIgnoreCase(Config.drr.get(i))) {
+
+					isSelect = true;
+				}
+
+			}
+
+		}
+
+
+		return isSelect;
+
+	}
+
 	/**
 	 * �õ�ͼƬ��
 	 * 
@@ -282,7 +306,7 @@ public class AlbumHelper {
 	 * @return
 	 */
 	public List<ImageBucket> getImagesBucketList(boolean refresh) {
-		if (refresh || (!refresh && !hasBuildImagesBucketList)) {
+		if (refresh || !hasBuildImagesBucketList) {
 			buildImagesBucketList();
 		}
 		List<ImageBucket> tmpList = new ArrayList<ImageBucket>();

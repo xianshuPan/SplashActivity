@@ -142,7 +142,7 @@ public class CourseAllSelectActivity extends Activity {
 			} else {
 				holder = (FilterChildViewHolder) convertView.getTag();
 			}
-			holder.nameTv.setText(filters.get(groupPosition).get(childPosition).name);
+			holder.nameTv.setText(filters.get(groupPosition).get(childPosition).name+" ("+filters.get(groupPosition).get(childPosition).distance+")");
 			
 			return convertView;
 		}

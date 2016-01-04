@@ -11,10 +11,11 @@ import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
-import com.hylg.igolf.ui.member.MemDetailActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 
 public abstract class IgBaseAdapter extends BaseAdapter {
+
+	protected boolean isAvatarClickable = true ;
 
 	/**
 	 * 获取默认大小头像
@@ -25,6 +26,11 @@ public abstract class IgBaseAdapter extends BaseAdapter {
 	 */
 	protected void loadAvatar(Activity context, String sn, String name, ImageView iv) {
 		loadAvatar(context, sn, name, iv, false, (int) context.getResources().getDimension(R.dimen.avatar_detail_size));
+	}
+
+	public void setIsAvatarClickable (boolean clickable) {
+
+		isAvatarClickable = clickable;
 	}
 	
 	/**
@@ -45,8 +51,13 @@ public abstract class IgBaseAdapter extends BaseAdapter {
 			iv.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					MemDetailActivityNew.startMemDetailActivity(context, sn);
-					context.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+
+					if (isAvatarClickable) {
+
+						MemDetailActivityNew.startMemDetailActivity(context, sn);
+						context.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+					}
+
 				}
 			});
 		} else {

@@ -34,6 +34,7 @@ import com.hylg.igolf.cs.request.LoginUser;
 import com.hylg.igolf.cs.request.RegisterCustomer;
 import com.hylg.igolf.cs.request.UpdateAvatar;
 import com.hylg.igolf.ui.MainActivity;
+import com.hylg.igolf.ui.SplashActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity.onAgeSelectListener;
 import com.hylg.igolf.ui.common.ImageSelectActivity;
@@ -65,7 +66,7 @@ public class InfoSetupActivity extends Activity
 	private Uri mUri;
 	private Bitmap avatarBmp = null;
 	private EditText nicknameEt, pwdEt, pwdCfmEt;
-	private TextView sexTxt, yearsExpTxt, regionTxt, industryTxt, ageTxt;;
+	private TextView sexTxt, yearsExpTxt, regionTxt, industryTxt, ageTxt;
 	private RegisterCustomerReqParam reqParam;
 	
 	public static void startInfoSetup(Context context, String phone) {

@@ -3,6 +3,7 @@ package com.hylg.igolf.cs.loader;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.hylg.igolf.cs.data.CoachItem;
 import com.hylg.igolf.cs.data.Member;
 import com.hylg.igolf.cs.request.GetMember;
 
@@ -28,7 +29,7 @@ public class GetMemberloader extends BaseAsyncLoader {
 			@Override
 			protected void onPostExecute(Integer result) {
 				super.onPostExecute(result);
-				callBack.callBack(result, request.getFailMsg(), request.getMember());
+				callBack.callBack(result, request.getFailMsg(), request.getMember(),request.coach_item);
 				mRunning = false;
 			}
 		};
@@ -36,6 +37,6 @@ public class GetMemberloader extends BaseAsyncLoader {
 	}
 
 	public interface GetMemberCallback {
-		public abstract void callBack(int retId, String msg, Member member);
+		void callBack(int retId, String msg, Member member,CoachItem coach_item);
 	}
 }

@@ -23,7 +23,6 @@ import com.hylg.igolf.cs.loader.SearchGolfersListLoader.SearchGolfersListCallbac
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.ui.golfers.adapter.GolfersAdapter;
 import com.hylg.igolf.ui.hall.StartInviteStsActivity;
-import com.hylg.igolf.ui.member.MemDetailActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.view.ListFooter;
 import com.hylg.igolf.ui.view.LoadFail;

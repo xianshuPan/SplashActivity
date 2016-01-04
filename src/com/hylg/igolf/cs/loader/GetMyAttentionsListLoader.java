@@ -13,10 +13,10 @@ public class GetMyAttentionsListLoader extends BaseAsyncLoader {
 	private GetMyAttentionsList request;
 	private GetMyAttentionsListCallback callBack;
 	
-	public GetMyAttentionsListLoader(Context context, String sn, int pageNum, int pageSize, 
+	public GetMyAttentionsListLoader(Context context, String sn,  String mem_sn,int pageNum, int pageSize,
 			GetMyAttentionsListCallback callBack) {
 		super();
-		request = new GetMyAttentionsList(context, sn, pageNum, pageSize);
+		request = new GetMyAttentionsList(context, sn,mem_sn, pageNum, pageSize);
 		this.callBack = callBack;
 	}
 	
@@ -41,6 +41,6 @@ public class GetMyAttentionsListLoader extends BaseAsyncLoader {
 
 	/*回调接口*/
 	public interface GetMyAttentionsListCallback {
-		public abstract void callBack(int retId, String msg, ArrayList<MyFolloweInfo> hotList);
+		void callBack(int retId, String msg, ArrayList<MyFolloweInfo> hotList);
 	}
 }

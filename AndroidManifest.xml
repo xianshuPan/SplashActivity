@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hylg.igolf"
     xmlns:tools="http://schemas.android.com/tools"
-    android:versionCode="108"
-    android:versionName="v1.4.4" >
+    android:versionCode="200"
+    android:versionName="v2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -90,6 +90,7 @@
         <activity android:name=".ui.account.PhoneVerifyActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.account.InfoSetupActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.account.ResetPwdActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.account.FeedBackActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
                
         <!-- golfers -->
         <activity android:name=".ui.golfers.GolfersListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
@@ -107,6 +108,7 @@
         
         <!-- hall -->
         <activity android:name=".ui.hall.InviteDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.hall.HallMyInvitesActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailOpenOtherActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailOpenMineActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.hall.InviteDetailOtherOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
@@ -121,11 +123,14 @@
         <activity android:name=".ui.hall.InvitePlanActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         
         <!-- member -->
-        <activity android:name=".ui.member.MemDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.member.MemDetailActivityNew" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.member.MemDetailActivityNew"
+            android:theme="@style/NoTitleBaseTheme"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity android:name=".ui.member.MemFightRecordActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.member.MemScoreHistoryActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        
+        <activity android:name=".ui.member.UserProfileActivity"  android:theme="@style/NoTitleBaseTheme"/>
+
         <!-- customer -->
         <activity android:name=".ui.customer.AboutIgolfActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.InviteHistoryActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
@@ -137,12 +142,14 @@
         <activity android:name=".ui.customer.RebindPhoneActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.VerifyPwdActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.MyFollowerActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.customer.MyTipsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.MyAttentionsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.MyPraiseActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.CustomerHomeActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.MyBalanceRecordActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.BindCardActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
         <activity android:name=".ui.customer.ToCashActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.customer.DraftFragmentActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity android:name=".ui.customer.SettingInfoActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
 
         <!-- common -->
         <activity android:name=".ui.common.LabelSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
@@ -180,6 +187,12 @@
          
         <!-- friend_location_select -->
         <activity android:name=".ui.friend.FriendLocationSelectActivity" android:screenOrientation="portrait" />
+
+
+        <service
+            android:name=".ui.friend.publish.PublishService">
+
+        </service>
         
         
          <!-- Required  SDK核心功能-->
@@ -296,8 +309,6 @@
       	    android:name="com.tencent.connect.common.AssistActivity"
 			android:theme="@android:style/Theme.Translucent.NoTitleBar"
 			android:configChanges="orientation|keyboardHidden|screenSize" />
-      	
-      	
 		
 		<activity
 			android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"

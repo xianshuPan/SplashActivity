@@ -18,6 +18,14 @@ public class AboutIgolfActivity extends Activity {
 
 	private LinearLayout mCustomerServiceLinear;
 
+	public static void startAboutIgolfActivity(Activity context) {
+
+		Intent intent = new Intent(context, AboutIgolfActivity.class);
+
+		context.startActivity(intent);
+		context.overridePendingTransition(R.anim.ac_slide_right_in,R.anim.ac_slide_left_out);
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

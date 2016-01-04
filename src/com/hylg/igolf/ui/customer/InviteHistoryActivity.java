@@ -19,7 +19,6 @@ import com.hylg.igolf.cs.loader.GetMyInviteHistoryListLoader.GetMyInviteHistoryL
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.ui.common.ScorecardPagerActivity;
 import com.hylg.igolf.ui.hall.StartInviteStsActivity;
-import com.hylg.igolf.ui.member.MemDetailActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.GetInviteHistoryReqParam;
 import com.hylg.igolf.ui.view.ListFooter;
@@ -52,7 +51,6 @@ public class InviteHistoryActivity extends Activity {
 		if(isLoading()) {
 			GetMyInviteHistoryListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 			Utils.logh(TAG, "reqLoader: " + reqLoader);
 		}
 	}
@@ -113,7 +111,7 @@ public class InviteHistoryActivity extends Activity {
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHodler holder = null;
+			ViewHodler holder ;
 			if(null == convertView) {
 				convertView = View.inflate(InviteHistoryActivity.this, R.layout.customer_invite_history_list_item, null);
 				holder = new ViewHodler();

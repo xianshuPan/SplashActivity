@@ -108,7 +108,7 @@ public class FriendMessageNewPictureUpload  extends Thread {
 					
 					String fileName = path.substring(path.lastIndexOf("/"), path.length());
 
-					out.toByteArray();
+					//out.toByteArray();
 					
 					//fStream = new FileInputStream(path);
 					

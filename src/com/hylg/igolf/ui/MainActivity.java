@@ -1,22 +1,20 @@
 package com.hylg.igolf.ui;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
 import org.json.JSONObject;
 
-import android.app.ActionBar;
-import android.app.ActionBar.TabListener;
 import android.app.AlertDialog;
-import android.app.ActionBar.Tab;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -64,12 +62,11 @@ import com.hylg.igolf.cs.loader.GetTipsCountLoader;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CommitCoachLocation;
 import com.hylg.igolf.cs.request.SendPushMsg;
-import com.hylg.igolf.cs.request.UpdateRequest;
 import com.hylg.igolf.jpush.JpushVariable;
-import com.hylg.igolf.ui.coach.CoachHomeFrg;
-import com.hylg.igolf.ui.customer.CustomerHomeFrgNew;
+import com.hylg.igolf.ui.coach.CoachHomeFrgNew;
+import com.hylg.igolf.ui.customer.CustomerInfoHomeFrgNew;
 import com.hylg.igolf.ui.friend.FriendHomeFrg;
-import com.hylg.igolf.ui.golfers.GolfersHomeFrg;
+import com.hylg.igolf.ui.golfers.GolfersAndInviteHomeFrg;
 import com.hylg.igolf.ui.hall.HallHomeFrg;
 import com.hylg.igolf.ui.rank.RankHomeFrg;
 import com.hylg.igolf.ui.reqparam.GetRankingReqParam;
@@ -82,6 +79,9 @@ import com.umeng.update.UmengUpdateAgent;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, TagAliasCallback {
 	private final static String TAG = "MainActivity";
+
+	public static final String ACTION_NOTIFICATION = "org.aisen.sina.weibo.ACTION_NOTIFICATION";
+
 	private final static int CONTAINER = R.id.navigate_container;
 	private HashMap<String, View> mSelectViewMap = null;
 	private String mCurTag;
@@ -90,6 +90,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	private final static String TAG_RANK = "rank";
 	private final static String TAG_COACH = "coach";
 	private final static String TAG_FRIEND = "friend";
+
+	// 当有Fragment Attach到这个Activity的时候，就会保存
+	private Map<String, WeakReference<onKeyDownClick>> fragmentRefs;
 	
 	private String down_url;
 	private final static int DIALOG_FORCED_UPDATING = 0;
@@ -97,7 +100,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	private int region_version;
 	private long loadTime = 0; 
 	
-	private ImageView naviNewMsg, naviNewInvite;
+	//private ImageView naviNewMsg, naviNewInvite;
 	private static boolean isForeground = false;
 	private final static String BUNDLE_KEY_FROM_SETUP = "from_setup";
 
@@ -134,12 +137,23 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 				.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 				);
 	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		Utils.logh(TAG, "resultCode: " + resultCode);
+
+		super.onActivityResult(requestCode, resultCode, intent);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		ExitToLogin.getInstance().addActivity(this);
+
+		fragmentRefs = new HashMap<String, WeakReference<onKeyDownClick>>();
+
+		DisplayMetrics sd = getResources().getDisplayMetrics();
 		
 		/*
 		 * pxs 2015.04.13 注释了下面的 代码
@@ -164,7 +178,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			FragmentTransaction ft = fm.beginTransaction();
 			ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 			
-			Fragment f = new FriendHomeFrg();
+			//Fragment f = GolfersAndInviteHomeFrg.getInstance();
+			Fragment f = new  FriendHomeFrg();
 			ft.add(CONTAINER, f, TAG_FRIEND);
 			ft.commit();
 		}
@@ -311,13 +326,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 
 	private void getViews() {
 		mCurTag = TAG_FRIEND;
+
 		if(null == mSelectViewMap) {
 			mSelectViewMap = new HashMap<String, View>();
 		}
 		if(!mSelectViewMap.isEmpty()) {
 			mSelectViewMap.clear();
 		}
-		RelativeLayout golfers = (RelativeLayout) findViewById(R.id.navi_item_golfers);
+		RelativeLayout golfers = (RelativeLayout) findViewById(R.id.navi_item_customer);
 		golfers.setOnClickListener(this);
 		addSelectView(golfers, TAG_GOLFERS);
 		RelativeLayout hall = (RelativeLayout) findViewById(R.id.navi_item_hall);
@@ -334,8 +350,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		addSelectView(friend, TAG_FRIEND);
 		
 		// 新提醒
-		naviNewInvite = (ImageView) findViewById(R.id.navi_item_hall_msg_hint);
-		naviNewMsg = (ImageView) findViewById(R.id.navi_item_coach_msg_hint);
+		//naviNewInvite = (ImageView) findViewById(R.id.navi_item_hall_msg_hint);
+		//naviNewMsg = (ImageView) findViewById(R.id.navi_item_coach_msg_hint);
+
 		mSelectViewMap.get(mCurTag).setSelected(true);
 	}
 
@@ -391,23 +408,29 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-			case R.id.navi_item_golfers:
-				navigateToGolfers();
+			case R.id.navi_item_customer:
+
+				navigateToCustomer();
 				break;
+
 			case R.id.navi_item_hall:
+
 				navigateToHall();
 				break;
+
 			case R.id.navi_item_rank:
+
 				navigateToRank();
 				break;
+
 			case R.id.navi_item_coach:
+
 				navigateToCoach();
 				break;
 				
 			case R.id.navi_item_friend:
 				
 				navigateToFriend(true);
-				
 				break;
 		}
 	}
@@ -563,7 +586,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		File industry = new File(pathInd);
 
 		//if (!industry.exists()) {
-			InputStream is = null;
+			InputStream is ;
 			try {
 				String asdf= FileUtils.getAssetsCfgIndustryPath();
 				is = getAssets().open(asdf);
@@ -703,7 +726,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		Fragment frg = fm.findFragmentByTag(tag);
 		Utils.logh(TAG , "CoachHomeFrg Selected ...... exist " + (null!=frg));
 		if(null == frg) {
-			frg = new CoachHomeFrg();
+			frg = new CoachHomeFrgNew();
 		}
 		replaceFragment(fm, frg, tag);
 	}
@@ -723,11 +746,68 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			data.pageSize = ins.getGlobalData().pageSize;
 //			data.region = ins.getCustomer().state;
 			data.region = Const.CFG_ALL_REGION;
-			data.sex = ins.getCustomer().sex;
+			data.sex = -1;
 			data.sn = ins.getCustomer().sn;
 			frg = RankHomeFrg.getInstance(data);
 		}
 		replaceFragment(fm, frg, tag);
+	}
+
+	private void navigateToHall() {
+		navigateToHall(false, null);
+	}
+
+	private void navigateToHall(boolean jpush, Bundle bundle) {
+		if(jpush) {
+			dealWithNofity(bundle);
+		}
+		String tag = TAG_HALL;
+		if(!resetSelection(tag)) {
+//			if(jpush) {
+//				sendBroadcast(new Intent(Const.IG_ACTION_MY_INVITE_JPUSH_NOTIFY));
+//			}
+			return ;
+		}
+		FragmentManager fm = getSupportFragmentManager();
+		Fragment frg = fm.findFragmentByTag(tag);
+		Utils.logh(TAG , "GolfersAndInviteHomeFrg Selected ...... exist " + (null!=frg));
+		if(null == frg) {
+
+			frg = GolfersAndInviteHomeFrg.getInstance();
+
+		} else {
+//			if(jpush) {
+//				sendBroadcast(new Intent(Const.IG_ACTION_MY_INVITE_JPUSH_NOTIFY));
+//			}
+		}
+
+		if (frg instanceof onKeyDownClick){
+
+			fragmentRefs.put(TAG_HALL,new WeakReference<onKeyDownClick>((onKeyDownClick)frg));
+		}
+
+		replaceFragment(fm, frg, tag);
+	}
+
+	private void navigateToCustomer() {
+		String tag = TAG_GOLFERS;
+		if(!resetSelection(tag)) {
+			return ;
+		}
+		FragmentManager fm = getSupportFragmentManager();
+		Fragment frg = fm.findFragmentByTag(tag);
+		Utils.logh(TAG, "GolfersHomeFrg Selected ...... exist " + (null != frg));
+		if(null == frg) {
+
+			frg = CustomerInfoHomeFrgNew.getInstance();
+		}
+		replaceFragment(fm, frg, tag);
+
+//		WeiBoUser user = new WeiBoUser();
+//		user.setScreen_name("sdfsdfsdf");
+//		UserProfileActivity.launch(this, user);
+
+		//startActivity(new Intent(this,ActivityMain.class));
 	}
 	
 	private void dealWithNofity(Bundle bundle) {
@@ -794,6 +874,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 				public void onClick(DialogInterface dialog, int which) {
 					new AsyncTask<Object, Object, Integer>() {
 						SendPushMsg request = new SendPushMsg(MainActivity.this, pushSn, appSn, type);
+
 						@Override
 						protected Integer doInBackground(Object... params) {
 							return request.connectUrl();
@@ -807,55 +888,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			})
 			.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
 				@Override
-				public void onClick(DialogInterface dialog, int which) { }
+				public void onClick(DialogInterface dialog, int which) {
+				}
 			})
 			.show();
 
 	}
 
-	private void navigateToHall() {
-		navigateToHall(false, null);
-	}
-	
-	private void navigateToHall(boolean jpush, Bundle bundle) {
-		if(jpush) {
-			dealWithNofity(bundle);
-		}
-		String tag = TAG_HALL;
-		if(!resetSelection(tag)) {
-//			if(jpush) {
-//				sendBroadcast(new Intent(Const.IG_ACTION_MY_INVITE_JPUSH_NOTIFY));
-//			}
-			return ;
-		}
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment frg = fm.findFragmentByTag(tag);
-		Utils.logh(TAG , "HallHomeFrg Selected ...... exist " + (null!=frg));
-		if(null == frg) {
-			
-			frg = HallHomeFrg.getInstance();
-			
-		} else {
-//			if(jpush) {
-//				sendBroadcast(new Intent(Const.IG_ACTION_MY_INVITE_JPUSH_NOTIFY));
-//			}
-		}
-		replaceFragment(fm, frg, tag);
-	}
 
-	private void navigateToGolfers() {
-		String tag = TAG_GOLFERS;
-		if(!resetSelection(tag)) {
-			return ;
-		}
-		FragmentManager fm = getSupportFragmentManager();
-		Fragment frg = fm.findFragmentByTag(tag);
-		Utils.logh(TAG , "GolfersHomeFrg Selected ...... exist " + (null!=frg));
-		if(null == frg) {
-			frg = GolfersHomeFrg.getInstance();
-		}
-		replaceFragment(fm, frg, tag);
-	}
 	
 	/**
 	 * Replace fragment of activity, to display different content
@@ -914,10 +954,27 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(KeyEvent.KEYCODE_BACK == keyCode) {
+
+			if (onBackClick())
+				return true;
+
 			mHandle.sendEmptyMessage(MSG_EXIT);
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	public boolean onBackClick() {
+
+		Set<String> keys = fragmentRefs.keySet();
+		for (String key : keys) {
+			WeakReference<onKeyDownClick> fragmentRef = fragmentRefs.get(key);
+			onKeyDownClick fragment = fragmentRef.get();
+			if (fragment != null && fragment.onKeyDown())
+				return true;
+		}
+
+		return false;
 	}
 	
 	private static final int MSG_EXIT = 1;
@@ -962,22 +1019,22 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	private void updateAlerts() {
 		GlobalData gd = MainApp.getInstance().getGlobalData();
 		// 更新消息提醒
-		if(gd.msgNumSys > 0) {
-			Utils.setVisible(naviNewMsg);
-		} else {
-			Utils.setGone(naviNewMsg);
-		}
+//		if(gd.msgNumSys > 0) {
+//			Utils.setVisible(naviNewMsg);
+//		} else {
+//			Utils.setGone(naviNewMsg);
+//		}
 		// 更新约球提醒
-		if(gd.msgNumInvite > 0) {
-			Utils.setVisible(naviNewInvite);
-		} else {
-			Utils.setGone(naviNewInvite);
-		}
+//		if(gd.msgNumInvite > 0) {
+//			Utils.setVisible(naviNewInvite);
+//		} else {
+//			Utils.setGone(naviNewInvite);
+//		}
 		
 		// 更新我的约球
 		HallHomeFrg.updateTabAlert(gd.msgNumInvite);
 		// 更新系统消息
-		CustomerHomeFrgNew.updateMsgAlert(gd.msgNumSys);
+		//CustomerHomeFrgNew.updateMsgAlert(gd.msgNumSys);
 		
 		
 		if(mHandle.hasMessages(MSG_UPDATE_ALERTS)) {
@@ -1127,6 +1184,12 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 				saveCoachLocation();
 			}
 		}
+
+	}
+
+	public interface onKeyDownClick{
+
+		boolean onKeyDown ();
 
 	}
 	

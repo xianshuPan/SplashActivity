@@ -6,9 +6,6 @@ import java.util.List;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.ui.customer.CustomerHomeActivity;
-import com.hylg.igolf.ui.friend.FriendNewFrg;
-import com.hylg.igolf.ui.friend.FriendHomeFrg.FragmentViewPagerAdapter;
 import com.hylg.igolf.ui.view.PagerSlidingTabStrip;
 import com.hylg.igolf.ui.view.ZoomOutPageTransformer;
 import com.hylg.igolf.utils.Utils;
@@ -19,7 +16,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
@@ -29,11 +25,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HallHomeFrg extends Fragment {
-	private static final String TAG = "HallHomeFrg";
+	private static final String TAG = "GolfersAndInviteHomeFrg";
 	private static HallHomeFrg hallFrg = null;
 	//private FragmentTabHost mTabHost;
 	private final static String TABHOST_HALL_OPEN = "hall_open";
@@ -131,16 +126,16 @@ public class HallHomeFrg extends Fragment {
 	        
 	      setTabsValue();
 	      
-	      mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image); 
-		  mCustomerImage.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
-						startActivity(intent);
-					}
-		  });
+//	      mCustomerImage = (ImageView) view.findViewById(R.id.friend_frg_camera_customer_image);
+//		  mCustomerImage.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View arg0) {
+//						// TODO Auto-generated method stub
+//						Intent intent = new Intent(getActivity(), CustomerHomeActivity.class);
+//						startActivity(intent);
+//					}
+//		  });
 		
 		
 		//mTabHost.addTab(mTabHost.newTabSpec(TABHOST_HALL_STS).setIndicator(sts),HallMyInvitesFrg.class, null);

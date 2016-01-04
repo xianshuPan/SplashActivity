@@ -130,7 +130,7 @@ public class ImageSelectActivity extends Activity {
 	}
 	
 	public interface onImageSelectListener {
-		public abstract void onCameraTypeSelect();
-		public abstract void onGalleryTypeSelect();
+		void onCameraTypeSelect();
+		void onGalleryTypeSelect();
 	}
 }

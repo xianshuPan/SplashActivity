@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -46,6 +47,12 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 		intent.putExtra(BUNDLE_KEY_OPEN_INVITATION_INFO, invitation);
 		((Activity) context).startActivityForResult(intent, Const.REQUST_CODE_INVITE_DETAIL_OPEN);
 	}
+
+	public static void startInviteDetailOpenMineForResult(Fragment context, OpenInvitationInfo invitation) {
+		Intent intent = new Intent(context.getActivity(), InviteDetailOpenMineActivity.class);
+		intent.putExtra(BUNDLE_KEY_OPEN_INVITATION_INFO, invitation);
+		context.startActivityForResult(intent, Const.REQUST_CODE_INVITE_DETAIL_OPEN);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,7 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 		getMyInviteDetail(invitation.sn, customer.sn, new getMyInviteDetailCallback() {
 			@Override
 			public void callBack(int retId, String msg, MyInviteDetail detail) {
-				switch(retId) {
+				switch (retId) {
 					case BaseRequest.REQ_RET_OK:
 						appendMoreData(detail);
 						break;
@@ -83,21 +90,36 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 	
 	private void appendMoreData(MyInviteDetail detail) {
 		addOperBarLayout(appRevokeAcceptBar);
-		appendCommonData(detail.inviter, detail.invitee,detail.inviteeone,detail.inviteetwo,
+		appendCommonData(detail.inviter, detail.invitee, detail.inviteeone, detail.inviteetwo,
 				detail.message, detail.paymentType, detail.stake);
 		// open: app info, not plans
 		displayAppInfo(detail.teeTime, detail.courseName);
-		
-		if(detail.applicants != null && detail.applicants.size() > 0) {
-			
-			//applicantsAdapter = displayRequestRegionMine(detail.applicants, true, null);
-			//pxs 2015.07.24 注释修改
+
+		unClickableleRequestRegionMine();
+		//2015,12.25 next two line
+//		if(detail.applicants != null && detail.applicants.size() > 0) {
+//
+//			//applicantsAdapter = displayRequestRegionMine(detail.applicants, true, null);
+//			//pxs 2015.07.24 注释修改
+//			applicantsAdapter = displayRequestRegionMine(detail, true, null);
+//
+//		} else {
+//
+//			displayRequestRegionMine(null, false, null);
+//			Utils.setVisibleGone(appRevokeBtn, appAcceptBtn, appRaSpaceView);
+//		}
+
+		if(detail.select_menber_sn != null && detail.select_menber_sn.size() > 0) {
+
 			applicantsAdapter = displayRequestRegionMine(detail, true, null);
-			
+
 		} else {
-			displayRequestRegionMine(null, false, null);
+
+			//displayRequestRegionMine(null, false, null);
 			Utils.setVisibleGone(appRevokeBtn, appAcceptBtn, appRaSpaceView);
 		}
+
+
 		// 隐藏评分，记分
 		dismissScoreRegion();
 		dismissRateRegion();	
@@ -122,9 +144,10 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 			case R.id.invite_detail_oper_btn_revoke:
 				clickAppRevoke();
 				break;
+
+
 			case R.id.invite_detail_oper_btn_accept:
-				
-				
+
 				//doAcceptInviteApp(invitation.sn, applicantsAdapter.getSelectedApplicatant());
 				
 				selectEndInviteApp();
@@ -211,7 +234,8 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 				// TODO Auto-generated method stub
 				
 				isEndInvite = true;
-				doEndInviteApp(invitation.sn,applicantsAdapter.getSelectedApplicatant());
+				//doEndInviteApp(invitation.sn,applicantsAdapter.getSelectedApplicatant());
+				doEndInviteApp(invitation.sn,detail.select_menber_sn);
 			}
 		});
 		dialog.setNegativeButton(R.string.str_photo_cancel, new DialogInterface.OnClickListener() {
@@ -225,7 +249,7 @@ public class InviteDetailOpenMineActivity extends InviteDetailOpenActivity {
 		dialog.show();
 	}
 	
-	private void doEndInviteApp(final String appSn,final ArrayList<InviteRoleInfo> applys) {
+	private void doEndInviteApp(final String appSn,final ArrayList<String> applys) {
 		if(!Utils.isConnected(this)) {
 			return ;
 		}

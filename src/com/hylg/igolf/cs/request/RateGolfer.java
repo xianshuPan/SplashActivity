@@ -28,7 +28,7 @@ public class RateGolfer extends BaseRequest {
 	
 	@Override
 	public String getRequestUrl() {
-		return getReqParam("rateGolfer", param);
+		return getReqParam("rateGolfer02", param);
 	}
 	
 	public RivalData getRivalData() {

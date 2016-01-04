@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -27,11 +29,13 @@ import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-public class PhoneSubmitActivity extends Activity implements View.OnClickListener {
+public class PhoneSubmitActivity extends FragmentActivity implements View.OnClickListener {
 	public static final String TAG = "PhoneSubmitActivity";
 	private static final String BUNDLE_SUBMIT_TYPE = "submit_type";
 	private int operType;
-	private EditText inputPhoneEt;
+	private EditText inputPhoneEt,verifyEdit;
+
+	private TextView mGetVerifyTxt;
 
 	private LinearLayout mAgreementLinea = null;
 	

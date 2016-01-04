@@ -67,6 +67,7 @@ public class Const {
 	public static final int REQUST_CODE_SIGNATURE_MY = REQUST_CODE_INVITE_DETAIL_OPEN + 1;
 	public static final int REQUST_CODE_MODIFY_MY_INFO = REQUST_CODE_SIGNATURE_MY + 1;
 	public static final int REQUST_CODE_USER_GUIDE = REQUST_CODE_MODIFY_MY_INFO + 1;
+	public static final int REQUST_CODE_INVITE_OPEN = REQUST_CODE_MODIFY_MY_INFO + 1;
 
 	/**
 	 * result

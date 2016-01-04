@@ -52,13 +52,13 @@ public class GetOpenInviteDetail extends GetInviteDetail {
 			
 			JSONObject oid = jo.getJSONObject("openInviteDetail");
 			
-			detail.inviter = getInviteRoleInfo(oid.getJSONObject(RET_INVITER));
+			detail.inviter = getInviteRoleInfo(oid.optJSONObject(RET_INVITER));
 			detail.invitee = getInviteRoleInfo(oid.optJSONObject(RET_INVITEE));
 			detail.inviteeone = getInviteRoleInfo(oid.optJSONObject(RET_INVITEE_ONE));
 			detail.inviteetwo = getInviteRoleInfo(oid.optJSONObject(RET_INVITEE_TWO));
-			detail.message = oid.getString(RET_MESSAGE).replaceAll("[\\n|\\r]","");
-			detail.stake = oid.getInt(RET_STAKE);
-			detail.paymentType = oid.getInt(RET_PAYMENT_TYPE);
+			detail.message = oid.optString(RET_MESSAGE).replaceAll("[\\n|\\r]","");
+			detail.stake = oid.optInt(RET_STAKE);
+			detail.paymentType = oid.optInt(RET_PAYMENT_TYPE);
 			detail.isApplied = oid.optBoolean("isApplied");
 			
 		} catch (Exception e) {

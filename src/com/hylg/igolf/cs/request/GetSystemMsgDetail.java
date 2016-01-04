@@ -40,10 +40,10 @@ public class GetSystemMsgDetail extends BaseRequest {
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			Utils.logh("GetSystemMsgDetail", rn+"");
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			String content = jo.getString(RET_CONTENT);
+			String content = jo.optString(RET_CONTENT);
 			detail = new SysMsgDetail();
 			detail.content = content;
 			

@@ -612,7 +612,7 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	}
 	
 	protected interface markInviteAppCallback {
-		public abstract void callBack(int result, String failMsg);
+		void callBack(int result, String failMsg);
 	}
 	
 	/**
@@ -646,6 +646,7 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 							//displayRateRegion(rate);
 							
 							rateDoBtn.setText(R.string.str_invite_detail_rate_btn_done);
+							rateBarRb.setIsIndicator(true);
 							Utils.setDisable(rateDoBtn);
 							
 							RivalData rivalData = request.getRivalData();
@@ -708,7 +709,11 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 //							} else {
 //								refreshPerInfoViews(rivalData.rivalRate, rivalData.rivalScore, rate, 0);
 //							}
-							
+
+							rateBarRb.setIsIndicator(true);
+							rateBarRb1.setIsIndicator(true);
+							rateBarRb2.setIsIndicator(true);
+
 							setFinishResult(true);
 							toastShort(R.string.str_invite_detail_rate_success);
 							break;
@@ -729,11 +734,10 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	}
 	
 	protected interface rateGolferCallback {
-		public abstract void callBack(int result, String failMsg);
+		void callBack(int result, String failMsg);
 	}
 	
 	private void clickRateGolfer() {
-		
 		
 		if (detail.type == Const.INVITE_TYPE_STS) {
 			
@@ -990,7 +994,15 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 		final int score;
 		{ // 输入限制了数字，故下面情况理论上不会出现，只为避免异常，及不同系统定制，可能出现的错误情况
 			try {
+
 				score = Integer.parseInt(scoreStr);
+
+				if (score <= 60 || score > 150) {
+
+					Toast.makeText(this, R.string.str_invite_detail_score_invalide_range, Toast.LENGTH_SHORT).show();
+					return;
+				}
+
 			} catch (NumberFormatException ex) {
 				Toast.makeText(this, R.string.str_invite_detail_score_ex, Toast.LENGTH_SHORT).show();
 				return ;
@@ -1205,7 +1217,9 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 		int uploadScSize = getResources().getInteger(R.integer.upload_scorecard_size);
 		int dispScSize = (int) getResources().getDimension(R.dimen.score_invite_detail_size);
 		Utils.logh(TAG, "saveScoredLocal:"+file.getAbsolutePath());
+
 		scoreBmp = FileUtils.getSmallBitmap(file.getAbsolutePath(), uploadScSize, uploadScSize);
+
 		int angle = FileUtils.getExifOrientation(file.getAbsolutePath());
 		if(angle != 0) {
 			scoreBmp = FileUtils.getExifBitmap(scoreBmp, angle);						

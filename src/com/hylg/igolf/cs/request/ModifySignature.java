@@ -35,7 +35,7 @@ public class ModifySignature extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			MainApp.getInstance().getCustomer().signature = signature;

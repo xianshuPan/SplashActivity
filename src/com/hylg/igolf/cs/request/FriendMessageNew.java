@@ -82,23 +82,7 @@ public class FriendMessageNew extends BaseRequest {
 					
 					ab.append(fileName);
 					ab.append(",");
-					
-					//fStream = new FileInputStream(path);
-					
-//					ds.writeBytes(twoHyphens + boundary + end);          
-//					ds.writeBytes("Content-Disposition:form-data;"+ "name=\"imagesData\";filename=\""+fileName+"\""+ end);
-//					
-//					ds.writeBytes(end);
-////					
-////					int length =-1;   
-////					while ((length = fStream.read(buffer)) !=-1) {
-////						   
-////		    			ds.write(buffer, 0, length);    
-////		    		}       
-//					
-//					ds.writeBytes(end); 
-//					ds.writeBytes(twoHyphens + boundary + end);          
-					
+
 				}
 				
 
@@ -139,7 +123,7 @@ public class FriendMessageNew extends BaseRequest {
 			ds.writeBytes(end+twoHyphens + boundary  + end); 
 			
 			ds.writeBytes("Content-Disposition:form-data;"+ "name=\"alias\""+ end+ end);
-			ds.write(Config.mLocationAliasStr.getBytes("utf-8"));
+			ds.write(mFriendMessageNewItem.alais.getBytes("utf-8"));
 			ds.writeBytes(end+twoHyphens + boundary  + end); 
 			
 			ds.writeBytes("Content-Disposition:form-data;"+ "name=\"detail\""+ end+ end);
@@ -183,7 +167,7 @@ public class FriendMessageNew extends BaseRequest {
 			
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			

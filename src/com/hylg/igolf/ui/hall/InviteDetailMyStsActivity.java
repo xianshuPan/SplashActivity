@@ -3,6 +3,7 @@ package com.hylg.igolf.ui.hall;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.hylg.igolf.R;
@@ -34,13 +35,15 @@ public class InviteDetailMyStsActivity extends InviteDetailMineActivity {
 //		fragment.startActivityForResult(intent, Const.REQUST_CODE_INVITE_DETAIL_MY_STS);
 //		fragment.getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 //	}
-	
-	public static void startInviteDetailMyStsForCallback(Fragment fragment, MyInviteInfo invitation) {
+
+
+
+	public static void startInviteDetailMyStsForCallback(FragmentActivity fragment, MyInviteInfo invitation) {
 		callback = (onResultCallback) fragment;
-		Intent intent = new Intent(fragment.getActivity(), InviteDetailMyStsActivity.class);
+		Intent intent = new Intent(fragment, InviteDetailMyStsActivity.class);
 		intent.putExtra(BUNDLE_KEY_DETAIL_INFO, invitation);
 		fragment.startActivity(intent);
-		fragment.getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+		fragment.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
 	
 	@Override
@@ -80,9 +83,12 @@ public class InviteDetailMyStsActivity extends InviteDetailMineActivity {
 	}
 
 	private void appendMoreData(MyInviteDetail detail) {
-		appendMyCommonData(detail.inviter, detail.invitee,detail.inviteeone,detail.inviteetwo,
-			detail.message, detail.paymentType, detail.stake);
-		dismissRequestRegion();
+		appendMyCommonData(detail.inviter, detail.invitee, detail.inviteeone, detail.inviteetwo,
+				detail.message, detail.paymentType, detail.stake);
+
+		/*pxs 2015.12.28 update*/
+		//dismissRequestRegion();
+		unClickableleRequestRegionMine();
 		switch(detail.displayStatus) {
 			case Const.MY_INVITE_WAITACCEPT: // 等待对方接受，我可进行撤销操作
 				displayAppRevoke();
@@ -93,6 +99,9 @@ public class InviteDetailMyStsActivity extends InviteDetailMineActivity {
 				displayAppCancel();
 				
 				displayRateRegion(detail);
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
 				if(DISP_SCORE_) return ;
 				break;
 			case Const.MY_INVITE_CANCELED: // 已撤销,我撤销了约球
@@ -114,6 +123,9 @@ public class InviteDetailMyStsActivity extends InviteDetailMineActivity {
 			case Const.MY_INVITE_WAITSIGN: // 待签到,约球单为接受，并当前时间小于开球时间
 				displayAppMark();
 				displayAppInfo(detail.teeTime, invitation.courseName); // 此时已接受，只显示接受方案即可
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
 				if(DISP_SCORE_) {
 					palyingScoreAndRate(detail);
 					return ;
@@ -123,6 +135,9 @@ public class InviteDetailMyStsActivity extends InviteDetailMineActivity {
 			case Const.MY_INVITE_PLAYING: // 进行中,当前时间大于等于开球时间，并未记分或未评价对方
 				displayAppInfo(detail.teeTime, invitation.courseName); // 此时已接受，只显示接受方案即可
 				palyingScoreAndRate(detail);
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
 				// 直接return，显示评分，记分
 				return;
 			case Const.MY_INVITE_COMPLETE: // 已完成,有记分并有已评价对方
@@ -130,6 +145,9 @@ public class InviteDetailMyStsActivity extends InviteDetailMineActivity {
 				// 已完成，显示评分，记分
 				completeScoreAndRate(detail);
 				displayAppInfo(detail.teeTime, invitation.courseName);
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
 				// 直接return，显示评分，记分
 				return;
 		}

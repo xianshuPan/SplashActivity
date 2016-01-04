@@ -57,11 +57,11 @@ public class GetFriendHotList extends BaseRequest {
 			
 			DebugTools.getDebug().debug_v("friendList", "------->>>>>"+jo);
 			
-			JSONArray ja = jo.getJSONArray("friendsCircles");
+			JSONArray ja = jo.optJSONArray("friendsCircles");
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
 				
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				FriendHotItem item = new FriendHotItem();
 				
 				item.tipid = obj.optString("tipid");
@@ -82,11 +82,11 @@ public class GetFriendHotList extends BaseRequest {
 				item.releaseTime = obj.optLong("releaseTime");
 				
 				item.praises = new ArrayList<HashMap<String,String>>();
-				JSONArray praises = obj.getJSONArray("praises");
+				JSONArray praises = obj.optJSONArray("praises");
 				
 				for (int j =0 ; j < praises.length() ; j++) {
 					
-					JSONObject reviewItem = praises.getJSONObject(j);
+					JSONObject reviewItem = praises.optJSONObject(j);
 					
 					HashMap<String, String> reviewItemHash = new HashMap<String, String>();
 					reviewItemHash.put("id", reviewItem.optString("id"));
@@ -99,7 +99,7 @@ public class GetFriendHotList extends BaseRequest {
 				}
 				
 				item.comments = new ArrayList<HashMap<String,String>>();
-				JSONArray comments = obj.getJSONArray("comments");
+				JSONArray comments = obj.optJSONArray("comments");
 				
 				for (int j =0 ; j < comments.length() ; j++) {
 					

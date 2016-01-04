@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.MemMyFightInfo;
 
 public class GetFightsList extends BaseRequest {
@@ -42,18 +43,20 @@ public class GetFightsList extends BaseRequest {
 		String str = transferIs2String(is);
 		try {
 			JSONObject jo = new JSONObject(str);
+
+			DebugTools.getDebug().debug_v("getFights","------>>>"+jo);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			JSONArray ja = jo.getJSONArray(RET_MEMBER_FIGHTS);
+			JSONArray ja = jo.optJSONArray(RET_MEMBER_FIGHTS);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				MemMyFightInfo fightInfo = new MemMyFightInfo();
 				fightInfo.myScoreInfo = obj.optString(RET_MY_SCORE_INFO, "-");
-				fightInfo.courseName = obj.getString(RET_COURSE_NAME);
-				fightInfo.teeTime = obj.getString(RET_TEE_TIME);
+				fightInfo.courseName = obj.optString(RET_COURSE_NAME);
+				fightInfo.teeTime = obj.optString(RET_TEE_TIME);
 				fightInfo.palScoreInfo = obj.optString(RET_PAL_SCORE_INFO, "-");
 				fightRecordList.add(fightInfo);
 			}

@@ -44,21 +44,21 @@ public class GetMyInviteHistoryList extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 				
 			}
 			
 			DebugTools.getDebug().debug_v("我的约球历史", "-----》》》》》"+jo);
 			
-			JSONArray ja = jo.getJSONArray(RET_MY_INVITES_HISTORY_LIST);
+			JSONArray ja = jo.optJSONArray(RET_MY_INVITES_HISTORY_LIST);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				InviteHistoryInfo golfer = new InviteHistoryInfo();
-				golfer.avatar = obj.getString(RET_AVATAR);
-				golfer.nickname = obj.getString(RET_NICKNAME);
-				golfer.teeTime = obj.getString(RET_TEE_TIME);
-				golfer.sn = obj.getString(RET_SN);
+				golfer.avatar = obj.optString(RET_AVATAR);
+				golfer.nickname = obj.optString(RET_NICKNAME);
+				golfer.teeTime = obj.optString(RET_TEE_TIME);
+				golfer.sn = obj.optString(RET_SN);
 				golfer.appSn = obj.optString(RET_APP_SN);
 				// 目前使用appSn作为记分卡图片名称
 				golfer.imgName = golfer.appSn + ".jpg";

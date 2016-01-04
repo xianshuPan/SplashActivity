@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/repeat_bkg"
+    android:background="@color/gray_e8e8e8"
     android:orientation="vertical" >
 
     <RelativeLayout
+		android:visibility="gone"
         style="@style/custom_title_style" >
 		<ImageButton
 			android:id="@+id/hall_open_list_topbar_back"
@@ -29,8 +30,106 @@
 			android:textSize="@dimen/txt_size_ml"
 			android:src="@null" />
     </RelativeLayout>
-    
+
+	<LinearLayout
+		android:id="@+id/hall_ac_open_filter_linear"
+		android:baselineAligned="false"
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:gravity="center_vertical"
+		android:background="@drawable/fiter_bg"
+		>
+		<LinearLayout
+			android:layout_weight="1"
+			android:clickable="true"
+			android:id="@+id/open_invite_list_filter_payment"
+			android:gravity="center"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent" >
+			<TextView
+				android:id="@+id/open_invite_list_filter_payment_content"
+				style="@style/selection_txt_style"
+				android:text="@string/str_comm_payment" />
+		</LinearLayout>
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/filter_liney" />
+
+		<LinearLayout
+			android:layout_weight="1"
+			android:id="@+id/open_invite_list_filter_region"
+			android:clickable="true"
+			android:gravity="center"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent" >
+			<TextView
+				android:id="@+id/open_invite_list_filter_region_content"
+				style="@style/selection_txt_style"
+				android:text="@string/str_comm_region" />
+		</LinearLayout>
+
+		<View
+			android:visibility="gone"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/filter_liney" />
+
+		<LinearLayout
+			android:visibility="gone"
+			android:layout_weight="1"
+			android:clickable="true"
+			android:gravity="center"
+			android:id="@+id/open_invite_list_filter_stake"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent" >
+			<TextView
+				android:id="@+id/open_invite_list_filter_stake_content"
+				style="@style/selection_txt_style"
+				android:text="@string/str_dialog_select_title_stake" />
+		</LinearLayout>
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/filter_liney" />
+
+		<LinearLayout
+			android:layout_weight="1"
+			android:id="@+id/open_invite_list_filter_sex"
+			android:clickable="true"
+			android:gravity="center"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent" >
+			<TextView
+				android:id="@+id/open_invite_list_filter_sex_content"
+				style="@style/selection_txt_style"
+				android:text="@string/str_comm_sex" />
+		</LinearLayout>
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/filter_liney" />
+
+		<LinearLayout
+			android:layout_weight="1"
+			android:id="@+id/open_invite_list_filter_date"
+			android:clickable="true"
+			android:gravity="center"
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent" >
+			<TextView
+				android:id="@+id/open_invite_list_filter_date_content"
+				style="@style/selection_txt_style"
+				android:text="@string/str_dialog_select_title_tee_date" />
+		</LinearLayout>
+
+	</LinearLayout>
+
     <TextView
+		android:visibility="gone"
         android:id="@+id/hall_open_list_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,20 +137,36 @@
         android:padding="3dp"
         android:gravity="center"
         android:textColor="@android:color/white" />
-    
-	<include
-	    android:id="@+id/hall_open_load_fail"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    layout="@layout/common_load_fail" />
+
+	<android.support.v4.view.ViewPager
+		android:id="@+id/hall_open_horlistview"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
 	
-	<com.hylg.igolf.ui.view.PullListView
+	<com.hylg.igolf.ui.view.EhecdListview
+		android:layout_below="@+id/hall_ac_open_filter_linear"
 	    android:id="@+id/hall_open_listview"
-	   style="@style/listview_style"
-	   android:layout_height="match_parent"
-	   android:scrollbarStyle="outsideOverlay"
-	   android:paddingLeft="10dip"
-	   android:paddingRight="15dip"
-	   android:dividerHeight="15dip"
-	   android:divider="@null"  />
-</LinearLayout>
+	    style="@style/listview_style"
+	    android:layout_height="match_parent"
+	    android:scrollbarStyle="outsideOverlay"
+	    android:paddingLeft="10dip"
+	    android:paddingRight="15dip"
+	    android:dividerHeight="15dip"
+	    android:divider="@null"  />
+
+	<include
+		android:layout_marginTop="1px"
+		android:layout_below="@+id/hall_ac_open_filter_linear"
+		android:id="@+id/hall_open_load_fail"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		layout="@layout/common_load_fail" />
+
+	<FrameLayout
+		android:layout_marginTop="1px"
+		android:layout_below="@+id/hall_ac_open_filter_linear"
+		android:id="@+id/hall_ac_open_list_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+</RelativeLayout>

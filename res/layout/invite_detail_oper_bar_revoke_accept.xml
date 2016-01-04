@@ -11,7 +11,7 @@
 		android:background="@drawable/xbtn_green"
 		android:text="@string/str_invite_detail_oper_btn_app_revoke"
 		android:textColor="@android:color/white"
-		android:textSize="@dimen/txt_btn_txt_size" />
+		android:textSize="@dimen/txt_size_ml" />
 	<View
 	    android:id="@+id/invite_detail_oper_ra_btn_space"
 	    android:layout_width="@dimen/view_hor_margin"
@@ -23,7 +23,7 @@
 		android:layout_height="@dimen/btn_height"
 		android:layout_weight="1"
 		android:background="@drawable/xbtn_green"
-		android:text="@string/str_invite_detail_oper_btn_app_accept_end"
+		android:text="@string/str_invite_detail_oper_btn_app_accept_start"
 		android:textColor="@android:color/white"
-		android:textSize="@dimen/txt_btn_txt_size" />
+		android:textSize="@dimen/txt_size_ml" />
 </LinearLayout>

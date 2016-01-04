@@ -47,13 +47,13 @@ public class GetMyBalanceRecordList extends BaseRequest {
 			
 			int rn = jo.optInt("result", REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			
 			DebugTools.getDebug().debug_v("myBalanceRecordList----->>>", "------->>>>>"+jo);
 			
-			JSONArray ja = jo.getJSONArray("withdrawlHistory");
+			JSONArray ja = jo.optJSONArray("withdrawlHistory");
 
 			if (ja == null || ja.length() <= 0) {
 
@@ -64,7 +64,7 @@ public class GetMyBalanceRecordList extends BaseRequest {
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
 				
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 
 				MyBalanceRecordInfo item = new MyBalanceRecordInfo();
 

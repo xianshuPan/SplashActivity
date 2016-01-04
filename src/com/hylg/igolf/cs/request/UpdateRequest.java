@@ -40,14 +40,14 @@ public class UpdateRequest extends BaseRequest {
 			DebugTools.getDebug().debug_v("版本检查", "------》》》"+jo);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			versionInfo.version = jo.getInt(RET_VERSION);
-			versionInfo.updateType = jo.getInt(RET_UPDATE_TYPE);
-			versionInfo.updateInfo = jo.getString(RET_UPDATE_INFO);
-			versionInfo.region = jo.getInt(RET_REGION);
-			versionInfo.industry = jo.getInt(RET_INDUSTRY);
+			versionInfo.version = jo.optInt(RET_VERSION);
+			versionInfo.updateType = jo.optInt(RET_UPDATE_TYPE);
+			versionInfo.updateInfo = jo.optString(RET_UPDATE_INFO);
+			versionInfo.region = jo.optInt(RET_REGION);
+			versionInfo.industry = jo.optInt(RET_INDUSTRY);
 			versionInfo.downLoadUrl = jo.optString("downLoadUrl");
 		} catch (Exception e) {
 			e.printStackTrace();

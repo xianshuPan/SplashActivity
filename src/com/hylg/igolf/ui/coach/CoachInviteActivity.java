@@ -35,11 +35,14 @@ import com.hylg.igolf.ui.common.YearsExpSelectActivity.onYearsExpSelectListener;
 import com.hylg.igolf.ui.hall.CourseSelectActivity;
 import com.hylg.igolf.ui.hall.StartInviteOpenActivity;
 import com.hylg.igolf.ui.hall.CourseSelectActivity.onCourseSelectListener;
+import com.hylg.igolf.ui.member.MemDetailActivity;
+import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.CoachInviteReqParam;
 import com.hylg.igolf.ui.reqparam.StartOpenReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
+import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -190,12 +193,15 @@ public class CoachInviteActivity extends FragmentActivity implements
 		mCourseSelectTxt.setOnClickListener(this);
 		mRegionTxt.setOnClickListener(this);
 		mCommitTxt.setOnClickListener(this);
+		mAvatarImage.setOnClickListener(this);
 
 		
 		if (getIntent() != null && getIntent().getSerializableExtra(BUNDLE_REQ_DATA) != null) {
 			
 			mCoachItem = (CoachItem) getIntent().getSerializableExtra(BUNDLE_REQ_DATA) ;
-			loadAvatar(mCoachItem.sn, mCoachItem.avatar);
+
+			DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(mCoachItem.sn),mAvatarImage,null);
+			//loadAvatar(mCoachItem.sn, mCoachItem.avatar);
 			
 			mNickNameTxt.setText(mCoachItem.nickname);
 			mRating.setRating(mCoachItem.rate);
@@ -279,6 +285,11 @@ public class CoachInviteActivity extends FragmentActivity implements
 
 				commitCoachInvite();
 
+				break;
+
+			case R.id.coach_invite_avatar_image:
+
+				MemDetailActivityNew.startMemDetailActivity(this, mCoachItem.sn);
 				break;
 		}
 	}

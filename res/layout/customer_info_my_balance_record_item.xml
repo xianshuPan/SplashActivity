@@ -28,9 +28,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/gray_999999"
                 android:text="2015-9-08 10:56" />
             <TextView
                 android:text="夏日蝉鸣"
+                android:textColor="@color/gray_999999"
                 android:textSize="15sp"
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"

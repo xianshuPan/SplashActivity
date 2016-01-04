@@ -74,7 +74,7 @@
                 android:id="@+id/start_sts_plan_list"
 				style="@style/listview_style"
 				android:scrollbars="none"
-				android:dividerHeight="5dip"
+				android:dividerHeight="10dip"
 				android:divider="@android:color/transparent"  />
 			
 			<TextView
@@ -105,6 +105,7 @@
 				android:drawSelectorOnTop="false" />
 			
 			<TextView
+				android:visibility="gone"
 				android:layout_marginBottom="@dimen/view_small_ver_distance"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
@@ -116,6 +117,7 @@
 			    android:focusableInTouchMode="true" />
 			
 			<cn.gl.lib.view.NestGridView
+				android:visibility="gone"
 				android:layout_marginBottom="@dimen/view_ver_margin"
 			    android:id="@+id/start_sts_stake_gridview"
 			    android:layout_width="match_parent"
@@ -137,13 +139,13 @@
 			    android:layout_height="40dip"
 			    android:gravity="top|left"
 			    android:maxLength="@integer/invite_addressname_max_length"
-			    android:inputType="text|textPersonName"
 			    android:paddingTop="@dimen/edittext_v_space"
 			    android:paddingBottom="@dimen/edittext_v_space"
-			    android:paddingLeft="@dimen/edittext_h_space"
-			    android:paddingRight="@dimen/edittext_h_space"
-			    android:background="@drawable/edittext_bkg"
+			    android:paddingLeft="5dp"
+			    android:paddingRight="5dp"
+			    android:background="@drawable/frame_bkg"
 			    android:hint="@string/str_input_hint_sts_addr_name"
+				android:textColorHint="@color/gray"
 			    android:textColor="@color/color_hint_txt"
 			    android:textSize="@dimen/txt_hint_size" />			
 			<EditText
@@ -155,10 +157,11 @@
 			    android:inputType="textMultiLine"
 			    android:paddingTop="@dimen/edittext_v_space"
 			    android:paddingBottom="@dimen/edittext_v_space"
-			    android:paddingLeft="@dimen/edittext_h_space"
-			    android:paddingRight="@dimen/edittext_h_space"
-			    android:background="@drawable/edittext_bkg"
+			    android:paddingLeft="5dp"
+			    android:paddingRight="5dp"
+			    android:background="@drawable/frame_bkg"
 			    android:hint="@string/str_input_hint_sts_invite"
+				android:textColorHint="@color/gray"
 			    android:textColor="@color/color_hint_txt"
 			    android:textSize="@dimen/txt_hint_size" />
 			

@@ -39,6 +39,8 @@ public class CourseSelectActivity extends Activity {
 //		intent.putExtra(BUNDLE_CURR_REGION, curRegion);
 		intent.putExtra(BUNDLE_COURSE_LIST, courseList);
 		context.startActivity(intent);
+
+
 	}
 
 	@Override
@@ -47,6 +49,7 @@ public class CourseSelectActivity extends Activity {
 		setContentView(R.layout.common_ac_list_select);
 		getViews();
 		getData();
+
 	}
 
 	@SuppressWarnings("unchecked")

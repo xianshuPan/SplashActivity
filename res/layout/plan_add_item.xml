@@ -5,26 +5,38 @@
     android:background="@drawable/frame_bkg" >
     <ImageView
         android:id="@+id/start_sts_plan_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_centerVertical="true"
-        android:padding="8dip"
         android:layout_alignParentRight="true" />
+
     <TextView
+        android:layout_marginLeft="5dp"
         android:layout_toLeftOf="@id/start_sts_plan_img"
+        android:textColor="#223386"
+        android:id="@+id/start_sts_plan_course"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        />
+
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/start_sts_plan_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dip"
+        />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:textColor="#223386"
+        android:layout_below="@id/start_sts_plan_course"
         android:id="@+id/start_sts_plan_teetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
         android:padding="5dip"
          />
-    <TextView
-        android:layout_toLeftOf="@id/start_sts_plan_teetime"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/start_sts_plan_course"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:padding="5dip"
-         />
+
 </RelativeLayout>

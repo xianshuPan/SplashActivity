@@ -66,7 +66,7 @@ public class GetCoachList extends BaseRequest {
 			
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 
-			failMsg = jo.getString(RET_MSG);
+			failMsg = jo.optString(RET_MSG);
 
 			if(REQ_RET_OK != rn) {
 
@@ -82,7 +82,7 @@ public class GetCoachList extends BaseRequest {
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
 				
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				
 				CoachItem item = new CoachItem();
 				
@@ -94,16 +94,18 @@ public class GetCoachList extends BaseRequest {
 				item.id = obj.optLong("id");
 				item.nickname = customerJson.optString("nickname");
 				item.avatar = customerJson.optString("avatar");
+				item.sex = customerJson.optInt("sex");
 				
 				item.teachTimes = obj.optInt("experience");
 				item.teachYear = obj.optInt("teaching_age");
 				item.type = feeJson.optInt("type");
 				item.rate = obj.optInt("star");
+				item.audit = obj.optInt("audit");
 				
 				item.award = obj.optString("award");
 				item.graduate = obj.optString("diploma");
 				item.certificate = obj.optString("certification");
-				
+
 				item.handicapIndex = customerJson.optDouble("handicapIndex", Double.MAX_VALUE);
 				item.price = feeJson.optInt("price");
 				item.distance = obj.optDouble("distance");
@@ -118,6 +120,9 @@ public class GetCoachList extends BaseRequest {
 
 				item.commentsAmount = obj.optInt("commentsAmount");
 				item.attention = obj.optInt("attention");
+
+				item.attention = obj.optInt("attention");
+
 
 				coachList.add(item);
 			}

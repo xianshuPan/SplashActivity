@@ -48,10 +48,10 @@ public class RegisterSubmitPhone extends BaseRequest {
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
 				
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			verifyCode = jo.getString(RET_VERIFY_CODE);
+			verifyCode = jo.optString(RET_VERIFY_CODE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;

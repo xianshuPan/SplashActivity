@@ -30,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 	    android:scrollbarStyle="outsideOverlay"
-	    android:divider="@drawable/divider"  />  
+		android:divider="@null"
+		android:background="#e8e8e8" />
 
     <!-- content title -->
 </LinearLayout>

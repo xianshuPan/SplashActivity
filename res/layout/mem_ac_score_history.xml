@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/repeat_bkg"
+    android:background="@color/color_white"
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:visibility="gone"
         style="@style/custom_title_style" >
         <ImageButton
 			android:id="@+id/member_score_history_topbar_back"
@@ -23,6 +24,7 @@
     </RelativeLayout>
     
     <TextView
+        android:visibility="gone"
         	android:id="@+id/score_history_top_msg"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
@@ -59,9 +61,10 @@
 	    android:layout_height="match_parent"
 	    layout="@layout/common_load_fail" />
 	
-	<com.hylg.igolf.ui.view.PullListView
+	<com.hylg.igolf.ui.view.ListviewBottomRefresh
 	    android:id="@+id/score_history_listview"
-	   style="@style/listview_style"  
+	   style="@style/listview_style"
+        android:footerDividersEnabled="false"
 	   android:scrollbarStyle="outsideOverlay" /> 
 
 </LinearLayout>

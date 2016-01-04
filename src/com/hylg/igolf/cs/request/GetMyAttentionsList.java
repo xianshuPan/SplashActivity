@@ -17,11 +17,13 @@ public class GetMyAttentionsList extends BaseRequest {
 	private String param;
 	private ArrayList<MyFolloweInfo> myFollowerList = null;
 
-	public GetMyAttentionsList(Context context, String sn, int pageNum, int pageSize) {
+	public GetMyAttentionsList(Context context, String sn, String mem_sn,int pageNum, int pageSize) {
 		super(context);
 		myFollowerList = new ArrayList<MyFolloweInfo>();
 		StringBuilder s = new StringBuilder();
 		s.append(PARAM_REQ_SN); s.append(KV_CONN); s.append(sn);
+		s.append(PARAM_CONN);
+		s.append("otherSn"); s.append(KV_CONN); s.append(mem_sn);
 		s.append(PARAM_CONN);
 		s.append(PARAM_REQ_PAGE_NUM); s.append(KV_CONN); s.append(pageNum);
 		s.append(PARAM_CONN);
@@ -53,20 +55,20 @@ public class GetMyAttentionsList extends BaseRequest {
 			
 			DebugTools.getDebug().debug_v("myAttentions----->>>", "------->>>>>"+jo);
 			
-			JSONArray ja = jo.getJSONArray("myAttentions");
+			JSONArray ja = jo.optJSONArray("myAttentions");
 			
 			for(int i=0, len=ja.length(); i<len; i++) {
 				
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				MyFolloweInfo temp = new MyFolloweInfo();
 				
-				temp.attentionOrNot = obj.getInt("attentionOrNot");
-				temp.sn =  obj.getString("sn");
-				temp.nickName =  obj.getString("nickName");
-				temp.avatar = obj.getString("avater");
+				temp.attentionOrNot = obj.optInt("attentionOrNot");
+				temp.sn =  obj.optString("sn");
+				temp.nickName =  obj.optString("nickName");
+				temp.avatar = obj.optString("avater");
 				
-				temp.dynamic = obj.getInt("dynamic");
-				temp.praises = obj.getInt("praises");
+				temp.dynamic = obj.optInt("dynamic");
+				temp.praises = obj.optInt("praises");
 
 				
 				myFollowerList.add(temp);

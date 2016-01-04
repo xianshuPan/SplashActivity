@@ -5,222 +5,242 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical" >
-    <RelativeLayout
+	<RelativeLayout
+		android:background="@color/color_title_bkg"
+		android:gravity="center_horizontal"
+		android:layout_centerHorizontal="true"
+		android:id="@+id/customer_info_avatar_linear"
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:paddingTop="5dp" >
+		android:layout_height="180dp">
+
+		<ImageView
+			android:visibility="gone"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:src="@drawable/avatar_no_golfer"
+			android:background="#0a8e55"
+			android:scaleType="fitXY"/>
+
 		<com.hylg.igolf.ui.view.CircleImageView
-			android:layout_marginTop="5dp"
-			android:id="@+id/customer_avatar"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
-			android:layout_marginLeft="10dp"
+			android:layout_centerHorizontal="true"
+			android:id="@+id/customer_info_avatar_image"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
 			android:src="@drawable/avatar_null" />
-			   
 		<LinearLayout
-			android:id="@+id/customer_yearsexp_linear"
-			android:layout_toRightOf="@+id/customer_avatar"
-			android:layout_marginTop="5dp"
-			android:layout_marginLeft="5dp"
-			android:layout_gravity="top"
+			android:layout_centerHorizontal="true"
+			android:layout_below="@+id/customer_info_avatar_image"
+			android:id="@+id/customer_info_nickname_linear"
+			android:layout_marginTop="10dp"
 			android:layout_width="wrap_content"
-			android:orientation="vertical"
-			android:layout_height="wrap_content" >
-			    			
+			android:layout_height="wrap_content"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
 			<TextView
-				android:layout_width="50dp"
+				android:id="@+id/customer_info_name_text"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:textSize="12sp"
-				android:gravity="center"
-				android:textColor="@android:color/black"
-				android:text="@string/str_comm_yearsexp" />
-			<TextView
-				android:gravity="center"
-				android:id="@+id/cusinfo_yearsexp_txt"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textSize="12sp"/>
-			    			
+				android:textColor="@color/color_white"/>
+			<ImageView
+				android:id="@+id/customer_info_sex_image"
+				android:layout_marginLeft="5dp"
+				android:layout_width="15dp"
+				android:layout_height="15dp"/>
+
 		</LinearLayout>
+
 		<LinearLayout
-			android:layout_toRightOf="@+id/customer_yearsexp_linear"
+			android:layout_centerHorizontal="true"
+			android:id="@+id/customer_info_location_linear"
+			android:layout_below="@+id/customer_info_nickname_linear"
+			android:layout_marginTop="5dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_white"
+				android:text="@string/str_golfers_li_yearsexp_title"/>
+			<TextView
+				android:layout_marginLeft="5dp"
+				android:id="@+id/customer_info_yearsexp_txt"
+				android:layout_width="25dp"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_white" />
+
+			<TextView
+				android:id="@+id/customer_info_location_txt"
+				android:layout_marginLeft="40dp"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_white" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/customer_info_attention_linear"
+			android:layout_below="@+id/customer_info_location_linear"
+			android:layout_marginTop="20dp"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:gravity="center_vertical">
+			android:orientation="horizontal">
 			<LinearLayout
-				android:id="@+id/cusinfo_score_line"
+				android:id="@+id/customer_info_my_praise_linear"
+				android:gravity="center_horizontal"
+				android:layout_weight="1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:gravity="center_vertical"
-				android:orientation="horizontal" >
-				<LinearLayout
-					style="@style/detail_item_layout_style" >
-					<TextView
-						style="@style/detail_item_title_style"
-						android:text="@string/str_detail_handicapi" />
-					<TextView
-						android:id="@+id/cusinfo_handicapi_txt"
-						style="@style/detail_item_value_style" />
-				</LinearLayout>
-				<LinearLayout
-					style="@style/detail_item_layout_style" >
-					<TextView
-						style="@style/detail_item_title_style"
-						android:text="@string/str_detail_best" />
-					<TextView
-						android:id="@+id/cusinfo_best_txt"
-						style="@style/detail_item_value_style" />
-						    
-				</LinearLayout>
-				<LinearLayout
-					style="@style/detail_item_layout_style" >
-					<TextView
-						style="@style/detail_item_title_style"
-						android:text="@string/str_detail_matches" />
-					<TextView
-						android:id="@+id/cusinfo_matches_txt"
-						style="@style/detail_item_value_style" />
-				</LinearLayout>
+				android:orientation="vertical">
+				<TextView
+					android:text="0"
+					android:id="@+id/customer_info_my_praise_txt"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/color_white" />
+				<TextView
+					android:layout_marginTop="2dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/color_white"
+					android:text="@string/str_praise_tips"/>
+
 			</LinearLayout>
-			<LinearLayout
-		    	android:id="@+id/cusinfo_more_line"
-		    	android:layout_width="match_parent"
-		    	android:layout_height="wrap_content"
-		    	android:gravity="center_vertical"
-		    	android:orientation="horizontal" >
-			
-				<LinearLayout
-			    	style="@style/detail_item_layout_style" >
-					<TextView
-			        	style="@style/detail_item_title_style"
-			        	android:text="@string/str_comm_cityrank" />
-			    	<TextView
-			        	android:id="@+id/cusinfo_cityrank_txt"
-			        	style="@style/detail_item_value_style" />
-			    
-			</LinearLayout>
-			<LinearLayout
-			    style="@style/detail_item_layout_style" >
-			    
-			    <TextView
-			        style="@style/detail_item_title_style"
-			        android:text="@string/str_comm_heat" />
-			    <TextView
-			        android:id="@+id/cusinfo_heat_txt"
-			        style="@style/detail_item_value_style" />
-			    
-			</LinearLayout>
-			<LinearLayout
-			    style="@style/detail_item_layout_style" >
-			    <TextView
-			        style="@style/detail_item_title_style"
-			        android:text="@string/str_comm_activity" />
-			    <TextView
-			        android:id="@+id/cusinfo_activity_txt"
-			        style="@style/detail_item_value_style" />
-			    
-			</LinearLayout>
-		</LinearLayout>
 
 			<LinearLayout
-				android:layout_below="@+id/customer_avatar"
+				android:id="@+id/customer_info_my_attention_linear"
+				android:gravity="center_horizontal"
+				android:layout_weight="1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal" >
-
+				android:orientation="vertical">
 				<TextView
-					android:layout_weight="1"
-					android:layout_marginTop="5dp"
-					android:paddingTop="5dp"
-					android:paddingBottom="5dp"
-					android:paddingLeft="10dp"
-					android:paddingRight="10dp"
-					android:background="@drawable/attented_color"
-					android:id="@+id/cusinfo_myinfo_ll"
-					android:gravity="center"
-					android:layout_width="match_parent"
+					android:text="0"
+					android:id="@+id/customer_info_my_attention_txt"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginRight="10dp"
-					android:text="@string/str_cusinfo_edit"
-					android:textColor="@color/color_title_txt"
-					android:textSize="@dimen/txt_size_s" />
-
+					android:textColor="@color/color_white" />
 				<TextView
-					android:visibility="gone"
-					android:layout_weight="1"
-					android:layout_marginTop="5dp"
-					android:paddingTop="5dp"
-					android:paddingBottom="5dp"
-					android:paddingLeft="10dp"
-					android:paddingRight="10dp"
-					android:background="@drawable/attented_color"
-					android:id="@+id/cusinfo_my_balance_text"
-					android:gravity="center"
-					android:layout_width="match_parent"
+					android:id="@+id/customer_info_my_attention_title_txt"
+					android:layout_marginTop="2dp"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginRight="10dp"
-					android:text="我的余额"
-					android:textColor="@color/color_title_txt"
-					android:textSize="@dimen/txt_size_s" />
+					android:textColor="@color/color_white"
+					android:text="@string/str_praise_attention"/>
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:id="@+id/customer_info_my_follower_linear"
+				android:gravity="center_horizontal"
+				android:layout_weight="1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+				<TextView
+					android:text="0"
+					android:id="@+id/customer_info_my_follower_txt"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/color_white" />
+				<TextView
+					android:id="@+id/customer_info_my_follower_title_txt"
+					android:layout_marginTop="2dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/color_white"
+					android:text="@string/str_praise_follower"/>
+
 			</LinearLayout>
 
 		</LinearLayout>
 
+
+		<View
+			android:layout_alignParentBottom="true"
+			android:layout_marginTop="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="1px"
+			android:background="@drawable/divider1"/>
 
 	</RelativeLayout>
-		
-    
-		
-    <View
-        android:layout_marginTop="10dp"
-	        android:layout_width="match_parent"
-	        android:layout_height="1px"
-	        android:background="@drawable/divider1" />
-    
-    	<LinearLayout
-    	    android:id="@+id/cusinfo_more_relative"
-    	    android:visibility="gone"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:orientation="horizontal" >
-			    <TextView
-			        android:id="@+id/cusinfo_tips_text"
-			        android:background="@drawable/friend_tab_select_bg"
-			        android:gravity="center"
-			        android:layout_weight="1"
-			        android:layout_width="match_parent"
-			        android:layout_height="35dp"
-			        android:text="帖子" />
-			   <TextView
-			        android:id="@+id/cusinfo_praise_text"
-			       	android:background="@drawable/praiser_selection"
-			       	android:gravity="center"
-			        android:layout_weight="1"
-			        android:layout_width="match_parent"
-			        android:layout_height="35dp"
-			        android:text="点赞" />
-			   <TextView
-			        android:id="@+id/cusinfo_follower_text"
-			       	android:background="@drawable/praiser_selection"
-			       	android:gravity="center"
-			        android:layout_weight="1"
-			        android:layout_width="match_parent"
-			        android:layout_height="35dp"
-			        android:text="粉丝" />
-			   <TextView
-			        android:id="@+id/cusinfo_attention_text"
-			       android:background="@drawable/praiser_selection"
-			       android:gravity="center"
-			        android:layout_weight="1"
-			        android:layout_width="match_parent"
-			        android:layout_height="35dp"
-			        android:text="关注" />
-			    
+
+
+	<LinearLayout
+		android:layout_below="@+id/customer_info_avatar_linear"
+		android:id="@+id/customer_info_score_linear"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:background="@drawable/score_bg"
+		android:gravity="center_vertical"
+		android:orientation="vertical">
+		<LinearLayout
+			android:gravity="center_horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+			<TextView
+				style="@style/custom_info_score_title_style"
+				android:text="@string/str_comm_handicapi"/>
+			<TextView
+				style="@style/custom_info_score_title_style"
+				android:text="@string/str_rank_sub_title_best"/>
+			<TextView
+				style="@style/custom_info_score_title_style"
+				android:text="@string/str_detail_matches" />
+			<TextView
+				style="@style/custom_info_score_title_style"
+				android:text="@string/str_comm_cityrank"/>
+			<TextView
+
+				style="@style/custom_info_score_title_style"
+				android:text="@string/str_comm_heat"/>
+			<TextView
+				style="@style/custom_info_score_title_style"
+				android:text="@string/str_comm_activity"/>
+
 		</LinearLayout>
+
+		<View
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_marginTop="10dp"
+			android:layout_width="match_parent"
+			android:layout_height="1px"
+			android:background="@drawable/divider"/>
+
+		<LinearLayout
+			android:layout_marginTop="10dp"
+			android:gravity="center_horizontal"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+			<TextView
+				style="@style/custom_info_score_title_style"
+				android:id="@+id/customer_info_handicapi_txt" />
+			<TextView
+				android:id="@+id/customer_info_best_txt"
+				style="@style/custom_info_score_title_style" />
+			<TextView
+				android:id="@+id/customer_info_matches_txt"
+				style="@style/custom_info_score_title_style" />
+			<TextView
+				android:id="@+id/customer_info_cityrank_txt"
+				style="@style/custom_info_score_title_style" />
+			<TextView
+				android:id="@+id/customer_info_heat_txt"
+				style="@style/custom_info_score_title_style" />
+			<TextView
+				android:id="@+id/customer_info_activity_txt"
+				style="@style/custom_info_score_title_style" />
+
+		</LinearLayout>
+
+
+	</LinearLayout>
 			
-    	 <View
+	<View
 	        android:layout_width="match_parent"
 	        android:layout_height="1px"
 	        android:background="@drawable/divider1" />

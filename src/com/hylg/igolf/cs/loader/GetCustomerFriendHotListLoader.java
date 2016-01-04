@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
 
 import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.cs.request.GetCustomerFriendList;
@@ -25,7 +26,9 @@ public class GetCustomerFriendHotListLoader extends BaseAsyncLoader {
 		request = new GetCustomerFriendList(context, sn, tosn,pageNum, pageSize);
 		this.callBack = callBack;
 	}
-	
+
+
+
 	@Override
 	public void requestData() {
 		
@@ -50,6 +53,6 @@ public class GetCustomerFriendHotListLoader extends BaseAsyncLoader {
 
 	/*回调接口*/
 	public interface GetCustomerFriendHotListCallback {
-		public abstract void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList);
+		void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList);
 	}
 }

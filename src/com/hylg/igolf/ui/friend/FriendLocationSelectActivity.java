@@ -107,7 +107,6 @@ public class FriendLocationSelectActivity extends Activity implements
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.friend_ac_location_select);
 		
-		
 		initView (savedInstanceState) ;
 	}
 	
@@ -133,6 +132,7 @@ public class FriendLocationSelectActivity extends Activity implements
         mPoiItems = new ArrayList<PoiItem>();
         mAdapter = new poiResultAdapter();
         mLocationList.setAdapter(mAdapter);
+		mBackImage.setOnClickListener(this);
         mLocationList.setOnItemClickListener(this);
         mLocationList.setOnRefreshListener(this);
         mContentsEdit.addTextChangedListener(this);
@@ -332,7 +332,7 @@ public class FriendLocationSelectActivity extends Activity implements
 					
 					DebugTools.getDebug().debug_v(TAG, "tempList----->>>>>"+tempList);
 					
-					int size = 0;
+					int size ;
 					
 					if (tempList != null) {
 						
@@ -454,7 +454,7 @@ public class FriendLocationSelectActivity extends Activity implements
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
-		if (mQuery != null && mPoiSearch != null && mPoiSearch != null) {
+		if (mQuery != null && mPoiSearch != null) {
 			//if (mPoiResult.getPageCount() - 1 > mCurrentPage) {
 				mCurrentPage++;
 				mQuery.setPageNum(mCurrentPage);// 设置查后一页
@@ -486,9 +486,14 @@ public class FriendLocationSelectActivity extends Activity implements
 			
 			this.finish();
 			
-		} else if (arg0.getId() == mSelectNoLocationRelative.getId()) {
+		}
+		else if (arg0.getId() == mSelectNoLocationRelative.getId()) {
 			
 			Config.mLocationAliasStr = "";
+			this.finish();
+		}
+		else if (arg0.getId() == mBackImage.getId()) {
+
 			this.finish();
 		}
 	}

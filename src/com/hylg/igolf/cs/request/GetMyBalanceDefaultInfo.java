@@ -45,7 +45,7 @@ public class GetMyBalanceDefaultInfo extends BaseRequest {
 			DebugTools.getDebug().debug_v("getWithdrwalDefaultInfo----->>>", "------->>>>>"+jo);
 			int rn = jo.optInt("result", REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 

@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <RelativeLayout
+		android:visibility="gone"
         style="@style/custom_title_style" >
         <ImageButton
 			android:id="@+id/member_fight_record_topbar_back"

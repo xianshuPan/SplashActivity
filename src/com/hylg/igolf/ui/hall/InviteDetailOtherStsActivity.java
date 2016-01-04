@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.hylg.igolf.R;
@@ -58,6 +59,14 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 		fragment.startActivity(intent);
 		fragment.getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
+
+	public static void startInviteDetailOtherStsForCallback(FragmentActivity fragment, MyInviteInfo invitation) {
+		callback = (onResultCallback) fragment;
+		Intent intent = new Intent(fragment, InviteDetailOtherStsActivity.class);
+		intent.putExtra(BUNDLE_KEY_DETAIL_INFO, invitation);
+		fragment.startActivity(intent);
+		fragment.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +116,10 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 		appendMyCommonData(detail.inviter, detail.invitee,detail.inviteeone,detail.inviteetwo,
 			String.format(getString(R.string.str_invite_detail_msg_other), detail.addressName, detail.message),
 			detail.paymentType, detail.stake);
-		dismissRequestRegion();
+
+		/*pxs 2015.12.28 update*/
+		//dismissRequestRegion();
+		unClickableleRequestRegionMine();
 		switch(invitation.displayStatus) {
 			case Const.MY_INVITE_WAITACCEPT: // 等接受,我可以接受、拒绝(相当于撤销)约球
 				addOperBarLayout(appRevokeAcceptBar);
@@ -116,8 +128,12 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 			case Const.MY_INVITE_ACCEPTED: // 已接受,我接受了约球；可撤约
 				displayAppInfo(detail.teeTime, invitation.courseName); // 已接受，只显示接受方案即可
 				displayAppCancel();
-				
+
 				displayRateRegion(detail);
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
+
 				if(DISP_SCORE_) return ;
 				break;
 			case Const.MY_INVITE_CANCELED: // 已撤销,对方撤销了约球
@@ -139,6 +155,9 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 			case Const.MY_INVITE_WAITSIGN: // 待签到,约球单为接受，并当前时间小于开球时间
 				displayAppMark();
 				displayAppInfo(detail.teeTime, invitation.courseName); // 此时已接受，只显示接受方案即可
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
 				if(DISP_SCORE_) {
 					palyingScoreAndRate(detail);
 					return ;
@@ -147,6 +166,9 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 			case Const.MY_INVITE_SIGNED: // 已签到
 			case Const.MY_INVITE_PLAYING: // 进行中,当前时间大于等于开球时间，并未记分或未评价对方
 				displayAppInfo(detail.teeTime, invitation.courseName);
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
 				palyingScoreAndRate(detail);
 				// 直接return，显示评分，记分
 				return;
@@ -155,6 +177,10 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 				// 已完成，显示评分，记分
 				completeScoreAndRate(detail);
 				displayAppInfo(detail.teeTime, invitation.courseName);
+
+				/*pxs 2015.12.28 update*/
+				dismissRequestRegion();
+
 				// 直接return，显示评分，记分
 				return;
 		}

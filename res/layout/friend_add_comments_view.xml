@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     
@@ -29,6 +28,7 @@
 		    android:textSize="@dimen/txt_size_m" />
 		
 		<TextView
+			android:enabled="false"
 		    android:paddingLeft="15dp"
 		    android:paddingRight="15dp"
 		    android:paddingTop="5dp"
@@ -41,6 +41,6 @@
 		    android:layout_alignParentRight="true"
 		    android:layout_marginRight="10dp"
 		    android:text="@string/str_friend_comments_add"
-		    android:textColor="@color/color_title_txt"
+		    android:textColor="@color/gray"
 		    android:textSize="@dimen/txt_size_ml" />
 </RelativeLayout>

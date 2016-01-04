@@ -26,7 +26,9 @@ public class CoachApplyInfoReqParam implements Serializable {
 	public String state;
 	
 	public String special;
+	public String course_abbr;
 	public String course_name;
+	public String course_address;
 	public String graduate_name;
 	public String certificate_name;
 	public String award_name;
@@ -34,6 +36,10 @@ public class CoachApplyInfoReqParam implements Serializable {
 	public double lat;
 	
 	public double lng;
+
+	public float star;
+
+	public long teacing_count;
 	
 	public int audit;
 	

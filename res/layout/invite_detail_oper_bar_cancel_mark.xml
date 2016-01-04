@@ -11,7 +11,7 @@
 		android:background="@drawable/xbtn_green"
 		android:text="@string/str_invite_detail_oper_btn_app_cancel"
 		android:textColor="@android:color/white"
-		android:textSize="@dimen/txt_btn_txt_size" />
+		android:textSize="@dimen/txt_size_ml" />
 	<View
 	    android:id="@+id/invite_detail_oper_cm_btn_space"
 	    android:layout_width="@dimen/view_hor_margin"
@@ -25,5 +25,5 @@
 		android:background="@drawable/xbtn_green"
 		android:text="@string/str_invite_detail_oper_btn_app_mark"
 		android:textColor="@android:color/white"
-		android:textSize="@dimen/txt_btn_txt_size" />
+		android:textSize="@dimen/txt_size_ml" />
 </LinearLayout>

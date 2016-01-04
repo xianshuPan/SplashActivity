@@ -10,6 +10,7 @@ import android.content.Context;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.MyInviteInfo;
+import com.hylg.igolf.ui.hall.data.Applicant;
 
 public class GetMyInviteList extends BaseRequest {
 	private String param;
@@ -43,35 +44,60 @@ public class GetMyInviteList extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			
 			DebugTools.getDebug().debug_v("我的约球列表", "------》》》"+jo);
 			
-			JSONArray ja = jo.getJSONArray(RET_MY_INVITES_LIST);
+			JSONArray ja = jo.optJSONArray(RET_MY_INVITES_LIST);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				MyInviteInfo mii = new MyInviteInfo();
-				mii.id = obj.getLong(RET_ID);
-				mii.sn = obj.getString(RET_SN);
-				mii.type = obj.getInt(RET_TYPE);
-				mii.status = obj.getInt(RET_STATUS);
-				mii.displayStatus = obj.getInt(RET_DISPLAY_STATUS);
-				mii.displayStatusStr = obj.getString(RET_DISPLAY_STATUS_STR);
+				mii.id = obj.optLong(RET_ID);
+				mii.sn = obj.optString(RET_SN);
+				mii.type = obj.optInt(RET_TYPE);
+				mii.payType = obj.optInt("payType");
+				mii.local_fans = obj.optInt("infoFans");
+				mii.status = obj.optInt(RET_STATUS);
+				mii.displayStatus = obj.optInt(RET_DISPLAY_STATUS);
+				mii.displayStatusStr = obj.optString(RET_DISPLAY_STATUS_STR);
 				mii.planNum = obj.optInt(RET_PLAN_NUM, 1);
-				mii.courseName = obj.getString(RET_COURSE_NAME);
-				mii.teeTime = obj.getString(RET_TEE_TIME);
+				mii.courseName = obj.optString(RET_COURSE_NAME);
+				mii.teeTime = obj.optString(RET_TEE_TIME);
 				mii.applicantsNum = obj.optInt(RET_APPLICANTS_NUM, 0);
 				mii.palId = obj.optInt(RET_PAL_ID, Integer.MAX_VALUE);
-				mii.palSn = obj.getString(RET_PAL_SN);
-				mii.palAvatar = obj.getString(RET_PAL_AVATAR);
-				mii.palNickname = obj.getString(RET_PAL_NICKNAME);
-				mii.palSex = obj.getInt(RET_PAL_SEX);
-				mii.palMsg = obj.getString(RET_PAL_MSG);
-				mii.haveAlert = obj.getBoolean(RET_HAVE_ALERT);
-				mii.inviterSn = obj.getString("inviterSn");
+				mii.palSn = obj.optString(RET_PAL_SN);
+				mii.palAvatar = obj.optString(RET_PAL_AVATAR);
+				mii.palNickname = obj.optString(RET_PAL_NICKNAME);
+				mii.palSex = obj.optInt(RET_PAL_SEX);
+				mii.palMsg = obj.optString(RET_PAL_MSG);
+				mii.haveAlert = obj.optBoolean(RET_HAVE_ALERT);
+				mii.inviterSn = obj.optString("inviterSn");
+				mii.inviterSex = obj.optInt("inviterSex");
+				mii.inviterName = obj.optString("inviterName");
+
 				inviteList.add(mii);
+
+				JSONArray applicantsJson = obj.optJSONArray("applicants");
+
+				if (applicantsJson != null && applicantsJson.length() > 0) {
+
+					mii.applicants = new ArrayList<Applicant>();
+					for (int j = 0;j < applicantsJson.length();j++) {
+
+						JSONObject applicantsItemJson = applicantsJson.optJSONObject(j);
+						Applicant applicantItem = new Applicant();
+
+						applicantItem.applicant_id = applicantsItemJson.optInt("id");
+						applicantItem.applicant_sex = applicantsItemJson.optInt("sex");
+						applicantItem.applicant_nick_name = applicantsItemJson.optString("nickname");
+						applicantItem.applicant_sn = applicantsItemJson.optString("sn");
+
+						mii.applicants.add(applicantItem);
+					}
+
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

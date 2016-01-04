@@ -204,7 +204,7 @@ public class GolfersListActivity extends Activity
 		if(null == Utils.getEditTextString(searchEt)) {
 			Toast.makeText(GolfersListActivity.this, R.string.str_toast_keyword_null, Toast.LENGTH_SHORT).show();
 		} else if(!Utils.isConnected(GolfersListActivity.this)) {
-			;
+
 		} else {
 			dismissSearchBar();
 			searchByKeyword(Utils.getEditTextString(searchEt));
@@ -398,14 +398,13 @@ public class GolfersListActivity extends Activity
 	}
 	
 	private interface ChangeCallback {
-		public abstract void callBack();
+		void callBack();
 	}
 	
 	private void clearLoader() {
 		if(isLoading()) {
 			GetGolfersListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -416,7 +415,6 @@ public class GolfersListActivity extends Activity
 	/**
 	 * 
 	 * @param data
-	 * @param init
 	 * 			true: do init the first time, or fail retry.
 	 * 			false: init by change the filter condition.
 	 */
@@ -575,6 +573,6 @@ public class GolfersListActivity extends Activity
 	}
 	
 	public interface OnClearSetupListener {
-		public abstract void clearSetup();
+		void clearSetup();
 	}
 }

@@ -13,19 +13,21 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.R;
-import com.hylg.igolf.ui.coach.CoachApplyInfoActivity;
-import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 
 public class UploadImageRequest extends BaseRequest {
 	
 	private static final String TAG = "UploadImageRequest";
-	private Bitmap bitmap;
+	public Bitmap bitmap;
 	private String method;
 	private String bodyName;
 	
@@ -40,13 +42,17 @@ public class UploadImageRequest extends BaseRequest {
 	public ImageView selectedImage;
 	
 	public int type;
+
+	private Context mContext ;
+
+	private Uri uri;
 	
-	public UploadImageRequest(Context context, Bitmap bitmap, int type, String method, String bodyName, 
+	public UploadImageRequest(Context context, Uri uri, int type, String method, String bodyName,
 								String fileName,ImageView okImage,ImageView deleteImage,ProgressBar progress,ImageView selectedImage) {
 		super(context);
-		
+
+		mContext = context;
 		this.type = type;
-		this.bitmap = bitmap;
 		this.method = method;
 		this.bodyName = bodyName;
 		this.imageFileName = fileName;
@@ -54,6 +60,7 @@ public class UploadImageRequest extends BaseRequest {
 		this.okImageView = okImage;
 		this.deleteImageView = deleteImage;
 		this.selectedImage = selectedImage;
+		this.uri = uri;
 	}
 	
 //	public UploadImageRequest(Context context, Bitmap bitmap, int type,String fileName) {
@@ -101,16 +108,38 @@ public class UploadImageRequest extends BaseRequest {
 	        con.setRequestMethod("POST");
 	        con.setRequestProperty(HTTP.CONN_DIRECTIVE, HTTP.CONN_KEEP_ALIVE);          
 			con.setRequestProperty("Charset", HTTP.UTF_8);          
-			con.setRequestProperty(HTTP.CONTENT_TYPE,"multipart/form-data;boundary="+boundary);
-			
-			ByteArrayOutputStream  baos = new ByteArrayOutputStream();
-			bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-			
+			con.setRequestProperty(HTTP.CONTENT_TYPE, "multipart/form-data;boundary=" + boundary);
+
+			bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), uri);
+
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			bitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+			float zoom = (float)Math.sqrt(128 * 1024 / (float)out.toByteArray().length);
+
+			Matrix matrix = new Matrix();
+			matrix.setScale(zoom, zoom);
+
+			Bitmap result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+			result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+			while(out.toByteArray().length > 128 * 1024){
+				System.out.println(out.toByteArray().length);
+				matrix.setScale(0.9f, 0.9f);
+				result = Bitmap.createBitmap(result, 0, 0, result.getWidth(), result.getHeight(), matrix, true);
+				out.reset();
+				result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+			}
+
+			bitmap = result;
+
+
 			DataOutputStream ds = new DataOutputStream(con.getOutputStream()); 
 			ds.writeBytes(twoHyphens + boundary + end);          
 			ds.writeBytes("Content-Disposition:form-data;"+ "name=\""+bodyName+"\";filename=\""+imageFileName+"\""+ end);
 			ds.writeBytes(end);
-			ds.write(baos.toByteArray(), 0, baos.toByteArray().length);
+			ds.write(out.toByteArray());
 			ds.writeBytes(end); 
 			ds.writeBytes(twoHyphens + boundary + twoHyphens + end);          
 			ds.flush();

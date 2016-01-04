@@ -3,6 +3,6 @@
 	android:contentDescription="@null"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:src="@drawable/icon_arrow_enter"
+	android:src="@drawable/li_exp_collapse"
 	android:layout_centerVertical="true"
 	android:layout_alignParentRight="true" />

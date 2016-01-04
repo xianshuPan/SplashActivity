@@ -117,16 +117,18 @@ public class FriendNewFrg extends Fragment {
 		});
 		
 		mRefreshView.setOnLoadMoreListener(new OnLoadMoreListener() {
-			
+
 			@Override
 			public void onLoadMore() {
 				// TODO Auto-generated method stub
-				
+
 				loadMoreData();
 			}
 		});
+
+		mRefreshView.setShowFootBottom(true);
 		
-		return mRefreshView;
+		return parentView;
 	}
 	
 	@Override
@@ -260,6 +262,8 @@ public class FriendNewFrg extends Fragment {
 					//loadFail.displayNone();
 					
 					initListView(hotList);
+
+					//mTabHost.invalidate();
 					
 					//listFooter.refreshFooterView(inviteList.size(), pageSize);
 					MainApp.getInstance().getGlobalData().setHasStartNewInvite(false);
@@ -304,8 +308,8 @@ public class FriendNewFrg extends Fragment {
 						
 						mFriendHotAdapter.refreshListInfo(hotList);
 					}
-					
-					
+
+					//mTabHost.invalidate();
 					MainApp.getInstance().getGlobalData().setHasStartNewInvite(false);
 					
 				} else {
@@ -351,8 +355,8 @@ public class FriendNewFrg extends Fragment {
 						
 						mFriendHotAdapter.appendListInfo(hotList);
 					}
-	
-					
+
+					//mTabHost.invalidate();
 					MainApp.getInstance().getGlobalData().setHasStartNewInvite(false);
 					
 				} else {

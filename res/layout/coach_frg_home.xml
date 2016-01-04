@@ -9,10 +9,7 @@
 	<RelativeLayout
 	        android:id="@+id/coach_frg_home_title_relative"
 	        style="@style/custom_title_style" >
-	        
-		<ImageView
-			    android:id="@+id/friend_frg_camera_customer_image"
-			    style="@style/head_customer"/>
+
 		<TextView
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"

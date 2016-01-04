@@ -3,6 +3,7 @@ package com.hylg.igolf.ui.hall;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -48,6 +49,14 @@ public class InviteDetailOtherOpenActivity extends InviteDetailMineActivity {
 		intent.putExtra(BUNDLE_KEY_DETAIL_INFO, invitation);
 		fragment.startActivity(intent);
 		fragment.getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+	}
+
+	public static void startInviteDetailOtherOpenForCallback(FragmentActivity fragment, MyInviteInfo invitation) {
+		callback = (onResultCallback) fragment;
+		Intent intent = new Intent(fragment, InviteDetailOtherOpenActivity.class);
+		intent.putExtra(BUNDLE_KEY_DETAIL_INFO, invitation);
+		fragment.startActivity(intent);
+		fragment.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
 	
 	@Override
@@ -104,6 +113,8 @@ public class InviteDetailOtherOpenActivity extends InviteDetailMineActivity {
 		displayAppInfo(detail.teeTime, detail.courseName);
 		// 申请状况
 		displayRequestRegionOther(invitation.applicantsNum);
+
+		unClickableleRequestRegionMine();
 		
 		switch(invitation.displayStatus) {
 			case Const.MY_INVITE_APPlYED: // 已申请,我申请了约球
@@ -124,12 +135,16 @@ public class InviteDetailOtherOpenActivity extends InviteDetailMineActivity {
 			case Const.MY_INVITE_CANCELED: // 已撤销,对方撤销了约球
 				// 实际列表中，非提醒，无此类信息，已经转移到约球历史
 				displayDisableBtn(R.string.str_invite_detail_oper_btn_app_revoke_done);
-				dismissRequestRegion();
+
+				/*pxs 2015.12.28 update */
+				//dismissRequestRegion();
 				break;
 			case Const.MY_INVITE_REVOKED: // 已撤约,任一一方撤约
 				// 实际列表中，非提醒，无此类信息，已经转移到约球历史
 				displayDisableBtn(R.string.str_invite_detail_oper_btn_app_cancel_done);
-				dismissRequestRegion();
+
+				/*pxs 2015.12.28 update */
+				//dismissRequestRegion();
 				break;
 			case Const.MY_INVITE_WAITSIGN: // 待签到,约球单为接受，并当前时间小于开球时间
 				displayAppMark();
@@ -177,7 +192,9 @@ public class InviteDetailOtherOpenActivity extends InviteDetailMineActivity {
 //						finishWithResult(true);
 						setFinishResult(true);
 //						refreshRequestTitle(applyNum);
-						dismissRequestRegion();
+
+						/*pxs 2015.12.29 update*/
+						//dismissRequestRegion();
 						addOperBarLayout(appCancelMarkBar);
 						Utils.setVisibleGone(appCancelBtn, appMarkBtn, appCmSpaceView);
 						break;
@@ -189,7 +206,9 @@ public class InviteDetailOtherOpenActivity extends InviteDetailMineActivity {
 //						finishWithResult(true);
 						setFinishResult(true);
 //						refreshRequestTitle(applyNum);
-						dismissRequestRegion();
+
+						/*pxs 2015.12.29 update*/
+						//dismissRequestRegion();
 						addOperBarLayout(appCancelMarkBar);
 						Utils.setVisibleGone(appMarkBtn, appCancelBtn, appCmSpaceView);
 						break;

@@ -293,7 +293,7 @@ public class CameraActivity extends Activity implements OnClickListener ,OnItemC
 			
 			hideEditList();
 			
-			int cameraCount = 0;  
+			int cameraCount ;
             CameraInfo cameraInfo = new CameraInfo();  
             cameraCount = Camera.getNumberOfCameras();// 得到摄像头的个数  
   
@@ -997,7 +997,7 @@ public class CameraActivity extends Activity implements OnClickListener ,OnItemC
 			FileOutputStream fos = null;
 		    Bitmap bitmap = null;
 		     
-		    Bitmap rotateBitmap = null;
+		    Bitmap rotateBitmap ;
 		    
 		    BitmapFactory.Options option = new Options();
 		    option.inSampleSize = 4;
@@ -1166,40 +1166,40 @@ public class CameraActivity extends Activity implements OnClickListener ,OnItemC
 					
 					switch (msg.arg1) {
 					
-					case 0:
-						mCountText.setBackgroundResource(R.drawable.progress_1);
-					break;
-					
-					case 1:
-						mCountText.setBackgroundResource(R.drawable.progress_2);
-					break;
-					case 2:
-						mCountText.setBackgroundResource(R.drawable.progress_3);
-					break;
-					
-					case 3:
-						mCountText.setBackgroundResource(R.drawable.progress_4);
-					break;
-					
-					case 4:
-						mCountText.setBackgroundResource(R.drawable.progress_5);
-					break;
-					
-					case 5:
-						mCountText.setBackgroundResource(R.drawable.progress_6);
-					break;
-					
-					case 6:
-						mCountText.setBackgroundResource(R.drawable.progress_7);
-					break;
-					
-					case 7:
-						mCountText.setBackgroundResource(R.drawable.progress_8);
-					break;
-					
-					case 8:
-						mCountText.setBackgroundResource(R.drawable.progress_9);
-					break;
+//					case 0:
+//						mCountText.setBackgroundResource(R.drawable.progress_1);
+//					break;
+//
+//					case 1:
+//						mCountText.setBackgroundResource(R.drawable.progress_2);
+//					break;
+//					case 2:
+//						mCountText.setBackgroundResource(R.drawable.progress_3);
+//					break;
+//
+//					case 3:
+//						mCountText.setBackgroundResource(R.drawable.progress_4);
+//					break;
+//
+//					case 4:
+//						mCountText.setBackgroundResource(R.drawable.progress_5);
+//					break;
+//
+//					case 5:
+//						mCountText.setBackgroundResource(R.drawable.progress_6);
+//					break;
+//
+//					case 6:
+//						mCountText.setBackgroundResource(R.drawable.progress_7);
+//					break;
+//
+//					case 7:
+//						mCountText.setBackgroundResource(R.drawable.progress_8);
+//					break;
+//
+//					case 8:
+//						mCountText.setBackgroundResource(R.drawable.progress_9);
+//					break;
 					
 					default :
 					}

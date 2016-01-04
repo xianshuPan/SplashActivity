@@ -46,18 +46,18 @@ public class GetScoreHistoryList extends BaseRequest {
 
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			JSONArray ja = jo.getJSONArray(RET_SCORE_HISTORY);
+			JSONArray ja = jo.optJSONArray(RET_SCORE_HISTORY);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				ScoreHistoryInfo scoreHistoryInfo = new ScoreHistoryInfo();
 				scoreHistoryInfo.handicap = obj.optString(RET_HANDICAP);
-				scoreHistoryInfo.courseName = obj.getString(RET_COURSE_NAME);
-				scoreHistoryInfo.teeTime = obj.getString(RET_TEE_TIME);
-				scoreHistoryInfo.appSn = obj.getString(RET_APP_SN);
-				scoreHistoryInfo.imgName = obj.getString("imgName");
+				scoreHistoryInfo.courseName = obj.optString(RET_COURSE_NAME);
+				scoreHistoryInfo.teeTime = obj.optString(RET_TEE_TIME);
+				scoreHistoryInfo.appSn = obj.optString(RET_APP_SN);
+				scoreHistoryInfo.imgName = obj.optString("imgName");
 				scoreHistoryList.add(scoreHistoryInfo);
 			}
 		} catch (Exception e) {

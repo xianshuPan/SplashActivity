@@ -18,7 +18,7 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="@string/str_bind_card_title"
-		    android:textColor="@color/color_title_txt"
+		    android:textColor="@color/color_white"
 		    android:textSize="@dimen/txt_title_size"
 		    android:layout_centerInParent="true" />
     </RelativeLayout>
@@ -42,12 +42,14 @@
 				style="@style/setup_pre_txt_style"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentTop="true"
+				android:textColor="@color/gray_999999"
 				android:text="姓名" />
 			<TextView
 				android:id="@+id/bind_card_info_user_name_text"
 				style="@style/setup_info_et_style"
 				android:layout_toRightOf="@id/bind_card_info_user_name"
 				android:hint="实名认证姓名"
+				android:textColor="@color/gray_999999"
 				android:maxLength="@integer/password_max_length"
 				android:textSize="@dimen/txt_size_s" />
 
@@ -67,6 +69,7 @@
 				style="@style/setup_pre_txt_style"
 				android:layout_below="@id/account_reset_pwd_line"
 				android:layout_alignParentLeft="true"
+				android:textColor="@color/gray_999999"
 				android:text="卡号" />
 			<EditText
 				android:id="@+id/bind_card_no_edit"
@@ -75,6 +78,7 @@
 				android:layout_toRightOf="@id/bind_card_no"
 				android:layout_below="@id/account_reset_pwd_line"
 				android:hint="请输入与实名相符的银行卡号"
+				android:textColor="@color/gray_999999"
 				android:textSize="@dimen/txt_size_s" />
 		</RelativeLayout>
 
@@ -91,10 +95,12 @@
 				style="@style/setup_pre_txt_style"
 				android:layout_below="@id/account_reset_pwd_line"
 				android:layout_alignParentLeft="true"
+				android:textColor="@color/gray_999999"
 				android:text="银行" />
 			<EditText
 				android:id="@+id/bind_card_name_edit"
-				android:inputType="text"
+				android:inputType="textFilter"
+				android:textColor="@color/gray_999999"
 				style="@style/setup_info_et_style"
 				android:layout_toRightOf="@id/bind_card_name"
 				android:layout_below="@id/account_reset_pwd_line"
@@ -125,9 +131,11 @@
 				style="@style/setup_pre_txt_style"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentTop="true"
+				android:textColor="@color/gray_999999"
 				android:text="提现密码" />
 			<EditText
 				android:hint="请设置4-8位密码"
+				android:textColor="@color/gray_999999"
 				android:id="@+id/bind_card_psw_edit"
 				style="@style/setup_info_et_style"
 				android:layout_toRightOf="@id/bind_card_psw"
@@ -151,11 +159,13 @@
 				style="@style/setup_pre_txt_style"
 				android:layout_below="@id/account_reset_pwd_line"
 				android:layout_alignParentLeft="true"
+				android:textColor="@color/gray_999999"
 				android:text="@string/str_input_pre_pwd_confirm" />
 			<EditText
 				android:id="@+id/bind_card_psw_confirm_edit"
 				style="@style/setup_info_et_style"
 				android:layout_toRightOf="@id/bind_card_psw_confirm"
+				android:textColor="@color/gray_999999"
 				android:hint="@string/str_reset_pwd_confirm_hint"
 				android:inputType="textPassword"
 				android:maxLength="@integer/password_max_length"
@@ -178,6 +188,8 @@
 			android:layout_height="40dp"
 			android:id="@+id/bind_card_verify_edit"
 			android:hint="@string/str_verify_input_hint"
+			android:inputType="number"
+			android:textColor="@color/gray_999999"
 			android:maxLength="@integer/password_max_length"
 			android:textSize="@dimen/txt_hint_size" />
 		<TextView

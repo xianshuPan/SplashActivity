@@ -7,6 +7,7 @@ public class CoachItem implements Serializable{
 	private static final long serialVersionUID = -5823001473869645536L;
 	
 	public long id;
+	public int sex;
 	public String sn;
 	public String nickname;
 	public String avatar;
@@ -39,6 +40,8 @@ public class CoachItem implements Serializable{
 	public String course_address;
 	public String course_tel;
 	public String course_distance;
+
+	public int audit;
 	
 	public int commentsAmount = 0;
 

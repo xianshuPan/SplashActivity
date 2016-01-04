@@ -52,7 +52,8 @@ public class ShareMenu  implements OnClickListener {
 	public final String 					TAG 									= "ShareMenu";
 	
 	/*ͷ���ķ���,��ҳ,����*/
-	protected RelativeLayout 				mMicroBlogRelative						= null, 
+	protected RelativeLayout 				mMainRelative                           = null,
+											mMicroBlogRelative						= null,
 											mMicroMessageFriendRelative				= null, 
 											mMicroMessageFriendCircleRelative		= null, 
 											mQQRelative								= null, 
@@ -101,7 +102,7 @@ public class ShareMenu  implements OnClickListener {
 			e.printStackTrace();
 		}
 		
-		getBitmap ();
+		getBitmap();
 	}
 
 	@Override
@@ -109,8 +110,11 @@ public class ShareMenu  implements OnClickListener {
 		// TODO Auto-generated method stub
 		mMainMenuPop.dismiss();
 		DebugTools.getDebug().debug_v(TAG, "super----->>>onclicked");
-		
-		if (arg0.getId() == mMicroBlogRelative.getId()) {
+		if (arg0.getId() == mMainRelative.getId()) {
+
+			mMainMenuPop.dismiss();
+		}
+		else if (arg0.getId() == mMicroBlogRelative.getId()) {
 			
 			/*新浪分享*/
 			IWeiboShareAPI mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(mContext, "3633766045");
@@ -165,27 +169,27 @@ public class ShareMenu  implements OnClickListener {
 	        params.putString(QzoneShare.SHARE_TO_QQ_SUMMARY, "分享");  
 
 	        ArrayList<String> sdf = new ArrayList<String>();
-	        sdf.add(imageUrl);
+			sdf.add(imageUrl);
 	        params.putStringArrayList(QzoneShare.SHARE_TO_QQ_IMAGE_URL, sdf);
 	            
 	        params.putString(QzoneShare.SHARE_TO_QQ_APP_NAME, "爱高尔夫");  
 	        params.putInt(QzoneShare.SHARE_TO_QZONE_KEY_TYPE, QzoneShare.SHARE_TO_QZONE_TYPE_IMAGE_TEXT); 
 			 
 	        mTencent.shareToQzone(mContext, params, new IUiListener() {
-				
+
 				@Override
 				public void onError(UiError arg0) {
 					// TODO Auto-generated method stub
-					
-					DebugTools.getDebug().debug_v("UiError", "----->>>"+arg0);
+
+					DebugTools.getDebug().debug_v("UiError", "----->>>" + arg0);
 				}
-				
+
 				@Override
 				public void onComplete(Object arg0) {
 					// TODO Auto-generated method stub
-					DebugTools.getDebug().debug_v("UiError", "----->>>"+arg0);
+					DebugTools.getDebug().debug_v("UiError", "----->>>" + arg0);
 				}
-				
+
 				@Override
 				public void onCancel() {
 					// TODO Auto-generated method stub
@@ -334,9 +338,9 @@ public class ShareMenu  implements OnClickListener {
         //��ʼ��popupwindow������ʾview�����ø�view�Ŀ��/�߶�  
         int width = mContext.getResources().getDisplayMetrics().widthPixels;
         
-        int height = mContext.getResources().getDisplayMetrics().densityDpi;
+        int height = mContext.getResources().getDisplayMetrics().heightPixels;
         
-        mMainMenuPop = new PopupWindow(mPopupWindowView,width,height*250/160);  
+        mMainMenuPop = new PopupWindow(mPopupWindowView,width,height);
         mMainMenuPop.setFocusable(true);  
         mMainMenuPop.setOutsideTouchable(true);  
         
@@ -360,16 +364,18 @@ public class ShareMenu  implements OnClickListener {
     /**  
      * ��ʼ��popupwindowView,����view�е�textview����¼�  
      */  
-    private void initPopupWindowView(){  
+    private void initPopupWindowView(){
   
-        mPopupWindowView 					= mContext.getLayoutInflater().inflate(R.layout.share_menu, null);  
-        mMicroBlogRelative					= (RelativeLayout) mPopupWindowView.findViewById(R.id.share_menu_micro_blog_relative); 
+        mPopupWindowView 					= mContext.getLayoutInflater().inflate(R.layout.share_menu, null);
+		mMainRelative                       = (RelativeLayout) mPopupWindowView.findViewById(R.id.main_layout);
+		mMicroBlogRelative					= (RelativeLayout) mPopupWindowView.findViewById(R.id.share_menu_micro_blog_relative);
 		mMicroMessageFriendRelative			= (RelativeLayout) mPopupWindowView.findViewById(R.id.share_menu_micro_message_friend_relative); 
 		mMicroMessageFriendCircleRelative	= (RelativeLayout) mPopupWindowView.findViewById(R.id.share_menu_micro_message_friend_circle_relative); 
 		mQQRelative							= (RelativeLayout) mPopupWindowView.findViewById(R.id.share_menu_QQ_relative); 
 		mQQZoneRelative						= (RelativeLayout) mPopupWindowView.findViewById(R.id.share_menu_QQ_Zone_relative); 
-		mCancleText							= (TextView) mPopupWindowView.findViewById(R.id.share_menu_cancel_text); 
-		
+		mCancleText							= (TextView) mPopupWindowView.findViewById(R.id.share_menu_cancel_text);
+
+		mMainRelative.setOnClickListener(this);
 		mCancleText.setOnClickListener(this);
 		mMicroBlogRelative.setOnClickListener(this);
 		mMicroMessageFriendRelative.setOnClickListener(this);

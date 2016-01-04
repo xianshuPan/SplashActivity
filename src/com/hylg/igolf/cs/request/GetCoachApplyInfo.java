@@ -44,7 +44,7 @@ public class GetCoachApplyInfo extends BaseRequest {
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			
@@ -66,7 +66,9 @@ public class GetCoachApplyInfo extends BaseRequest {
 				item.teach_age = coachJson.optInt("teaching_age");
 				item.special = coachJson.optString("specialty");
 				item.avatar = customerJson.optString("avatar");
-				
+				item.star = coachJson.optInt("star");
+				item.teacing_count = coachJson.optLong("experience");
+
 				String id_card_str = coachJson.optString("idcard");
 				
 				if (id_card_str != null && id_card_str.length() > 0) {
@@ -88,7 +90,11 @@ public class GetCoachApplyInfo extends BaseRequest {
 
 					item.courseid = courseJson.optLong("id");
 
-					item.course_name = courseJson.optString("abbr");
+					item.course_abbr = courseJson.optString("abbr");
+
+					item.course_name = courseJson.optString("name");
+
+					item.course_address = courseJson.optString("address");
 
 					item.state = courseJson.optString("state");
 				}

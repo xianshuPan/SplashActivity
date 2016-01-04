@@ -1,16 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
-    android:background="#ffe"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+	<RelativeLayout
+		android:id="@+id/main_layout"
+		android:background="@drawable/alpha"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" >
+
     
     <LinearLayout
+		android:paddingTop="20dp"
+		android:background="@color/color_white"
         android:layout_above="@+id/share_menu_linear"
 	    android:baselineAligned="false"
 	    android:id="@+id/share_menu_linear1"
 	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/share_menu_item_height"
+	    android:layout_height="125dp"
 	    android:orientation="horizontal" >
 	    
 	   <RelativeLayout
@@ -32,8 +39,8 @@
 	            android:layout_alignParentBottom="true"
 	            android:layout_centerHorizontal="true"
 	            android:duplicateParentState="true"
-	            
 	            android:text="@string/str_share_menu_micro_blog"
+				android:textColor="@color/gray_999999"
 	            android:textSize="@dimen/txt_size_small"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
@@ -57,6 +64,7 @@
 	            android:layout_centerHorizontal="true"
 	            android:duplicateParentState="true"
 	            android:text="@string/str_share_menu_QQ"
+				android:textColor="@color/gray_999999"
 	            android:textSize="@dimen/txt_size_small"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
@@ -80,7 +88,7 @@
 	            android:layout_centerHorizontal="true"
 	            android:duplicateParentState="true"
 	            android:text="@string/str_share_menu_QQ_zone"
-	            
+				android:textColor="@color/gray_999999"
 	            android:textSize="@dimen/txt_size_small"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
@@ -89,6 +97,7 @@
 	</LinearLayout>
 
 	<LinearLayout
+		android:background="@color/color_white"
 	    android:id="@+id/share_menu_linear"
 	   android:layout_above="@+id/share_menu_cancel_text"
 	    android:layout_width="match_parent"
@@ -114,7 +123,7 @@
 	            android:duplicateParentState="true"
 	            android:text="@string/str_share_menu_micro_message_friend"
 	            android:textSize="@dimen/txt_size_small"
-	            
+				android:textColor="@color/gray_999999"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 	    </RelativeLayout>
@@ -137,7 +146,7 @@
 	            android:duplicateParentState="true"
 	            android:text="@string/str_share_menu_micro_message_friend_circle"
 	            android:textSize="@dimen/txt_size_small"
-	           
+				android:textColor="@color/gray_999999"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 	    </RelativeLayout>
@@ -180,9 +189,11 @@
 	    android:text="@string/str_photo_cancel"
 	    android:id="@+id/share_menu_cancel_text"
 	    android:gravity="center"
-	    android:padding="8dp"
-	    android:layout_margin="15dp"
+	    android:paddingTop="8dp"
+		android:paddingBottom="8dp"
 	    android:textSize="@dimen/txt_title_size"
-	    android:background="@drawable/xbtn_selection"/>
+		android:textColor="@color/gray_999999"
+	    android:background="#e8e8e8"/>
+	</RelativeLayout>
 	
 </RelativeLayout>

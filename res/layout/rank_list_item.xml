@@ -2,15 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/rank_li_min_height"
     android:orientation="horizontal" >
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:orientation="horizontal" >
 
     <!-- rank_item_style -->
     <LinearLayout
-		android:layout_marginLeft="10dp"
+		android:layout_marginLeft="5dp"
+		android:paddingLeft="2dp"
         style="@style/rank_item_style"
         android:orientation="horizontal" >
 		<ImageView
+			android:visibility="gone"
 		    android:id="@+id/rank_li_rank_img"
 		    android:src="@drawable/rank_gold"
 		    android:scaleType="fitXY"
@@ -23,16 +29,19 @@
 	        android:layout_height="wrap_content"
 	        android:textSize="@dimen/txt_size_m"
 	        android:textColor="@color/color_rank_num" />
+
+		<com.hylg.igolf.ui.view.CircleImageView
+			android:layout_marginLeft="5dp"
+			android:id="@+id/rank_li_golfer_avatar"
+			android:layout_width="40dp"
+			android:layout_height="40dp" />
     </LinearLayout>
     
     <LinearLayout
+		android:layout_marginLeft="5dp"
         style="@style/rank_item_style"
-        android:layout_weight="9"
+		android:paddingLeft="2dp"
         android:orientation="horizontal" >
-	    <com.hylg.igolf.ui.view.CircleImageView
-	        android:id="@+id/rank_li_golfer_avatar"
-	        android:layout_width="@dimen/avatar_rank_li_size"
-	        android:layout_height="@dimen/avatar_rank_li_size" />
     <!-- 
 		<ImageView
 		    android:id="@+id/rank_li_golfer_avatar"
@@ -46,7 +55,6 @@
 	        android:id="@+id/rank_li_golfer_nickname"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:paddingLeft="3dip"
 	        android:singleLine="true"
 	        android:textSize="@dimen/txt_size_ml"
 	        android:textColor="@color/color_rank_def" />
@@ -68,5 +76,6 @@
         android:id="@+id/rank_li_best"
         style="@style/rank_item_style"
         android:textSize="@dimen/txt_size_m"
-        android:textColor="@color/color_rank_def" />    
+        android:textColor="@color/color_rank_def" />
+	</LinearLayout>
 </LinearLayout>

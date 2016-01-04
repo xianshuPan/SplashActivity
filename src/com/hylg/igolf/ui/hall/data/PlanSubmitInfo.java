@@ -16,12 +16,16 @@ public class PlanSubmitInfo implements Serializable {
 		courseStr = plan.courseStr;
 		teeTime = plan.teeTime;
 		timeStr = plan.timeStr;
+		region = plan.region;
 	}
 	public int index;
 	public long teeCourse;
 	public String courseStr;
 	public long teeTime;
 	public String timeStr;
+
+	public String region;
+
 	public String log() {
 		return "PlanSubmitInfo:: \n" + 
 					"\nindex: " + index +

@@ -49,26 +49,26 @@ public class SearchGolfersList extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
-			retNum = jo.getInt(RET_RETNUM);
-			JSONArray ja = jo.getJSONArray(RET_GOLFERS_LIST);
+			retNum = jo.optInt(RET_RETNUM);
+			JSONArray ja = jo.optJSONArray(RET_GOLFERS_LIST);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				GolferInfo golfer = new GolferInfo();
-				golfer.sn = obj.getString(RET_SN);
-				golfer.nickname = obj.getString(RET_NICKNAME);
-				golfer.avatar = obj.getString(RET_AVATAR);
-				golfer.sex = obj.getInt(RET_SEX);
-				golfer.yearsExp = obj.getInt(RET_YEAR_EXP);
-				golfer.industry = obj.getString(RET_INDUSTRY);
-				golfer.rate = obj.getDouble(RET_RATE);
-				golfer.ratedCount = obj.getInt(RET_RATE_COUNT);
-				golfer.region = obj.getString(RET_CITY);
+				golfer.sn = obj.optString(RET_SN);
+				golfer.nickname = obj.optString(RET_NICKNAME);
+				golfer.avatar = obj.optString(RET_AVATAR);
+				golfer.sex = obj.optInt(RET_SEX);
+				golfer.yearsExp = obj.optInt(RET_YEAR_EXP);
+				golfer.industry = obj.optString(RET_INDUSTRY);
+				golfer.rate = obj.optDouble(RET_RATE);
+				golfer.ratedCount = obj.optInt(RET_RATE_COUNT);
+				golfer.region = obj.optString(RET_CITY);
 				// do not occur in real data
 				if(null == golfer.region || golfer.region.trim().length() == 0) {
-					golfer.region = obj.getString(RET_STATE);
+					golfer.region = obj.optString(RET_STATE);
 				}
 				golfer.handicapIndex = obj.optDouble(RET_HANDICAP_INDEX, Double.MAX_VALUE);
 				golfersList.add(golfer);

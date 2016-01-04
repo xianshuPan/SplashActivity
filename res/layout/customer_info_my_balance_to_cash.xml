@@ -57,12 +57,12 @@
 				android:orientation="horizontal" >
 
 				<TextView
-
 					android:id="@+id/to_cash_bank_nameText"
 					android:layout_marginTop="5dp"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="10dp"
+					android:textColor="@color/gray_999999"
 					android:maxLines="1"
 					android:textSize="18sp" />
 
@@ -74,6 +74,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_gravity="center_vertical"
+					android:textColor="@color/gray_999999"
 					android:layout_marginLeft="10dp"
 					/>
 
@@ -102,6 +103,7 @@
 		android:layout_height="wrap_content"
 		android:layout_marginLeft="15dp"
 		android:layout_marginBottom="5dp"
+		android:textColor="@color/gray_999999"
 		android:text="每周一为结算日，结算上周提交的提现申请，到账需1-2个工作日" />
 
 
@@ -123,6 +125,7 @@
 				style="@style/setup_pre_txt_style"
 				android:layout_alignParentLeft="true"
 				android:layout_alignParentTop="true"
+				android:textColor="@color/gray_999999"
 				android:text="@string/str_to_cash_amount"/>
 			<EditText
 				android:inputType="numberDecimal"
@@ -130,6 +133,7 @@
 				style="@style/setup_info_et_style"
 				android:layout_toRightOf="@id/to_cash_amount_titleText"
 				android:maxLength="@integer/password_max_length"
+				android:textColorHint="@color/gray_e8e8e8"
 				android:textSize="@dimen/txt_hint_size" />
 
 		</RelativeLayout>
@@ -151,6 +155,7 @@
 			android:layout_height="match_parent"
 			android:id="@+id/to_cash_verify_edit"
 			android:hint="@string/str_verify_input_to_cash_psw"
+			android:textColor="@color/gray_999999"
 			android:inputType="textPassword"
 			android:maxLength="@integer/password_max_length"
 			android:textSize="@dimen/txt_hint_size" />

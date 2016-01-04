@@ -56,7 +56,7 @@ public class CoachRefuseContent extends BaseRequest {
 			
 			for (int i = 0; i < ja.length(); i++) {
 				
-				JSONObject jso = ja.getJSONObject(i);
+				JSONObject jso = ja.optJSONObject(i);
 				
 				HashMap<String, String> map = new HashMap<String, String>();
 				
@@ -70,7 +70,7 @@ public class CoachRefuseContent extends BaseRequest {
 			
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 		} catch (Exception e) {

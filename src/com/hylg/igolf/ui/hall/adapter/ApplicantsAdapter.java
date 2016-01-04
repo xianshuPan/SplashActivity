@@ -2,22 +2,18 @@ package com.hylg.igolf.ui.hall.adapter;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.*;
-import cn.gl.lib.view.RoundedImageView;
 
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.ApplicantsInfo;
 import com.hylg.igolf.cs.data.InviteRoleInfo;
 import com.hylg.igolf.cs.data.MyInviteDetail;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.ui.hall.InviteDetailActivity;
-import com.hylg.igolf.ui.member.MemDetailActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
@@ -50,7 +46,7 @@ public class ApplicantsAdapter extends BaseAdapter {
 		
 		selectedApplicantsList = new ArrayList<InviteRoleInfo>();
 		
-		if (detail != null && detail.selectApplicants != null && detail.selectApplicants.size() > 0) {
+		if (detail.selectApplicants != null && detail.selectApplicants.size() > 0) {
 			
 			for(int i=0, size=detail.selectApplicants.size(); i<size; i++) {
 				this.selectedApplicantsList.add(detail.selectApplicants.get(i));
@@ -195,7 +191,7 @@ public class ApplicantsAdapter extends BaseAdapter {
 					new ImageCallback() {
 						@Override
 						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != iv) {
+							if(null != imageDrawable ) {
 								iv.setImageDrawable(imageDrawable);
 							}
 						}

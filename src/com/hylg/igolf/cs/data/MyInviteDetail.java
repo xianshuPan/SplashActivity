@@ -34,6 +34,9 @@ public class MyInviteDetail implements Serializable {
 	public ArrayList<InviteRoleInfo> applicants = null;
 	
 	public ArrayList<InviteRoleInfo> selectApplicants = null;
+
+
+	public ArrayList<String> select_menber_sn = null;
 	
 	public HashMap<Long, Integer> ratesIdHash = null;
 }

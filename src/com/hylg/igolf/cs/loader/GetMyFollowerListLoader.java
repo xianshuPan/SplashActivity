@@ -14,12 +14,13 @@ public class GetMyFollowerListLoader extends BaseAsyncLoader {
 	
 	public GetMyFollowerListLoader(Context context,
 								   String sn,
+								   String mem_sn,
 								   int pageNum,
 								   int pageSize,
 								   GetMyFollowerListCallback callBack)
 	{
 		super();
-		request = new GetMyFollowerList(context, sn, pageNum, pageSize);
+		request = new GetMyFollowerList(context, sn,mem_sn, pageNum, pageSize);
 		this.callBack = callBack;
 	}
 	
@@ -44,6 +45,6 @@ public class GetMyFollowerListLoader extends BaseAsyncLoader {
 
 	/*回调接口*/
 	public interface GetMyFollowerListCallback {
-		public abstract void callBack(int retId, String msg, ArrayList<MyFolloweInfo> hotList);
+		void callBack(int retId, String msg, ArrayList<MyFolloweInfo> hotList);
 	}
 }

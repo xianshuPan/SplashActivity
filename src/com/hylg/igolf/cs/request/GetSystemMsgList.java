@@ -41,18 +41,18 @@ public class GetSystemMsgList extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			sysMsgList = new ArrayList<SysMsgInfo>();
-			JSONArray ja = jo.getJSONArray(RET_SYSTEM_MSG);
+			JSONArray ja = jo.optJSONArray(RET_SYSTEM_MSG);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				JSONObject obj = ja.getJSONObject(i);
+				JSONObject obj = ja.optJSONObject(i);
 				SysMsgInfo msgInfo = new SysMsgInfo();
-				msgInfo.title = obj.getString(RET_TITLE);
-				msgInfo.status = obj.getString(RET_STATUS);
-				msgInfo.id = obj.getLong(RET_ID);
-				msgInfo.sendTimestamp = obj.getString(RET_SEND_TIMESTAMP);
+				msgInfo.title = obj.optString(RET_TITLE);
+				msgInfo.status = obj.optString(RET_STATUS);
+				msgInfo.id = obj.optLong(RET_ID);
+				msgInfo.sendTimestamp = obj.optString(RET_SEND_TIMESTAMP);
 				sysMsgList.add(msgInfo);
 			}
 		} catch (Exception e) {

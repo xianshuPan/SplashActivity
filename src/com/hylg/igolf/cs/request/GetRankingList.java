@@ -63,9 +63,9 @@ public class GetRankingList extends BaseRequest {
 			if(null != mr) {
 				myRank = getRankInfo(mr);
 			}
-			JSONArray ja = jo.getJSONArray(RET_RANKING_LIST);
+			JSONArray ja = jo.optJSONArray(RET_RANKING_LIST);
 			for(int i=0, len=ja.length(); i<len; i++) {
-				rankList.add(getRankInfo(ja.getJSONObject(i)));
+				rankList.add(getRankInfo(ja.optJSONObject(i)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -76,14 +76,14 @@ public class GetRankingList extends BaseRequest {
 	
 	private RankingInfo getRankInfo(JSONObject obj) throws Exception {
 		RankingInfo ri = new RankingInfo();
-		ri.id = obj.getLong(RET_ID);
-		ri.sn = obj.getString(RET_SN);
-		ri.rank = obj.getInt(RET_RANK);
-		ri.nickname = obj.getString(RET_NICKNAME);
-		ri.avatar = obj.getString(RET_AVATAR);
-		ri.location = obj.getString(RET_CITY);
+		ri.id = obj.optLong(RET_ID);
+		ri.sn = obj.optString(RET_SN);
+		ri.rank = obj.optInt(RET_RANK);
+		ri.nickname = obj.optString(RET_NICKNAME);
+		ri.avatar = obj.optString(RET_AVATAR);
+		ri.location = obj.optString(RET_CITY);
 		ri.handicapIndex = obj.optDouble(RET_HANDICAP_INDEX, Double.MAX_VALUE);
-		ri.matches = obj.getInt(RET_MATCHES);
+		ri.matches = obj.optInt(RET_MATCHES);
 		ri.best = obj.optInt(RET_BEST, Integer.MAX_VALUE);
 		return ri;
 	}

@@ -3,26 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/frame_bkg"
-    android:clickable="false"
-	    android:paddingTop="3dip"
-	    android:paddingBottom="3dip"
-	    android:paddingRight="5dip"
-	    android:paddingLeft="5dip" >
-	
+    android:clickable="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+
+    <TextView
+        android:layout_toLeftOf="@+id/plan_show_course"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/plan_show_teetime"
+        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_hint_txt"  />
+
     <TextView
         android:layout_alignParentRight="true"
         android:id="@+id/plan_show_course"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#666666"  />
+        android:textColor="@color/color_hint_txt"  />
 
-    <TextView
-        android:layout_toLeftOf="@id/plan_show_course"
-        android:layout_alignParentLeft="true"
-        android:id="@+id/plan_show_teetime"
-        android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#666666"  />
+    </RelativeLayout>
 </RelativeLayout>

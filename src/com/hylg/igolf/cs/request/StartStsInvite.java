@@ -48,7 +48,7 @@ public class StartStsInvite extends BaseRequest {
 		s.append(PARAM_CONN);
 		s.append(PARAM_REQ_APP_NAME); s.append(KV_CONN); s.append(reqParam.appName);
 		param = s.toString();
-		Utils.logh("", param.toString());
+		Utils.logh("", param);
 	}
 	
 	@Override
@@ -64,7 +64,7 @@ public class StartStsInvite extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 		} catch (Exception e) {

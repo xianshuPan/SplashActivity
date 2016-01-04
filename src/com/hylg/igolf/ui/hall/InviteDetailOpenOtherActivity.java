@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -33,6 +34,12 @@ public class InviteDetailOpenOtherActivity extends InviteDetailOpenActivity impl
 		Intent intent = new Intent(context, InviteDetailOpenOtherActivity.class);
 		intent.putExtra(BUNDLE_KEY_OPEN_INVITATION_INFO, invitation);
 		((Activity) context).startActivityForResult(intent, Const.REQUST_CODE_INVITE_DETAIL_OPEN);
+	}
+
+	public static void startInviteDetailOpenOtherForResult(Fragment context, OpenInvitationInfo invitation) {
+		Intent intent = new Intent(context.getActivity(), InviteDetailOpenOtherActivity.class);
+		intent.putExtra(BUNDLE_KEY_OPEN_INVITATION_INFO, invitation);
+		context.startActivityForResult(intent, Const.REQUST_CODE_INVITE_DETAIL_OPEN);
 	}
 	
 	@Override
@@ -91,6 +98,8 @@ public class InviteDetailOpenOtherActivity extends InviteDetailOpenActivity impl
 		dismissScoreRegion();
 		// rate
 		dismissRateRegion();
+
+		unClickableleRequestRegionMine();
 		// request
 		Utils.logh(TAG, "displayStatus: " + invitation.displayStatus + " payType: " + invitation.payType);
 		switch(invitation.displayStatus) {

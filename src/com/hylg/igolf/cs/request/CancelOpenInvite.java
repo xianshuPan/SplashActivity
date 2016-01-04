@@ -40,7 +40,7 @@ public class CancelOpenInvite extends BaseRequest {
 			if(REQ_RET_OK != rn) {
 				return rn;
 			}
-			applyNum = jo.getInt(RET_APPLY_NUM);
+			applyNum = jo.optInt(RET_APPLY_NUM);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,12 +18,12 @@ public class GetMyPraiseTipsListLoader extends BaseAsyncLoader {
 	
 	private Context mContext;
 	
-	public GetMyPraiseTipsListLoader(Context context, String sn, int pageNum, int pageSize,
+	public GetMyPraiseTipsListLoader(Context context, String sn,String mem_sn, int pageNum, int pageSize,
 			GetMyPraisedTipsListCallback callBack) {
 		super();
 		
 		mContext = context;
-		request = new GetMyPraiseTipsList(context, sn, pageNum, pageSize);
+		request = new GetMyPraiseTipsList(context, sn,mem_sn, pageNum, pageSize);
 		this.callBack = callBack;
 	}
 	
@@ -51,6 +51,6 @@ public class GetMyPraiseTipsListLoader extends BaseAsyncLoader {
 
 	/*回调接口*/
 	public interface GetMyPraisedTipsListCallback {
-		public abstract void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList);
+		void callBack(int retId, String msg, ArrayList<FriendHotItem> hotList);
 	}
 }

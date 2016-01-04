@@ -31,7 +31,7 @@ import com.hylg.igolf.R;
 public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 	public interface IconTabProvider {
-		public int getPageIconResId(int position);
+		int getPageIconResId(int position);
 	}
 
 	// @formatter:off
@@ -254,7 +254,16 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 				TextView tab = (TextView) v;
 				tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
 				tab.setTypeface(tabTypeface, tabTypefaceStyle);
-				tab.setTextColor(tabTextColor);
+
+				if (i == currentPosition) {
+
+					tab.setTextColor(tabTextColor);
+				}
+				else {
+
+					tab.setTextColor(getResources().getColor(R.color.gray));
+				}
+
 
 				// setAllCaps() is only available from API 14, so the upper case is made manually if we are on a
 				// pre-ICS-build
@@ -343,6 +352,7 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 			currentPosition = position;
 			currentPositionOffset = positionOffset;
 
+			updateTabStyles();
 			scrollToChild(position, (int) (positionOffset * tabsContainer.getChildAt(position).getWidth()));
 
 			invalidate();

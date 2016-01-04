@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -83,6 +84,16 @@ public class StartInviteOpenActivity extends Activity
 		}
 		Intent intent = new Intent(context, StartInviteOpenActivity.class);
 		context.startActivity(intent);
+	}
+
+	/**
+	 * 大厅列表中，发起约球，成功后，根据发起条件，更新大厅列表
+	 * @param context
+	 */
+	public static void startOpenInviteForResult(Fragment context) {
+
+		Intent intent = new Intent(context.getActivity(), StartInviteOpenActivity.class);
+		context.startActivityForResult(intent, Const.REQUST_CODE_INVITE_OPEN);
 	}
 	
 	@Override
@@ -281,7 +292,10 @@ public class StartInviteOpenActivity extends Activity
 		Utils.logh(TAG, "startSuccess refreshListener: " + refreshListener);
 		Utils.logh(TAG, "startSuccess reqParam: " + reqParam.log());
 		if(null == refreshListener) {
-			OpenInviteListActivity.startOpenInvite(this, reqParam);
+			//OpenInviteListActivity.startOpenInvite(this, reqParam);
+
+			Intent intent = new Intent();
+			setResult(Activity.RESULT_OK,intent);
 			finish();
 			overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 		} else {
@@ -330,7 +344,7 @@ public class StartInviteOpenActivity extends Activity
 	}
 	
 	public interface onStartRefreshListener {
-		public abstract void startRefresh(GetOpenInviteReqParam reqParam);
+		void startRefresh(GetOpenInviteReqParam reqParam);
 	}
 
 }

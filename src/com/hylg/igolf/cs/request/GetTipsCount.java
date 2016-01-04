@@ -44,16 +44,14 @@ public class GetTipsCount extends BaseRequest {
 			
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			//GlobalData gd = MainApp.getInstance().getGlobalData();
-			
-			int tipsAmount = jo.optInt("tipsAmount");
-			MainApp.getInstance().getGlobalData().tipsAmount = tipsAmount;
-			
-			String tipsIds = jo.optString("tipsIds");
-			MainApp.getInstance().getGlobalData().tipsIds = tipsIds;
+
+			MainApp.getInstance().getGlobalData().tipsAmount = jo.optInt("tipsAmount");
+
+			MainApp.getInstance().getGlobalData().tipsIds = jo.optString("tipsIds");
 			
 			//Config.tipsIds = tipsIds;
 			//Config.tipsAmount = tipsAmount;

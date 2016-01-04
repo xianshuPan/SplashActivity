@@ -1,9 +1,11 @@
 package com.hylg.igolf.ui.friend;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
@@ -252,13 +254,14 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 					comments.get(comments.size()-1).get("commentstime").length() > 0) {
 					
 					
-					Date date = new Date(Long.valueOf(comments.get(comments.size()-1).get("commentstime")));
-					
-					Calendar sd = Calendar.getInstance();
-					
-					sd.setTime(date);
+					//Date date = new Date(Long.valueOf(comments.get(comments.size()-1).get("commentstime")));
+					//Calendar sd = Calendar.getInstance();
+					//sd.setTime(date);
+					//SimpleDateFormat sdf = new SimpleDateFormat();
+					//holder.time.setText(sd.get(Calendar.HOUR_OF_DAY)+":"+sd.get(Calendar.MINUTE));
 
-					holder.time.setText(sd.get(Calendar.HOUR_OF_DAY)+":"+sd.get(Calendar.MINUTE));
+					holder.time.setText(new SimpleDateFormat("HH:mm",
+							Locale.getDefault()).format(new Date(Long.valueOf(comments.get(comments.size()-1).get("commentstime")))));
 				}
 				
 				if (imageUrlStr != null && imageUrlStr.indexOf(",") > 0) {

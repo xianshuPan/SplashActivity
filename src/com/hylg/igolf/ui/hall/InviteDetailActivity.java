@@ -1,10 +1,10 @@
 package com.hylg.igolf.ui.hall;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import android.widget.RatingBar.OnRatingBarChangeListener;
 import cn.gl.lib.view.*;
@@ -32,6 +35,8 @@ import com.hylg.igolf.cs.request.*;
 import com.hylg.igolf.ui.hall.adapter.*;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.utils.*;
+
+import org.w3c.dom.Text;
 
 public abstract class InviteDetailActivity extends Activity implements View.OnClickListener {
 	/**
@@ -52,8 +57,16 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	private TextView inviteMsgTv;
 	// 双方成绩信息
 	private PerInfoViewHolder leftPerInfoVh, rightPerInfoVh,right1PerInfoVh,right2PerInfoVh;
+
+	protected RelativeLayout invitee_one_relative,invitee_two_relative,invitee_three_relative;
+
+	protected LinearLayout mInviteAllInfoLinear,mInviteShowLinear;
+	protected ImageView mInviteShowImage;
+	protected TextView mInviteaShowTxt;
+
 	// 开球时间，场地；方案(一对一确定后) 1/2
-	private LinearLayout appInfoLl;
+	//private LinearLayout appInfoLl;
+	private RelativeLayout appInfoLl;
 	private TextView teeTimeTv, courseTv;
 	// 方案(一对一) 2/2
 	private LinearLayout plansLl;
@@ -62,8 +75,8 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	private NestGridView payTypeGv;
 	private TextView     payTypeTxt;
 	// 球注
-	private NestGridView stakeGv;
-	private TextView     stakeTxt;
+	//private NestGridView stakeGv;
+	//private TextView     stakeTxt;
 	// 记分
 	private LinearLayout scoreRegion;
 	private ImageView scoreCardIv;
@@ -74,15 +87,15 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	private LinearLayout rateRegion;
 	protected Button rateDoBtn;
 	
-	private RatingBar rateBarRb;
+	protected RatingBar rateBarRb;
 	private TextView rateName;
 	private ImageView rateHeadImage;
-	
-	private RatingBar rateBarRb1;
+
+	protected RatingBar rateBarRb1;
 	private TextView rateName1;
 	private ImageView rateHeadImage1;
-	
-	private RatingBar rateBarRb2;
+
+	protected RatingBar rateBarRb2;
 	private TextView rateName2;
 	private ImageView rateHeadImage2;
 	
@@ -111,7 +124,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.hall_ac_invite_detail);
+		setContentView(R.layout.hall_ac_invite_detail_new);
 		finishResult = RESULT_CANCELED;
 		finishIntent = null;
 		getViews();
@@ -175,15 +188,31 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		inviteMsgTv = (TextView) findViewById(R.id.invite_detail_message);
 		getLeftPerInfoViews();
 		getRightPerInfoViews();
-		appInfoLl = (LinearLayout) findViewById(R.id.invite_detail_app_info);
+
+		invitee_one_relative = (RelativeLayout) findViewById(R.id.invite_detail_invitee_realtive);
+		invitee_two_relative = (RelativeLayout) findViewById(R.id.invite_detail_invitee_realtive1);
+		invitee_three_relative = (RelativeLayout) findViewById(R.id.invite_detail_invitee_realtive2);
+
+		mInviteAllInfoLinear = (LinearLayout) findViewById(R.id.invite_detail_invintee_info_all_linear);
+		mInviteShowLinear = (LinearLayout) findViewById(R.id.invite_detail_invintee_info_all_show_linear);
+		mInviteaShowTxt = (TextView) findViewById(R.id.invite_detail_invintee_info_all_show_txt);
+		mInviteShowImage= (ImageView) findViewById(R.id.invite_detail_invintee_info_all_show_image);
+
+		mInviteShowLinear.setOnClickListener(this);
+
+		invitee_one_relative.setOnClickListener(this);
+		invitee_two_relative.setOnClickListener(this);
+		invitee_three_relative.setOnClickListener(this);
+		//appInfoLl = (LinearLayout) findViewById(R.id.invite_detail_app_info);
+		appInfoLl = (RelativeLayout) findViewById(R.id.invite_detail_app_info);
 		teeTimeTv = (TextView) appInfoLl.findViewById(R.id.invite_detail_app_info_teetime);
 		courseTv = (TextView) appInfoLl.findViewById(R.id.invite_detail_app_info_course);
 		plansLl = (LinearLayout) findViewById(R.id.invite_detail_plans_ll);
 		plansLv = (NestListView) findViewById(R.id.invite_detail_app_plan_list);
 		payTypeGv = (NestGridView) findViewById(R.id.invite_detail_pay_type_gridview);
 		payTypeTxt = (TextView) findViewById(R.id.invite_detail_pay_type_text);
-		stakeGv = (NestGridView) findViewById(R.id.invite_detail_stake_gridview);
-		stakeTxt = (TextView) findViewById(R.id.invite_detail_stake_type_text);
+		//stakeGv = (NestGridView) findViewById(R.id.invite_detail_stake_gridview);
+		//stakeTxt = (TextView) findViewById(R.id.invite_detail_stake_type_text);
 		scoreRegion = (LinearLayout) findViewById(R.id.invite_detail_score_region);
 		scoreCardIv = (ImageView) scoreRegion.findViewById(R.id.invite_detail_score_card);
 		scoreCardIv.setOnClickListener(this);
@@ -265,7 +294,6 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		right1PerInfoVh.score = (TextView) findViewById(R.id.invite_detail_pi_score_right1);
 		right1PerInfoVh.rate = (LinearLayout) findViewById(R.id.invite_detail_pi_rate_right1);
 		
-		
 		right2PerInfoVh = new PerInfoViewHolder();
 		right2PerInfoVh.nickname = (TextView) findViewById(R.id.invite_detail_pi_nickname_right2);
 		right2PerInfoVh.hi = (TextView) findViewById(R.id.invite_detail_pi_hi_right2);
@@ -337,8 +365,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		
 		setRight2InfoViews(right2);
 		setRight2PerInfoViews(right2);
-			
-		
+
 		
 		// invite message
 		setInviteMessage(inviteMsg);
@@ -379,7 +406,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		
 		loadAvatar(role.sn, role.avatar, holder.avatar);
 		holder.nickname.setText(role.nickname);
-		Utils.setVisible(holder.sex);
+
 		if(Const.SEX_MALE == role.sex) {
 			holder.sex.setImageResource(R.drawable.ic_male);
 		} else {
@@ -480,13 +507,19 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 	
 	protected ListView displayPlansShowListView(ArrayList<PlanShowInfo> plans) {
-		Utils.setVisibleGone(plansLl, appInfoLl);
+
+		/*pxs 2015.12.30 update*/
+		//Utils.setVisibleGone(plansLl, appInfoLl);
+		Utils.setVisibleGone(plansLl);
 		plansLv.setAdapter(new PlanShowAdapter(this, plans));
 		return plansLv;
 	}
 	
 	protected PlanSelectAdapter displayPlansSelectListView(ArrayList<PlanShowInfo> plans) {
-		Utils.setVisibleGone(plansLl, appInfoLl);
+
+		/*pxs 2015.12.30 update*/
+		//Utils.setVisibleGone(plansLl, appInfoLl);
+		Utils.setVisibleGone(plansLl);
 		PlanSelectAdapter adapter = new PlanSelectAdapter(this, plans);
 		plansLv.setAdapter(adapter);
 		return adapter;
@@ -503,7 +536,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		//StakeShowAdapter adapter = new StakeShowAdapter(this, type);
 		//stakeGv.setAdapter(adapter);
 		
-		stakeTxt.setText(MainApp.getInstance().getGlobalData().getStakeName(type));
+		//stakeTxt.setText(MainApp.getInstance().getGlobalData().getStakeName(type));
 	}
 	
 	/**
@@ -545,6 +578,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	
 	protected void displayScoreRegion() {
 		Utils.setVisibleGone(scoreRegion, scoreCardInvalidIv);
+
 	}
 	
 	protected void disableScoreItems() {
@@ -675,6 +709,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 						
 						
 						rateBarRb.setRating((float)detail.ratesIdHash.get(detail.invitee.id));
+						rateBarRb.setIsIndicator(true);
 						rateName.setText(detail.invitee.nickname);
 						loadAvatar(detail.invitee.sn, detail.invitee.avatar, rateHeadImage);
 						
@@ -682,6 +717,9 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 						
 						rateBarRb.setRating((float)detail.ratesIdHash.get(detail.invitee.id));
 						rateBarRb1.setRating((float)detail.ratesIdHash.get(detail.inviteeone.id));
+
+						rateBarRb.setIsIndicator(true);
+						rateBarRb1.setIsIndicator(true);
 						findViewById(R.id.invite_detail_rate_relative1).setVisibility(View.VISIBLE);
 						
 						rateName.setText(detail.invitee.nickname);
@@ -695,6 +733,10 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 						rateBarRb.setRating((float)detail.ratesIdHash.get(detail.invitee.id));
 						rateBarRb1.setRating((float)detail.ratesIdHash.get(detail.inviteeone.id));
 						rateBarRb2.setRating((float)detail.ratesIdHash.get(detail.inviteetwo.id));
+
+						rateBarRb.setIsIndicator(true);
+						rateBarRb1.setIsIndicator(true);
+						rateBarRb2.setIsIndicator(true);
 						findViewById(R.id.invite_detail_rate_relative1).setVisibility(View.VISIBLE);
 						findViewById(R.id.invite_detail_rate_relative2).setVisibility(View.VISIBLE);
 						
@@ -824,9 +866,11 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	}
 	
 	protected View displayRequestRegionOther(int num) {
-		Utils.setVisibleGone(requestRegion, requestGv);
+
 //		requestTitleTv.setText(msg);
-		refreshRequestTitle(num);
+		//2015,12.24 next two line
+		//Utils.setVisibleGone(requestRegion, requestGv);
+		//refreshRequestTitle(num);
 		return requestRegion;
 	}
 	
@@ -849,21 +893,53 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		ApplicantsAdapter adapter = null;
 		
 		this.detail = detail;
-		int size = 0;
-		if(detail == null || null == detail.applicants || detail.applicants.isEmpty()) {
-			Utils.setVisibleGone(requestRegion, requestGv);
-		} else {
-			Utils.setVisible(requestRegion, requestGv);
-			size = detail.applicants.size();
-			adapter = new ApplicantsAdapter(this, detail, selectable, inviteeSn);
-			requestGv.setAdapter(adapter);
+//		int size = 0;
+//		if(detail == null || null == detail.applicants || detail.applicants.isEmpty()) {
+//			Utils.setVisibleGone(requestRegion, requestGv);
+//		} else {
+//			Utils.setVisible(requestRegion, requestGv);
+//			size = detail.applicants.size();
+//			adapter = new ApplicantsAdapter(this, detail, selectable, inviteeSn);
+//			requestGv.setAdapter(adapter);
+//		}
+//		refreshRequestTitle(size);
+		if (detail.select_menber_sn.size() > 0) {
+
+			invitee_one_relative.setClickable(true);
+			invitee_one_relative.setSelected(true);
 		}
-		refreshRequestTitle(size);
+
+		if (detail.select_menber_sn.size() > 1) {
+
+			invitee_one_relative.setClickable(true);
+			invitee_two_relative.setClickable(true);
+
+			invitee_one_relative.setSelected(true);
+			invitee_two_relative.setSelected(true);
+		}
+
 		return adapter;
+	}
+
+	protected void unClickableleRequestRegionMine() {
+
+		invitee_one_relative.setClickable(false);
+		invitee_two_relative.setClickable(false);
+		invitee_three_relative.setClickable(false);
+
 	}
 	
 	protected void dismissRequestRegion() {
-		Utils.setGone(requestRegion);
+
+		/*
+		* pxs update 2015.12.29
+		* */
+		Utils.setGone(mInviteAllInfoLinear);
+		Utils.setVisible(mInviteShowLinear);
+
+
+		//Utils.setGone(requestRegion);
+
 	}
 
 	/**
@@ -899,7 +975,107 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 			case R.id.invite_detail_topbar_back:
 				finishWithAnim();
 				break;
+
+			case R.id.invite_detail_invitee_realtive:
+
+				boolean result = checkInviteeSelect(detail.invitee.sn);
+
+
+				if(result){
+
+					invitee_one_relative.setSelected(true);
+				}
+				else {
+
+					invitee_one_relative.setSelected(false);
+				}
+
+				break;
+
+			case R.id.invite_detail_invitee_realtive1:
+
+				boolean result1 = checkInviteeSelect(detail.inviteeone.sn);
+
+
+				if(result1){
+
+					invitee_two_relative.setSelected(true);
+				}
+				else {
+
+					invitee_two_relative.setSelected(false);
+				}
+
+				break;
+
+			case R.id.invite_detail_invintee_info_all_show_linear:
+
+				if(mInviteAllInfoLinear.getVisibility() == View.GONE) {
+
+					mInviteAllInfoLinear.setVisibility(View.VISIBLE);
+					mInviteaShowTxt.setText(R.string.str_invite_detail_show_invitee_hide);
+					mInviteShowImage.setImageResource(R.drawable.arrow_up_green);
+
+//					Animation anim = new TranslateAnimation(0, 0, 0, mInviteAllInfoLinear.getHeight());
+//					anim.setDuration(200);
+//					mInviteAllInfoLinear.startAnimation(anim);
+				}
+				else {
+
+					mInviteAllInfoLinear.setVisibility(View.GONE);
+					mInviteaShowTxt.setText(R.string.str_invite_detail_show_invitee);
+					mInviteShowImage.setImageResource(R.drawable.icon_arrow_down_green);
+
+//					Animation anim = new TranslateAnimation(0, 0, mInviteAllInfoLinear.getHeight(), 0);
+//					anim.setDuration(200);
+//					mInviteAllInfoLinear.startAnimation(anim);
+				}
+
+				break;
 		}
+	}
+
+	private boolean checkInviteeSelect (String sn) {
+
+		boolean result = false;
+		if (detail.select_menber_sn !=null) {
+
+			boolean contains = detail.select_menber_sn.contains(sn);
+
+			if (contains) {
+
+				if (detail.select_menber_sn.size() <= 1) {
+
+					Toast.makeText(this, "最少选择一个", Toast.LENGTH_SHORT).show();
+					result = true;
+
+				} else {
+
+					//selectedApplicantsList.remove(applicatants.get(sn));
+
+					for(int i=0, size=detail.select_menber_sn.size(); i<size; i++) {
+
+
+						String snSelect = detail.select_menber_sn.get(i);
+
+						if (sn.equalsIgnoreCase(snSelect)) {
+
+							detail.select_menber_sn.remove(i);
+							result = false;
+							break ;
+						}
+					}
+
+				}
+			}
+			else {
+
+				detail.select_menber_sn.add(sn);
+				result = true;
+			}
+		}
+
+		return result;
 	}
 	
 	@Override

@@ -255,6 +255,10 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 			}
 
 		}
+		else {
+
+			footView.setVisibility(View.GONE);
+		}
 	}
 
 	private void onRefresh() {  

@@ -4,7 +4,8 @@ import org.json.JSONArray;
 
 
 import com.hylg.igolf.MainApp;
-  
+import com.hylg.igolf.R;
+
 import android.content.Context;  
 import android.graphics.Canvas;  
 import android.graphics.Color;  
@@ -33,25 +34,25 @@ public class XRTextView extends TextView{
     private TextPaint textPaint = new TextPaint(paintColor);
     
     private float textShowWidth;  
-    private float Spacing = 0;  
-    private float LineSpacing = 1.1f;//行与行的间距  
+    private float Spacing = 1;
+    private float LineSpacing = 1.2f;//行与行的间距
       
     public XRTextView(Context context, AttributeSet attrs) {  
         super(context, attrs);  
-        text = attrs.getAttributeValue(  
+        text = attrs.getAttributeValue(
                 "http://schemas.android.com/apk/res/android", "text");  
-        textSize = attrs.getAttributeIntValue(namespace, "textSize", (int) (15*MainApp.getInstance().getGlobalData().getDisplayMetrics().density));//字体大小  
-        textColor = attrs.getAttributeIntValue(namespace, "textColor",Color.BLACK);//字体颜色  
+        textSize = attrs.getAttributeIntValue(namespace, "textSize", (int) (15 * MainApp.getInstance().getGlobalData().getDisplayMetrics().density));//字体大小
+        textColor = attrs.getAttributeIntValue(namespace, "textColor",Color.parseColor("#666666"));//字体颜色
         paddingLeft = attrs.getAttributeIntValue(namespace, "paddingLeft", 0);  
         paddingRight = attrs.getAttributeIntValue(namespace, "paddingRight", 0);  
         marginLeft = attrs.getAttributeIntValue(namespace, "marginLeft", 0);  
         marginRight = attrs.getAttributeIntValue(namespace, "marginRight", 0);  
         paint1.setTextSize(textSize);  
-        paint1.setColor(textColor);  
+        paint1.setColor(textColor);
         paint1.setAntiAlias(true);  
         paintColor.setAntiAlias(true);  
         paintColor.setTextSize(textSize);  
-        paintColor.setColor(Color.parseColor("#8b7a4e"));  
+        paintColor.setColor(context.getResources().getColor(R.color.color_friend_item_praiser_name));
         
         
     }  
@@ -67,10 +68,11 @@ public class XRTextView extends TextView{
         this.marginRight = marginRight;  
         paint1.setTextSize(textSize);  
         paint1.setColor(textColor);  
-        paint1.setAntiAlias(true);   
+        paint1.setAntiAlias(true);
+
         paintColor.setAntiAlias(true);  
         paintColor.setTextSize(textSize);  
-        paintColor.setColor(Color.BLUE);  
+        paintColor.setColor(context.getResources().getColor(R.color.color_friend_item_praiser_name));
     }  
   
       
@@ -154,9 +156,10 @@ public class XRTextView extends TextView{
             	
             	if (lenth2 > 0) {
             		
-            		if (i > (lenth1+2) && i < (lenth1+3+lenth2) ) {
+            		if (i > (lenth1+1) && i < (lenth1+2+lenth2) ) {
             			
             			canvas.drawText(textCharArray, i, 1, paddingLeft + drawedWidth, (lineCount + 1) * textSize * LineSpacing, paintColor);
+
             		} else {
             			
             			canvas.drawText(textCharArray, i, 1, paddingLeft + drawedWidth, (lineCount + 1) * textSize * LineSpacing, paint1);
@@ -165,6 +168,7 @@ public class XRTextView extends TextView{
             	} else {
             		
             		canvas.drawText(textCharArray, i, 1, paddingLeft + drawedWidth, (lineCount + 1) * textSize * LineSpacing, paint1);
+
             	}
             	
             }

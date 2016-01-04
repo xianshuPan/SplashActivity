@@ -34,6 +34,7 @@ import cn.jpush.android.api.JPushInterface;
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
+import com.hylg.igolf.cs.data.CoachItem;
 import com.hylg.igolf.cs.data.Customer;
 import com.hylg.igolf.cs.data.Member;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
@@ -67,7 +68,7 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 //	private Bitmap avatarBmp = null;
 	private int ablumSpace;
 	
-	public static final CustomerHomeFrg getInstance() {
+	public static  CustomerHomeFrg getInstance() {
 		if(null == customerFrg) {
 			customerFrg = new CustomerHomeFrg();
 		}
@@ -210,7 +211,7 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 					new ImageCallback() {
 						@Override
 						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != imageView) {
+							if(null != imageDrawable ) {
 								Utils.logh(TAG, "imageLoaded " + imageView);
 								imageView.setImageDrawable(imageDrawable);
 							}
@@ -247,7 +248,6 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 		if(isLoading()) {
 			GetMemberloader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 			Utils.logh(TAG, "clearLoader reqLoader: " + reqLoader);
 		}
 	}
@@ -275,7 +275,7 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 		reqLoader = new GetMemberloader(getActivity(), customer.sn,customer.sn, new GetMemberCallback() {
 			
 			@Override
-			public void callBack(int retId, String msg, Member member) {
+			public void callBack(int retId, String msg, Member member,CoachItem coach_item) {
 				switch (retId) {
 					case ReturnCode.REQ_RET_OK:
 						handicapi.setText(Utils.getDoubleString(getActivity(), customer.handicapIndex));
@@ -304,7 +304,7 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 					new ImageCallback() {
 						@Override
 						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != iv) {
+							if(null != imageDrawable) {
 								iv.setImageDrawable(imageDrawable);
 							}
 						}
@@ -314,7 +314,7 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 	
 	@Override
 	public void onClick(View v) {
-		Intent intent = null;
+		Intent intent ;
 		switch(v.getId()) {
 			case R.id.cusinfo_logout:
 				LoginActivity.backWithPhone(getActivity(), MainApp.getInstance().getCustomer().phone);
@@ -384,25 +384,23 @@ public class CustomerHomeFrg extends Fragment implements View.OnClickListener,on
 		    }
 		}
 		if(Const.REQUST_CODE_PHOTE_TAKE_PHOTO == requestCode) {
-			if(Activity.RESULT_OK == resultCode) {
-//				startPhotoCrop(mUri);
-				try {
-					addAlbum(new File(new URI(mUri.toString())));
-				} catch (URISyntaxException e) {
-					e.printStackTrace();
-				}
-				return ;
+//			startPhotoCrop(mUri);
+			try {
+				addAlbum(new File(new URI(mUri.toString())));
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
 			}
+			return ;
+
 		} else if(Const.REQUST_CODE_PHOTE_GALLERY == requestCode) {
-			if(Activity.RESULT_OK == resultCode && null != intent) {
-//				startPhotoCrop(intent.getData());
-				Uri uri = intent.getData();
-				String img_path = FileUtils.getMediaImagePath(getActivity(), uri);
-				addAlbum(new File(img_path));
-				return ;
-			}
+//			startPhotoCrop(intent.getData());
+			Uri uri = intent.getData();
+			String img_path = FileUtils.getMediaImagePath(getActivity(), uri);
+			addAlbum(new File(img_path));
+			return ;
+
 		} else if(Const.REQUST_CODE_PHOTE_CROP == requestCode) {
-			if(Activity.RESULT_OK == resultCode && null != intent) {
+			if(null != intent) {
 				Bundle b = intent.getExtras();
 				if(null != b) {
 					Bitmap photo = b.getParcelable("data");

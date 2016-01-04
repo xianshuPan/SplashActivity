@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -23,24 +24,21 @@ import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.CoachItem;
 import com.hylg.igolf.cs.data.Customer;
-import com.hylg.igolf.cs.data.GolferInfo;
 import com.hylg.igolf.cs.loader.GetCoachListLoader;
 import com.hylg.igolf.cs.loader.GetCoachListLoader.GetCoachListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.ui.common.*;
-import com.hylg.igolf.ui.common.CoacherSortItemSelectActivity.onCoacherSortItemSelectListener;
-import com.hylg.igolf.ui.common.CoacherTypeSelectActivity.onCoacherTypeSelectListener;
-import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
+import com.hylg.igolf.ui.common.SexSelectFragment.onSexSelectListener;
+import com.hylg.igolf.ui.common.CoacherSortItemSelectFragment.onCoacherSortItemSelectListener;
+import com.hylg.igolf.ui.common.CoacherTypeSelectFragment.onCoacherTypeSelectListener;
 import com.hylg.igolf.ui.golfers.adapter.GolfersAdapter;
-import com.hylg.igolf.ui.hall.StartInviteStsActivity;
-import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.CoachListReqParam;
 import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.LoadFail;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
 import com.hylg.igolf.utils.*;
 
-public class CoachListActivity extends Activity implements 
+public class CoachListActivity extends FragmentActivity implements
 													View.OnClickListener,
 													onSexSelectListener, 
 													onCoacherTypeSelectListener,
@@ -238,7 +236,7 @@ public class CoachListActivity extends Activity implements
 		if(null == Utils.getEditTextString(searchEt)) {
 			Toast.makeText(CoachListActivity.this, R.string.str_toast_keyword_null, Toast.LENGTH_SHORT).show();
 		} else if(!Utils.isConnected(CoachListActivity.this)) {
-			;
+
 		} else {
 			dismissSearchBar();
 			searchByKeyword(Utils.getEditTextString(searchEt));
@@ -331,18 +329,34 @@ public class CoachListActivity extends Activity implements
 			Toast.makeText(this, R.string.str_toast_loading, Toast.LENGTH_SHORT).show();
 			return;
 		}
+
+		getSupportFragmentManager().popBackStack();
 		switch(type) {
 			case FILTER_TYPE_ORDER:
 				
-				CoacherSortItemSelectActivity.startCoacherSortItemSelect(CoachListActivity.this, reqData.rangeBy);
+				//CoacherSortItemSelectActivity.startCoacherSortItemSelect(CoachListActivity.this, reqData.rangeBy);
+				orderTv.setSelected(true);
+				sexTv.setSelected(false);
+				typeTv.setSelected(false);
+				CoacherSortItemSelectFragment.startCoacherSortItemSelect(CoachListActivity.this,reqData.rangeBy,R.id.coach_list_container);
 				break;
 				
 			case FILTER_TYPE_TYPE:
-				CoacherTypeSelectActivity.startCoacherTypeSelect(CoachListActivity.this, reqData.type);
+
+				orderTv.setSelected(false);
+				sexTv.setSelected(false);
+				typeTv.setSelected(true);
+				CoacherTypeSelectFragment.startCoacherTypeSelect(CoachListActivity.this, reqData.type,R.id.coach_list_container);
 				break;
 
 			case FILTER_TYPE_SEX:
-				SexSelectActivity.startSexSelect(CoachListActivity.this, true, reqData.sex);
+
+
+				orderTv.setSelected(false);
+				sexTv.setSelected(true);
+				typeTv.setSelected(false);
+				//SexSelectActivity.startSexSelect(CoachListActivity.this, true, reqData.sex);
+				SexSelectFragment.startSexSelect(CoachListActivity.this,reqData.sex,R.id.coach_list_container);
 				break;
 		}
 	}
@@ -351,7 +365,6 @@ public class CoachListActivity extends Activity implements
 		if(isLoading()) {
 			GetCoachListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	
@@ -499,11 +512,11 @@ public class CoachListActivity extends Activity implements
 
 
 	@Override
-	public void onSexSelect(int newSex) {
+	public void onSexSelect(Object newSex) {
 		
 		//filterChgLoad(Const.INVALID_SELECTION_INT, null, null, newSex);
-		sexTv.setText(gd.getSexName(newSex));
-		reqData.sex = newSex;
+		reqData.sex = Integer.valueOf(newSex.toString());
+		sexTv.setText(gd.getSexName(reqData.sex));
 
 		//initListDataAsync(reqData);
 
@@ -515,11 +528,12 @@ public class CoachListActivity extends Activity implements
 
 
 	@Override
-	public void onCoacherTypeSelect(int newType) {
+	public void onCoacherTypeSelect(Object newType) {
 		// TODO Auto-generated method stub
-		
-		typeTv.setText(gd.getCoachTypeName(newType));
-		reqData.type = newType;
+
+		reqData.type = Integer.valueOf(newType.toString());
+		typeTv.setText(gd.getCoachTypeName(reqData.type));
+
 		
 		//initListDataAsync(reqData);
 		reqData.pageNum = gd.startPage;
@@ -529,11 +543,12 @@ public class CoachListActivity extends Activity implements
 	}
 
 	@Override
-	public void onCoacherSortItemSelect(int newSortItem) {
+	public void onCoacherSortItemSelect(Object newSortItem) {
 		// TODO Auto-generated method stub
-		
-		orderTv.setText(gd.getCoachSortItemName(newSortItem));
-		reqData.rangeBy = newSortItem;
+
+		reqData.rangeBy = Integer.valueOf(newSortItem.toString());
+		orderTv.setText(gd.getCoachSortItemName(reqData.rangeBy));
+
 		//initListDataAsync(reqData);
 		reqData.pageNum = gd.startPage;
 		refreshDataAysnc(reqData);

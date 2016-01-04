@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.hylg.igolf.R;
@@ -64,6 +65,15 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 		fragment.startActivity(intent);
 		fragment.getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
+
+	public static void startInviteDetailMyOpenForCallback(FragmentActivity fragment, MyInviteInfo invitation) {
+
+		callback = (onResultCallback) fragment;
+		Intent intent = new Intent(fragment, InviteDetailMyOpenActivity.class);
+		intent.putExtra(BUNDLE_KEY_DETAIL_INFO, invitation);
+		fragment.startActivity(intent);
+		fragment.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +85,15 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 	
 	@Override
 	protected void onDestroy () {
-		
-		if (applicantsAdapter != null && applicantsAdapter.getSelectedApplicatant() != null && 
-			applicantsAdapter.getSelectedApplicatant().size() > 0 && !isEndInvite) {
-			
-			doAcceptInviteApp(invitation.sn, applicantsAdapter.getSelectedApplicatant());
-		}
-		
+
+		/*
+		* pxs 2015.12.30 update 不用手动添加候选人给 invitee 、inviteone、 invitetwo
+		* */
+//		if (applicantsAdapter != null && applicantsAdapter.getSelectedApplicatant() != null &&
+//			applicantsAdapter.getSelectedApplicatant().size() > 0 && !isEndInvite) {
+//
+//			doAcceptInviteApp(invitation.sn, applicantsAdapter.getSelectedApplicatant());
+//		}
 		
 		super.onDestroy();
 	}
@@ -123,7 +135,7 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 				detail.message, detail.paymentType, detail.stake);
 		// open: app info, not plans
 		displayAppInfo(detail.teeTime, detail.courseName);
-		
+		unClickableleRequestRegionMine();
 		
 		switch(detail1.displayStatus) {
 			case Const.MY_INVITE_WAITAPPLY: // 等申请，可撤销
@@ -153,14 +165,18 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 				displayDisableBtn(R.string.str_invite_detail_oper_btn_app_revoke_done);
 				// 显示申请人列表
 //				displayRequestRegionMine(detail.applicants, false, null);
-				dismissRequestRegion();
+
+				/*pxs 2015.12.28 update */
+				//dismissRequestRegion();
 				break;
 			case Const.MY_INVITE_REVOKED: // 已撤约,任一一方撤约
 				// 实际列表中，非提醒，无此类信息，已经转移到约球历史
 				displayDisableBtn(R.string.str_invite_detail_oper_btn_app_cancel_done);
 				// 显示申请人列表
 //				displayRequestRegionMine(detail.applicants, false, detail.invitee.sn);
-				dismissRequestRegion();
+
+				/*pxs 2015.12.28 update */
+				//dismissRequestRegion();
 				break;
 			case Const.MY_INVITE_WAITSIGN: // 待签到,约球单为接受，并当前时间小于开球时间
 				displayAppMark();
@@ -234,7 +250,8 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 				// TODO Auto-generated method stub
 				
 				isEndInvite = true;
-				doEndInviteApp(invitation.sn,applicantsAdapter.getSelectedApplicatant());
+				//doEndInviteApp(invitation.sn,applicantsAdapter.getSelectedApplicatant());
+				doEndInviteApp(invitation.sn,detail.select_menber_sn);
 			}
 		});
 		dialog.setNegativeButton(R.string.str_photo_cancel, new DialogInterface.OnClickListener() {
@@ -261,7 +278,9 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 						if(null != applicantsAdapter) {
 							applicantsAdapter.clearApplicantSn();
 						}
-						dismissRequestRegion();
+
+						/*pxs 2015.12.29 update*/
+						//dismissRequestRegion();
 						break;
 					case BaseRequest.REQ_RET_F_APP_OVERDUE:
 						// 我发起的开放式约球，点击撤销按钮，理论上，只可能是已经过期，系统自动撤销。
@@ -330,7 +349,12 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 						//toastShort(msg);
 						displayDisableBtn(R.string.str_invite_detail_oper_btn_app_revoke_done);
 						setFinishResult(true);
-						applicantsAdapter.clearApplicantSn();
+
+						if (applicantsAdapter != null) {
+
+							applicantsAdapter.clearApplicantSn();
+						}
+
 						break;
 					default:
 						//toastShort(msg);
@@ -341,7 +365,7 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 		}.execute(null, null, null);
 	}
 	
-	private void doEndInviteApp(final String appSn,final ArrayList<InviteRoleInfo> applys) {
+	private void doEndInviteApp(final String appSn,final ArrayList<String> applys) {
 		if(!Utils.isConnected(this)) {
 			return ;
 		}
@@ -391,7 +415,12 @@ public class InviteDetailMyOpenActivity extends InviteDetailMineActivity {
 						toastShort(msg);
 						displayDisableBtn(R.string.str_invite_detail_oper_btn_app_revoke_done);
 						setFinishResult(true);
-						applicantsAdapter.clearApplicantSn();
+
+						if (applicantsAdapter != null) {
+
+							applicantsAdapter.clearApplicantSn();
+						}
+
 						break;
 					default:
 						toastShort(msg);

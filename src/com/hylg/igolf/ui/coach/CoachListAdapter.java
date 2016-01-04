@@ -79,6 +79,7 @@ public class CoachListAdapter extends IgBaseAdapter {
 			
 			holder.avatarIv = (ImageView) convertView.findViewById(R.id.coach_item_avatar);
 			holder.typeIv = (ImageView) convertView.findViewById(R.id.coach_item_type_image);
+			holder.sexIv = (ImageView) convertView.findViewById(R.id.coach_item_sex_image);
 			holder.handicapiTv = (TextView) convertView.findViewById(R.id.coach_item_handicapIndex_text);
 			holder.star = (RatingBar) convertView.findViewById(R.id.coach_item_rating);
 			holder.nicknameTv = (TextView) convertView.findViewById(R.id.coach_item_nickname);
@@ -107,6 +108,15 @@ public class CoachListAdapter extends IgBaseAdapter {
 		} else {
 			
 			holder.typeIv.setBackgroundResource(R.drawable.white_bg);
+		}
+
+		if (item.sex == Const.SEX_MALE) {
+
+			holder.sexIv.setBackgroundResource(R.drawable.man);
+
+		} else {
+
+			holder.sexIv.setBackgroundResource(R.drawable.woman);
 		}
 		
 		holder.handicapiTv.setText(Utils.getDoubleString(context, item.handicapIndex));

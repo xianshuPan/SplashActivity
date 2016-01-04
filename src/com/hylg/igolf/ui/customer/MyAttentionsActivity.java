@@ -37,6 +37,8 @@ import android.widget.Toast;
 public class MyAttentionsActivity extends FragmentActivity {
 	
 	private final String 				TAG 						= "MyAttentonsActivity";
+
+	private static String               SN_KEY                      = "sn";
 	
 	private ImageButton  				mBack 						= null;
 	
@@ -47,6 +49,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 	private FragmentActivity 			mContext 					= null;
 	
 	private String 						sn							= "",
+										mem_sn                      = "",
 										attention_sn				= "";
 	
 	private int 						startPage					= 0, 
@@ -59,15 +62,25 @@ public class MyAttentionsActivity extends FragmentActivity {
 	private MyAttentionsAdapter          mMyAttentionsAdapter		= null;
 	
 	
-	public static void startMyAttentionsActivity(Activity context) {
+	public static void startMyAttentionsActivity(Activity context,String sn) {
 
+		if (sn == null || sn.length() <= 0) {
+
+			return;
+		}
 		Intent intent = new Intent(context, MyAttentionsActivity.class);
+		intent.putExtra(SN_KEY,sn);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
 	}
 	
-	public static void startMyAttentionsActivity(Fragment context) {
+	public static void startMyAttentionsActivity(Fragment context,String sn) {
 
+		if (sn == null || sn.length() <= 0) {
+
+			return;
+		}
 		Intent intent = new Intent(context.getActivity(), MyAttentionsActivity.class);
+		intent.putExtra(SN_KEY,sn);
 		context.startActivityForResult(intent, Const.REQUST_CODE_SIGNATURE_MY);
 	}
 	
@@ -81,7 +94,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 		mBack =  (ImageButton)  findViewById(R.id.customer_info_my_follower_back);
 		mList = (EhecdListview) findViewById(R.id.customer_info_my_follower_listview);
 		mTitleTxt = (TextView) findViewById(R.id.customer_info_my_follower_title_text);
-		mTitleTxt.setText(R.string.str_praise_attention);
+
 		
 		//mList.addFooterView(new ListFooter(mContext).getFooterView());
 		mBack.setOnClickListener(new OnClickListener() {
@@ -92,9 +105,21 @@ public class MyAttentionsActivity extends FragmentActivity {
 				mContext.finish();
 			}
 		});
-		
-		
+
+
+		mem_sn = getIntent().getStringExtra(SN_KEY);
 		sn = MainApp.getInstance().getCustomer().sn;
+
+		if (mem_sn.equalsIgnoreCase(sn)) {
+
+			mTitleTxt.setText(R.string.str_praise_attention);
+		}
+		else {
+
+			mTitleTxt.setText(R.string.str_mem_praise_attention);
+		}
+
+
 		startPage = MainApp.getInstance().getGlobalData().startPage;
 		pageSize = MainApp.getInstance().getGlobalData().pageSize;
 		
@@ -138,7 +163,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 		WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyAttentionsListLoader(mContext,sn, startPage,pageSize,
+		reqLoader = new GetMyAttentionsListLoader(mContext,sn, mem_sn,startPage,pageSize,
 				
 		new GetMyAttentionsListCallback() {
 			
@@ -184,7 +209,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 		
 		startPage++;
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyAttentionsListLoader(mContext,sn, startPage,pageSize,
+		reqLoader = new GetMyAttentionsListLoader(mContext,sn, mem_sn,startPage,pageSize,
 				
 			new GetMyAttentionsListCallback() {
 			
@@ -228,7 +253,7 @@ public class MyAttentionsActivity extends FragmentActivity {
 		//WaitDialog.showWaitDialog(mContext, R.string.str_loading_msg);
 		clearLoader();
 		/*sn 暂时等于1*/
-		reqLoader = new GetMyAttentionsListLoader(mContext,sn, 1,startPage*pageSize,
+		reqLoader = new GetMyAttentionsListLoader(mContext,sn, mem_sn,1,startPage*pageSize,
 				
 			new GetMyAttentionsListCallback() {
 			
@@ -268,7 +293,6 @@ public class MyAttentionsActivity extends FragmentActivity {
 		if(isLoading()) {
 			GetMyAttentionsListLoader loader = reqLoader;
 			loader.stopTask(true);
-			loader = null;
 		}
 	}
 	

@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/list_item_hn_pad"
-    android:paddingTop="@dimen/list_item_vn_pad"
-    android:paddingRight="@dimen/list_item_hn_pad" >
-    
-	    <RelativeLayout 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="80dp">
 	
 		<Button
 		    android:layout_marginRight="10dp"
+			android:layout_alignBottom="@+id/golfers_list_linear"
 		    android:layout_alignParentRight="true"
 		    android:layout_centerVertical="true"
-		    android:background="@drawable/xbtn_green"
+		    android:background="@drawable/invite_golfers_back"
 		    android:id="@+id/golfers_li_invite_btn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="@dimen/golfers_li_invite_btn_h"
+		    android:layout_width="75dp"
+		    android:layout_height="30dp"
 		    android:textColor="@color/color_white"
-		    android:text="@string/str_golfers_li_invate_btn" />
+		     />
 
 			<com.hylg.igolf.ui.view.CircleImageView
 				android:layout_centerVertical="true"
 				android:id="@+id/golfers_li_avatar"
-				android:layout_width="@dimen/avatar_golfers_li_size"
-				android:layout_height="@dimen/avatar_golfers_li_size"
+				android:layout_width="@dimen/avatar_invite_li_size"
+				android:layout_height="@dimen/avatar_invite_li_size"
 				android:layout_alignParentLeft="true"
-				android:layout_marginLeft="10dp"
 				android:src="@drawable/avatar_null" />
 	<!-- 	    	
 		<ImageView
@@ -42,6 +39,7 @@
 	 -->
 	
 		<LinearLayout
+			android:id="@+id/golfers_list_linear"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_centerVertical="true"
@@ -57,20 +55,19 @@
 		        android:layout_height="wrap_content"
 		        android:gravity="center_vertical"
 		        android:orientation="horizontal" >
-				<ImageView
-				    android:id="@+id/golfers_li_sex"
-				    android:src="@drawable/ic_male"
-				    android:scaleType="fitXY"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:contentDescription="@null" />
 			    <TextView
 			        android:id="@+id/golfers_li_nickname"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:textSize="@dimen/txt_size_m"
-			        android:textColor="#333333"
-			        android:paddingLeft="10dp" />
+			        android:textSize="@dimen/txt_size_ml"
+			        android:textColor="#333333" />
+				<ImageView
+					android:layout_marginLeft="5dp"
+					android:id="@+id/golfers_li_sex"
+					android:src="@drawable/ic_male"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:contentDescription="@null" />
 		    </LinearLayout>
 		    <LinearLayout
 		        android:layout_width="match_parent"
@@ -78,37 +75,35 @@
 		        android:gravity="center_vertical"
 		        android:orientation="horizontal" >
 				<ImageView
-				    android:src="@drawable/golfers_li_region"
+				    android:src="@drawable/location"
 				    android:scaleType="fitXY"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
+				    android:layout_width="10dp"
+				    android:layout_height="15dp"
 				    android:contentDescription="@null" />
 			    <TextView
 			        android:id="@+id/golfers_li_region"
-			        android:layout_width="wrap_content"
+			        android:layout_width="80dp"
 			        android:layout_height="wrap_content"
 			        android:textSize="@dimen/txt_size_s"
-			        android:textColor="#666666"
+					android:textColor="@color/gray_999999"
 			        android:singleLine="true"
 			        android:maxLines="3"
 			        android:paddingLeft="3dp" />
 			    
 			    <LinearLayout
-			        android:layout_marginLeft="25dp"
+			        android:layout_marginLeft="10dp"
 				    android:layout_toLeftOf="@id/golfers_li_invite_btn"
 				    android:layout_centerVertical="true"
 				    android:id="@+id/golfers_li_handicapi_region"
 				    android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
-				    android:paddingLeft="3dp"
-				    android:paddingRight="10dp"
 				    android:gravity="center_horizontal"
 				    android:orientation="horizontal" >
 				     <TextView
 				        android:layout_width="wrap_content"
 				        android:layout_height="match_parent"
 				        android:textSize="@dimen/txt_size_s"
-				        android:textColor="#333333"
+				        android:textColor="@color/gray_999999"
 				        android:gravity="center"
 				        android:text="@string/str_golfers_li_handicapi_title" />
 				    <TextView
@@ -117,8 +112,8 @@
 				        android:layout_height="match_parent"
 				        android:gravity="center"
 				        android:layout_marginLeft="2dp"
-				        android:textColor="@color/color_rank_bronze"
-				        android:textSize="@dimen/txt_size_m" />
+				        android:textColor="#516d89"
+				        android:textSize="@dimen/txt_size_s" />
 				   
 				</LinearLayout>
 			    <LinearLayout
@@ -134,37 +129,37 @@
 		        android:layout_height="wrap_content"
 		        android:gravity="center_vertical"
 		        android:orientation="horizontal" >
+				<ImageView
+					android:src="@drawable/work"
+					android:scaleType="fitXY"
+					android:layout_width="10dp"
+					android:layout_height="10dp"
+					android:contentDescription="@null" />
+				<TextView
+					android:id="@+id/golfers_li_industry"
+					android:paddingLeft="3dp"
+					android:layout_width="80dp"
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/txt_size_s"
+					android:textColor="@color/gray_999999"
+					android:singleLine="true"
+					android:ellipsize="end" />
 			    <TextView
+					android:layout_marginLeft="10dp"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:textSize="@dimen/txt_size_s"
-			        android:textColor="#666666"
+					android:textColor="@color/gray_999999"
 			        android:text="@string/str_golfers_li_yearsexp_title" />
 			    <TextView
+					android:layout_marginLeft="2dp"
 			        android:id="@+id/golfers_li_yearsExp"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:textSize="@dimen/txt_size_s"
-			        android:textColor="@color/color_filter_title_nor" />
-				<ImageView
-				    android:src="@drawable/golfers_li_industry"
-				    android:scaleType="fitXY"
-				    android:layout_width="wrap_content"
-				    android:layout_height="wrap_content"
-				    android:paddingLeft="10dp"
-				    android:contentDescription="@null" />
-			    <TextView
-			        android:id="@+id/golfers_li_industry"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:textSize="@dimen/txt_size_s"
-			        android:textColor="#666666"
-			        android:singleLine="true"
-			        android:ellipsize="end"
-			        android:paddingLeft="3dp" />
+			        android:textColor="#516d89" />
+
 		    </LinearLayout>
 		</LinearLayout>
-	
 	</RelativeLayout>
-		
 </RelativeLayout>

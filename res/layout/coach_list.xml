@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/repeat_bkg"
+    android:background="@color/color_white"
     android:orientation="vertical" >
 
     <RelativeLayout
+		android:id="@+id/coach_list_head"
         style="@style/custom_title_style" >
 		<ImageButton
 			android:id="@+id/coach_list_topbar_back"
@@ -40,10 +41,13 @@
     </RelativeLayout>
     
 	<LinearLayout
+		android:layout_below="@+id/coach_list_head"
+		android:id="@+id/coach_list_filter_linear"
 	    android:baselineAligned="false"
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:background="@color/color_white"
+		android:gravity="center_vertical"
+	    android:layout_height="40dp"
+	    android:background="@drawable/fiter_bg"
 	     >
 		<LinearLayout
 		    android:layout_weight="1"
@@ -57,18 +61,11 @@
 		        style="@style/selection_txt_style"
 		        android:text="@string/str_coachers_order" />
 		</LinearLayout>
-		<!-- 
-	    <View
-	        android:layout_width="1px"
-	        android:layout_height="match_parent"
-	        android:background="@color/color_selection_vline" />
-	         -->
-		<!-- 
-	    <View
-	        android:layout_width="1px"
-	        android:layout_height="match_parent"
-	        android:background="@color/color_selection_vline" />
-	         -->
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/filter_liney" />
 		<LinearLayout
 		    android:layout_weight="1"
 		    android:clickable="true"
@@ -81,12 +78,11 @@
 		        style="@style/selection_txt_style"
 		        android:text="@string/str_coachers_type" />
 		</LinearLayout>
-		<!-- 
-	    <View
-	        android:layout_width="1px"
-	        android:layout_height="match_parent"
-	        android:background="@color/color_selection_vline" />
-	         -->
+
+		<View
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:background="@drawable/filter_liney" />
 		<LinearLayout
 		    android:layout_weight="1"
 		    android:id="@+id/coach_list_filter_sex_linear"
@@ -106,16 +102,27 @@
 	     android:layout_height="1px"
 	     android:background="@drawable/divider1" />
 	<include
+		android:layout_below="@+id/coach_list_filter_linear"
 	    android:id="@+id/coach_list_load_fail"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    layout="@layout/common_load_fail" />
 	
 	<com.hylg.igolf.ui.view.EhecdListview
+		android:layout_marginLeft="10dp"
+		android:dividerHeight="1px"
+		android:layout_below="@+id/coach_list_filter_linear"
         android:listSelector="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/coach_listview"
 	    android:scrollbarStyle="outsideOverlay"
 	    android:divider="@drawable/divider" />
-</LinearLayout>
+
+	<FrameLayout
+		android:layout_marginTop="1px"
+		android:layout_below="@+id/coach_list_filter_linear"
+		android:id="@+id/coach_list_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.hylg.igolf.imagepicker;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,7 @@ public class ImageGridAdapter extends BaseAdapter {
 			if (imageView != null && bitmap != null) {
 				String url = (String) params[0];
 				if (url != null && url.equals((String) imageView.getTag())) {
-					((ImageView) imageView).setImageBitmap(bitmap);
+					(imageView).setImageBitmap(bitmap);
 				} else {
 					Log.e(TAG, "callback, bmp not match");
 				}
@@ -61,8 +62,8 @@ public class ImageGridAdapter extends BaseAdapter {
 		}
 	};
 
-	public static interface TextCallback {
-		public void onListen(int count);
+	public  interface TextCallback {
+		 void onListen(int count);
 	}
 
 	public void setTextCallback(TextCallback listener) {
@@ -77,6 +78,11 @@ public class ImageGridAdapter extends BaseAdapter {
 		this.mHandler = mHandler;
 		
 		mBucketName = bucketName;
+
+		if (Config.drr == null) {
+
+			Config.drr = new ArrayList<String>();
+		}
 	}
 
 	@Override
@@ -179,32 +185,40 @@ public class ImageGridAdapter extends BaseAdapter {
 				
 				
 				String path = dataList.get(position).imagePath;
-				if ((Config.drr.size() + selectTotal) < Config.SELECT_MAX_NUM) {
+				if ((Config.drr.size() ) < Config.SELECT_MAX_NUM) {
 					item.isSelected = !item.isSelected;
 					if (item.isSelected) {
 						holder.selected
 								.setImageResource(R.drawable.icon_data_select);
 						holder.text
 								.setBackgroundResource(R.drawable.bgd_relatly_line);
-						selectTotal++;
-						if (textcallback != null)
-							textcallback.onListen(selectTotal);
-						map.put(path, path);
+						//selectTotal++;
 
-					} else if (!item.isSelected) {
+
+						//map.put(path, path);
+						Config.drr.add(path);
+						if (textcallback != null)
+							textcallback.onListen(Config.drr.size());
+
+					} else {
 						holder.selected.setImageResource(-1);
 						holder.text.setBackgroundColor(Color.TRANSPARENT);
-						selectTotal--;
+						//selectTotal--;
+
+						//map.remove(path);
+						Config.drr.remove(path);
+
 						if (textcallback != null)
-							textcallback.onListen(selectTotal);
-						map.remove(path);
+							textcallback.onListen(Config.drr.size());
 					}
-				} else if ((Config.drr.size() + selectTotal) >= Config.SELECT_MAX_NUM) {
-					if (item.isSelected == true) {
+				} else if ((Config.drr.size() ) >= Config.SELECT_MAX_NUM) {
+					if (item.isSelected ) {
 						item.isSelected = !item.isSelected;
 						holder.selected.setImageResource(-1);
-						selectTotal--;
-						map.remove(path);
+						//selectTotal--;
+						//map.remove(path);
+
+						Config.drr.remove(path);
 
 					} else {
 						Message message = Message.obtain(mHandler, 0);

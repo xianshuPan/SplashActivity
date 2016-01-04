@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,7 +25,6 @@ import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.CoachInviteOrderDetail;
-import com.hylg.igolf.cs.data.CoachItem;
 import com.hylg.igolf.cs.data.CourseInfo;
 import com.hylg.igolf.cs.data.Customer;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
@@ -36,7 +34,6 @@ import com.hylg.igolf.cs.request.CoachInviteCommit;
 import com.hylg.igolf.cs.request.CoachRefuseContent;
 import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.cs.request.GetCourseAllInfoList;
-import com.hylg.igolf.cs.request.GetCourseInfoList;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity.onCourseAllSelectListener;
 import com.hylg.igolf.ui.common.HourExpSelectActivity;
@@ -44,21 +41,15 @@ import com.hylg.igolf.ui.common.HourExpSelectActivity.onHourExpSelectListener;
 import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity.onTeeDateSelectListener;
-import com.hylg.igolf.ui.hall.CourseSelectActivity;
-import com.hylg.igolf.ui.hall.CourseSelectActivity.onCourseSelectListener;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.CoachInviteReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
-import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
-import com.xc.lib.utils.Tools;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -110,7 +101,7 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 	private ArrayList<String> 				mSelectedReasonArray = null;
 	private complainSelectionAdapter 		mRefuseAdapter;
 
-	private Context                         mContext;
+	private FragmentActivity                mContext;
 
 	private int 							mAttentionState = -1;
 	private String                          attention_sn = "";

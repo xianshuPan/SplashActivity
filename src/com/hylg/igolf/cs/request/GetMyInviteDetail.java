@@ -46,20 +46,30 @@ public class GetMyInviteDetail extends GetInviteDetail {
 			return null;
 		}
 		InviteRoleInfo role = new InviteRoleInfo();
-		role.id = jo.getLong(RET_ID);
-		role.sn = jo.getString(RET_SN);
-		role.avatar = jo.getString(RET_AVATAR);
-		role.nickname = jo.getString(RET_NICKNAME);
-		role.sex = jo.getInt(RET_SEX);
+		role.id = jo.optLong(RET_ID);
+		role.sn = jo.optString(RET_SN);
+		role.avatar = jo.optString(RET_AVATAR);
+		role.nickname = jo.optString(RET_NICKNAME);
+		role.sex = jo.optInt(RET_SEX);
 		
 		
 		role.rate = jo.optDouble(RET_RATE, Double.MAX_VALUE);
-		role.ratedCount = jo.getInt(RET_RATE_COUNT);
-		role.matches = jo.getInt(RET_MATCHES);
+		role.ratedCount = jo.optInt(RET_RATE_COUNT);
+		role.matches = jo.optInt(RET_MATCHES);
 		role.handicapIndex = jo.optDouble(RET_HANDICAP_INDEX, Double.MAX_VALUE);
 		role.best = jo.optInt(RET_BEST, Integer.MAX_VALUE);
 		role.score = jo.optInt(RET_SCORE, Integer.MAX_VALUE);
-		
+
+
+		if (detail.select_menber_sn == null) {
+
+			detail.select_menber_sn =  new ArrayList<String>();
+		}
+		if (applicants) {
+
+			detail.select_menber_sn.add(role.sn);
+		}
+
 		
 		if (detail.selectApplicants == null) {
 			
@@ -69,15 +79,15 @@ public class GetMyInviteDetail extends GetInviteDetail {
 		if (applicants) {
 			
 			InviteRoleInfo asi = new InviteRoleInfo();
-			asi.id = (int)jo.getLong(RET_ID);
-			asi.sn = jo.getString(RET_SN);
-			asi.avatar = jo.getString(RET_AVATAR);
-			asi.nickname = jo.getString(RET_NICKNAME);
-			asi.sex = jo.getInt(RET_SEX);
+			asi.id = (int)jo.optLong(RET_ID);
+			asi.sn = jo.optString(RET_SN);
+			asi.avatar = jo.optString(RET_AVATAR);
+			asi.nickname = jo.optString(RET_NICKNAME);
+			asi.sex = jo.optInt(RET_SEX);
 			
 			asi.rate = jo.optDouble(RET_RATE, Double.MAX_VALUE);
-			asi.ratedCount = jo.getInt(RET_RATE_COUNT);
-			asi.matches = jo.getInt(RET_MATCHES);
+			asi.ratedCount = jo.optInt(RET_RATE_COUNT);
+			asi.matches = jo.optInt(RET_MATCHES);
 			asi.handicapIndex = jo.optDouble(RET_HANDICAP_INDEX, Double.MAX_VALUE);
 			asi.best = jo.optInt(RET_BEST, Integer.MAX_VALUE);
 			asi.score = jo.optInt(RET_SCORE, Integer.MAX_VALUE);
@@ -95,26 +105,28 @@ public class GetMyInviteDetail extends GetInviteDetail {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
-				failMsg = jo.getString(RET_MSG);
+				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
 			
 			DebugTools.getDebug().debug_v("我的约球详情", "----->>>>"+jo);
 			
-			JSONObject mid = jo.getJSONObject(RET_MY_INVITE_DETAIL);
-			detail.inviter = getInviteRoleInfo(mid.getJSONObject(RET_INVITER),false);
+			JSONObject mid = jo.optJSONObject(RET_MY_INVITE_DETAIL);
+			detail.inviter = getInviteRoleInfo(mid.optJSONObject(RET_INVITER),false);
 			detail.invitee = getInviteRoleInfo(mid.optJSONObject(RET_INVITEE),true);
 			detail.inviteeone = getInviteRoleInfo(mid.optJSONObject(RET_INVITEE_ONE),true);
 			detail.inviteetwo = getInviteRoleInfo(mid.optJSONObject(RET_INVITEE_TWO),true);
-			detail.message = mid.getString(RET_MESSAGE).replaceAll("[\\n|\\r]","");
-			detail.stake = mid.getInt(RET_STAKE);
-			detail.paymentType = mid.getInt(RET_PAYMENT_TYPE);
+
+
+			detail.message = mid.optString(RET_MESSAGE).replaceAll("[\\n|\\r]","");
+			detail.stake = mid.optInt(RET_STAKE);
+			detail.paymentType = mid.optInt(RET_PAYMENT_TYPE);
 			
-			detail.type = mid.getInt(RET_TYPE);
-			detail.displayStatus = mid.getInt(RET_DISPLAY_STATUS);
-			detail.score = mid.getInt(RET_SCORE);
-			detail.scoreCardName = mid.getString(RET_SCORE_CARD_NAME);
-			detail.rateStar = mid.getInt(RET_RATE_START);
+			detail.type = mid.optInt(RET_TYPE);
+			detail.displayStatus = mid.optInt(RET_DISPLAY_STATUS);
+			detail.score = mid.optInt(RET_SCORE);
+			detail.scoreCardName = mid.optString(RET_SCORE_CARD_NAME);
+			detail.rateStar = mid.optInt(RET_RATE_START);
 			// 一对一必填，开放无。
 			detail.addressName = mid.optString(RET_ADDRESS_NAME);
 			
@@ -127,11 +139,11 @@ public class GetMyInviteDetail extends GetInviteDetail {
 				}
 				detail.planInfo.clear();
 				for(int i=0, size=pi.length(); i<size; i++) {
-					JSONObject piJo = pi.getJSONObject(i);
+					JSONObject piJo = pi.optJSONObject(i);
 					PlanShowInfo psi = new PlanShowInfo();
-					psi.index = piJo.getInt(RET_INDEX);
-					psi.courseName = piJo.getString(RET_COURSE_NAME);
-					psi.teeTime = piJo.getString(RET_TEE_TIME);
+					psi.index = piJo.optInt(RET_INDEX);
+					psi.courseName = piJo.optString(RET_COURSE_NAME);
+					psi.teeTime = piJo.optString(RET_TEE_TIME);
 					detail.planInfo.add(psi);
 				}
 			}
@@ -147,14 +159,11 @@ public class GetMyInviteDetail extends GetInviteDetail {
 				String[] ratesRate = ratesRateStr.split(",");
 				
 				String[] ratesIdRate = ratesIdStr.split(",");
-				
-				if (ratesRate != null && ratesIdRate != null) {
-					
-					for (int i =0 ; i < ratesRate.length;i++ ) {
+
+				for (int i =0 ; i < ratesRate.length;i++ ) {
 						
-						detail.ratesIdHash.put(Long.valueOf(ratesIdRate[i]), Integer.valueOf(ratesRate[i]));
+					detail.ratesIdHash.put(Long.valueOf(ratesIdRate[i]), Integer.valueOf(ratesRate[i]));
 						
-					}
 				}
 				
 			}
@@ -174,17 +183,17 @@ public class GetMyInviteDetail extends GetInviteDetail {
 				detail.applicants.clear();
 				
 				for(int i=0, size=ai.length(); i<size; i++) {
-					JSONObject aiJo = ai.getJSONObject(i);
+					JSONObject aiJo = ai.optJSONObject(i);
 					InviteRoleInfo asi = new InviteRoleInfo();
-					asi.id = aiJo.getInt(RET_ID);
-					asi.sn = aiJo.getString(RET_SN);
-					asi.avatar = aiJo.getString(RET_AVATAR);
-					asi.nickname = aiJo.getString(RET_NICKNAME);
+					asi.id = aiJo.optInt(RET_ID);
+					asi.sn = aiJo.optString(RET_SN);
+					asi.avatar = aiJo.optString(RET_AVATAR);
+					asi.nickname = aiJo.optString(RET_NICKNAME);
 					asi.sex = aiJo.optInt(RET_SEX);
 					
 					asi.rate = aiJo.optDouble(RET_RATE, Double.MAX_VALUE);
-					asi.ratedCount = aiJo.getInt(RET_RATE_COUNT);
-					asi.matches = aiJo.getInt(RET_MATCHES);
+					asi.ratedCount = aiJo.optInt(RET_RATE_COUNT);
+					asi.matches = aiJo.optInt(RET_MATCHES);
 					asi.handicapIndex = aiJo.optDouble(RET_HANDICAP_INDEX, Double.MAX_VALUE);
 					asi.best = aiJo.optInt(RET_BEST, Integer.MAX_VALUE);
 					asi.score = aiJo.optInt(RET_SCORE, Integer.MAX_VALUE);

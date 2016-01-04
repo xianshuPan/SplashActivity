@@ -1,10 +1,10 @@
 package com.hylg.igolf.ui.customer;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -21,8 +21,8 @@ import com.hylg.igolf.cs.loader.GetMyBalanceRecordListLoader;
 import com.hylg.igolf.cs.loader.GetMyBalanceRecordListLoader.GetBalanceRecordListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.GetMyBalanceAmount;
-import com.hylg.igolf.cs.request.GetMyBalanceDefaultInfo;
 import com.hylg.igolf.ui.MainActivity;
+import com.hylg.igolf.ui.SplashActivity;
 import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.EhecdListview.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.EhecdListview.OnRefreshListener;
@@ -43,7 +43,7 @@ public class MyBalanceRecordActivity extends FragmentActivity {
 	
 	private EhecdListview 				mList 						= null;
 	
-	private FragmentActivity 			mContext 					= null;
+	private Activity 					mContext 					= null;
 	
 	private long                        customer_id                 = 0;
 	

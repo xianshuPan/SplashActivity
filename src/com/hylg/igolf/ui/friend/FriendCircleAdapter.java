@@ -113,7 +113,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 		mList = listView;
 		mRefreshView = refreshView;
 		mIsShowDelete = isShowDelete;
-		init();
+ 		init();
 	}
 	
 	/*
@@ -395,7 +395,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 						if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
 							
 							MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
-							mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+
 						}
 						
 					}
@@ -486,7 +486,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 				//holder.images.setLayoutParams(lp);
 				holder.images.setNumColumns(3);
 			}
-			
+
 			holder.images.setAdapter(new ImageAdapter(mContext, listPhoto, false));
 			holder.images.setVisibility(View.VISIBLE);
 			
@@ -581,14 +581,14 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			        /*判断是否是回复评论*/
 					if (toname1 != null && toname1.length() > 0) {
 						
-						sp = new SpannableStringBuilder(commentName+"回复:"+toname1+commentContent);  
+						sp = new SpannableStringBuilder(commentName+"回复"+toname1+":"+commentContent);
 					}
 			        
 				    sp.setSpan(clickableSpan, 0, commentName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
 			        
 				    if (toname1 != null && toname1.length() > 0) {
 						
-						 sp.setSpan(clickableSpan1, commentName.length()+3, commentName.length()+3+toname1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
+						 sp.setSpan(clickableSpan1, commentName.length()+2, commentName.length()+2+toname1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 					}
 			       
 			    commentUserName.setText(sp);   
@@ -679,7 +679,6 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 				
 			}
 		});
-		
 		
 		return  arg1;
 	}
@@ -1053,7 +1052,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
         	
         	if (toname != null && toname.length() > 0) {
         		
-        		mCommentsEdit.setHint("回复:"+toname);
+        		mCommentsEdit.setHint("回复"+toname+":");
         	}
 
         } else {  

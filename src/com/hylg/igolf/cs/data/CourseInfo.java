@@ -19,4 +19,6 @@ public class CourseInfo implements Serializable {
 	public long id;
 	public String abbr; // 球场简称
 	public String name; // 球场名称
+	public String address;
+	public String distance;// 球场名称
 }

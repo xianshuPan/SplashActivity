@@ -297,7 +297,7 @@ public class FileUtils extends BaseFileUtils {
 	public static void deleteExternalFiles() {
 		if(externalExist()) {
 			File files = new File(getFilePathName(Environment.getExternalStorageDirectory().getAbsolutePath(), BASE_PATH));
-			if(null != files && files.exists()) {
+			if(files.exists()) {
 				deleteFile(files);
 			}
 		}
@@ -305,12 +305,20 @@ public class FileUtils extends BaseFileUtils {
 	
 	public static String getMediaImagePath(Context context, Uri uri) {
 		String[] proj = { MediaStore.Images.Media.DATA };
+
+		String path = uri.getPath();
+
 		CursorLoader cursorLoader = new CursorLoader(context, uri, proj, null, null, null);
 		Cursor actualimagecursor = cursorLoader.loadInBackground();
-		int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-		actualimagecursor.moveToFirst();
-		String path = actualimagecursor.getString(actual_image_column_index);
-		actualimagecursor.close();
+
+		if (actualimagecursor != null) {
+
+			int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+			actualimagecursor.moveToFirst();
+			path = actualimagecursor.getString(actual_image_column_index);
+			actualimagecursor.close();
+		}
+
 		return path;
 	}
 	
@@ -331,6 +339,7 @@ public class FileUtils extends BaseFileUtils {
         ExifInterface exif = null;
         try {
             exif = new ExifInterface(filepath);
+
         } catch (IOException ex) {
             Log.e("test", "cannot read exif", ex);
         }

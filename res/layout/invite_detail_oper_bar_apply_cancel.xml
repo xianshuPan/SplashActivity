@@ -10,7 +10,7 @@
 		android:background="@drawable/xbtn_green"
 		android:text="@string/str_invite_detail_oper_btn_request_apply"
 		android:textColor="@android:color/white"
-		android:textSize="@dimen/txt_btn_txt_size" />
+		android:textSize="@dimen/txt_size_ml" />
 	<Button
 		android:id="@+id/invite_detail_oper_btn_req_cancel"
 		android:layout_centerHorizontal="true"
@@ -19,5 +19,5 @@
 		android:background="@drawable/xbtn_green"
 		android:text="@string/str_invite_detail_oper_btn_request_cancel"
 		android:textColor="@android:color/white"
-		android:textSize="@dimen/txt_btn_txt_size" />
+		android:textSize="@dimen/txt_size_ml" />
 </RelativeLayout>

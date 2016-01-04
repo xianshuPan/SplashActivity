@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,9 +33,10 @@ public class ModifyPwdActivity extends Activity implements OnClickListener{
 			getViews();
 		}
 	
-		public static void startModifyPwdActivity(Context context) {
-		Intent intent = new Intent(context, ModifyPwdActivity.class);
-		context.startActivity(intent);
+		public static void startModifyPwdActivity(FragmentActivity context) {
+			Intent intent = new Intent(context, ModifyPwdActivity.class);
+			context.startActivity(intent);
+			context.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 		}
 		
 		private void getViews(){

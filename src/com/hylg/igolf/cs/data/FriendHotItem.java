@@ -78,4 +78,8 @@ public class FriendHotItem implements Serializable {
 	
 	/*是否点赞*/
 	public int praise;
+
+	public int status ;
+
+	public List<String> failedlocalImageURL = null;
 }

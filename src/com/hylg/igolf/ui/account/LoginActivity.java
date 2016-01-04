@@ -6,11 +6,12 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-import cn.gl.lib.view.RoundedImageView;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -19,6 +20,7 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.LoginUser;
 import com.hylg.igolf.ui.MainActivity;
+import com.hylg.igolf.ui.SplashActivity;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -26,7 +28,7 @@ import com.hylg.igolf.utils.WaitDialog;
 public class LoginActivity extends Activity {
 	private static final String TAG = "LoginActivity";
 	private static final String BUNDLE_PHONE = "login_phone";
-	private ImageView avatarIv;
+	private ImageView avatarIv,deletePhoneImage;
 	private EditText phoneInput;
 	private EditText pwdInput;
 	private String prefPhone;
@@ -50,7 +52,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.account_ac_login);
+		setContentView(R.layout.account_ac_login_new);
 		getData();
 		getViews();
 		setData(prefPhone);
@@ -73,6 +75,41 @@ public class LoginActivity extends Activity {
 		avatarIv = (ImageView) findViewById(R.id.account_login_avatar);
 		phoneInput = (EditText) findViewById(R.id.account_login_phone_input);
 		pwdInput = (EditText) findViewById(R.id.account_login_pwd_input);
+		deletePhoneImage  = (ImageView) findViewById(R.id.account_login_delete);
+
+		phoneInput.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+				if (charSequence.length() > 0) {
+
+					deletePhoneImage.setVisibility(View.VISIBLE);
+				}
+				else {
+
+					deletePhoneImage.setVisibility(View.GONE);
+				}
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable editable) {
+
+			}
+		});
+
+		deletePhoneImage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+
+				phoneInput.setText("");
+			}
+		});
 	}
 
 	private void setData(String phone) {

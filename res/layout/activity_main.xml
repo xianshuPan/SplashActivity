@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_layout"
+    android:id="@+id/s"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
     <ImageView
+		android:visibility="gone"
         android:layout_above="@+id/main_navigate"
 	            android:src="@drawable/divider"
 	            android:scaleType="center"
@@ -12,50 +12,22 @@
 	            android:layout_height="1dp"/>
 
 	<LinearLayout
+
+		android:id="@+id/navigate_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="1dp"
+		android:orientation="vertical" />
+
+	<LinearLayout
 	    android:baselineAligned="false"
 	    android:id="@+id/main_navigate"
 	    android:layout_alignParentBottom="true"
-		android:background="@color/color_bottome_menu_bg"
 	    android:layout_width="match_parent"
 	    android:layout_height="@dimen/navigate_height"
+		android:background="@drawable/tabbar_bg"
 	    android:orientation="horizontal" >
-	    
-	   <RelativeLayout
-	        android:id="@+id/navi_item_golfers"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1"
-	        android:clickable="true" >
-	        
-	        
-	         <ImageView
-	            android:layout_above="@+id/navi_item_golfers_name"
-	            android:src="@drawable/navi_golfer"
-	            android:contentDescription="@null"
-	            style="@style/navigate_radio_img_style" />
-	        <TextView
-	            android:id="@+id/navi_item_golfers_name"
-	            android:layout_marginBottom="6dp"
-	            android:layout_alignParentBottom="true"
-	            android:layout_centerHorizontal="true"
-	            android:duplicateParentState="true"
-	            android:textColor="@color/color_white"
-	            android:text="@string/str_golfers_home_title"
-	            android:textSize="@dimen/txt_size_small"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	        
-	        <ImageView 
-	            android:layout_marginBottom="2dp"
-	            android:layout_centerHorizontal="true"
-	            android:layout_alignParentBottom="true"
-	            android:layout_width="25dp"
-	            android:scaleType="fitXY"
-	            android:layout_height="2dp"
-	            android:contentDescription="@null"
-	            android:src="@drawable/navi_selected"/>
 
-	    </RelativeLayout>
 	    <RelativeLayout
 	        android:id="@+id/navi_item_hall"
 	        android:layout_width="match_parent"
@@ -76,11 +48,12 @@
 	            android:duplicateParentState="true"
 	            android:text="@string/str_hall_home_title"
 	            android:textSize="@dimen/txt_size_small"
-	            android:textColor="@color/color_white"
+	            android:textColor="@drawable/navi_text_color_back"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 
 	         <ImageView
+				 android:visibility="gone"
 	            android:layout_marginBottom="2dp"
 	            android:layout_centerHorizontal="true"
 	             android:layout_alignParentBottom="true"
@@ -100,50 +73,98 @@
 	            android:visibility="gone"
 	            android:contentDescription="@null" />
 	    </RelativeLayout>
-	    <RelativeLayout
-	        android:id="@+id/navi_item_friend"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1"
-	        android:clickable="true" >
-	        <ImageView
-	            android:id="@+id/navi_item_friend_img"
-	            android:layout_above="@+id/navi_item_friend_name"
-	            android:src="@drawable/navi_friend"
-	            android:contentDescription="@null"
-	            style="@style/navigate_radio_img_style" />
-	        <TextView
-	            android:layout_marginBottom="6dp"
-	            android:id="@+id/navi_item_friend_name"
-	            android:layout_alignParentBottom="true"
-	            android:layout_centerHorizontal="true"
-	            android:duplicateParentState="true"
-	            android:text="@string/str_friend_home_title"
-	            android:textSize="@dimen/txt_size_small"
-	            android:textColor="@color/color_white"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	        
-	         <ImageView
-	            android:layout_marginBottom="2dp"
-	            android:layout_centerHorizontal="true"
-	            android:scaleType="fitXY"
-	             android:layout_alignParentBottom="true"
-	            android:src="@drawable/navi_selected"
-	            android:contentDescription="@null"
-	             android:layout_width="25dp"
-	            android:layout_height="2dp"/>
-	        
-	        <ImageView
-	            android:id="@+id/navi_item_friend_msg_hint"
-	            android:layout_toLeftOf="@id/navi_item_friend_img"
-	            android:layout_alignTop="@id/navi_item_friend_img"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/ic_new_msg"
-	            android:visibility="gone"
-	            android:contentDescription="@null" />
-	    </RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/navi_item_coach"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:clickable="true" >
+			<ImageView
+				android:layout_above="@+id/navi_item_coach_name"
+				android:id="@+id/navi_item_coach_img"
+				android:src="@drawable/navi_coach"
+				android:contentDescription="@null"
+				style="@style/navigate_radio_img_style" />
+			<TextView
+				android:layout_marginBottom="6dp"
+				android:id="@+id/navi_item_coach_name"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:duplicateParentState="true"
+				android:text="@string/str_coachers_home_title"
+				android:textColor="@drawable/navi_text_color_back"
+				android:textSize="@dimen/txt_size_small"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+			<ImageView
+				android:visibility="gone"
+				android:scaleType="fitXY"
+				android:layout_centerHorizontal="true"
+				android:layout_marginBottom="2dp"
+				android:layout_alignParentBottom="true"
+				android:src="@drawable/navi_selected"
+				android:contentDescription="@null"
+				android:layout_width="25dp"
+				android:layout_height="2dp"/>
+
+			<ImageView
+				android:id="@+id/navi_item_coach_msg_hint"
+				android:layout_toLeftOf="@id/navi_item_coach_img"
+				android:layout_alignTop="@id/navi_item_coach_img"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_new_msg"
+				android:visibility="gone"
+				android:contentDescription="@null" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:id="@+id/navi_item_friend"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:clickable="true" >
+			<ImageView
+				android:id="@+id/navi_item_friend_img"
+				android:layout_above="@+id/navi_item_friend_name"
+				android:src="@drawable/navi_friend"
+				android:contentDescription="@null"
+				style="@style/navigate_radio_img_style" />
+			<TextView
+				android:layout_marginBottom="6dp"
+				android:id="@+id/navi_item_friend_name"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:duplicateParentState="true"
+				android:text="@string/str_friend_home_title"
+				android:textSize="@dimen/txt_size_small"
+				android:textColor="@drawable/navi_text_color_back"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+			<ImageView
+				android:visibility="gone"
+				android:layout_marginBottom="2dp"
+				android:layout_centerHorizontal="true"
+				android:scaleType="fitXY"
+				android:layout_alignParentBottom="true"
+				android:src="@drawable/navi_selected"
+				android:contentDescription="@null"
+				android:layout_width="25dp"
+				android:layout_height="2dp"/>
+
+			<ImageView
+				android:id="@+id/navi_item_friend_msg_hint"
+				android:layout_toLeftOf="@id/navi_item_friend_img"
+				android:layout_alignTop="@id/navi_item_friend_img"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/ic_new_msg"
+				android:visibility="gone"
+				android:contentDescription="@null" />
+		</RelativeLayout>
 	    <RelativeLayout
 	        android:id="@+id/navi_item_rank"
 	        android:layout_width="match_parent"
@@ -162,76 +183,64 @@
 	            android:layout_centerHorizontal="true"
 	            android:duplicateParentState="true"
 	            android:text="@string/str_rank_home_title"
-	            android:textColor="@color/color_white"
+	            android:textColor="@drawable/navi_text_color_back"
 	            android:textSize="@dimen/txt_size_small"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content" />
 	        
 	        <ImageView
+				android:visibility="gone"
 	            android:scaleType="fitXY"
 	            android:layout_centerHorizontal="true"
-	           android:layout_marginBottom="2dp"
-	             android:layout_alignParentBottom="true"
+	            android:layout_marginBottom="2dp"
+				android:layout_alignParentBottom="true"
 	            android:src="@drawable/navi_selected"
 	            android:contentDescription="@null"
-	             android:layout_width="25dp"
+				android:layout_width="25dp"
 	            android:layout_height="2dp"
 	            />
 	        
 	    </RelativeLayout>
-	    <RelativeLayout
-	        android:id="@+id/navi_item_coach"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1"
-	        android:clickable="true" >
-	        <ImageView
-	            android:layout_above="@+id/navi_item_coach_name"
-	            android:id="@+id/navi_item_coach_img"
-	            android:src="@drawable/navi_coach"
-	            android:contentDescription="@null"
-	            style="@style/navigate_radio_img_style" />
-	        <TextView
-	            android:layout_marginBottom="6dp"
-	            android:id="@+id/navi_item_coach_name"
-	            android:layout_alignParentBottom="true"
-	            android:layout_centerHorizontal="true"
-	            android:duplicateParentState="true"
-	            android:text="@string/str_coachers_home_title"
-	            android:textColor="@color/color_white"
-	            android:textSize="@dimen/txt_size_small"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content" />
-	        
-	        <ImageView
-	            android:scaleType="fitXY"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginBottom="2dp"
-	             android:layout_alignParentBottom="true"
-	            android:src="@drawable/navi_selected"
-	            android:contentDescription="@null"
-	            android:layout_width="25dp"
-	            android:layout_height="2dp"/>
-	        
-	        <ImageView
-	            android:id="@+id/navi_item_coach_msg_hint"
-	            android:layout_toLeftOf="@id/navi_item_coach_img"
-	            android:layout_alignTop="@id/navi_item_coach_img"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/ic_new_msg"
-	            android:visibility="gone"
-	            android:contentDescription="@null" />
-	    </RelativeLayout>
+
+
+		<RelativeLayout
+			android:id="@+id/navi_item_customer"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:clickable="true" >
+
+			<ImageView
+				android:layout_above="@+id/navi_item_golfers_name"
+				android:src="@drawable/navi_customer"
+				android:contentDescription="@null"
+				style="@style/navigate_radio_img_style" />
+			<TextView
+				android:id="@+id/navi_item_golfers_name"
+				android:layout_marginBottom="6dp"
+				android:layout_alignParentBottom="true"
+				android:layout_centerHorizontal="true"
+				android:duplicateParentState="true"
+				android:textColor="@drawable/navi_text_color_back"
+				android:text="@string/str_customer_home_title"
+				android:textSize="@dimen/txt_size_small"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+
+			<ImageView
+				android:layout_marginBottom="2dp"
+				android:layout_centerHorizontal="true"
+				android:layout_alignParentBottom="true"
+				android:layout_width="25dp"
+				android:scaleType="fitXY"
+				android:layout_height="2dp"
+				android:contentDescription="@null"
+				android:src="@drawable/navi_selected"/>
+
+		</RelativeLayout>
 	</LinearLayout>
 
-	<LinearLayout
-	    android:id="@+id/navigate_container"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_above="@id/main_navigate"
-	    android:layout_marginBottom="1dp"
-	    android:orientation="vertical" />
+
 
 	<ViewStub
 	    android:id="@+id/mask_guide"

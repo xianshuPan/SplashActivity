@@ -3,4 +3,5 @@
     <item android:state_selected="true" android:drawable="@drawable/navi_hall_selected"/>
     <item android:state_pressed="true" android:drawable="@drawable/navi_hall_selected"/>
     <item android:drawable="@drawable/navi_hall_normal"/>
+
 </selector>
