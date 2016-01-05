@@ -243,8 +243,6 @@ public class CoachInfoDetailActivity extends FragmentActivity implements OnClick
 
 			findViewById(R.id.coach_info_detail_base_info_relative).setOnClickListener(this);
 
-
-
 			initListDataAsync();
 
 		}

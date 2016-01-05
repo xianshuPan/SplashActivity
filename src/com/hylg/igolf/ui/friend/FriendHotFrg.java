@@ -360,13 +360,13 @@ public class FriendHotFrg extends Fragment {
 	private void initListView(ArrayList<FriendHotItem> inviteList) {
 		
 		//mFriendHotAdapter.initListInfo(inviteList);
+
+		if (getActivity() == null || inviteList == null || inviteList.size() <= 0) {
+
+			return;
+		}
 		
 		mFriendHotAdapter = new FriendCircleAdapter(getActivity(),inviteList, mRefreshView, null,false);
-		
-		//if (Config.mFriendMessageNewItem != null) {
-			
-			//mFriendHotAdapter.appendFriendHotItem(mFriendMessageNewItem);
-		//}
 		
 		mRefreshView.setAdapter(mFriendHotAdapter);
 		//Utils.logh(TAG, "initListView myInviteAdapter " + myInviteAdapter);

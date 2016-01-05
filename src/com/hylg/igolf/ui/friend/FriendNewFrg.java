@@ -390,6 +390,11 @@ public class FriendNewFrg extends Fragment {
 		//mFriendHotAdapter.initListInfo(inviteList);
 		
 		DebugTools.getDebug().debug_d(TAG, "-----》》》为什么执行了两次");
+
+		if (getActivity() == null || inviteList == null || inviteList.size() <= 0) {
+
+			return;
+		}
 		
 		mFriendHotAdapter = new FriendCircleAdapter(getActivity(),inviteList,mRefreshView,null,false);
 		

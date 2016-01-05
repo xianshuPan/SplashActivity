@@ -85,14 +85,6 @@ public class EhecdListview extends ListView implements OnScrollListener {
 
 		isBottomShow = is_bottom_show;
 
-		if (isBottomShow) {
-
-			footBottomView.setVisibility(View.VISIBLE);
-		}
-		else {
-
-			footBottomView.setVisibility(View.GONE);
-		}
 	}
 	
 	void initView(Context context)
@@ -402,6 +394,18 @@ public class EhecdListview extends ListView implements OnScrollListener {
 				if (count < 10) {
 
 					footView.setVisibility(View.GONE);
+				}
+				else {
+
+					footView.setVisibility(View.VISIBLE);
+					if (isBottomShow) {
+
+						footBottomView.setVisibility(View.VISIBLE);
+					}
+					else {
+
+						footBottomView.setVisibility(View.GONE);
+					}
 				}
 
 			}

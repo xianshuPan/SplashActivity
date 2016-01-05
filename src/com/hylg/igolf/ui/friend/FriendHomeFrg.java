@@ -347,7 +347,8 @@ public class FriendHomeFrg extends Fragment {
         // 设置选中Tab文字的颜色 (这是我自定义的一个方法)  
     	//mTabsIndicater.setSelectedTextColor(Color.parseColor("#45c01a"));  
         // 取消点击Tab时的背景色  
-    	mTabsIndicater.setTabBackground(0);  
+    	mTabsIndicater.setTabBackground(0);
+
     }  
     
     public class FragmentViewPagerAdapter extends FragmentPagerAdapter {  

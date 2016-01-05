@@ -338,6 +338,11 @@ public class FriendAttentionFrg extends Fragment {
 	
 	
 	private void initListView(ArrayList<FriendHotItem> inviteList) {
+
+		if (getActivity() == null || inviteList == null || inviteList.size() <= 0) {
+
+			return;
+		}
 		mFriendHotAdapter = new FriendCircleAdapter(getActivity(),inviteList,mRefreshView, null,false);
 		mRefreshView.setAdapter(mFriendHotAdapter);
 		//Utils.logh(TAG, "initListView myInviteAdapter " + myInviteAdapter);
