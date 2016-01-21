@@ -62,6 +62,9 @@ public class GetCoachApplyInfo extends BaseRequest {
 				item.age = customerJson.optInt("ageStr");
 				item.age_str = customerJson.optString("ageStr")+"岁";
 				item.sex = customerJson.optInt("sex");
+				item.ball_age = customerJson.optInt("yearsExpStr");
+				item.industry = customerJson.optString("industry");
+				item.customer_region = customerJson.optString("city");
 				item.type = feeJson.optInt("type");
 				item.teach_age = coachJson.optInt("teaching_age");
 				item.special = coachJson.optString("specialty");

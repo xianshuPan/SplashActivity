@@ -77,6 +77,9 @@ public class GetMyPraiseTipsList extends BaseRequest {
 				item.attention = obj.optInt("attention");
 				item.praise = obj.optInt("praise");
 				item.releaseTime = obj.optLong("releaseTime");
+
+				item.praiseCount = obj.optInt("praiseAmount");
+				item.commentsCount = obj.optInt("commentsAmount");
 				
 				item.praises = new ArrayList<HashMap<String,String>>();
 				JSONArray praises = obj.optJSONArray("praises");

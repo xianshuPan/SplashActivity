@@ -25,7 +25,6 @@ import com.hylg.igolf.ui.friend.FriendCircleAdapter;
 import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.LoadFail;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
-import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
@@ -40,7 +39,7 @@ public class MyTipsActivity extends FragmentActivity implements OnClickListener{
 	private TextView 					mTitle                      = null;
 	
 	private EhecdListview 				mList                       = null;
-	private FriendCircleAdapter			mFriendHotAdapter			= null;
+	private FriendCircleAdapter mFriendHotAdapter			= null;
 	
 	private GetCustomerFriendHotListLoader reqLoader 					= null;
 	private LoadFail 					loadFail;
@@ -137,7 +136,7 @@ public class MyTipsActivity extends FragmentActivity implements OnClickListener{
 			mFriendHotAdapter.appendFriendHotItem(Config.mFriendMessageNewItem);
 			
 		}
-		
+		refreshData();
 		super.onResume();
 	}
 

@@ -11,9 +11,9 @@ public class CoachItem implements Serializable{
 	public String sn;
 	public String nickname;
 	public String avatar;
+	public String city;
 	
 	public String special;
-	
 	public String award;
 	public String certificate;
 	public String graduate;

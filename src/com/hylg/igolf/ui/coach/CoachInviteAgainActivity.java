@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,12 +42,15 @@ import com.hylg.igolf.ui.common.HourExpSelectActivity.onHourExpSelectListener;
 import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity.onTeeDateSelectListener;
+import com.hylg.igolf.ui.customer.MyTeachingHomeActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.CoachInviteReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
+import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -70,16 +74,16 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 	private final static String 			BUNDLE_REQ_DATA = "coach_data";
 	
 	private ImageButton                     mBack = null;
-	
 	private CircleImageView                 mAvatarImage = null;
+	private ImageView                       mSexImage = null;
 	
-	private TextView                        mNickNameTxt = null,mPhoneTxt,mTeachingTimesTxt;
-
-	private ImageView                       mCustomerHomeImg,mAttentionImg;
+	private TextView                        mNickNameTxt = null,mTeachingTimesTxt,mSexpYearTxt;
 	
 	private RatingBar                       mRating = null;
 	
 	private TextView                        mExperinceTxt,mDateSelectTxt,mTimeSelectTxt,mTeachingHoursTxt,mRegionTxt,mCourseSelectTxt;
+
+	private RelativeLayout 					mPinDanRelative;
 	
 	private EditText                        mQuestionEdit;
 	
@@ -95,16 +99,9 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 	*
 	* */
 	private CoachInviteOrderDetail          mData = null;
-	private TextView                        mWhoRefuseTxt = null;
-	private ListView 						mRefuseList = null;
-	private TextView                        mRefuseContentTxt = null,mInviteCoachTxt = null,mInviteOtherCoachTxt = null;
-	private ArrayList<String> 				mSelectedReasonArray = null;
-	private complainSelectionAdapter 		mRefuseAdapter;
+	private TextView                        mInviteCoachTxt = null;
 
 	private FragmentActivity                mContext;
-
-	private int 							mAttentionState = -1;
-	private String                          attention_sn = "";
 
 
 	private long 							mSelectTime = 0;
@@ -122,7 +119,7 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 		//Tools.getInstance().setActivityNoTitle(this);
 		DebugTools.getDebug().debug_v(TAG, "onCreate..");
 		
-		setContentView(R.layout.coach_invite_again_ac);
+		setContentView(R.layout.coach_invite_ac_new);
 		
 		initUI();
 		
@@ -174,345 +171,136 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 
 		goGlobalData = MainApp.getInstance().getGlobalData();
 		
-		mBack = (ImageButton) findViewById(R.id.coach_invite_again_back);
-		
-		mAvatarImage = (CircleImageView) findViewById(R.id.coach_invite_again_avatar_image);
-		
-		mNickNameTxt = (TextView) findViewById(R.id.coach_invite_again_name_text);
-		mPhoneTxt = (TextView) findViewById(R.id.coach_invite_again_phone_text) ;
-		mCustomerHomeImg = (ImageView) findViewById(R.id.coach_invite_again_home_image);
-		mAttentionImg = (ImageView) findViewById(R.id.coach_invite_again_attention_image);
-		mRating = (RatingBar) findViewById(R.id.coach_invite_again_rating);
-		mExperinceTxt = (TextView) findViewById(R.id.coach_invite_again_teaching_time_text);
-		
-		mDateSelectTxt = (TextView) findViewById(R.id.coach_invite_again_date_text);
-		mTimeSelectTxt = (TextView) findViewById(R.id.coach_invite_again_time_text);
-		mTeachingHoursTxt = (TextView) findViewById(R.id.coach_invite_again_pre_teach_time_text);
-		mRegionTxt = (TextView) findViewById(R.id.coach_invite_again_region_text);
-		mCourseSelectTxt = (TextView) findViewById(R.id.coach_invite_again_place_text);
-		mQuestionEdit  = (EditText) findViewById(R.id.coach_invite_again_question_edit);
-
-		mWhoRefuseTxt  = (TextView) findViewById(R.id.coach_invite_again_who_refuse_text);
-		mRefuseList = (ListView) findViewById(R.id.coach_invite_again_refuse_content_list);
-		mRefuseContentTxt = (TextView) findViewById(R.id.coach_invite_again_refuse_content_text);
-		mInviteCoachTxt = (TextView) findViewById(R.id.coach_invite_again_commit_text);
-		mInviteOtherCoachTxt = (TextView) findViewById(R.id.coach_invite_again_other_text);
-		mInviteOtherCoachTxt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+		mBack = (ImageButton) findViewById(R.id.coach_invite_back);
+		mAvatarImage = (CircleImageView) findViewById(R.id.coach_invite_avatar_image);
+		mNickNameTxt = (TextView) findViewById(R.id.coach_invite_name_text);
+		mSexImage = (ImageView) findViewById(R.id.coach_invite_sex_image);
+		mSexpYearTxt  =  (TextView) findViewById(R.id.coach_invite_yearsexp_text);
+		mRating = (RatingBar) findViewById(R.id.coach_invite_rating);
+		mExperinceTxt = (TextView) findViewById(R.id.coach_invite_teaching_time_text);
+		mDateSelectTxt = (TextView) findViewById(R.id.coach_invite_date_text);
+		mTimeSelectTxt = (TextView) findViewById(R.id.coach_invite_time_text);
+		mTeachingHoursTxt = (TextView) findViewById(R.id.coach_invite_teaching_hour_text);
+		mRegionTxt = (TextView) findViewById(R.id.coach_invite_region_text);
+		mTeachingTimesTxt = (TextView) findViewById(R.id.coach_invite_teaching_time_text);
+		mCourseSelectTxt = (TextView) findViewById(R.id.coach_invite_place_text);
+		mQuestionEdit  = (EditText) findViewById(R.id.coach_invite_question_edit);
+		mInviteCoachTxt = (TextView) findViewById(R.id.coach_invite_commit_text);
+		mPinDanRelative = (RelativeLayout)findViewById(R.id.coach_invite_pin_relative);
 
 		mBack.setOnClickListener(this);
-		mCustomerHomeImg.setOnClickListener(this);
-		mAttentionImg.setOnClickListener(this);
-		mPhoneTxt.setOnClickListener(this);
 		mDateSelectTxt.setOnClickListener(this);
 		mTimeSelectTxt.setOnClickListener(this);
 		mTeachingHoursTxt.setOnClickListener(this);
 		mCourseSelectTxt.setOnClickListener(this);
 		mRegionTxt.setOnClickListener(this);
-
+		mPinDanRelative.setOnClickListener(this);
 		mInviteCoachTxt.setOnClickListener(this);
-		mInviteOtherCoachTxt.setOnClickListener(this);
+		mAvatarImage.setOnClickListener(this);
 
-		mSelectedReasonArray = new ArrayList<String>();
 		if (getIntent() != null && getIntent().getSerializableExtra(BUNDLE_REQ_DATA) != null) {
 			
 			mData = (CoachInviteOrderDetail) getIntent().getSerializableExtra(BUNDLE_REQ_DATA) ;
 
+			mNickNameTxt.setText(mData.teacher_name);
 			mRating.setRating(mData.teacher_star);
 			mExperinceTxt.setText(String.valueOf(mData.teacher_experience));
+			DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(mData.teacher_sn), mAvatarImage, null);
+			//loadAvatar(this,mData.teacher_sn,mAvatarImage);
+			mTeachingTimesTxt.setText(String.valueOf(mData.teacher_experience));
+			mSexpYearTxt.setText(mData.teacher_ball_age+getResources().getString(R.string.str_year));
+			if (mData.teacher_sex == Const.SEX_MALE) {
 
+				mSexImage.setImageResource(R.drawable.man);
+			}
+			else {
+
+				mSexImage.setImageResource(R.drawable.woman);
+			}
 			customer = MainApp.getInstance().getCustomer();
-			mAttentionState = mData.attention;
+
 			if (mData.msg != null && mData.msg.length() > 0) {
 
 				mQuestionEdit.setText(mData.msg);
 			}
 
-			mRefuseContentTxt.setText(mData.refuse_content);
-			/*当前登陆者是教练*/
-			if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
 
-				mNickNameTxt.setText(mData.student_name);
-				mPhoneTxt.setText(String.valueOf(mData.student_phone));
-				loadAvatar(mData.student_sn, mData.student_avatar);
-
-				mWhoRefuseTxt.setText("我说:");
-				findViewById(R.id.coach_invite_again_commit_relative).setVisibility(View.GONE);
-				findViewById(R.id.coach_invite_again_refuse_content_last).setVisibility(View.GONE);
-				mDateSelectTxt.setEnabled(false);
-				mTimeSelectTxt.setEnabled(false);
-				mTeachingHoursTxt.setEnabled(false);
-				mCourseSelectTxt.setEnabled(false);
-				mRegionTxt.setEnabled(false);
-				mQuestionEdit.setEnabled(false);
-
-
-		/*当前登录者是学员*/
-			} else {
-
-				mWhoRefuseTxt.setText("教练说:");
-				mNickNameTxt.setText(mData.teacher_name);
-				mPhoneTxt.setText(String.valueOf(mData.teacher_phone));
-				loadAvatar(mData.teacher_sn, mData.teacher_avatar);
-				mQuestionEdit.setSelection(mQuestionEdit.getText().length());
-			}
-
-			//mTeachingTimesTxt.setText(String.valueOf(mCoachItem.teachTimes));
 			mReqPara = new CoachInviteReqParam();
-			
 			mReqPara.studentid = customer.id;
-			mReqPara.coachid = mData.teacher_id;
+			mReqPara.coachid = mData.teacher_coach_id;
 			mReqPara.courseid = mData.course_id;
 			//mReqPara.state = mData.course_state;
 			//mReqPara.times = mData.times;
 			//mReqPara.coachDate = mData.coachDate;
 			//mReqPara.coachTime = mData.coachTime;
 
-//			int dateInt = 0;
-//			Calendar result = Utils.getCalendar(mData.coachDate+" "+mData.coachTime);
-//			Calendar now = Calendar.getInstance();
-//			dateInt = (result.get(Calendar.DAY_OF_MONTH)-now.get(Calendar.DAY_OF_MONTH))+1;
-//			mReqPara.coachDate = dateInt;
-//			mReqPara.coachTime = result.get(Calendar.HOUR_OF_DAY)+":"+result.get(Calendar.MINUTE);
-
-//			mRegionTxt.setText(goGlobalData.getRegionName(mData.course_state));
-//			mCourseSelectTxt.setText(mData.course_abbr);
-//			mDateSelectTxt.setText(MainApp.getInstance().getGlobalData().getTeeDateName(mReqPara.coachDate));
-//			mTimeSelectTxt.setText(mReqPara.coachTime);
 
 			mReqPara.times = 1;
 			mTeachingHoursTxt.setText(mReqPara.times + "小时");
 		}
 
-		//getCoachRefuseContent();
 		
 	}
-	
-	/*
-	 * 加载头像
-	 * */
-	private void loadAvatar(String sn,String filename) {
-		Drawable avatar = AsyncImageLoader.getInstance().getAvatar(this, sn, filename,
-				(int) getResources().getDimension(R.dimen.avatar_detail_size));
-		if(null != avatar) {
-			mAvatarImage.setImageDrawable(avatar);
-		} else {
-			mAvatarImage.setImageResource(R.drawable.avatar_loading);
-			AsyncImageLoader.getInstance().loadAvatar(this, sn, filename,
-				new ImageCallback() {
-					@Override
-					public void imageLoaded(Drawable imageDrawable) {
-						if(null != imageDrawable && null != mAvatarImage) {
-							mAvatarImage.setImageDrawable(imageDrawable);
-						}
-					}
-			});
-		}
-	}
 
-	private void getCoachRefuseContent() {
-		if(!Utils.isConnected(this)) {
-			return ;
-		}
-		WaitDialog.showWaitDialog(this, R.string.str_loading_msg);
-
-		new AsyncTask<Object, Object, Integer>() {
-
-			CoachRefuseContent request = new CoachRefuseContent(mContext, mData.id);
-
-			@Override
-			protected Integer doInBackground(Object... params) {
-
-				return request.connectUrl();
-			}
-
-			@Override
-			protected void onPostExecute(Integer result) {
-				super.onPostExecute(result);
-
-				WaitDialog.dismissWaitDialog();
-
-				if ( result == BaseRequest.REQ_RET_OK){
-
-					initListView(request.getSelectionList());
-				}
-
-			}
-		}.execute(null, null, null);
-	}
-
-
-	private class complainSelectionAdapter extends IgBaseAdapter {
-		private ArrayList<HashMap<String, String>> list;
-
-		public complainSelectionAdapter(ArrayList<HashMap<String, String>> list) {
-			this.list = list;
-
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			ViewHolder holder;
-			if(null == convertView) {
-				convertView = View.inflate(mContext, R.layout.coach_complain_or_refuse_item, null);
-				holder = new ViewHolder();
-
-				holder.selectImage = (ImageView) convertView.findViewById(R.id.coach_complain_or_refuse_item_select_image);
-				holder.selectImage.setVisibility(View.GONE);
-				holder.reason = (TextView) convertView.findViewById(R.id.coach_complain_or_refuse_item_reason_text);
-				convertView.setTag(holder);
-			} else {
-				holder = (ViewHolder) convertView.getTag();
-			}
-
-
-			final HashMap<String, String> data = list.get(position);
-
-			holder.reason.setText(data.get("reason"));
-
-			if (mSelectedReasonArray.contains(data.get("id"))) {
-
-				holder.selectImage.setImageResource(R.drawable.selected);
-
-			} else {
-
-				holder.selectImage.setImageResource(R.drawable.select);
-			}
-
-			holder.selectImage.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					if (mSelectedReasonArray.contains(data.get("id"))) {
-
-						mSelectedReasonArray.remove(data.get("id"));
-
-					} else {
-
-						mSelectedReasonArray.add(data.get("id"));
-					}
-
-					mRefuseAdapter.notifyDataSetChanged();
-				}
-			});
-
-			return convertView;
-		}
-
-		@Override
-		public int getCount() {
-			return list.size();
-		}
-
-		@Override
-		public Object getItem(int position) {
-			return list.get(position);
-		}
-
-	}
-
-	class ViewHolder {
-
-		private ImageView selectImage;
-		private TextView reason;
-	}
-
-	private void initListView(ArrayList<HashMap<String, String>> inviteList) {
-		mRefuseAdapter = new complainSelectionAdapter(inviteList);
-		mRefuseList.setAdapter(mRefuseAdapter);
-
-		setListViewHeightBasedOnChildren(mRefuseList);
-		Utils.logh(TAG, "initListView myTeachingAdapter " + mRefuseAdapter);
-	}
-
-	public void setListViewHeightBasedOnChildren(ListView listView) {
-		if(listView == null) return;
-		ListAdapter listAdapter = listView.getAdapter();
-		ViewGroup.LayoutParams params = listView.getLayoutParams();
-		//params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-
-		int scale = (int) this.getResources().getDisplayMetrics().scaledDensity;
-		params.height = listAdapter.getCount()*50*scale;
-		listView.setLayoutParams(params);
-	}
 
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
-			case R.id.coach_invite_again_back:
+			case R.id.coach_invite_back:
 
 				this.finish();
 				break;
 
-			case R.id.coach_invite_again_home_image :
-
-				if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
-
-					MemDetailActivityNew.startMemDetailActivity(mContext, mData.student_sn);
-
-				} else {
-
-					MemDetailActivityNew.startMemDetailActivity(mContext, mData.teacher_sn);
-				}
-
-				break;
-
-			case R.id.coach_invite_again_attention_image :
-
-				attention();
-
-				break;
-
-			case R.id.coach_invite_again_phone_text :
-
-				String phone = mPhoneTxt.getText().toString();
-				if (phone.length() > 0) {
-
-					Intent data = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phone));
-					startActivity(data);
-
-				} else {
-
-					Toast.makeText(mContext,R.string.str_toast_invalid_phone,Toast.LENGTH_SHORT).show();
-				}
-
-				break;
 		
-			case R.id.coach_invite_again_date_text :
+			case R.id.coach_invite_date_text :
 
 				TeeDateSelectActivity.startTeeDateSelect(this, false, mReqPara.coachDate);
 				break;
 
-			case R.id.coach_invite_again_time_text :
+			case R.id.coach_invite_time_text :
 
 				setTimeForResult();
 				break;
 
-			case R.id.coach_invite_again_pre_teach_time_text :
+			case R.id.coach_invite_teaching_hour_text :
 
 				HourExpSelectActivity.startHourExpSelect(this, mReqPara.times);
 				break;
 
-			case R.id.coach_invite_again_region_text :
+			case R.id.coach_invite_region_text :
 
 				RegionSelectActivity.startRegionSelect(this, RegionSelectActivity.REGION_TYPE_SELECT_COURSE, mReqPara.state);
 				break;
 
-			case R.id.coach_invite_again_place_text :
+			case R.id.coach_invite_place_text :
 
 				getCourseList();
 				break;
 
-			case R.id.coach_invite_again_commit_text :
+			case R.id.coach_invite_pin_relative:
 
-				commitCoachInvite();
+				if (mPinDanRelative.isSelected()) {
+
+					mPinDanRelative.setSelected(false);
+					mReqPara.pin_dan = 0;
+				}
+				else {
+
+					mPinDanRelative.setSelected(true);
+					mReqPara.pin_dan = 1;
+				}
 
 				break;
 
-			case R.id.coach_invite_again_other_text :
+			case R.id.coach_invite_avatar_image:
 
-				CoachListActivity.startCoachList(mContext, -1);
+				MemDetailActivityNew.startMemDetailActivity(this, mData.teacher_sn);
+				break;
+
+			case R.id.coach_invite_commit_text :
+
+				commitCoachInvite();
 
 				break;
 		}
@@ -529,11 +317,11 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 				mSelectTime = date;
 				mTimeSelectTxt.setText(mReqPara.coachTime);
 			}
-			
+
 		});
 		td.show();
 	}
-	
+
 	/*
 	 * 获取球场信息，并弹出选择框
 	 * */
@@ -624,7 +412,8 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 				if(BaseRequest.REQ_RET_OK == result) {
 					
 					Toast.makeText(CoachInviteAgainActivity.this, R.string.str_start_invite_coach_success, Toast.LENGTH_SHORT).show();
-					CoachMyTeachingActivity.startCoachMyTeachingActivity(mContext);
+					//CoachMyTeachingActivity.startCoachMyTeachingActivity(mContext);
+					MyTeachingHomeActivity.startCoachMyTeachingHomeActivity(mContext);
 					CoachInviteAgainActivity.this.finish();
 					
 				} else {
@@ -668,60 +457,6 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 		mReqPara.times = newHourExp;
 		
-		mTeachingHoursTxt.setText(newHourExp+"小时");
-	}
-
-
-	/*
-	 * 添加关注
-	 * */
-	private void attention() {
-
-		/*添加或取消关注*/
-		WaitDialog.showWaitDialog(this, R.string.str_loading_waiting);
-
-		if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
-
-			attention_sn = mData.student_sn;
-		} else {
-
-			attention_sn = mData.teacher_sn;
-		}
-		new AsyncTask<Object, Object, Integer>() {
-
-
-			FriendAttentionAdd request = new FriendAttentionAdd(mContext,customer.sn,attention_sn,mAttentionState);
-			@Override
-			protected Integer doInBackground(Object... params) {
-
-				return request.connectUrlGet();
-			}
-			@Override
-			protected void onPostExecute(Integer result) {
-				super.onPostExecute(result);
-
-				if(BaseRequest.REQ_RET_OK == result) {
-
-					mAttentionState = mAttentionState == 1 ? 0 : 1;
-					mData.attention = mAttentionState;
-
-					if (mAttentionState == 0) {
-
-						mAttentionImg.setImageResource(R.drawable.add);
-						//attention.setBackgroundColor(getResources().getColor(R.color.color_title_txt));
-
-					} else {
-
-						mAttentionImg.setImageResource(R.drawable.subtrac);
-
-					}
-
-				} else {
-
-
-				}
-				WaitDialog.dismissWaitDialog();
-			}
-		}.execute(null, null, null);
+		mTeachingHoursTxt.setText(newHourExp + "小时");
 	}
 }

@@ -903,6 +903,8 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 //			requestGv.setAdapter(adapter);
 //		}
 //		refreshRequestTitle(size);
+
+
 		if (detail.select_menber_sn.size() > 0) {
 
 			invitee_one_relative.setClickable(true);
@@ -936,7 +938,6 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		* */
 		Utils.setGone(mInviteAllInfoLinear);
 		Utils.setVisible(mInviteShowLinear);
-
 
 		//Utils.setGone(requestRegion);
 

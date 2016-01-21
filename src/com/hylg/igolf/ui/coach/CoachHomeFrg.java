@@ -265,9 +265,6 @@ public class CoachHomeFrg extends Fragment implements OnClickListener{
 
 			case R.id.coach_frg_home_my_teaching_text :
 
-				Intent intent2 = new Intent(getActivity(), CoachMyTeachingActivity.class);
-				startActivity(intent2);
-				getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 
 				break;
 		}

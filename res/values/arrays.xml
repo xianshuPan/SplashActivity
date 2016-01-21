@@ -71,8 +71,8 @@
 	</integer-array>
 	<string-array name="coacher_type_name_array">
         <item>类型不限</item>
-        <item>职业教练</item>
-        <item>业余教练</item>
+        <item>教练</item>
+        <item>球友指导</item>
     </string-array>
     
 	
@@ -122,8 +122,8 @@
 <integer-array name="payment_value_array">
     <item>-1</item>
     <item>1</item>
-    <item>3</item>
-    <item>2</item>
+    <item>0</item>
+    <item>4</item>
 
 	<!--
     <item>0</item>

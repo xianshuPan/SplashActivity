@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/repeat_bkg"
+    android:orientation="vertical" >
+
+	<RelativeLayout
+		style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/coach_my_teaching_home_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+			android:id="@+id/hall_my_teaching_home_title_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_coach_my_teaching_title"
+			android:textColor="@color/color_title_txt"
+			android:textSize="@dimen/txt_title_size"
+			android:layout_centerInParent="true" />
+
+		<ProgressBar
+			android:id="@+id/hall_my_teaching_progress"
+			android:visibility="gone"
+			android:layout_marginLeft="5dp"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/hall_my_teaching_home_title_text"
+			android:layout_width="20dp"
+			android:layout_height="20dp" />
+
+	</RelativeLayout>
+
+	<com.hylg.igolf.ui.view.PagerSlidingTabStrip
+		android:id="@+id/my_teaching_home_tab"
+		android:layout_width="match_parent"
+		android:layout_height="40dip"
+		android:background="@drawable/white_bg"
+		app:pstsShouldExpand="true"
+		app:pstsDividerColor="#000"
+		app:pstsIndicatorColor="@color/color_gold"
+		app:pstsTabPaddingLeftRight="14dip"
+		app:pstsUnderlineColor="#cbcbcb" />
+
+	<android.support.v4.view.ViewPager
+
+		android:id="@+id/my_teaching_home_ViewPager"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"   />
+</LinearLayout>

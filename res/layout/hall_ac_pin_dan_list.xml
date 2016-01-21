@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_e8e8e8"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+		android:id="@+id/pin_dan_head_relative"
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/pin_dan_list_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_hall_pin_dan_list_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+		<Button
+			android:visibility="gone"
+			android:id="@+id/hall_open_list_topbar_start_invite"
+			style="@style/top_bar_btn_style"
+			android:layout_alignParentRight="true"
+			android:text="@string/str_hall_preset_btn_invite"
+			android:textColor="@android:color/white"
+			android:textSize="@dimen/txt_size_ml"
+			android:src="@null" />
+    </RelativeLayout>
+
+
+	<LinearLayout
+		android:visibility="gone"
+		android:layout_below="@+id/pin_dan_head_relative"
+		android:id="@+id/pin_dan_count_linear"
+		android:layout_width="match_parent"
+		android:layout_height="40dp"
+		android:orientation="horizontal"
+		android:gravity="center">
+
+		<TextView
+
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_hall_pin_dan_count_start"
+			android:textColor="@color/gray"
+			android:textSize="@dimen/txt_size_ml"
+			android:layout_centerInParent="true" />
+
+		<TextView
+			android:layout_marginLeft="5dp"
+			android:id="@+id/pin_dan_count_text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="@dimen/txt_size_m"
+			android:textColor="@color/color_hint_txt"
+			android:layout_centerInParent="true" />
+
+		<TextView
+			android:layout_marginLeft="5dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_hall_pin_dan_count_end"
+			android:textSize="@dimen/txt_size_ml"
+			android:textColor="@color/gray"
+			android:layout_centerInParent="true" />
+	</LinearLayout>
+
+	<com.hylg.igolf.ui.view.EhecdListview
+		android:layout_below="@+id/pin_dan_count_linear"
+	    android:id="@+id/pin_dan_listview"
+	    style="@style/listview_style"
+	    android:layout_height="match_parent"
+	    android:scrollbarStyle="outsideOverlay"
+	    android:paddingLeft="10dip"
+	    android:paddingRight="15dip"
+	    android:dividerHeight="15dip"
+	    android:divider="@null" />
+	<include
+
+		android:layout_marginTop="1px"
+		android:layout_below="@+id/pin_dan_head_relative"
+		android:id="@+id/pin_dan_load_fail"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		layout="@layout/common_load_fail" />
+
+
+	<FrameLayout
+		android:layout_marginTop="1px"
+		android:layout_below="@+id/pin_dan_head_relative"
+		android:id="@+id/pin_dan_list_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+</RelativeLayout>

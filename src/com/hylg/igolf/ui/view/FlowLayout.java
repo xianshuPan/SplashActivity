@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 public class FlowLayout extends ViewGroup {
     private float mVerticalSpacing; //每个item纵向间距
-    private float mHorizontalSpacing; //每个item横向间距
+    private float mHorizontalSpacing = 5; //每个item横向间距
 
     public FlowLayout(Context context) {
         super(context);

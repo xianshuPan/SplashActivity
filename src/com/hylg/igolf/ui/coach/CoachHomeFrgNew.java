@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,20 +23,20 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.GetLastAppCoachLoader;
 import com.hylg.igolf.cs.loader.GetLastAppCoachLoader.GetLastAppCoachCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.ui.hall.PinDanListActivity;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 
 public class CoachHomeFrgNew extends Fragment implements OnClickListener{
 	
 	private static final String 				TAG = "CoachHomeFrg";
-	
-	private ImageView 							mHobbyImage = null,
-												mProfessionalImage = null,
-												mAppyImage = null;
+
 
 	private RelativeLayout 						mHobbyRelative = null,
-												mProfessionalRelative = null,
-												mAppyRelative = null;
+												mProfessionalRelative = null;
+
+
+	private LinearLayout 						mPinDanLinear = null;
 	
 	/*
 	 * 业余教练和专业教练的价格
@@ -111,14 +112,10 @@ public class CoachHomeFrgNew extends Fragment implements OnClickListener{
      * 初始化UI
      * */
     private void initView (View view) {
-    	
-    	mHobbyImage = (ImageView) view.findViewById(R.id.coach_frg_home_hobby_select_image);
-		mProfessionalImage = (ImageView) view.findViewById(R.id.coach_frg_home_pro_select_image);
-		mAppyImage = (ImageView) view.findViewById(R.id.coach_frg_home_apply_image);
 
 		mHobbyRelative = (RelativeLayout) view.findViewById(R.id.coach_frg_home_hobby_select_relative);
 		mProfessionalRelative  = (RelativeLayout) view.findViewById(R.id.coach_frg_home_pro_select_relative);
-		mAppyRelative  = (RelativeLayout) view.findViewById(R.id.coach_frg_home_apply_relative);
+		mPinDanLinear  = (LinearLayout) view.findViewById(R.id.coach_frg_home_apply_relative);
     	mHobbyPirceTxt = (TextView) view.findViewById(R.id.coach_frg_home_hobby_price_text);
 		mProfessionalPriceTxt = (TextView) view.findViewById(R.id.coach_frg_home_pro_price_text);
 
@@ -134,13 +131,11 @@ public class CoachHomeFrgNew extends Fragment implements OnClickListener{
 		distanceTv = (TextView) mInvitedCoachLinear.findViewById(R.id.coach_item_distance_text);
 		distanceTimeTv = (TextView) mInvitedCoachLinear.findViewById(R.id.coach_item_distance_time_text);
 		star = (RatingBar) mInvitedCoachLinear.findViewById(R.id.coach_item_rating);
-		
-		mHobbyImage.setOnClickListener(this);
-		mAppyImage.setOnClickListener(this);
-		mProfessionalImage.setOnClickListener(this);
+
 		mHobbyRelative.setOnClickListener(this);
-		mAppyRelative.setOnClickListener(this);
+		mPinDanLinear.setOnClickListener(this);
 		mProfessionalRelative.setOnClickListener(this);
+		view.findViewById(R.id.coach_frg_home_my_teaching_text).setOnClickListener(this);
 		id = MainApp.getInstance().getCustomer().id;
 		
 		/*
@@ -194,6 +189,11 @@ public class CoachHomeFrgNew extends Fragment implements OnClickListener{
 					if (item.distance <= 1) {
 
 						distanceTv.setText("附近");
+
+					} else if (item.distance > 2000) {
+
+						distanceTv.setText(MainApp.getInstance().getGlobalData().getRegionName(item.city));
+
 					} else {
 
 						distanceTv.setText(String.valueOf(item.distance)+"km");
@@ -238,22 +238,17 @@ public class CoachHomeFrgNew extends Fragment implements OnClickListener{
 		// TODO Auto-generated method stub
 		switch (arg0.getId()) {
 
-			
-			case R.id.coach_frg_home_apply_image:
 			case R.id.coach_frg_home_apply_relative:
-			
-				Intent intent1 = new Intent(getActivity(), CoachApplyInfoActivity.class);
-				startActivity(intent1);
+
+				PinDanListActivity.startPinDanListActivity(getActivity());
 			
 				break;
-			
-			case R.id.coach_frg_home_hobby_select_image:
+
 			case R.id.coach_frg_home_hobby_select_relative:
 					
 				CoachListActivity.startCoachList(getActivity(), 1);
 				break;
-			
-			case R.id.coach_frg_home_pro_select_image:
+
 			case R.id.coach_frg_home_pro_select_relative:
 			
 				CoachListActivity.startCoachList(getActivity(), 0);
@@ -266,11 +261,9 @@ public class CoachHomeFrgNew extends Fragment implements OnClickListener{
 
 				break;
 
-			case R.id.coach_frg_home_my_teaching_text :
+			case R.id.coach_frg_home_my_teaching_text:
 
-				Intent intent2 = new Intent(getActivity(), CoachMyTeachingActivity.class);
-				startActivity(intent2);
-				getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				CoachApplyInfoActivity.startCoachApplyInfoActivity(getActivity());
 
 				break;
 		}

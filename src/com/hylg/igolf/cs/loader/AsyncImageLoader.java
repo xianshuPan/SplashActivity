@@ -86,6 +86,8 @@ public class AsyncImageLoader {
 		// 获取本地图片
 		// 不同页面，显示头像大小不同，通过size，节约内存
 		Bitmap bitmap = FileUtils.getSmallBitmap(fileName, size, size);
+
+
 		if(null != bitmap) {
 			return new BitmapDrawable(context.getResources(), bitmap);
 		}

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="#e8e8e8">
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/point"
+            />
+        <ImageView
+            android:layout_marginTop="2dp"
+            android:id="@+id/time_line"
+            android:src="@drawable/line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="2dp"
+        android:id="@+id/fight_record_li_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+		android:ellipsize="end"
+        android:text="2015-12-3 23:45"
+        android:textColor="@color/color_hint_txt"
+        android:textSize="@dimen/txt_size_ml"/>
+    <RelativeLayout
+        android:layout_marginRight="20dp"
+        android:background="@drawable/fight_item_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+	        android:id="@+id/fight_record_li_course"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+            android:text="hongsf"
+            android:drawableLeft="@drawable/location"
+            android:drawablePadding="5dp"
+	        android:gravity="center_vertical|left"
+	        android:textColor="@color/color_hint_txt"
+	        android:textSize="@dimen/txt_size_ml"/>
+        <View
+            android:id="@+id/fight_record_divider"
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/fight_record_li_course"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/divider1">
+
+        </View>
+        <RelativeLayout
+            android:layout_below="@+id/fight_record_divider"
+            android:background="@color/color_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+            <com.hylg.igolf.ui.view.CircleImageView
+                android:id="@+id/fight_record_li_my_avatar"
+                android:layout_marginTop="20dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar_no_golfer" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/fight_record_li_my_winner"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/winner"/>
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/fight_record_li_my_avatar"
+                android:layout_marginTop="10dp"
+                android:id="@+id/fight_record_li_myhcpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/color_friend_item_praiser_name"
+                android:text="15"
+                android:layout_marginBottom="10dp"
+                android:textStyle="bold"
+                android:textSize="@dimen/txt_size_m"/>
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_below="@+id/fight_record_li_course"
+            android:layout_marginTop="50dip"
+            android:src="@drawable/vs"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RelativeLayout
+            android:layout_marginRight="40dp"
+            android:layout_below="@+id/fight_record_divider"
+            android:layout_alignParentRight="true"
+            android:background="@color/color_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+            <com.hylg.igolf.ui.view.CircleImageView
+                android:id="@+id/fight_record_li_pal_avatar"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/avatar_no_golfer" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/fight_record_li_pal_winner"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/winner"/>
+            <TextView
+                android:layout_below="@+id/fight_record_li_pal_avatar"
+                android:id="@+id/fight_record_li_palhcpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dip"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textColor="@color/color_friend_item_praiser_name"
+                android:textSize="@dimen/txt_size_m"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

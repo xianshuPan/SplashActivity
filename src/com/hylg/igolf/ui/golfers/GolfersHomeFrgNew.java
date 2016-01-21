@@ -78,6 +78,9 @@ public class GolfersHomeFrgNew extends Fragment
 
 
 	private Activity mContext = null;
+
+	// 是否记录检索条件
+	public static final boolean NOTE_FILTER = true;
 	
 //	public static void startGolfersList(Context context, GetGolfersReqParam data) {
 //		Intent intent = new Intent();
@@ -115,9 +118,47 @@ public class GolfersHomeFrgNew extends Fragment
 
 		reqData = new GetGolfersReqParam();
 
-		reqData.industry = "INDUSTRY_00";
-		reqData.region = customer.state;
-		reqData.sex = -1;
+
+		if(NOTE_FILTER) {
+			// 默认全国，记录上次选择
+			String region = SharedPref.getString(SharedPref.PREFS_KEY_GOLFER_DEF_REGION, getActivity());
+			if(!SharedPref.isInvalidPrefString(region)) {
+				reqData.region = region;
+			}
+			else {
+
+				reqData.region = customer.state;
+			}
+
+			int sex = SharedPref.getInt(SharedPref.PREFS_KEY_GOLFER_DEF_SEX, getActivity());
+			if(SharedPref.PREFS_INT_INVALID != sex) {
+				reqData.sex = sex;
+			}
+
+			int label = SharedPref.getInt(SharedPref.PREFS_KEY_GOLFER_DEF_LABLE, getActivity());
+			if(SharedPref.PREFS_INT_INVALID != label) {
+				reqData.label = label;
+			}
+
+
+			String industry = SharedPref.getString(SharedPref.PREFS_KEY_GOLFER_DEF_INDUSTRY, getActivity());
+			if(!SharedPref.isInvalidPrefString(industry)) {
+				reqData.industry  = industry;
+			}
+			else {
+
+				reqData.industry = Const.CFG_ALL_INDUSTRY;
+			}
+		}
+		else {
+
+			reqData.industry = Const.CFG_ALL_INDUSTRY;
+			reqData.region = customer.state;
+			reqData.sex = -1;
+		}
+		//reqData.industry = "INDUSTRY_00";
+		//reqData.region = customer.state;
+		//reqData.sex = -1;
 		reqData.sn = customer.sn;
 		reqData.pageNum = gd.startPage;
 		reqData.pageSize = gd.pageSize;
@@ -337,7 +378,7 @@ public class GolfersHomeFrgNew extends Fragment
 //				Utils.logh(TAG, "loading");
 //				return ;
 //			}
-			reqData.pageNum = golfersAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};
@@ -659,6 +700,10 @@ public class GolfersHomeFrgNew extends Fragment
 	@Override
 	public void onSexSelect(Object newSex) {
 
+		if(NOTE_FILTER) {
+			// 存储性别选择
+			SharedPref.setInt(SharedPref.PREFS_KEY_GOLFER_DEF_SEX, Integer.valueOf(newSex.toString()), getActivity());
+		}
 		filterChgLoad(Const.INVALID_SELECTION_INT, null, null, Integer.valueOf(newSex.toString()));
 	}
 
@@ -666,16 +711,31 @@ public class GolfersHomeFrgNew extends Fragment
 	public void onIndustrySelect(Object newIndustry) {
 
 		DebugTools.getDebug().debug_v(TAG,"newIndustry----->>>"+newIndustry);
+
+		if(NOTE_FILTER) {
+			// 存储行业选择
+			SharedPref.setString(SharedPref.PREFS_KEY_GOLFER_DEF_INDUSTRY, newIndustry.toString(), getActivity());
+		}
 		filterChgLoad(Const.INVALID_SELECTION_INT, null, newIndustry.toString(), Const.INVALID_SELECTION_INT);
 	}
 
 	@Override
 	public void onLabelSelect(Object newLabel) {
+
+		if(NOTE_FILTER) {
+			// 存储行业选择
+			SharedPref.setInt(SharedPref.PREFS_KEY_GOLFER_DEF_LABLE, Integer.valueOf(newLabel.toString()), getActivity());
+		}
 		filterChgLoad(Integer.valueOf(newLabel.toString()), null, null, Const.INVALID_SELECTION_INT);
 	}
 
 	@Override
 	public void onRegionSelect(String newRegion) {
+
+		if(NOTE_FILTER) {
+			// 存储地区选择
+			SharedPref.setString(SharedPref.PREFS_KEY_GOLFER_DEF_REGION, newRegion, getActivity());
+		}
 		filterChgLoad(Const.INVALID_SELECTION_INT, newRegion, null, Const.INVALID_SELECTION_INT);
 	}
 	

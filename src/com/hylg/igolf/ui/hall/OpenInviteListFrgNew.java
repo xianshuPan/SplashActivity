@@ -477,7 +477,8 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if (sd != null && sd.length > 0) {
 
 					//finalBit.display(holder.invitee_one,Utils.getAvatarURLString(sd[0]));
-					DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[0]),holder.invitee_one,null);
+					//DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[0]),holder.invitee_one,null);
+					Utils.loadAvatar(mContext,sd[0],holder.invitee_one);
 				}
 				else {
 
@@ -489,7 +490,8 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if (sd != null && sd.length > 1) {
 
 					//finalBit.display(holder.invitee_two,Utils.getAvatarURLString(sd[1]));
-					DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[1]), holder.invitee_two, null);
+					//DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[1]), holder.invitee_two, null);
+					Utils.loadAvatar(mContext,sd[1],holder.invitee_two);
 				}
 				else {
 
@@ -500,7 +502,8 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if (sd != null && sd.length > 2) {
 
 					//finalBit.display(holder.invitee_three,Utils.getAvatarURLString(sd[2]));
-					DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[2]), holder.invitee_three, null);
+					//DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[2]), holder.invitee_three, null);
+					Utils.loadAvatar(mContext,sd[2],holder.invitee_three);
 				}
 				else {
 

@@ -9,6 +9,7 @@ import com.hylg.igolf.ui.view.ProgressWheel;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -69,7 +70,7 @@ public class DownLoadImageTool {
 		//mImageLoader.displayImage(uri, imageView, mDisplayImageOptions, animateFirstListener);
 		
 		mProgress = progress;
-		
+
 		mImageLoader.displayImage(uri, imageView, mDisplayImageOptions, animateFirstListener, new ImageLoadingProgressListener() {
 			
 			@Override
@@ -98,6 +99,17 @@ public class DownLoadImageTool {
 			}
 		});
 	
+	}
+
+	/*����ͼƬ*/
+	public Bitmap loadImage(String uri, int size)
+	{
+		//mImageLoader.displayImage(uri, imageView, mDisplayImageOptions, animateFirstListener);
+
+
+		return mImageLoader.loadImageSync(uri, new ImageSize(size,size));
+
+
 	}
 	
 	/*ͼƬ��̬���ؼ�����*/

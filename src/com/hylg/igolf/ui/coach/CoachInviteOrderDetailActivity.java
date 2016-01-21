@@ -328,7 +328,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			
 			refreshUI () ;
 
-			mAttentionState = mData.attention;
+			//mAttentionState = mData.attention;
 			if (mAttentionState == 0) {
 
 				mAttentionImg.setImageResource(R.drawable.add);
@@ -352,11 +352,11 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		/*当前登陆者是教练*/
 		if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
 
-			mNickNameTxt.setText(mData.student_name);
+			//mNickNameTxt.setText(mData.student_name);
 			mWhoRefuseTxt.setText("我说:");
 			findViewById(R.id.coach_invite_order_detail_invite_again_relative).setVisibility(View.GONE);
-			mPhoneTxt.setText(String.valueOf(mData.student_phone));
-			loadAvatar(mData.student_sn, mData.student_avatar);
+			//mPhoneTxt.setText(String.valueOf(mData.student_phone));
+			//loadAvatar(mData.student_sn, mData.student_avatar);
 			
 			/*
 			 * 更具订单的状态，显示不同
@@ -372,12 +372,12 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 					
 				case Const.MY_TEACHING_ACCEPTED:
 
-					if (mData.comment_star > 0) {
-
-						findViewById(R.id.coach_invite_order_detail_rating_relative).setVisibility(View.VISIBLE);
-						mCommentRating.setIsIndicator(true);
-						mCommentEdit.setEnabled(false);
-					}
+//					if (mData.comment_star > 0) {
+//
+//						findViewById(R.id.coach_invite_order_detail_rating_relative).setVisibility(View.VISIBLE);
+//						mCommentRating.setIsIndicator(true);
+//						mCommentEdit.setEnabled(false);
+//					}
 
 					break;
 					
@@ -542,24 +542,24 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 		mQuestionTxt.setText(mData.msg);
 		mTeachingDateTxt.setText(mData.coachDate);
-		mTeachingTimeTxt.setText(mData.coachTime);
+		//mTeachingTimeTxt.setText(mData.coachTime);
 		mTeachingCourseTxt.setText(mData.course_abbr);
 		mRegionTxt.setText(MainApp.getInstance().getGlobalData().getRegionName(mData.course_state));
 		mTeachingHourTxt.setText(String.valueOf(mData.times)+getResources().getString(R.string.str_coachers_apply_order_teach_time));
-		mStartTimeTxt.setText(Utils.longTimeToString(mData.start_time));
-		mEndTimeTxt.setText(Utils.longTimeToString(mData.end_time));
-		mPauseTimeTxt.setText(Utils.longTimePeriodToString(mData.pause_time));
-		mTaughtTimeTxt.setText(Utils.longTimePeriodToString(mData.period_time));
-		mTotalFeeTxt.setText(String.valueOf(mData.fee));
+		//mStartTimeTxt.setText(Utils.longTimeToString(mData.start_time));
+		//mEndTimeTxt.setText(Utils.longTimeToString(mData.end_time));
+		//mPauseTimeTxt.setText(Utils.longTimePeriodToString(mData.pause_time));
+		//mTaughtTimeTxt.setText(Utils.longTimePeriodToString(mData.period_time));
+		//mTotalFeeTxt.setText(String.valueOf(mData.fee));
 		mPriceUnitTxt.setText(mData.teacher_price+"元／小时");
 
-		if (mData.comment_star > 0) {
-
-			mCommentRating.setRating((float) mData.comment_star);
-			mCommentEdit.setText(mData.comment_content);
-			mCommentRating.setIsIndicator(true);
-			mCommentEdit.setEnabled(false);
-		}
+//		if (mData.comment_star > 0) {
+//
+//			mCommentRating.setRating((float) mData.comment_star);
+//			mCommentEdit.setText(mData.comment_content);
+//			mCommentRating.setIsIndicator(true);
+//			mCommentEdit.setEnabled(false);
+//		}
 	}
 	
 	/*
@@ -889,7 +889,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 				if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
 
-					MemDetailActivityNew.startMemDetailActivity(mContext, mData.student_sn);
+					//MemDetailActivityNew.startMemDetailActivity(mContext, mData.student_sn);
 
 				} else {
 
@@ -1018,15 +1018,15 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 
 				if (mCommentRating.getRating() > 0) {
 
-					FragmentManager frgMan = getSupportFragmentManager();
-					FragmentTransaction ftsd = frgMan.beginTransaction();
-					ftsd.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-
-					Fragment frg = new PayFrg(mHandler,mData.fee);
-
-					ftsd.replace(R.id.coach_invite_order_detail_container, frg);
-					ftsd.addToBackStack("payType");
-					ftsd.commit();
+//					FragmentManager frgMan = getSupportFragmentManager();
+//					FragmentTransaction ftsd = frgMan.beginTransaction();
+//					ftsd.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+//
+//					//Fragment frg = new PayFrg(mHandler,mData.fee);
+//
+//					ftsd.replace(R.id.coach_invite_order_detail_container, frg);
+//					ftsd.addToBackStack("payType");
+//					ftsd.commit();
 				} else {
 
 					Toast.makeText(CoachInviteOrderDetailActivity.this, "亲,给个5星吧", Toast.LENGTH_SHORT).show();
@@ -1065,7 +1065,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		FragmentTransaction ftsd = frgMan.beginTransaction();
 		ftsd.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
 		
-		Fragment frg = new CoachComplainOrRefuseFrg(type,mData.teacher_id,mData.student_id,mData.id);
+		Fragment frg = new CoachComplainOrRefuseFrg(type,mData.teacher_id,customer.id,mData.id);
 		
 		ftsd.replace(R.id.coach_invite_order_detail_container, frg);
 		ftsd.addToBackStack("CoachComplainOrRefuseFrg");
@@ -1284,7 +1284,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 			
 			CoachStudentComment request = new CoachStudentComment(CoachInviteOrderDetailActivity.this,
 					mData.id,
-					mData.student_id,
+					customer.id,
 					mData.teacher_id,
 					mCommentRating.getRating(),
 					commentStr);
@@ -1380,13 +1380,6 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 		/*添加或取消关注*/
 		WaitDialog.showWaitDialog(this, R.string.str_loading_waiting);
 
-		if (customer.sn.equalsIgnoreCase(mData.teacher_sn)) {
-
-			attention_sn = mData.student_sn;
-		} else {
-
-			attention_sn = mData.teacher_sn;
-		}
 		new AsyncTask<Object, Object, Integer>() {
 
 
@@ -1403,7 +1396,7 @@ public class CoachInviteOrderDetailActivity extends FragmentActivity implements
 				if(BaseRequest.REQ_RET_OK == result) {
 
 					mAttentionState = mAttentionState == 1 ? 0 : 1;
-					mData.attention = mAttentionState;
+					//mData.attention = mAttentionState;
 
 					if (mAttentionState == 0) {
 

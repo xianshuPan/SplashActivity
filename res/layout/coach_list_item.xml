@@ -178,6 +178,7 @@
 			         android:layout_alignParentRight="true"
 			        android:layout_below="@+id/coach_item_distance_time_text"
 			        android:drawableLeft="@drawable/golfers_li_region"
+					android:drawablePadding="5dp"
 			        android:layout_marginTop="5dp"
 					android:singleLine="true"
 					android:textSize="@dimen/txt_size_s"

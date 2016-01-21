@@ -18,12 +18,13 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.GetTipsDetialLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.loader.GetTipsDetialLoader.GetTipsDetialCallback;
-import com.hylg.igolf.ui.member.MemDetailActivityNew;
-import com.hylg.igolf.ui.view.FlowLayout;
+import com.hylg.igolf.cs.request.GetFriendCommentsList;
+import com.hylg.igolf.cs.request.GetFriendPraiserList;
+import com.hylg.igolf.ui.member.SystemBarUtils;
+import com.hylg.igolf.ui.view.ListviewBottomRefresh;
+import com.hylg.igolf.ui.view.LoadFail;
 import com.hylg.igolf.ui.view.MyGridView;
-import com.hylg.igolf.ui.view.NoLineClickSpan;
 import com.hylg.igolf.ui.view.ShareMenu;
-import com.hylg.igolf.ui.widget.XRTextView;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -33,18 +34,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.InputMethodManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -62,16 +59,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.PopupWindow.OnDismissListener;
 
+
 public class FriendTipsDetailActivity extends FragmentActivity implements OnClickListener {
 	
 	private final String 				TAG 						= "FriendNewTipsCountActivity";
 	
 	private ImageButton  				mBack 						= null;
 	
-	private FragmentActivity 			mContext 					= null;
-	
-	private String 						sn							= "",
-										tipid                		= "",
+	public String 						sn							= "",
 										attention_sn                = "",
 										tosn                        = "",
 										name                        = "",
@@ -86,20 +81,28 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 	public TextView 					contents ;
 	public ImageView 					attention ;
 	public ImageView 					delete ;
-	public ImageView 					share;
-	public ImageView 					praise ;
 
-	/*
-	 * 显示点赞的人
-	 * */
-	public FlowLayout 					praisersLinear;
-	
-	public RelativeLayout 				praisersRelative ;
+	public RelativeLayout 				commentsCountLinear,praisersCountLinear;
+	public TextView 					commentsCountTxt, praisersCountTxt;
+
+
+	public LinearLayout 				shareLinear,praiseLinear;
+	public TextView 					commentTxt ;
+	public ImageView 					praiseImage ;
+
 	
 	public MyGridView 					images;
 	public ImageView 					image;
-	public LinearLayout 				commensLinear;
-	public ImageView 					comments;
+	public LinearLayout 				commentListLinear,praiseListLinear;
+	public ListviewBottomRefresh 		commentsList,praiserList;
+	private LoadFail                    commentsLoadFail,praiserLoadFail;
+	private FriendItemCommentsAdapter   commentsAdapter;
+	private FriendItemPraiserAdapter    praiserAdapter;
+
+	/*点赞人*/
+	public ArrayList<HashMap<String, String>> praises = null;
+	/*评论*/
+	public ArrayList<HashMap<String, String>> comments = null;
 	
 	private GetTipsDetialLoader         reqLoader;     
 	private FriendHotItem               item;
@@ -116,6 +119,10 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 	 * 保存新增的评论
 	 * */
 	private HashMap<String, String>     mCurrentComments            = new HashMap<String, String>();
+
+	private int                         commentPageNumber,praisePageNumber,pageSize;
+
+	private FriendTipsDetailActivity    mContext = null;
 	
 	public static void startFriendTipsDetailActivity(Activity context,Bundle data) {
 
@@ -157,18 +164,66 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		contents = (TextView) findViewById(R.id.friend_tips_detial_content_Text);
 		attention = (ImageView) findViewById(R.id.friend_tips_detial_attention_image);
 		delete = (ImageView) findViewById(R.id.friend_tips_detial_delete_image);
-		share = (ImageView) findViewById(R.id.friend_tips_detial_share_image);
-		praise = (ImageView) findViewById(R.id.friend_tips_detial_good_image);
-		praisersLinear = (FlowLayout) findViewById(R.id.friend_tips_detial_good_user_name_linear);
-		praisersRelative = (RelativeLayout) findViewById(R.id.friend_tips_detial_praisers_relative);
+
+		commentsCountLinear = (RelativeLayout) findViewById(R.id.friend_tips_detial_commentsCount_linear);
+		commentsCountLinear.setSelected(true);
+		praisersCountLinear = (RelativeLayout) findViewById(R.id.friend_tips_detial_praiserCount_linear);
+		commentsCountTxt = (TextView) findViewById(R.id.friend_tips_detial_commentsCount_txt);
+		praisersCountTxt = (TextView) findViewById(R.id.friend_tips_detial_praiserCount_text);
+
+		commentListLinear = (LinearLayout) findViewById(R.id.friend_tips_detial_comments_list_linear);
+		praiseListLinear = (LinearLayout) findViewById(R.id.friend_tips_detial_praiser_list_linear);
+		commentsList = (ListviewBottomRefresh)findViewById(R.id.friend_tips_detial_comments_list);
+		praiserList = (ListviewBottomRefresh)findViewById(R.id.friend_tips_detial_praise_list);
+		commentsLoadFail = new LoadFail(this,(RelativeLayout) findViewById(R.id.friend_tips_detial_comments_load_fail));
+		praiserLoadFail = new LoadFail(this,(RelativeLayout) findViewById(R.id.friend_tips_detial_praise_load_fail));
+
+		shareLinear = (LinearLayout) findViewById(R.id.friend_tips_detial_share_linear);
+		commentTxt = (TextView) findViewById(R.id.friend_tips_detial_comment_text);
+		praiseImage = (ImageView) findViewById(R.id.friend_tips_detial_praise_image);
+		praiseLinear = (LinearLayout) findViewById(R.id.friend_tips_detial_praise_linear);
 		images = (MyGridView) findViewById(R.id.friend_tips_detial_image_content);
-		commensLinear = (LinearLayout)findViewById(R.id.friend_tips_detial_comments_linear);
-		comments = (ImageView)findViewById(R.id.friend_tips_detial_comment_image);
-		
-		sn = MainApp.getInstance().getCustomer().sn;
-		
+
+		commentsList.setShowFootBottom(true);
+		commentsList.setOnRefreshListener(new ListviewBottomRefresh.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+
+				loadMoreCommentsData();
+			}
+		});
+		commentsCountLinear.setOnClickListener(this);
+		praisersCountLinear.setOnClickListener(this);
+
+//		commentsList.setOnLoadMoreListener(new EhecdListview.OnLoadMoreListener() {
+//			@Override
+//			public void onLoadMore() {
+//
+//				loadMoreCommentsData();
+//			}
+//		});
+		praiserList.setShowFootBottom(true);
+		praiserList.setOnRefreshListener(new ListviewBottomRefresh.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+
+				loadMorePraiseData();
+			}
+		});
+//		praiserList.setOnLoadMoreListener(new EhecdListview.OnLoadMoreListener() {
+//			@Override
+//			public void onLoadMore() {
+//
+//				loadMorePraiseData();
+//			}
+//		});
+
+
 		mInputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		sn = MainApp.getInstance().getCustomer().sn;
+		commentPageNumber = 1;
+		praisePageNumber = 1;
+		pageSize = MainApp.getInstance().getGlobalData().pageSize;
 		name = MainApp.getInstance().getCustomer().nickname;
 		avatar = MainApp.getInstance().getCustomer().avatar;
 		
@@ -240,7 +295,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 	@Override
 	protected void onResume () {
 		
-		DebugTools.getDebug().debug_v(TAG, "sn??/、、？/????"+sn);
+		DebugTools.getDebug().debug_v(TAG, "sn??/、、？/????" + sn);
 		
 		super.onResume();
 	}
@@ -320,6 +375,203 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 	private boolean isLoading() {
 		return (null != reqLoader && reqLoader.isRunning());
 	}
+
+
+	/*加载更多数据*/
+	private void refreshCommentsData() {
+
+		if(!Utils.isConnected(this)) {
+
+			commentsList.onRefreshComplete();
+			return ;
+		}
+		//WaitDialog.showWaitDialog(getActivity(), R.string.str_loading_msg);
+		clearLoader();
+
+		commentPageNumber = 1;
+
+		/*sn 暂时等于1*/
+		final GetFriendCommentsList request = new GetFriendCommentsList(this,sn,commentPageNumber,pageSize,item.tipid);
+		new AsyncTask<Object, Object, Integer>() {
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrl();
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				commentsList.onRefreshComplete();
+				if (BaseRequest.REQ_RET_OK == result ) {
+
+					if (commentsAdapter == null) {
+
+						commentsAdapter = new FriendItemCommentsAdapter(mContext,request.getFriendCommentsList());
+
+					}
+					else {
+
+						commentsAdapter.refreshListInfo(request.getFriendCommentsList());
+					}
+
+				}
+				else {
+
+					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
+				}
+
+			}
+		}.execute(null,null,null);
+	}
+
+	/*加载更多数据*/
+	private void refreshPraiseData() {
+
+		if(!Utils.isConnected(this)) {
+
+			praiserList.onRefreshComplete();
+			return ;
+		}
+		//WaitDialog.showWaitDialog(getActivity(), R.string.str_loading_msg);
+		clearLoader();
+
+		commentPageNumber=1;
+
+		/*sn 暂时等于1*/
+		final GetFriendPraiserList request = new GetFriendPraiserList(this,sn,commentPageNumber,pageSize,item.tipid);
+		new AsyncTask<Object, Object, Integer>() {
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrl();
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				praiserList.onRefreshComplete();
+				if (BaseRequest.REQ_RET_OK == result ) {
+
+					if (praiserAdapter == null) {
+
+						praiserAdapter = new FriendItemPraiserAdapter(mContext,request.getFriendCommentsList());
+
+					}
+					else {
+
+						praiserAdapter.refreshListInfo(request.getFriendCommentsList());
+					}
+
+				}
+				else {
+
+					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
+				}
+
+			}
+		}.execute(null,null,null);
+	}
+
+	/*加载更多数据*/
+	private void loadMoreCommentsData() {
+
+		if(!Utils.isConnected(this)) {
+
+			commentsList.onRefreshComplete();
+			return ;
+		}
+		//WaitDialog.showWaitDialog(getActivity(), R.string.str_loading_msg);
+		clearLoader();
+
+		commentPageNumber++;
+
+		/*sn 暂时等于1*/
+		final GetFriendCommentsList request = new GetFriendCommentsList(this,sn,commentPageNumber,pageSize,item.tipid);
+		new AsyncTask<Object, Object, Integer>() {
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrlGet();
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				commentsList.onRefreshComplete();
+				if (BaseRequest.REQ_RET_OK == result ) {
+
+					if (commentsAdapter == null) {
+
+						commentsAdapter = new FriendItemCommentsAdapter(mContext,request.getFriendCommentsList());
+
+					}
+					else {
+
+						commentsAdapter.appendListInfo(request.getFriendCommentsList());
+					}
+
+				}
+				else {
+
+					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
+				}
+
+			}
+		}.execute(null,null,null);
+	}
+
+	/*加载更多数据*/
+	private void loadMorePraiseData() {
+
+		if(!Utils.isConnected(this)) {
+
+			praiserList.onRefreshComplete();
+			return ;
+		}
+		//WaitDialog.showWaitDialog(getActivity(), R.string.str_loading_msg);
+		clearLoader();
+
+		praisePageNumber++;
+
+		/*sn 暂时等于1*/
+		final GetFriendPraiserList request = new GetFriendPraiserList(this,sn,praisePageNumber,pageSize,item.tipid);
+		new AsyncTask<Object, Object, Integer>() {
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrlGet();
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				praiserList.onRefreshComplete();
+				if (BaseRequest.REQ_RET_OK == result ) {
+
+					if (praiserAdapter == null) {
+
+						praiserAdapter = new FriendItemPraiserAdapter(mContext,request.getFriendCommentsList());
+
+					}
+					else {
+
+						praiserAdapter.appendListInfo(request.getFriendCommentsList());
+					}
+
+				}
+				else {
+
+					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
+				}
+
+			}
+		}.execute(null,null,null);
+	}
 	
 	
 	private void initListView(FriendHotItem item1) {
@@ -352,92 +604,23 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			}
 		});
 		
-		/*是否有人点赞,点赞人的名字都要能够点击，*/
-		
-		praisersLinear.removeAllViews();
-		if (item.praises != null && item.praises.size() > 0) {
-		
-			ImageView praiserStartImage = new ImageView(mContext);
-			LayoutParams adf = new LayoutParams(30, 30);
-			praiserStartImage.setLayoutParams(adf);
-			praiserStartImage.setImageResource(R.drawable.good_icon);
-			praisersLinear.addView(praiserStartImage);
-			
-			for (int i = 0; i < item.praises.size() ; i++) {
-				
-				StringBuffer praisers = new StringBuffer();
-				String praiser = item.praises.get(i).get("name");
-				praisers.append(praiser);
-				
-				if (i <= item.praises.size() -2) {
-					
-					praisers.append("、");
-				}
-				
-				final String praiseSn = item.praises.get(i).get("sn");
-				
-				TextView praiserName = new TextView(mContext);
-				
-				praiserName.setText(praisers);
-				praiserName.setTextColor(mContext.getResources().getColor(R.color.color_friend_item_praiser_name));
-				praiserName.setBackgroundResource(R.drawable.praiser_selection);
-				praiserName.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-				praiserName.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						String praisSnStr = praiseSn;
-						
-						if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
-							
-							MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
-							mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
-						}
-						
-					}
-				});
-				
-				praisersLinear.addView(praiserName);
-			}
-			
-			
-			TextView praiserEndName = new TextView(mContext);
-			
-			praiserEndName.setText(R.string.str_friend_praised);
-			praiserEndName.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-			praisersLinear.addView(praiserEndName);
-			
-				
-			praisersRelative.setVisibility(View.VISIBLE);
-			//praisersText.setText(result);
-			
-		/*没有人点赞*/
-		} else {
-			
-			praisersRelative.setVisibility(View.GONE);
-		}
-		
 		if (item.praise == 0) {
 			
-			praise.setImageResource(R.drawable.good);
+			praiseImage.setImageResource(R.drawable.good);
 			
 		} else if (item.praise == 1) {
-			
-			praise.setImageResource(R.drawable.good_clicked);
+
+			praiseImage.setImageResource(R.drawable.good_clicked);
 		}
 		
-		
-		final String tipsid = item.tipid;
-		praise.setOnClickListener(new OnClickListener() {
-			
+
+		praiseLinear.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				
 				/*点赞*/
-				String tipidStr = tipsid;
-				tipid = tipidStr;
 				praise();
 			}
 		});
@@ -445,15 +628,15 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		/*有没有图片数据*/
 		ArrayList<Photos> listPhoto = getPhotos(item);
 		
-		share.setOnClickListener(new OnClickListener() {
-			
+		shareLinear.setOnClickListener(new OnClickListener() {
+
 			@Override
 			public void onClick(View arg0) {
 				// ;
-								 	
-				ShareMenu shareMenu = new ShareMenu(mContext, commensLinear,item);
+
+				ShareMenu shareMenu = new ShareMenu(mContext, shareLinear, item);
 				shareMenu.showPopupWindow();
-				
+
 			}
 		});
 		
@@ -485,126 +668,21 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			
 			images.setVisibility(View.GONE);
 		}
-		
-		final View mCommentsView1 = commensLinear;
-		comments.setOnClickListener(new OnClickListener() {
+
+		commentTxt.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg01) {
 				// TODO Auto-generated method stub
-				View temp = mCommentsView1;
 				
 				/*弹出输入框*/
 				toname = "";
+				tosn = "";
 				mCommentsEdit.setHint("");
-				showPopupWindow(temp);
+				showPopupWindow();
 			}
 		});
-		
-		/*构造评论列表*/
-		commensLinear.removeAllViews();
-		if (item.comments != null && item.comments.size() > 0) {
-			
-			for (int i = 0; i < item.comments.size() ; i++) {
-				
-				LinearLayout commensLinearItem = (LinearLayout) mContext.getLayoutInflater().inflate(R.layout.friend_frg_hot_item_comment, null);
-				
-				XRTextView commentUserName = (XRTextView)commensLinearItem.findViewById(R.id.comment_user_name_text);
-				
-				final String commentSn = item.comments.get(i).get("sn");
-				final String commentToSn = item.comments.get(i).get("tosn");
-				final String commentName = item.comments.get(i).get("name");
-				
-				String name = item.comments.get(i).get("name");
-				
-				String commentContent = item.comments.get(i).get("content");
-				
-				ClickableSpan clickableSpan = new NoLineClickSpan() {  
-			            @Override  
-			            public void onClick(View widget) {  
-			                if (widget instanceof TextView) {  
-			                	String praisSnStr = commentSn;
-								
-								if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
-									
-									MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
-									mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
-								}
-			                }  
-			            }  
-			        };  
-			        
-			        ClickableSpan clickableSpan1 = new NoLineClickSpan() {  
-			            @Override  
-			            public void onClick(View widget) {  
-			                if (widget instanceof TextView) {  
-			                	String praisSnStr = commentToSn;
-								
-								if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
-									
-									MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
-									mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
-								} 
-			                }  
-			            }  
-			        };  
-			        
-			       
-			        String toname1 = item.comments.get(i).get("toname");
-			        
-			        SpannableStringBuilder sp = new SpannableStringBuilder(commentName+":"+commentContent); 
-			        
-			        /*判断是否是回复评论*/
-					if (toname1 != null && toname1.length() > 0) {
-						
-						sp = new SpannableStringBuilder(commentName+"回复:"+toname1+commentContent);  
-					}
-			        
-				    sp.setSpan(clickableSpan, 0, commentName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			        
-				    if (toname1 != null && toname1.length() > 0) {
-						
-						 sp.setSpan(clickableSpan1, commentName.length()+3, commentName.length()+3+toname1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);  
-					}
-			       
-			    commentUserName.setText(sp);  
-			    // commentUserName.setLinkTextColor(Color.parseColor("#110000"));  
-			    commentUserName.setLinkTextLenth(name.length(), toname1.length());
-			    commentUserName.setMovementMethod(LinkMovementMethod.getInstance());  
-			    commentUserName.setFocusable(false);  
-			    commentUserName.setClickable(false);  
-			    commentUserName.setLongClickable(false);  
-			        
-			        
-			    commentUserName.setOnClickListener(new OnClickListener() {
-					
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						
-						View temp = mCommentsView1;
-						
-						String commentSnStr = commentSn;
-						String commentNameStr = commentName;
-						
-						/*如果是自己则不能回复*/
-						if(commentSnStr != null && !commentSnStr.equalsIgnoreCase(sn)) {
-	
-							tosn = commentSnStr;
-							toname = commentNameStr;
-							showPopupWindow(temp);
-						}
-						
-						DebugTools.getDebug().debug_v(TAG, "commentSnStr--------->>>>>>>"+commentSnStr);
-						DebugTools.getDebug().debug_v(TAG, "sn--------->>>>>>>"+sn);
-					}
-				});
-				
-				commensLinear.addView(commensLinearItem);
-				
-			}
-		}
-		
+
 		userName.setText(item.name);
 		
 		String contentStr = item.content;
@@ -619,6 +697,59 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		}
 		
 		addTime.setText(Utils.handTime(item.releaseTime));
+
+		if (item1 != null && item1.comments != null && item1.comments.size() > 0) {
+
+			commentsAdapter = new FriendItemCommentsAdapter(this,item1.comments);
+			commentsList.setAdapter(commentsAdapter);
+			commentsList.onRefreshComplete();
+			commentsLoadFail.displayNone();
+		}
+		else {
+
+			commentsLoadFail.displayNoData("暂无评论");
+		}
+
+		if (item1 != null && item1.praises != null && item1.praises.size() > 0) {
+
+			praiserAdapter = new FriendItemPraiserAdapter(this,item1.praises);
+			praiserList.setAdapter(praiserAdapter);
+			praiserList.onRefreshComplete();
+			praiserLoadFail.displayNone();
+
+		}
+		else {
+
+			praiserLoadFail.displayNoData("暂无点赞");
+		}
+
+		int height = getResources().getDisplayMetrics().heightPixels;
+
+		int statusBar = 0;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+			statusBar = SystemBarUtils.getStatusBarHeight(this);
+
+			// statusBar = 100;
+		}
+
+		int subHeight = findViewById(R.id.friend_tips_detial_commentsCount_relative).getHeight()+findViewById(R.id.friend_tips_detail_head).getHeight()+statusBar;
+		commentListLinear.setLayoutParams(new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				height - subHeight));
+		praiseListLinear.setLayoutParams(new LinearLayout.LayoutParams(
+				 LinearLayout.LayoutParams.MATCH_PARENT,
+				 height - subHeight));
+
+		if (item.commentsCount >= 0) {
+
+			commentsCountTxt.setText(String.valueOf(item.commentsCount));
+		}
+
+		if (item.commentsCount >= 0) {
+
+			praisersCountTxt.setText(String.valueOf(item.praiseCount));
+		}
+
 		
 	}
 	
@@ -798,7 +929,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 		
 			int praise = item.praise;
 			
-			FriendPraiseAdd request = new FriendPraiseAdd(mContext,sn,name,tipid,praise);
+			FriendPraiseAdd request = new FriendPraiseAdd(mContext,sn,name,item.tipid,praise);
 			@Override
 			protected Integer doInBackground(Object... params) {
 
@@ -814,35 +945,66 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 					int praise = item.praise;
 			
 					item.praise = praise == 0 ? 1 : 0;
-					
-					if (praise == 0) {
-						
-						int size = item.praises.size();
-						HashMap<String, String> reviewItemHash = new HashMap<String, String>();
-						reviewItemHash.put("id", request.praiseId);	
-						reviewItemHash.put("tipid", tipid);
-						reviewItemHash.put("sn", sn);
-						reviewItemHash.put("name", name);	
-						item.praises.add(size,reviewItemHash);
-						
-					} else {
-						
-						for(int i = 0; i < item.praises.size(); i++) {
-							
-							String snStr = item.praises.get(i).get("sn");
-							if (snStr != null && snStr.equalsIgnoreCase(sn)) {
-								
-								item.praises.remove(i);
-							}
-							
-						}
+
+					if (item.praise == 0) {
+
+						praiseImage.setImageResource(R.drawable.good);
+
+					} else if (item.praise == 1) {
+
+						praiseImage.setImageResource(R.drawable.good_clicked);
 					}
+
+					HashMap<String, String> reviewItemHash = new HashMap<String, String>();
 					
-					initListView(item);
+//					if (praise == 0) {
+//
+//						//int size = item.praises.size();
+//
+//						reviewItemHash.put("id", request.praiseId);
+//						reviewItemHash.put("tipid", tipid);
+//						reviewItemHash.put("sn", sn);
+//						reviewItemHash.put("name", name);
+//
+//						item.praises.add(0,reviewItemHash);
+//
+//					} else {
+//
+//						for(int i = 0; i < item.praises.size(); i++) {
+//
+//							String snStr = item.praises.get(i).get("sn");
+//							if (snStr != null && snStr.equalsIgnoreCase(sn)) {
+//
+//								item.praises.remove(i);
+//							}
+//
+//						}
+//					}
+					
+					//initListView(item);
+
+					reviewItemHash.put("id", request.praiseId);
+					reviewItemHash.put("tipid", item.tipid);
+					reviewItemHash.put("sn", sn);
+					reviewItemHash.put("name", name);
+
+					if (praiserAdapter == null) {
+
+						item.praises.add(0,reviewItemHash);
+						praiserAdapter = new FriendItemPraiserAdapter(mContext,item.praises);
+						praiserList.setAdapter(praiserAdapter);
+						praiserLoadFail.displayNone();
+					}
+					else {
+
+						praiserAdapter.addNewItem(reviewItemHash);
+					}
+
+					praisersCountTxt.setText(String.valueOf(praiserAdapter.list.size()));
 					
 				} else {
-					
 
+					Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
 				}
 				WaitDialog.dismissWaitDialog();
 			}
@@ -852,17 +1014,14 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 	/*
      * 弹出评论对话框
      * */  
-    private void showPopupWindow(View temp) {  
-    	
-		int[] positon = {0,0};
-		
-		temp.getLocationOnScreen(positon);
+    public void showPopupWindow() {
+
  
         if(!mCommentAddPop.isShowing()) {  
         	
         	mInputManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         	
-        	mCommentAddPop.showAtLocation(commensLinear, Gravity.BOTTOM, 0, 0); 
+        	mCommentAddPop.showAtLocation(commentListLinear, Gravity.BOTTOM, 0, 0);
         		
         	if (toname != null && toname.length() > 0) {
         		
@@ -929,7 +1088,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 	@Override
 	public void onClick(View arg0) {
 		// TODO Auto-generated method stub
-	if (arg0.getId() == mCommentsAddText.getId()) {
+		if (arg0.getId() == mCommentsAddText.getId()) {
 			
 			if(!Utils.isConnected(mContext)){
 				return;
@@ -946,6 +1105,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			mCurrentComments.put("content", commentsStr);
 			mCurrentComments.put("toname", toname);
 			mCurrentComments.put("tosn", tosn);
+			mCurrentComments.put("commentstime", String.valueOf(System.currentTimeMillis()));
 			
 			/*提交评论*/
 			WaitDialog.showWaitDialog(mContext, R.string.str_loading_add_comment);
@@ -965,34 +1125,52 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 					
 					if(BaseRequest.REQ_RET_OK == result) {
 						
-						int size = item.comments.size();
-						
-						/*不能直接天剑mCurrentComments，要新添加hashmap*/
-						HashMap<String, String> hash = new HashMap<String, String>();
-						hash.put("tipid", mCurrentComments.get("tipid"));
-						hash.put("sn", mCurrentComments.get("sn"));
-						hash.put("name", mCurrentComments.get("name"));
-						hash.put("content", mCurrentComments.get("content"));
-						hash.put("toname", mCurrentComments.get("toname"));
-						hash.put("tosn", mCurrentComments.get("tosn"));
-						
-						item.comments.add(size,hash);
-						
 						/*一旦点击了发送按钮，就应该把输入框清空*/
 						mCommentsEdit.setText("");
 						mCommentAddPop.dismiss();
 						
-						initListView(item);
+						//initListView(item);
+						if (commentsAdapter == null) {
+
+							item.comments.add(0, mCurrentComments);
+							commentsAdapter = new FriendItemCommentsAdapter(mContext,item.comments);
+							commentsList.setAdapter(commentsAdapter);
+							commentsLoadFail.displayNone();
+						}
+						else {
+
+							commentsAdapter.addNewItem(mCurrentComments);
+						}
+
+
 						
 					} else {
-						
-						
+
+						Toast.makeText(mContext, request.getFailMsg(), Toast.LENGTH_SHORT).show();
 						
 					}
 					WaitDialog.dismissWaitDialog();
 				}
 			}.execute(null, null, null);
 			
-		} 
+		}
+		else if (arg0.getId() == commentsCountLinear.getId()) {
+
+			commentsCountLinear.setSelected(true);
+			commentListLinear.setVisibility(View.VISIBLE);
+
+			praisersCountLinear.setSelected(false);
+			praiseListLinear.setVisibility(View.GONE);
+
+		}
+		else if (arg0.getId() == praisersCountLinear.getId()) {
+
+			commentsCountLinear.setSelected(false);
+			commentListLinear.setVisibility(View.GONE);
+
+			praisersCountLinear.setSelected(true);
+			praiseListLinear.setVisibility(View.VISIBLE);
+
+		}
 	}
 }

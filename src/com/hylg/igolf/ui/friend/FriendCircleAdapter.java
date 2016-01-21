@@ -1,13 +1,6 @@
 package com.hylg.igolf.ui.friend;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import net.tsz.afinal.FinalBitmap;
-
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,10 +16,10 @@ import android.text.style.ClickableSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -34,9 +27,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.PopupWindow.OnDismissListener;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
@@ -58,14 +51,20 @@ import com.hylg.igolf.ui.widget.XRTextView;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
+import net.tsz.afinal.FinalBitmap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListener {
-	
+
 	private final String                TAG                         = "FriendCircleAdapter";
-	
+
 	public ArrayList<FriendHotItem> 	list;
-	
+
 	private Activity 					mContext;
-	
+
 	private String 						sn							= "",
 										tipid                		= "",
 										attention_sn                = "",
@@ -73,40 +72,40 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 										avatar                      = "",
 										tosn                        = "",
 										toname                      = "";
-	
+
 	/*
 	 * 当前点击的item 的index
 	 * */
 	private int                         mCurrentPositionInt         = 0;
-	
+
 	/*添加评论*/
 	private PopupWindow                 mCommentAddPop              = null;
 	private View                        mCommentsPopView            = null;
 	private EditText					mCommentsEdit               = null;
 	private TextView                    mCommentsAddText            = null;
-	
+
 	/*是否需要显示删除按钮*/
 	private boolean                     mIsShowDelete               = false;
 	private InputMethodManager          mInputManager               = null;
-	
-	
+
+
 	private ListView                    mList                       = null;
 	private RefreshView					mRefreshView                = null;
-	
+
 	/* 新增的评论
 	 * */
 	private HashMap<String, String>     mCurrentComments            = new HashMap<String, String>();
-	
+
 	public FriendCircleAdapter(Activity activity) {
 
 		list = new ArrayList<FriendHotItem>();
-		
+
 		mContext = activity;
-		
+
 		init();
 	}
-	
-	public FriendCircleAdapter(Activity activity,ArrayList<FriendHotItem> list,ListView listView,RefreshView refreshView ,boolean isShowDelete) {
+
+	public FriendCircleAdapter(Activity activity, ArrayList<FriendHotItem> list, ListView listView, RefreshView refreshView, boolean isShowDelete) {
 
 		mContext = activity;
 		this.list = list;
@@ -115,71 +114,71 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 		mIsShowDelete = isShowDelete;
  		init();
 	}
-	
+
 	/*
 	 * 初始化变量
 	 * */
 	private void init() {
-		
+
 		mInputManager = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
 		sn = MainApp.getInstance().getCustomer().sn;
 		name = MainApp.getInstance().getCustomer().nickname;
 		avatar = MainApp.getInstance().getCustomer().avatar;
-		
+
 		mCommentsPopView = mContext.getLayoutInflater().inflate(R.layout.friend_add_comments_view, null, false);
 		mCommentsEdit = (EditText) mCommentsPopView.findViewById(R.id.friend_comments_input_edit);
 		mCommentsAddText = (TextView) mCommentsPopView.findViewById(R.id.friend_comments_sent_text);
-		
+
 		mCommentsAddText.setOnClickListener(this);
 		mCommentsEdit.addTextChangedListener(new TextWatcher() {
-			
+
 			@Override
 			public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
 				// TODO Auto-generated method stub
-				
+
 				/*根据是否输入判断，发送按钮是否可以点击*/
 				if (arg0.length() > 0) {
-					
+
 					mCommentsAddText.setEnabled(true);
 					mCommentsAddText.setTextColor(mContext.getResources().getColor(R.color.color_white));
-					
+
 				} else {
-					
+
 					mCommentsAddText.setTextColor(mContext.getResources().getColor(R.color.gray));
 					mCommentsAddText.setEnabled(false);
 				}
 			}
-			
+
 			@Override
 			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
 					int arg3) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void afterTextChanged(Editable arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
 		int wight = mContext.getResources().getDisplayMetrics().widthPixels;
-		
-		mCommentAddPop = new PopupWindow(mCommentsPopView,wight,ViewGroup.LayoutParams.WRAP_CONTENT);  
-		mCommentAddPop.setFocusable(true);  
-		mCommentAddPop.setOutsideTouchable(true);  
+
+		mCommentAddPop = new PopupWindow(mCommentsPopView,wight, LayoutParams.WRAP_CONTENT);
+		mCommentAddPop.setFocusable(true);
+		mCommentAddPop.setOutsideTouchable(true);
 		mCommentAddPop.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
-		mCommentAddPop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE); 
-		mCommentAddPop.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.white_bg));  
-		mCommentAddPop.setOnDismissListener(new OnDismissListener() {  
-	              
-	            @Override  
-	            public void onDismiss() {  
-	                // TODO Auto-generated method stub  
+		mCommentAddPop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+		mCommentAddPop.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.white_bg));
+		mCommentAddPop.setOnDismissListener(new OnDismissListener() {
+
+	            @Override
+	            public void onDismiss() {
+	                // TODO Auto-generated method stub
 	            	mInputManager.toggleSoftInput(0, InputMethodManager.RESULT_SHOWN);
-	            }  
-	    });  
+	            }
+	    });
 	}
 
 	@Override
@@ -199,65 +198,65 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	public void initListInfo(ArrayList<FriendHotItem> list1) {
 		this.list.clear();
 		addData(list1);
 		notifyDataSetChanged();
 	}
-	
+
 	public void refreshListInfo(ArrayList<FriendHotItem> list1) {
 		this.list.clear();
 		addData(list1);
 		notifyDataSetChanged();
 	}
-	
+
 	public void appendListInfo(ArrayList<FriendHotItem> list1) {
 		addData(list1);
 		notifyDataSetChanged();
 	}
-	
+
 	private void addData (ArrayList<FriendHotItem> list1) {
-		
+
 		if (list1 == null) {
-			
+
 			return;
 		}
-		
+
 		for(int i=0, size=list1.size(); i<size; i++) {
 			this.list.add(list1.get(i));
 		}
 	}
-	
+
 	public void appendFriendHotItem(FriendHotItem item) {
-		
+
 		if (list != null) {
-			
+
 			if (list.get(0).releaseTime != item.releaseTime) {
-				
+
 				list.add(0, item);
 			}
-			
+
 		}
-		
+
 		notifyDataSetChanged();
 	}
 
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
 		// TODO Auto-generated method stub
-		
+
 		final int index = arg0;
-		
+
 		ViewHolder holder;
 		holder = null;
 
 		if (arg1 ==  null) {
-			
-			arg1 = mContext.getLayoutInflater().inflate(R.layout.friend_frg_hot_item, null);
-			
+
+			arg1 = mContext.getLayoutInflater().inflate(R.layout.friend_frg_hot_item_old, null);
+
 			holder = new ViewHolder();
-			
+
 			holder.avatarImage = (ImageView) arg1.findViewById(R.id.user_headImage);
 			holder.userName = (TextView)arg1.findViewById(R.id.user_nameText);
 			holder.addTime = (TextView) arg1.findViewById(R.id.add_timeText);
@@ -267,34 +266,34 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			holder.share = (ImageView) arg1.findViewById(R.id.share_image);
 			holder.praise = (ImageView) arg1.findViewById(R.id.good_image);
 			holder.moreComments = (TextView) arg1.findViewById(R.id.more_comments_text);
-			
+
 			//holder.praisersText = (TextView) arg1.findViewById(R.id.good_user_nameText);
-			
+
 			holder.praisersLinear = (FlowLayout) arg1.findViewById(R.id.good_user_name_linear);
 			holder.praisersRelative = (RelativeLayout) arg1.findViewById(R.id.praisers_relative);
 			holder.images = (MyGridView) arg1.findViewById(R.id.image_content);
 			holder.commensLinear = (LinearLayout)arg1.findViewById(R.id.comments_linear);
 			holder.comments = (ImageView)arg1.findViewById(R.id.comment_image);
-			
+
 			if (mIsShowDelete) {
-				
+
 				holder.delete.setVisibility(View.VISIBLE);
 			}
-			
-			
+
+
 			arg1.setTag(holder);
-			
+
 		} else {
-			
+
 			holder = (ViewHolder) arg1.getTag();
 		}
-		
+
 		loadAvatar(mContext, list.get(arg0).sn, list.get(arg0).avatar, holder.avatarImage);
-		
+
 		/*在我的栏目中，帖子就没有关注了，改为删除按钮*/
 		final String tipsid = list.get(arg0).tipid;
 		holder.delete.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -302,12 +301,12 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 
 				int indexInt = index;
 				mCurrentPositionInt = indexInt;
-				
+
 				/*删除帖子*/
 				String tipidStr = tipsid;
 				tipid = tipidStr;
-				
-				AlertDialog.Builder dialog = new Builder(mContext);
+
+				Builder dialog = new Builder(mContext);
 				dialog.setMessage(R.string.str_delete_friend);
 				dialog.setPositiveButton(R.string.str_photo_commit, new DialogInterface.OnClickListener() {
 					
@@ -382,7 +381,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 				TextView praiserName = new TextView(mContext);
 				
 				praiserName.setText(praisers);
-				praiserName.setTextColor(mContext.getResources().getColor(R.color.color_friend_item_praiser_name));
+				praiserName.setTextColor(mContext.getResources().getColor(R.color.color_gold));
 				praiserName.setBackgroundResource(R.drawable.praiser_selection);
 				praiserName.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 				praiserName.setOnClickListener(new OnClickListener() {
@@ -423,11 +422,11 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 		
 		if (list.get(arg0).praise == 0) {
 			
-			holder.praise.setImageResource(R.drawable.good);
+			holder.praise.setImageResource(R.drawable.good1);
 			
 		} else if (list.get(arg0).praise == 1) {
 			
-			holder.praise.setImageResource(R.drawable.good_clicked);
+			holder.praise.setImageResource(R.drawable.good_clicked1);
 		}
 		
 		
@@ -548,7 +547,8 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			            public void onClick(View widget) {  
 			                if (widget instanceof TextView) {  
 			                	String praisSnStr = commentSn;
-								
+
+								DebugTools.getDebug().debug_v("clickableSpan","----->>>clickableSpan");
 								if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
 									
 									MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
@@ -558,38 +558,36 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			            }  
 			        };  
 			        
-			        ClickableSpan clickableSpan1 = new NoLineClickSpan() {  
-			            @Override  
-			            public void onClick(View widget) {  
-			                if (widget instanceof TextView) {  
-			                	String praisSnStr = commentToSn;
-								
-								if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
+				ClickableSpan clickableSpan1 = new NoLineClickSpan() {
+					@Override
+					public void onClick(View widget) {
+						if (widget instanceof TextView) {
+							String praisSnStr = commentToSn;
+							DebugTools.getDebug().debug_v("clickableSpan","----->>>clickableSpan1");
+							if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
 									
-									MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
-									mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
-								} 
-			                }  
-			            }  
-			        };  
+								MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
+								mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+							}
+						}
+					}
+				};
 			        
 			       
-			        String toname1 = list.get(arg0).comments.get(i).get("toname");
+				String toname1 = list.get(arg0).comments.get(i).get("toname");
+				SpannableStringBuilder sp = new SpannableStringBuilder(commentName+":"+commentContent);
 			        
-			        SpannableStringBuilder sp = new SpannableStringBuilder(commentName+":"+commentContent); 
-			        
-			        /*判断是否是回复评论*/
-					if (toname1 != null && toname1.length() > 0) {
+				/*判断是否是回复评论*/
+				if (toname1 != null && toname1.length() > 0) {
 						
-						sp = new SpannableStringBuilder(commentName+"回复"+toname1+":"+commentContent);
-					}
+					sp = new SpannableStringBuilder(commentName+"回复"+toname1+":"+commentContent);
+				}
 			        
-				    sp.setSpan(clickableSpan, 0, commentName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE); 
-			        
-				    if (toname1 != null && toname1.length() > 0) {
+				sp.setSpan(clickableSpan, 0, commentName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				if (toname1 != null && toname1.length() > 0) {
 						
-						 sp.setSpan(clickableSpan1, commentName.length()+2, commentName.length()+2+toname1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-					}
+					sp.setSpan(clickableSpan1, commentName.length()+2, commentName.length()+2+toname1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+				}
 			       
 			    commentUserName.setText(sp);   
 			    commentUserName.setLinkTextLenth(name.length(), toname1.length());

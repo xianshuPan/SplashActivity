@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.ui.reqparam.RegisterCustomerReqParam;
 import com.hylg.igolf.utils.Base64;
 
@@ -50,6 +51,8 @@ public class RegisterCustomer extends BaseRequest {
 		try {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
+
+			DebugTools.getDebug().debug_v("registerCustomer","----->>>"+jo);
 			if(REQ_RET_OK != rn) {
 				failMsg = jo.optString(RET_MSG);
 				return rn;

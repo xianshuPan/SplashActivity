@@ -39,6 +39,6 @@ public class GetOpenInviteListLoader extends BaseAsyncLoader {
 	}
 
 	public interface GetOpenInviteListCallback {
-		public abstract void callBack(int retId, int retNum, String msg, ArrayList<OpenInvitationInfo> inviteList);
+		void callBack(int retId, int retNum, String msg, ArrayList<OpenInvitationInfo> inviteList);
 	}
 }

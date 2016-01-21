@@ -467,16 +467,16 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 
 			if (data.teacher_sn.equalsIgnoreCase(customer.sn)) {
 				
-				loadAvatar(getActivity(), data.student_sn, data.student_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
-				holder.nickname.setText(data.student_name);
-				
-				holder.description.setText("您被学员邀请");
-				
-				if(Const.SEX_MALE == data.student_sex) {
-					holder.sex.setImageResource(R.drawable.ic_male);
-				} else {
-					holder.sex.setImageResource(R.drawable.ic_female);
-				}
+//				loadAvatar(getActivity(), data.student_sn, data.student_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
+//				holder.nickname.setText(data.student_name);
+//
+//				holder.description.setText("您被学员邀请");
+//
+//				if(Const.SEX_MALE == data.student_sex) {
+//					holder.sex.setImageResource(R.drawable.ic_male);
+//				} else {
+//					holder.sex.setImageResource(R.drawable.ic_female);
+//				}
 			} else {
 				
 				loadAvatar(getActivity(), data.teacher_sn, data.teacher_avatar, holder.avatar, true,(int) getResources().getDimension(R.dimen.avatar_detail_size));
@@ -489,7 +489,7 @@ public class HallMyTeachingFrg extends Fragment implements onResultCallback {
 				}
 			}
 
-			holder.teetime.setText(data.coachDate+" "+data.coachTime);
+			holder.teetime.setText(data.coachDate);
 			holder.course.setText(data.course_abbr);
 			
 			switch(data.status) {

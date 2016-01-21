@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent"
+                 android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/as_ui_draft_head_relative"
+        style="@style/custom_title_style" >
+
+        <ImageButton
+            android:id="@+id/as_ui_draft_back"
+            style="@style/top_bar_btn_style"
+            android:contentDescription="@null"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/xbtn_back" />
+        <TextView
+            android:id="@+id/as_ui_draft_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/str_my_draft_title"
+            android:textColor="@color/color_title_txt"
+            android:textSize="@dimen/txt_title_size"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/as_ui_draft_head_relative"
+        android:id="@+id/layoutContent" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+
+        <ListView
+            android:background="@color/color_white"
+            android:id="@+id/draft_listView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:divider="@drawable/divider1"
+            android:dividerHeight="1px"
+            android:fadingEdge="none"
+            android:fastScrollEnabled="false"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="false"
+            android:smoothScrollbar="true"/>
+    </LinearLayout>
+
+</RelativeLayout>

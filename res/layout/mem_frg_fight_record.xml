@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/repeat_bkg">
+
+	<com.hylg.igolf.ui.view.ListviewBottomRefresh
+	android:id="@+id/fight_record_listview"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:divider="@null"
+	android:scrollbarStyle="outsideOverlay" />
+
+	<include
+		android:id="@+id/fight_record_list_load_fail"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		layout="@layout/common_load_fail" />
+
+</RelativeLayout>

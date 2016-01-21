@@ -47,6 +47,6 @@ public class GetTipsDetialLoader extends BaseAsyncLoader {
 
 	/*回调接口*/
 	public interface GetTipsDetialCallback {
-		public abstract void callBack(int retId, String msg, FriendHotItem item);
+		void callBack(int retId, String msg, FriendHotItem item);
 	}
 }

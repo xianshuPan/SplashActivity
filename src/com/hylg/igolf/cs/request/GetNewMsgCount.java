@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.utils.GlobalData;
 
@@ -29,6 +30,8 @@ public class GetNewMsgCount extends BaseRequest {
 		String str = transferIs2String(is);
 		try {  
 			JSONObject jo = new JSONObject(str);
+
+			DebugTools.getDebug().debug_v("getNewMsgCount","----->>>"+jo);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
 			if(REQ_RET_OK != rn) {
 				failMsg = jo.optString(RET_MSG);

@@ -31,6 +31,7 @@ public class SharedPref extends BaseSharedPref {
 	public final static String PREFS_KEY_GOLFER_DEF_REGION = "golfer_def_region";
 	public final static String PREFS_KEY_GOLFER_DEF_SEX = "golfer_def_sex";
 	public final static String PREFS_KEY_GOLFER_DEF_INDUSTRY = "golfer_def_industry";
+	public final static String PREFS_KEY_GOLFER_DEF_LABLE = "golfer_def_lable";
 	
 	public final static String PREFS_KEY_HALL_DEF_REGION = "hall_def_region";
 	

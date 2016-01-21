@@ -81,6 +81,13 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 				imStartGps(false);
 			}
 		}
+
+		if (invitation.type == Const.INVITE_TYPE_STS) {
+
+			invitee_two_relative.setVisibility(View.INVISIBLE);
+			invitee_three_relative.setVisibility(View.INVISIBLE);
+
+		}
 	}
 	
 	

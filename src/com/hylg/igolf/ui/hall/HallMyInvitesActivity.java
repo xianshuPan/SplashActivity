@@ -543,7 +543,8 @@ public class HallMyInvitesActivity extends FragmentActivity implements onResultC
 
 						//finalBit.display(holder.invitee_one,Utils.getAvatarURLString(sd[0]));
 						String avatarUrl = Utils.getAvatarURLString(data.applicants.get(0).applicant_sn);
-						DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl,holder.invitee_one,null);
+						//DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl,holder.invitee_one,null);
+						loadAvatar(mContext,data.applicants.get(0).applicant_sn,holder.invitee_one);
 					}
 					else {
 
@@ -556,7 +557,8 @@ public class HallMyInvitesActivity extends FragmentActivity implements onResultC
 
 						//finalBit.display(holder.invitee_two,Utils.getAvatarURLString(sd[1]));
 						String avatarUrl = Utils.getAvatarURLString(data.applicants.get(1).applicant_sn);
-						DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl, holder.invitee_two, null);
+						//DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl, holder.invitee_two, null);
+						loadAvatar(mContext,data.applicants.get(1).applicant_sn,holder.invitee_two);
 					}
 					else {
 
@@ -568,7 +570,8 @@ public class HallMyInvitesActivity extends FragmentActivity implements onResultC
 
 						//finalBit.display(holder.invitee_three,Utils.getAvatarURLString(sd[2]));
 						String avatarUrl = Utils.getAvatarURLString(data.applicants.get(2).applicant_sn);
-						DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl, holder.invitee_three, null);
+						//DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl, holder.invitee_three, null);
+						loadAvatar(mContext,data.applicants.get(2).applicant_sn,holder.invitee_three);
 					}
 					else {
 
@@ -596,7 +599,8 @@ public class HallMyInvitesActivity extends FragmentActivity implements onResultC
 				holder.paytype1.setText(gd.getPayTypeName(data.payType));
 
 				String avatarUrl = Utils.getAvatarURLString(data.palSn);
-				DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl, holder.invitee_one, null);
+				//DownLoadImageTool.getInstance(mContext).displayImage(avatarUrl, holder.invitee_one, null);
+				loadAvatar(mContext,data.palSn,holder.invitee_one);
 			}
 
 			loadAvatar(mContext, data.inviterSn, data.inviterSn+".jpg", holder.avatar);

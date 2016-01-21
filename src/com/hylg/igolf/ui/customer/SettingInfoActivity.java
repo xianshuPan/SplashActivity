@@ -2,6 +2,7 @@ package com.hylg.igolf.ui.customer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.MyFolloweInfo;
+import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.GetMyFollowerListLoader;
 import com.hylg.igolf.cs.loader.GetMyFollowerListLoader.GetMyFollowerListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
@@ -72,14 +74,14 @@ public class SettingInfoActivity extends FragmentActivity implements  OnClickLis
 		Intent intent = new Intent(context, SettingInfoActivity.class);
 
 		context.startActivity(intent);
-		context.overridePendingTransition(R.anim.ac_slide_right_in,R.anim.ac_slide_left_out);
+		context.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
 	
 	public static void startSettingInfoActivity(Fragment context) {
 
 		Intent intent = new Intent(context.getActivity(), SettingInfoActivity.class);
 		context.startActivity(intent);
-		context.getActivity().overridePendingTransition( R.anim.ac_slide_right_in,R.anim.ac_slide_left_out);
+		context.getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
 	
 	@Override
@@ -123,14 +125,8 @@ public class SettingInfoActivity extends FragmentActivity implements  OnClickLis
 
 		int is_coach = MainApp.getInstance().getCustomer().is_coach;
 
-		if (phone != null && phone.length() > 10) {
+		mRebindPhone.setText(Utils.getHintPhone(phone));
 
-			String strStart = phone.substring(0,3);
-
-			String strEnd = phone.substring(7,11);
-
-			mRebindPhone.setText(strStart+"****"+strEnd);
-		}
 
 		/*
 		* if the user is coach ,can not update selfinfo in setting ,just in coach apply page
@@ -139,18 +135,19 @@ public class SettingInfoActivity extends FragmentActivity implements  OnClickLis
 
 			findViewById(R.id.setting_base_info_relative).setVisibility(View.GONE);
 		}
-
-		String sn = MainApp.getInstance().getCustomer().sn;
-		String avatarUrl = "http://121.199.22.44:8080/gams/person/"+sn+"/avatar/original/"+sn+".jpg";
-		DownLoadImageTool.getInstance(this).displayImage(avatarUrl,mAvatar,null);
 		
 	}
 	
 	@Override
 	protected void onResume () {
-		
+
+		String sn = MainApp.getInstance().getCustomer().sn;
+		//DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(sn),mAvatar,null);
+
+		Utils.loadAvatar(mContext,sn,mAvatar);
 		super.onResume();
 	}
+
 
 
 	@Override
@@ -204,6 +201,8 @@ public class SettingInfoActivity extends FragmentActivity implements  OnClickLis
 				MainApp.getInstance().getGlobalData().setBalance(0.0);
 				MainApp.getInstance().getGlobalData().setCardNo("");
 				MainApp.getInstance().getGlobalData().setBankName("");
+
+				this.finish();
 
 				break;
 

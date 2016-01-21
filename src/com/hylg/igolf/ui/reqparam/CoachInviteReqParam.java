@@ -18,5 +18,7 @@ public class CoachInviteReqParam implements Serializable {
 	public String msg;
 	
 	public String coachTime;
+
+	public int pin_dan ;
 	
 }

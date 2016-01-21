@@ -5,11 +5,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
@@ -54,7 +52,7 @@ public class MemTipsFrg extends Fragment {
 //	private RefreshView					mRefreshView                = null;
 	
 	private EhecdListview               mRefreshView                = null;
-	private FriendCircleAdapter			mFriendHotAdapter			= null;
+	private FriendCircleAdapter mFriendHotAdapter			= null;
 	
 	private GetCustomerFriendHotListLoader reqLoader 					= null;
 	private LoadFail 					loadFail;
@@ -158,7 +156,7 @@ public class MemTipsFrg extends Fragment {
 			mFriendHotAdapter.appendFriendHotItem(Config.mFriendMessageNewItem);
 			
 		}
-		
+		refreshData();
 		super.onResume();
 	}
 

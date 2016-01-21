@@ -1,0 +1,290 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/personal_center_titleRelative"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <com.hylg.igolf.ui.view.CircleImageView
+            android:id="@+id/user_headImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/avatar_null" />
+
+        <RelativeLayout
+            android:id="@+id/personal_center_title_nameLinear"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/user_headImage"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/user_nameText"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="10"
+                android:layout_marginLeft="10dp"
+                android:maxLines="1"
+                android:text="剑走偏锋"
+                android:textColor="@color/color_friend_item_name"
+                android:textSize="15sp" />
+
+            <TextView
+                android:textSize="13sp"
+                android:layout_below="@+id/user_nameText"
+                android:id="@+id/add_timeText"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="2分钟以前" />
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/attention_image"
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"/>
+            <ImageView
+                android:visibility="gone"
+                android:background="@drawable/customer_delete_bg"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:id="@+id/delete_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="今天去新阵地打球了，感觉很爽啊"
+            android:id="@+id/content_Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_headImage"/>
+    </RelativeLayout>
+    
+    <com.hylg.igolf.ui.view.MyGridView
+
+        android:id="@+id/image_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:gravity="center"
+        android:listSelector="@color/color_white"
+
+        android:verticalSpacing="3dip"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:horizontalSpacing="3dp"
+        
+        ></com.hylg.igolf.ui.view.MyGridView>
+    
+    <ImageView
+	        android:id="@+id/image_view"
+	        android:background="@drawable/image"
+	        android:layout_marginLeft="10dp"
+	        android:layout_height="wrap_content"
+	        android:layout_width="match_parent"/>
+    
+    <!--  
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_marginTop="5dp"
+	    android:baselineAligned="false"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+	    <ImageView
+	        android:id="@+id/image_view1"
+
+	        android:background="@drawable/image"
+	            android:src="@drawable/avatar_loading"
+	            android:layout_marginLeft="10dp"
+	            android:layout_height="100dp"
+	            android:layout_width="100dp"/>
+
+	        <ImageView
+	            android:background="@drawable/image"
+	             android:id="@+id/image_view2"
+	   
+	            android:src="@drawable/avatar_loading"
+	             android:layout_marginLeft="5dp"
+	            android:layout_height="100dp"
+	            android:layout_width="100dp"/>
+	        <ImageView
+	            android:background="@drawable/image"
+	             android:id="@+id/image_view3"
+	     
+	            android:src="@drawable/avatar_loading"
+	             android:layout_marginLeft="5dp"
+	            android:layout_height="100dp"
+	            android:layout_width="100dp" />
+
+	</LinearLayout>
+	
+     <LinearLayout
+         android:visibility="gone"
+         android:layout_marginTop="5dp"
+	    android:baselineAligned="false"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+	    <ImageView
+	        android:background="@drawable/image"
+	        android:id="@+id/image_view4"
+	
+	            android:src="@drawable/avatar_loading"
+	            android:layout_marginLeft="10dp"
+	            android:layout_height="100dp"
+	            android:layout_width="100dp"/>
+
+	        <ImageView
+	            android:background="@drawable/image"
+	             android:id="@+id/image_view5"
+	  
+	            android:src="@drawable/avatar_loading"
+	             android:layout_marginLeft="5dp"
+	            android:layout_height="100dp"
+	            android:layout_width="100dp"/>
+	        <ImageView
+	            android:background="@drawable/image"
+	            android:id="@+id/image_view6"
+	
+	            android:src="@drawable/avatar_loading"
+	            android:layout_marginLeft="5dp"
+	            android:layout_height="100dp"
+	            android:layout_width="100dp" />
+
+	</LinearLayout>
+	
+	-->
+	
+     <RelativeLayout
+         android:layout_marginTop="5dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="25dp"
+	    android:orientation="horizontal" >
+
+	    <ImageView
+	        android:id="@+id/good_image"
+	        android:scaleType="fitXY"
+	            android:src="@drawable/good1"
+	            android:layout_marginLeft="10dp"
+	            android:layout_height="25dp"
+	            android:layout_width="50dp"/>
+
+	        <ImageView
+	             android:scaleType="fitXY"
+	            android:layout_toRightOf="@+id/good_image"
+	             android:id="@+id/comment_image"
+	            android:src="@drawable/comment1"
+	             android:layout_marginLeft="10dp"
+	            android:layout_height="25dp"
+	            android:layout_width="50dp"/>
+	        <ImageView
+	            android:layout_alignParentRight="true"
+	            android:scaleType="fitXY"
+	            android:layout_marginRight="10dp"
+	            android:id="@+id/share_image"
+	            android:src="@drawable/share"
+	            android:layout_height="25dp"
+	            android:layout_width="75dp" />
+
+	</RelativeLayout>
+	
+	
+     <RelativeLayout
+         android:id="@+id/praisers_relative"
+         android:layout_marginTop="5dp"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+
+            <TextView
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/good_user_nameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="200dp"
+                android:maxLines="2"
+                android:layout_gravity="center_vertical"
+                android:textColor="#c7ad60"
+                android:text="姚老师马老师姚老师、" />
+            
+            <com.hylg.igolf.ui.view.FlowLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                 android:id="@+id/good_user_name_linear"
+                 android:layout_width="match_parent"
+                 android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                >
+            
+                
+            </com.hylg.igolf.ui.view.FlowLayout>
+
+	       
+            <TextView
+                
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/good_user_name_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="等觉得很赞" />
+
+	</RelativeLayout>
+	
+    <LinearLayout
+        android:id="@+id/comments_linear"
+        android:layout_marginTop="5dp"
+	    android:layout_width="match_parent"
+	    android:layout_marginLeft="10dp"
+	    android:layout_marginRight="10dp"
+	    android:layout_marginBottom="5dp"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+            
+      </LinearLayout>
+      
+       <TextView  
+           android:id="@+id/more_comments_text"      
+           android:visibility="gone"
+           android:paddingLeft="10dp"
+           android:paddingRight="10dp"
+           android:paddingBottom="5dp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_vertical"
+           android:textColor="@color/gray"
+           android:text="查看更多评论" />
+      
+
+</LinearLayout>

@@ -20,6 +20,9 @@ public class CommitCoachInfo extends BaseRequest {
 		
 		s.append("type"); s.append(KV_CONN); s.append(para.type); s.append(PARAM_CONN);
 		s.append("sex"); s.append(KV_CONN); s.append(para.sex);s.append(PARAM_CONN);
+		s.append("industry"); s.append(KV_CONN); s.append(para.industry);s.append(PARAM_CONN);
+		s.append("yearsExp"); s.append(KV_CONN); s.append(para.ball_age);s.append(PARAM_CONN);
+		s.append("city"); s.append(KV_CONN); s.append(para.customer_region);s.append(PARAM_CONN);
 		s.append("id"); s.append(KV_CONN); s.append(user_id);s.append(PARAM_CONN);
 		s.append("age"); s.append(KV_CONN); s.append(para.age);s.append(PARAM_CONN);
 		s.append("name"); s.append(KV_CONN); s.append(para.name);s.append(PARAM_CONN);

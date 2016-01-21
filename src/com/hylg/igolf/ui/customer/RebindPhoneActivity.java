@@ -46,7 +46,7 @@ public class RebindPhoneActivity extends Activity implements OnClickListener{
 			newPhoneEt = (EditText) findViewById(R.id.rebind_phone_new_phone);
 			TextView bindPhoneTextView = (TextView) findViewById(R.id.rebind_phone_current_phone);
 			String bindPhone = String.format(getResources().getString(R.string.str_comm_current_bind_phone),MainApp.getInstance().getCustomer().phone);
-			bindPhoneTextView.setText(bindPhone);
+			bindPhoneTextView.setText(Utils.getHintPhone(MainApp.getInstance().getCustomer().phone));
 		}
 		
 		private void finishWithAnim() {
@@ -96,25 +96,25 @@ public class RebindPhoneActivity extends Activity implements OnClickListener{
 				return ;
 			}
 			// show confirm dialog
-			final Dialog dialog = new Dialog(this, R.style.alert_dialog_style);
-			View view = View.inflate(this, R.layout.dialog_phone_submit, null);
-			TextView msg = (TextView) view.findViewById(R.id.dialog_ps_msg_view);
-			msg.setText(String.format(getResources().getString(R.string.str_verify_content), newPhone));
-			view.findViewById(R.id.dialog_ps_btn_cancel).setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					dialog.cancel();
-				}
-			});
-			view.findViewById(R.id.dialog_ps_btn_ok).setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View view) {
-					dialog.cancel();
+//			final Dialog dialog = new Dialog(this, R.style.alert_dialog_style);
+//			View view = View.inflate(this, R.layout.dialog_phone_submit, null);
+//			TextView msg = (TextView) view.findViewById(R.id.dialog_ps_msg_view);
+//			msg.setText(String.format(getResources().getString(R.string.str_verify_content), newPhone));
+//			view.findViewById(R.id.dialog_ps_btn_cancel).setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View view) {
+//					dialog.cancel();
+//				}
+//			});
+//			view.findViewById(R.id.dialog_ps_btn_ok).setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View view) {
+//					dialog.cancel();
 					rebindSubmitPhone(newPhone);
-				}
-			});
-			dialog.setContentView(view);
-			dialog.show();
+//				}
+//			});
+//			dialog.setContentView(view);
+//			dialog.show();
 		}
 		
 		private void rebindSubmitPhone(final String phone) {

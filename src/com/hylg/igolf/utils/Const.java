@@ -146,4 +146,7 @@ public class Const {
 	public final static int                     PAY_TYPE_UNION = 104;
 
 
+	public static final String 					ANDROID = "Android_";
+
+
 }

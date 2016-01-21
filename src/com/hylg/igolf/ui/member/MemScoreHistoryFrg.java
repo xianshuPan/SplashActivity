@@ -172,7 +172,7 @@ public class MemScoreHistoryFrg extends Fragment implements OnClickListener{
 		loadFail = new LoadFail(mContext, (RelativeLayout) view.findViewById(R.id.score_history_list_load_fail));
 		loadFail.setOnRetryClickListener(retryListener);
 		listView = (ListviewBottomRefresh) view.findViewById(R.id.score_history_listview);
-		listView.addFooterView(listFooter.getFooterView());
+		//listView.addFooterView(listFooter.getFooterView());
 		listView.setOnRefreshListener(pullRefreshListener);
 		//listView.setOn(mOnLoadMoreListener);
 		memSn = getArguments().getString(BUNDLE_MEM_SN);

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hylg.igolf"
     xmlns:tools="http://schemas.android.com/tools"
-    android:versionCode="200"
-    android:versionName="v2.0.0" >
+    android:versionCode="210"
+    android:versionName="v2.1.0" >
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -26,6 +26,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION"/>
+    <uses-permission android:name="android.permission.SEND_SMSS"/>
     
     <!-- share sdk 权限 -->
 	<uses-permission android:name="android.permission.GET_TASKS" />
@@ -55,16 +56,10 @@
           <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="648ab2c5d76705f81848b1c17e3d3f18"/>
-          
-           <activity
-            android:name="com.hylg.igolf.ui.friend.FriendHotActivity"
-        	android:theme="@style/NoTitleFullBaseTheme" >
-        	</activity>
         
         <activity
             android:name="com.hylg.igolf.ui.SplashActivity"
         	android:theme="@style/NoTitleFullBaseTheme"
-
         	android:screenOrientation="portrait"
             android:label="@string/app_name" >
             
@@ -75,118 +70,453 @@
           
         </activity>
         
-        <activity android:name=".ui.UserGuideActivity" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.UserGuideActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait" />
          
-        <activity android:name=".ui.MainActivity" android:theme="@style/NoTitleBaseTheme"
+        <activity
+            android:name=".ui.MainActivity"
+            android:theme="@style/NoTitleBaseTheme"
             android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask" android:screenOrientation="portrait" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
         
          </activity>
 
         <!-- account -->
-        <activity android:name=".ui.account.LoginActivity" android:theme="@style/NoTitleBaseTheme" android:launchMode="singleTask" android:screenOrientation="portrait" />
-        <activity  android:name=".ui.account.AgreementActivityActivity" android:theme="@style/TranslucentTheme"  android:screenOrientation="portrait" />
-        <activity  android:name=".ui.account.PhoneSubmitActivity" android:theme="@style/TranslucentTheme"  android:screenOrientation="portrait" />
-        <activity android:name=".ui.account.PhoneVerifyActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.account.InfoSetupActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.account.ResetPwdActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.account.FeedBackActivity" android:theme="@style/TranslucentTheme" android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.account.LoginActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.account.AgreementActivityActivity"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.account.PhoneSubmitActivity"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.account.PhoneVerifyActivity"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.account.InfoSetupActivity"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.account.ResetPwdActivity"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.account.FeedBackActivity"
+            android:theme="@style/TranslucentTheme"
+            android:screenOrientation="portrait" />
                
         <!-- golfers -->
-        <activity android:name=".ui.golfers.GolfersListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity  android:name=".ui.golfers.GolfersSearchResultActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.golfers.GolfersListActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.golfers.GolfersSearchResultActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
         
         <!-- coach -->
-        <activity android:name=".ui.coach.CoachApplyInfoActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".ui.coach.CoachListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.coach.CoachInfoDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.coach.CoachInviteActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.coach.CoachCommentsListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".ui.coach.CoachInviteOrderDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.coach.CoachMyTeachingActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
-        <activity android:name=".ui.coach.CoachInviteAgainActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachApplyInfoActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachListActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachInfoDetailActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachInviteActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachCommentsListActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachInviteOrderDetailActivityNew"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachInviteOrderDetailActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.coach.CoachInviteAgainActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"/>
         
         <!-- hall -->
-        <activity android:name=".ui.hall.InviteDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.HallMyInvitesActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InviteDetailOpenOtherActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InviteDetailOpenMineActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InviteDetailOtherOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InviteDetailOtherStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InviteDetailMyOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InviteDetailMyStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.CourseSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.CourseAllSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.OpenInviteListActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.StartInviteOpenActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.StartInviteStsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.hall.InvitePlanActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.hall.InviteDetailActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.HallMyInvitesActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InviteDetailOpenOtherActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InviteDetailOpenMineActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InviteDetailOtherOpenActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InviteDetailOtherStsActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InviteDetailMyOpenActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InviteDetailMyStsActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.CourseSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.CourseAllSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.OpenInviteListActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.StartInviteOpenActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.StartInviteStsActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.hall.InvitePlanActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+
+            android:name=".ui.hall.PinDanListActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
         
         <!-- member -->
-        <activity android:name=".ui.member.MemDetailActivityNew"
+        <activity
+            android:name=".ui.member.MemDetailActivityNew"
             android:theme="@style/NoTitleBaseTheme"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.member.MemFightRecordActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.member.MemScoreHistoryActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.member.UserProfileActivity"  android:theme="@style/NoTitleBaseTheme"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.member.MemFightRecordActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.member.MemScoreHistoryActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.member.UserProfileActivity"
+            android:theme="@style/NoTitleBaseTheme"/>
 
         <!-- customer -->
-        <activity android:name=".ui.customer.AboutIgolfActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.InviteHistoryActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.ModifyInfoActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.ModifyPwdActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.ModifySignatureActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.SysMsgActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.SysMsgDetailActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.RebindPhoneActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.VerifyPwdActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.MyFollowerActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.MyTipsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.MyAttentionsActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.MyPraiseActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.MyBalanceRecordActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.BindCardActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.ToCashActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.DraftFragmentActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.customer.SettingInfoActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.AboutIgolfActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.InviteHistoryActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.ModifyInfoActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.ModifyPwdActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.ModifySignatureActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.SysMsgActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.SysMsgDetailActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.RebindPhoneActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.VerifyPwdActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.MyFollowerActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.MyTipsActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.MyAttentionsActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.MyPraiseActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.MyBalanceRecordActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.MyTeachingHomeActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.BindCardActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.ToCashActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.DraftFragmentActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.customer.SettingInfoActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
 
         <!-- common -->
-        <activity android:name=".ui.common.LabelSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.RegionSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.RegionCourseSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.RegionInfoSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.RegionFilterSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.IndustrySelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.SexSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.StakeSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.PayTypeSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.TeeTimeSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.TeeDateSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.AgeSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.YearsExpSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.HourExpSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.ImageSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.AlbumSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.ScorecardPagerActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.CoacherSortItemSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
-        <activity android:name=".ui.common.CoacherTypeSelectActivity" android:theme="@style/activity_dialog_style" android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.LabelSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.RegionSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.RegionCourseSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.RegionInfoSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.RegionFilterSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.IndustrySelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.SexSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.StakeSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.PayTypeSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.TeeTimeSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.TeeDateSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.AgeSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.YearsExpSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.HourExpSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.ImageSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.AlbumSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.ScorecardPagerActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.CoacherSortItemSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.CoacherTypeSelectActivity"
+            android:theme="@style/activity_dialog_style"
+            android:screenOrientation="portrait" />
         
-        <activity android:name=".ui.common.AlbumPagerActivity" android:theme="@style/NoTitleBaseTheme" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|stateUnspecified" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.common.AlbumPagerActivity"
+            android:theme="@style/NoTitleBaseTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|stateUnspecified" />
         
         
         <!-- image picker -->
-        <activity android:name=".imagepicker.ImageGridActivity" android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".imagepicker.ImageGridActivity"
+            android:screenOrientation="portrait" />
         
         <!-- friend -->
-        <activity android:name=".ui.friend.FriendMessageNewActivity" android:screenOrientation="portrait" android:launchMode="singleTask" android:windowSoftInputMode="stateAlwaysVisible"/>
-        <activity android:name=".ui.friend.CameraActivity" android:configChanges="orientation|keyboardHidden|screenSize" android:screenOrientation="portrait" />
-        <activity android:name=".ui.friend.PhotoViewActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.friend.FriendNewTipsCountActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.friend.FriendTipsDetailActivity" android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.friend.FriendMessageNewActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.friend.CameraActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.friend.PhotoViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.friend.FriendNewTipsCountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.friend.FriendTipsDetailActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
          
         <!-- friend_location_select -->
-        <activity android:name=".ui.friend.FriendLocationSelectActivity" android:screenOrientation="portrait" />
+        <activity
+            android:launchMode="singleTop"
+            android:name=".ui.friend.FriendLocationSelectActivity"
+            android:screenOrientation="portrait" />
 
 
         <service
@@ -326,39 +656,6 @@
 			<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
 		</activity>
-		
-		<!-- share sdk 一键分享 
-		<activity
-			android:name="cn.sharesdk.framework.ShareSDKUIShell"
-			android:configChanges="keyboardHidden|orientation"
-			android:screenOrientation="portrait"
-			android:theme="@android:style/Theme.Translucent.NoTitleBar"
-			android:windowSoftInputMode="stateHidden|adjustResize" >
-			<meta-data
-				android:name="Adapter"
-				android:value="cn.sharesdk.demo.MyAdapter" />
-			<intent-filter>
-			<data android:scheme="db-7janx53ilz11gbs" />
-			<action android:name="android.intent.action.VIEW" />
-			<category android:name="android.intent.category.BROWSABLE" />
-			<category android:name="android.intent.category.DEFAULT" />
-			</intent-filter>
-		</activity>
-		<activity
-			 android:name="com.mob.tools.MobUIShell"
-			 android:theme="@android:style/Theme.Translucent.NoTitleBar"
-			 android:configChanges="keyboardHidden|orientation|screenSize"
-			 android:screenOrientation="portrait"
-			 android:windowSoftInputMode="stateHidden|adjustResize" >
-			 <intent-filter>
-			 <data android:scheme="tencent100371282" />
-			 <action android:name="android.intent.action.VIEW" />
-			 <category android:name="android.intent.category.BROWSABLE" />
-			 <category android:name="android.intent.category.DEFAULT" />
-			 </intent-filter>
-		</activity>
-		
-		-->
 		
 		
 		<!-- 微信回调 -->

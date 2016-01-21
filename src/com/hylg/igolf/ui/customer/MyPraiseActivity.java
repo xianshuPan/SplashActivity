@@ -28,7 +28,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
 public class MyPraiseActivity extends FragmentActivity implements OnClickListener{
@@ -40,7 +39,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 	private ImageButton  				mBack 						= null;
 	
 	private EhecdListview 				mList                       = null;
-	private FriendCircleAdapter			mFriendHotAdapter			= null;
+	private FriendCircleAdapter mFriendHotAdapter			= null;
 	
 	private GetMyPraiseTipsListLoader 	reqLoader 					= null;
 	private LoadFail 					loadFail;
@@ -140,6 +139,7 @@ public class MyPraiseActivity extends FragmentActivity implements OnClickListene
 		
 			
 //		Bundle data = getArguments();
+		refreshData();
 		
 		if (Config.mFriendMessageNewItem != null && mFriendHotAdapter != null) {
 			

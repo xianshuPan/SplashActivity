@@ -109,6 +109,8 @@
 	    layout="@layout/common_load_fail" />
 	
 	<com.hylg.igolf.ui.view.EhecdListview
+		android:footerDividersEnabled="false"
+		android:headerDividersEnabled="false"
 		android:layout_marginLeft="10dp"
 		android:dividerHeight="1px"
 		android:layout_below="@+id/coach_list_filter_linear"

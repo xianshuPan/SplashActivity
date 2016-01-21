@@ -8,6 +8,9 @@
 	
 	<!--  login -->
 	<string name="str_acc_login">立即登录</string>
+    <string name="str_acc_login2">已有账号立即登录</string>
+    <string name="str_rmb">￥</string>
+    <string name="str_rmb_unit">元</string>
 	<string name="str_acc_register">立即注册</string>
 	<string name="str_acc_reset">忘记密码？</string>
 	<string name="str_acc_login_def_msg">登录失败，请稍后再试…</string>
@@ -142,7 +145,7 @@
 \n\t\t所有的资料、图象及其任何部分都必须包括此版权声明；
 \n\t\t爱高所有的产品、技术与所有程序均属于爱高知识产权，在此并未授权。
 
-\n\t\t6.4 对于在爱高平台上职业教练和业余教练每小时的收益，平台分别对其留存40元和20元用作支付银行手续费和管理费等。爱高具有对教练收费和平台扣费进行调整的权利。
+\n\t\t6.4 对于在爱高平台上教练和球友指导每小时的收益，平台分别对其留存40元和20元用作支付银行手续费和管理费等。爱高具有对教练收费和平台扣费进行调整的权利。
 
 \n\t\t6.5 爱高及相关图形等为爱高的商标。未经爱高许可，任何人不得擅自（包括但不限于：以非法的方式复制、传播、展示、镜像、上载、下载）使用。否则，爱高将依法追究法律责任。
 
@@ -190,7 +193,7 @@
     <string name="str_toast_invalid_phone">手机号码格式不正确。</string>
     <string name="str_btn_renew">重新获取</string>
     <string name="str_btn_renew_time">60秒</string>
-    <string name="str_toast_input_verify">请输入验证码！</string>
+    <string name="str_toast_input_verify">请输入有效验证码！</string>
     <string name="str_toast_input_bank_name">请输入银行名称</string>
     <string name="str_toast_error_verify">验证码错误，请重新输入！</string>
     <string name="str_toast_modify_success">修改成功！</string>
@@ -216,9 +219,10 @@
     
     <!-- coachers -->
     <string name="str_coachers_home_title">教练</string>
-    <string name="str_coachers_profesion">职业教练</string>
-    <string name="str_coachers_hobby">业余教练</string>
+    <string name="str_coachers_profesion">教练</string>
+    <string name="str_coachers_hobby">球友指导</string>
     <string name="str_coach_price_unit">元/小时</string>
+    <string name="str_time_unit">小时</string>
     <string name="str_coachers_name">姓名</string>
     <string name="str_coachers_select_all">综合</string>
     <string name="str_coachers_teach_time">教龄:</string>
@@ -265,6 +269,7 @@
     <string name="str_coachers_info_place">常驻球场</string>
     <string name="str_coachers_apply_order_title">教学明细</string>
     <string name="str_coachers_apply_order_teach_time">学时</string>
+    <string name="str_teaching_price_unit">课时费:</string>
     <string name="str_coachers_apply_order_start_time">开始时间</string>
     <string name="str_coachers_apply_order_end_time">结束时间</string>
     <string name="str_coachers_apply_order_pause_time">暂停时间</string>
@@ -276,6 +281,8 @@
     <string name="str_setting_title">设置</string>
     <string name="str_coachers_invite_other_title"><u>看看其他教练</u></string>
     <string name="str_pay_title">支付</string>
+    <string name="str_pay_finish">已支付</string>
+    <string name="str_not_pay">未支付</string>
     
     
     <!-- hall -->
@@ -304,11 +311,15 @@
     <string name="str_invite_starting_open">正在发起约球，请稍候…</string>
     <string name="fstr_invite_accepting_invite">正在接受约球，请稍候…</string>
     <string name="str_invite_revoking_invite">正在撤销约球，请稍候…</string>
+    <string name="str_invite_pin_dan_invite">正在拼单，请稍候…</string>
     <string name="str_hall_open_list_hint">共搜索到 %1$d 场符合条件的约球</string>
     <string name="str_hall_open_list_no_hint">未搜索到相关的约球信息</string>
     <string name="str_hall_open_list_click_over">此约球已经结束</string>
     <string name="str_hall_open_list_click_mine">申请已结束，请到“我的约球”中查看</string>
     <string name="str_hall_invite_mine_no_hint">暂无约球记录</string>
+    <string name="str_hall_pin_dan_list_title">大家都在拼</string>
+    <string name="str_hall_pin_dan_count_start">还不抓紧？只有</string>
+    <string name="str_hall_pin_dan_count_end">个拼单可以加入</string>
     
     <!-- 
         <string name="str_invite_sts_status_">虚位以待</string>
@@ -438,7 +449,7 @@
     <string name="str_toast_update_avatar_success">修改头像成功！</string>
     <string name="str_toast_album_loading">图片正在加载，请稍候再试！</string>
     <string name="str_toast_update_album_success">添加相册图片成功!</string>
-    <string name="str_about_copyright">Copyright&#169; 2013&#8211;2015，ALL Rights Reserved\n爱高尔夫约球系统</string>
+    <string name="str_about_copyright">Copyright&#169; 2013&#8211;2016，ALL Rights Reserved\n爱高尔夫约球系统</string>
     <string name="str_about_intro">产品介绍</string>
     <string name="str_customer_service_phone_hint">400-0099-115</string>
     <string name="str_customer_service_phone">4000099113</string>
@@ -485,6 +496,7 @@
     <string name="str_member_fightMsg">交手记录</string>
     <string name="str_member_scoreMsg">成绩历史</string>
     <string name="str_member_detail_oper_btn_call">电话</string>
+    <string name="str_payment_amount">支付金额:</string>
     <string name="str_member_detail_oper_btn_invite">邀约</string>
     <string name="str_member_age_wrap"> %1$s岁</string>
     <string name="str_member_myhcpi_wrap">我的成绩：%1$s</string>
@@ -544,6 +556,16 @@
     <string name="str_comm_age">年龄</string>
     <string name="str_year">年</string>
     <string name="str_comm_date">日期</string>
+    <string name="str_coach_invite_comm_date">我要</string>
+    <string name="str_coach_invite_comm_date_end">去,</string>
+    <string name="str_coach_invite_comm_time">预约</string>
+    <string name="str_coach_invite_comm_time_end">这个时间,</string>
+
+    <string name="str_coach_invite_comm_teaching_hour">学习</string>
+    <string name="str_coach_invite_comm_teaching_hour_end">个学时,</string>
+    <string name="str_coach_invite_comm_region">想在</string>
+    <string name="str_coach_invite_comm_region_end">的</string>
+    <string name="str_coach_invite_comm_place_end">学习。</string>
     <string name="str_wait_select">待定</string>
     <string name="str_comm_time">时间</string>
     <string name="str_comm_stake">球注:</string>
@@ -554,6 +576,7 @@
     <string name="str_comm_load_retry">重新加载</string>
     <string name="str_comm_score">英雄，上传积分卡，刷新你的江湖排名哦！</string>
     <string name="str_comm_rate">评价</string>
+    <string name="str_comm_rate1">评价:</string>
     <string name="str_comm_reset_phone">重新绑定手机</string>
     <string name="str_comm_modify_password">修改密码</string>
     <string name="str_comm_old_password">原密码</string>
@@ -577,9 +600,9 @@
     <string name="str_input_hint_pwd_login_user">请输入当前登陆者密码</string>
     <string name="str_input_hint_phone_new">请输入手机号码</string>
     
-    <string name="str_input_hint_open_invite">请输入简洁的邀约语。。。\n开球前2小时如无人申请，约球自动取消。请为申请者预留足够的时间。</string>
+    <string name="str_input_hint_open_invite">请输入简洁的邀约语。。。\n开球前如无人申请，约球自动取消。请为申请者预留足够的时间。</string>
     <string name="str_input_hint_sts_addr_name">请输入您的姓名或称呼，方便交流…</string>
-    <string name="str_input_hint_sts_invite">请输入简洁的邀约语。。。\n开球前2小时如对方未接受，约球自动取消。请为对方预留足够的时间。</string>
+    <string name="str_input_hint_sts_invite">请输入简洁的邀约语。。。\n开球前如对方未接受，约球自动取消。请为对方预留足够的时间。</string>
     
     <string name="str_reset_pwd_hint">@string/str_input_hint_pwd_first</string>
     <string name="str_reset_pwd_confirm_hint">请再次输入密码</string>
@@ -634,7 +657,11 @@
      <string name="str_friend_attention">关注</string>
      <string name="str_friend_attented">已关注</string>
      <string name="str_friend_praised">等觉得很赞</string>
-     <string name="str_friend_tips_count">新评论</string>
+
+    <string name="str_friend_praised_end">...</string>
+    <string name="str_friend_tips_count">新评论</string>
+    <string name="str_comment">评论</string>
+    <string name="str_share">分享</string>
      <string name="str_friend_tips_more">更多评论</string>
     
     <!-- dialog title -->

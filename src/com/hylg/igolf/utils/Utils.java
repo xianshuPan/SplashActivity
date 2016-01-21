@@ -3,7 +3,10 @@ package com.hylg.igolf.utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,15 +17,26 @@ import org.apache.http.protocol.HTTP;
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
+import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.ui.friend.publish.GlobalContext;
+import com.hylg.igolf.ui.member.MemDetailActivityNew;
 
 import cn.gl.lib.utils.BaseUtils;
+
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.StrikethroughSpan;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -121,7 +135,7 @@ public class Utils extends BaseUtils {
 	}
 	
 	public static String getDoubleString(Context context, double value) {
-		if(value == Double.MAX_VALUE) {
+		if(context== null || value == Double.MAX_VALUE) {
 			return context.getString(R.string.str_no_value);
 		}
 		if(value < 0) {
@@ -303,20 +317,42 @@ public class Utils extends BaseUtils {
         final float scale = resources.getDisplayMetrics().scaledDensity;
         return sp * scale;
     }
+
+	/*
+     * 把长整型的时间，转换成字符串
+     * */
+	public  static String longTimeToString (long time) {
+
+		if (time <= 0) {
+
+			return "";
+		}
+
+		Date date = new Date(time);
+
+		SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+		String result = sdf.format(date);
+
+
+		return result;
+	}
     
     /*
      * 把长整型的时间，转换成字符串
      * */
-    public  static String longTimeToString (long time) {
+    public  static String StringTimeToString (String time) {
     	
-    	if (time <= 0) {
+    	if (time == null || time.length() <= 0) {
     		
     		return "";
     	}
     	
-    	Date date = new Date(time);
+    	Date date = new Date(Long.valueOf(time));
     	
     	SimpleDateFormat sdf  = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     	String result = sdf.format(date);
 
@@ -442,5 +478,141 @@ public class Utils extends BaseUtils {
 		}
 
 		return result;
+	}
+
+	public static String getBase64FileName (String path,long time) throws UnsupportedEncodingException {
+
+		if (path == null || path.length() <= 0) {
+
+			return "";
+		}
+
+		String fileName = path.substring(0,path.lastIndexOf("."));
+		String fileNameBase64 =  Base64.encode(fileName.getBytes()).toString();
+		String fileType = path.substring(path.lastIndexOf("."), path.length());
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(Const.ANDROID);
+		sb.append(MainApp.getInstance().getCustomer().sn);
+		sb.append("_");
+		sb.append(time);
+		sb.append("_");
+		sb.append(fileNameBase64);
+		sb.append(fileType);
+
+		return sb.toString();
+
+	}
+
+
+	/*add Strike line for the string para*/
+	public static SpannableString addStrikeLine(String source) {
+
+		if (source == null || source.length() <= 0) {
+
+			return new SpannableString("");
+		}
+
+		SpannableString ss = new SpannableString(source);
+		ss.setSpan(new StrikethroughSpan(), 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+		return ss ;
+
+	}
+
+	public static void callPhone (Activity mContext ,String phoneStr) {
+
+		if (phoneStr != null && phoneStr.length() > 0) {
+
+			Intent data = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneStr));
+			mContext.startActivity(data);
+
+		} else {
+
+			Toast.makeText(mContext,R.string.str_toast_invalid_phone,Toast.LENGTH_SHORT).show();
+		}
+
+	}
+
+
+	public static String getHintPhone (String phone) {
+
+		String result = "";
+		if (phone != null && phone.length() > 10) {
+
+			String strStart = phone.substring(0,3);
+
+			String strEnd = phone.substring(7,11);
+
+			result= strStart + "****" + strEnd;
+		}
+
+		return result;
+	}
+
+	public static String getMoney (double price) {
+
+		String result = "";
+		if (price < 0) {
+
+			return result;
+		}
+
+		DecimalFormat df = new DecimalFormat("#.00");
+
+		result = df.format(price);
+		return result;
+	}
+
+	protected static boolean isAvatarClickable = true ;
+	public static void loadAvatar(final Activity mContext,final String sn,final ImageView iv){
+
+		// 头像存在，且不是自己的头像，设置点击查看详情
+		if (mContext == null) {
+
+			return;
+		}
+
+		String name = sn+".jpg";
+		if(null != name && !name.isEmpty() && !sn.equals(MainApp.getInstance().getCustomer().sn)) {
+			iv.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+
+					if (isAvatarClickable) {
+
+						MemDetailActivityNew.startMemDetailActivity(mContext, sn);
+						mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+					}
+
+				}
+			});
+		} else {
+			iv.setOnClickListener(null);
+		}
+		Drawable avatar = AsyncImageLoader.getInstance().getAvatar(mContext, sn, name, (int) mContext.getResources().getDimension(R.dimen.avatar_detail_size));
+
+		if (sn.equals(MainApp.getInstance().getCustomer().sn)) {
+
+			String prefAvatar = SharedPref.getString(SharedPref.SPK_AVATAR, mContext);
+			avatar = AsyncImageLoader.getInstance().getAvatar(mContext, sn, prefAvatar, (int) mContext.getResources().getDimension(R.dimen.avatar_detail_size));
+		}
+
+		if(null != avatar) {
+			iv.setImageDrawable(avatar);
+		} else {
+			iv.setImageResource(R.drawable.avatar_loading);
+			AsyncImageLoader.getInstance().loadAvatar(mContext, sn, name,
+					new AsyncImageLoader.ImageCallback() {
+						@Override
+						public void imageLoaded(Drawable imageDrawable) {
+							if(null != imageDrawable && null != iv) {
+								iv.setImageDrawable(imageDrawable);
+
+							}
+						}
+					});
+		}
 	}
 }

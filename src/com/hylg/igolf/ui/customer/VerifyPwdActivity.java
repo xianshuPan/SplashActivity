@@ -104,5 +104,4 @@ public class VerifyPwdActivity extends Activity implements OnClickListener{
 				}
 			}.execute(null, null, null);
 		}
-		
 }

@@ -81,7 +81,7 @@ public class InfoSetupActivity extends Activity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		ExitToLogin.getInstance().addActivity(this);
-		setContentView(R.layout.account_ac_info_setup);
+		setContentView(R.layout.account_ac_info_setup_new);
 		getData();
 		getViews();  
 	}

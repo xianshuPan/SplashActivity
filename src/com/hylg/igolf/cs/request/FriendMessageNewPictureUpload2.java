@@ -6,6 +6,7 @@ import android.graphics.Matrix;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.ui.friend.publish.UploadPictureResultBean;
+import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 
 import org.apache.http.protocol.HTTP;
@@ -29,13 +30,17 @@ public class FriendMessageNewPictureUpload2  {
 
 	private int pic_size;
 
-	public FriendMessageNewPictureUpload2(String path_input,int picSize) {
+	private long time;
+
+	public FriendMessageNewPictureUpload2(String path_input,long timing,int picSize) {
 
 		path = path_input;
 
 		pic_size = picSize;
 
 		resultBean = new UploadPictureResultBean();
+
+		time = timing;
 	}
 	
 	
@@ -86,19 +91,17 @@ public class FriendMessageNewPictureUpload2  {
 				result.compress(Bitmap.CompressFormat.JPEG, 85, out);
 			}
 
-			String fileName = path.substring(path.lastIndexOf("/"), path.length());
-			out.toByteArray();
+		//	String fileName = path.substring(path.lastIndexOf("/"), path.length());
+
+			String fileName = Utils.getBase64FileName(path,time);
+			//out.toByteArray();
 
 			ds.writeBytes(twoHyphens + boundary + end);
 			ds.writeBytes("Content-Disposition:form-data;"+ "name=\"imagesData\";filename=\""+fileName+"\""+ end);
 			ds.writeBytes(end);
 
-
 			ds.write(out.toByteArray());
-
-			
 			ds.writeBytes(end+twoHyphens + boundary + twoHyphens + end);
-			
 			ds.flush();
 			
 	        InputStream input = con.getInputStream();

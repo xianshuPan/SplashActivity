@@ -456,8 +456,20 @@ public class ImageGridActivity extends BaseActivity implements OnClickListener,O
 
 
 				}
-				
-				
+
+				try {
+					MediaStore.Images.Media.insertImage(this.getContentResolver(),
+							bitmap, pictrueFile.getName(),
+                            pictrueFile.getName());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+				Uri uri = Uri.fromFile(pictrueFile);
+				intent.setData(uri);
+				this.sendBroadcast(intent);
+
+				//sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://"+ Environment.getExternalStorageDirectory())));
 			}
 		}
 

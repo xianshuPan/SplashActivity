@@ -442,7 +442,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	    state = DONE;
 	    SimpleDateFormat format=new SimpleDateFormat("yyyy:MM:dd  HH:mm");  
 	    String date=format.format(new Date());  
-	    lastUpdatedTextView.setText("上次跟新:" + date);  
+	    lastUpdatedTextView.setText("上次更新:" + date);
 	    changeHeaderViewByState();  
 	}
 	     
@@ -450,7 +450,7 @@ public class EhecdListview extends ListView implements OnScrollListener {
 	{
 	    SimpleDateFormat format=new SimpleDateFormat("yyyy:MM:dd  HH:mm");  
 	    String date=format.format(new Date());  
-	    lastUpdatedTextView.setText("上次跟新: " + date);  
+	    lastUpdatedTextView.setText("上次更新: " + date);
 	    super.setAdapter(adapter);  
 	}
 }

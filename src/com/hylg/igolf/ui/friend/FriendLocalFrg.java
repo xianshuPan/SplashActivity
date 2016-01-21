@@ -24,17 +24,14 @@ import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Debug;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 public class FriendLocalFrg extends Fragment {
@@ -59,7 +56,7 @@ public class FriendLocalFrg extends Fragment {
 //	private RefreshView					mRefreshView                = null;
 	
 	private EhecdListview               mRefreshView                 = null;
-	private FriendCircleAdapter			mFriendHotAdapter			= null;
+	private FriendCircleAdapter mFriendHotAdapter			= null;
 	
 	private GetFriendHotListLoader 		reqLoader 					= null;
 	private LoadFail 					loadFail;
@@ -177,6 +174,8 @@ public class FriendLocalFrg extends Fragment {
 	                LocationProviderProxy.AMapNetwork, 60*1000, 15,mAMapLocationListener);
 	 
 	     mLocationManagerProxy.setGpsEnable(false);
+
+		refreshData();
 		
 		super.onResume();
 	}

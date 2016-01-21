@@ -1,9 +1,12 @@
 package com.hylg.igolf.ui.view;
 
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.R;
 
 import android.content.Context;
+import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,15 +24,21 @@ import android.widget.TextView;
 public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 	
 	private static final String 		TAG = "EhecdListviewBottomRefresh";
+
+	private static final int INVALID_POINTER = -1;
 	
 	public final static int 			REFRESHING = 2;  
-	public final static int 			DONE = 3;  
+	public final static int 			DONE = 3;
+
+	private int mActivePointerId = INVALID_POINTER;
+	private float mInitialMotionY;
 	
 	/*ʵ�ʵ�padding�ľ����������ƫ�ƾ���ı���  */ 
 	private LayoutInflater 				inflater;  
  	private LinearLayout 				footView;  
  	private TextView 					footTipsTextview;   
-	private ProgressBar 				footProgressBar; 
+	private ProgressBar 				footProgressBar;
+	private View                        footBottomView;
     
     /*���ڱ�֤startY��ֵ��һ�������
      * touch�¼���ֻ����¼һ�� */  
@@ -42,7 +51,7 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
     private boolean 					isRefreshable;  
     
     /*��һ����������ʾ���ǲ��ǵײ�ˢ��*/
-    public boolean 						isBottomRefresh = false;
+    public boolean 						isBottomRefresh = false,isBottomShow = false;
     
     private int 						mScrollY;
 
@@ -57,6 +66,12 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 		// TODO Auto-generated constructor stub
 		initView(context);
 	}
+
+	public void setShowFootBottom(boolean is_bottom_show) {
+
+		isBottomShow = is_bottom_show;
+
+	}
 	
 	void initView(Context context)
 	{
@@ -65,6 +80,7 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 		footView = (LinearLayout)inflater.inflate(R.layout.ehecd_listview_footer, null);
 		footProgressBar  = (ProgressBar)footView.findViewById(R.id.refresh_list_footer_progressbar);
 		footTipsTextview = (TextView)footView.findViewById(R.id.refresh_list_footer_text);
+		footBottomView = footView.findViewById(R.id.refresh_list_footer_bottom_view);
 		
 		//footProgressBar.setVisibility(View.GONE);
 		//footTipsTextview.setVisibility(View.GONE);
@@ -165,18 +181,74 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent event)
-	{
-		 return super.onInterceptTouchEvent(event);
-		//return false;
-	}
+
 	
 	public boolean ondispatchTouchEvent(MotionEvent event)
 	{
 		return super.dispatchTouchEvent(event);	
 		//return false;
+	}
+
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent ev) {
+		final int action = MotionEventCompat.getActionMasked(ev);
+
+
+		switch (action) {
+			case MotionEvent.ACTION_DOWN:
+				mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
+				final float initialMotionY = getMotionEventY(ev, mActivePointerId);
+				if (initialMotionY == -1) {
+					return false;
+				}
+				mInitialMotionY = initialMotionY;
+
+				break;
+			case MotionEvent.ACTION_MOVE:
+
+
+				if (mActivePointerId == INVALID_POINTER) {
+//                Logger.e(TAG, "Got ACTION_MOVE event but don't have an active pointer id.");
+					return false;
+				}
+
+				final float y = getMotionEventY(ev, mActivePointerId);
+				if (y == -1) {
+					return false;
+				}
+				final float yDiff = y - mInitialMotionY;
+
+				DebugTools.getDebug().debug_v("listview_yDiff","----->>>"+yDiff);
+				if (yDiff > 0) {
+//					if (getChildAt(0).getMeasuredHeight() <= getHeight() + getScrollY()) {
+//						return false;
+//					}
+
+					if ( firstItemIndex > 0) {
+						return true;
+
+					}
+
+				}
+
+
+
+				break;
+			case MotionEvent.ACTION_UP:
+			case MotionEvent.ACTION_CANCEL:
+				mActivePointerId = INVALID_POINTER;
+				break;
+		}
+
+		return super.onInterceptTouchEvent(ev);
+	}
+
+	private float getMotionEventY(MotionEvent ev, int activePointerId) {
+		final int index = MotionEventCompat.findPointerIndex(ev, activePointerId);
+		if (index < 0) {
+			return -1;
+		}
+		return MotionEventCompat.getY(ev, index);
 	}
 	
 	@Override
@@ -252,6 +324,18 @@ public class ListviewBottomRefresh extends ListView implements OnScrollListener{
 			if (count < 10) {
 
 				footView.setVisibility(View.GONE);
+			}
+			else {
+
+				footView.setVisibility(View.VISIBLE);
+				if (isBottomShow) {
+
+					footBottomView.setVisibility(View.VISIBLE);
+				}
+				else {
+
+					footBottomView.setVisibility(View.GONE);
+				}
 			}
 
 		}

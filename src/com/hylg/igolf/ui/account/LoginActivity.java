@@ -114,7 +114,7 @@ public class LoginActivity extends Activity {
 
 	private void setData(String phone) {
 		// set phone
-		if(null != phone) {
+		if(null != phone && Utils.isMobileNum(phone)) {
 			phoneInput.setText(phone);
 		}
 		// 直接登录，临时---需在SplashActivity中处理。

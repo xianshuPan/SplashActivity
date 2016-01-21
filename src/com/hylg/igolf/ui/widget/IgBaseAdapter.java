@@ -12,6 +12,7 @@ import com.hylg.igolf.R;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
+import com.hylg.igolf.utils.SharedPref;
 
 public abstract class IgBaseAdapter extends BaseAdapter {
 
@@ -26,6 +27,10 @@ public abstract class IgBaseAdapter extends BaseAdapter {
 	 */
 	protected void loadAvatar(Activity context, String sn, String name, ImageView iv) {
 		loadAvatar(context, sn, name, iv, false, (int) context.getResources().getDimension(R.dimen.avatar_detail_size));
+	}
+
+	protected void loadAvatar(Activity context, String sn, ImageView iv) {
+		loadAvatar(context, sn, sn+".jpg", iv, false, (int) context.getResources().getDimension(R.dimen.avatar_detail_size));
 	}
 
 	public void setIsAvatarClickable (boolean clickable) {
@@ -69,6 +74,13 @@ public abstract class IgBaseAdapter extends BaseAdapter {
 			}
 		}
 		Drawable avatar = AsyncImageLoader.getInstance().getAvatar(context, sn, name, size);
+
+		if (sn.equals(MainApp.getInstance().getCustomer().sn)) {
+
+			String prefAvatar = SharedPref.getString(SharedPref.SPK_AVATAR, context);
+			avatar = AsyncImageLoader.getInstance().getAvatar(context, sn, prefAvatar, size);
+		}
+
 		if(null != avatar) {
 			iv.setImageDrawable(avatar);
 		} else {

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+	<RelativeLayout
+		android:id="@+id/mem_info_ac_detail_new_head"
+		android:background="#0a8e55"
+		style="@style/custom_title_style" >
+
+		<ImageView
+			android:id="@+id/mem_info_head_back_image"
+			android:layout_width="50dp"
+			android:padding="15dp"
+			android:layout_height="match_parent"
+			android:src="@drawable/xbtn_back" />
+
+		<TextView
+			android:visibility="gone"
+			android:id="@+id/mem_info_head_nick_text"
+			android:maxLength="8"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/color_title_txt"
+			android:textSize="@dimen/txt_size_m"
+			android:layout_centerInParent="true" />
+
+		<ImageView
+			android:layout_alignParentRight="true"
+			android:id="@+id/mem_info_share_image"
+			android:layout_width="50dp"
+			android:layout_height="match_parent"
+			android:scaleType="fitXY"
+			android:padding="15dp"
+			android:src="@drawable/share_rank" />
+	</RelativeLayout>
+
+	<com.hylg.igolf.ui.widget.ProfileScrollView
+		android:layout_below="@+id/mem_info_ac_detail_new_head"
+		android:id="@+id/rootScrolView"
+		android:scrollbars="none"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+	<LinearLayout
+		android:focusable="true"
+		android:focusableInTouchMode="true"
+		android:descendantFocusability="beforeDescendants"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<!-- 显示头像、姓名、电话、教学诉求，-->
+		<include
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/customer_info_score_linear"
+			layout="@layout/customer_info_head"></include>
+
+		<com.hylg.igolf.ui.view.PagerSlidingTabStrip
+			android:id="@+id/slidingTabs"
+			android:layout_width="match_parent"
+			android:layout_height="40dip"
+			android:background="@drawable/white_bg"
+			app:pstsShouldExpand="true"
+			app:pstsDividerColor="#000"
+			app:pstsIndicatorColor="@color/color_friend_item_praiser_name"
+			app:pstsTabPaddingLeftRight="14dip"
+			app:pstsUnderlineColor="#cbcbcb" />
+
+		<android.support.v4.view.ViewPager
+			android:id="@+id/pager"
+			android:layout_width="match_parent"
+			android:layout_height="200dp"
+			android:background="@color/color_white"/>
+
+		<View
+			android:layout_marginTop="40dp"
+			android:visibility="gone"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></View>
+
+	</LinearLayout>
+	</com.hylg.igolf.ui.widget.ProfileScrollView>
+
+
+	<RelativeLayout
+		android:id="@+id/mem_info_bottem_relative"
+		android:layout_alignParentBottom="true"
+		android:layout_width="match_parent"
+		android:background="@drawable/tabbar_bg"
+		android:layout_height="50dp">
+		<View
+			android:visibility="gone"
+			android:layout_width="match_parent"
+			android:layout_height="1px"
+			android:background="@drawable/divider1" />
+		<LinearLayout
+			android:layout_alignParentBottom="true"
+			android:layout_width="match_parent"
+			android:orientation="horizontal"
+			android:layout_height="match_parent">
+			<TextView
+				android:layout_marginLeft="20dp"
+				android:layout_alignParentLeft="true"
+				android:layout_width="match_parent"
+				android:layout_weight="1"
+				android:drawablePadding="5dp"
+				android:gravity="center_vertical"
+				android:textSize="@dimen/txt_size_m"
+				android:id="@+id/mem_info_invite_golfer_text"
+				android:layout_height="match_parent"
+				android:drawableLeft="@drawable/invit_golfer_icon"
+				android:textColor="@color/gray"
+				android:text="@string/str_golfers_li_invate_btn" />
+
+			<LinearLayout
+				android:visibility="gone"
+				android:id="@+id/mem_info_invite_coach_linear"
+				android:layout_width="match_parent"
+				android:orientation="horizontal"
+				android:layout_weight="1"
+				android:gravity="center"
+				android:layout_height="match_parent">
+
+				<ImageView
+					android:src="@drawable/invit_coach_icon"
+					android:layout_centerVertical="true"
+					android:layout_width="20dp"
+					android:layout_height="20dp" />
+				<TextView
+					android:text="@string/str_coachers_invite_title"
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="20dp"
+					android:drawablePadding="5dp"
+					android:gravity="center_vertical"
+					android:layout_alignParentRight="true"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:textSize="@dimen/txt_size_m"
+					android:textColor="@color/gray"
+					/>
+			</LinearLayout>
+
+			<RelativeLayout
+				android:layout_alignParentBottom="true"
+				android:layout_width="match_parent"
+				android:orientation="horizontal"
+				android:layout_weight="1"
+				android:layout_height="match_parent">
+
+				<ImageView
+					android:layout_centerVertical="true"
+					android:layout_toLeftOf="@+id/mem_info_attention_text"
+					android:layout_width="20dp"
+					android:layout_height="20dp"
+					android:id="@+id/mem_info_attention_image"/>
+				<TextView
+					android:layout_marginLeft="5dp"
+					android:layout_marginRight="20dp"
+					android:drawablePadding="5dp"
+					android:gravity="center_vertical"
+					android:layout_alignParentRight="true"
+					android:layout_width="wrap_content"
+					android:layout_height="match_parent"
+					android:textSize="@dimen/txt_size_m"
+					android:textColor="@color/gray"
+					android:id="@+id/mem_info_attention_text"
+					/>
+			</RelativeLayout>
+		</LinearLayout>
+
+	</RelativeLayout>
+
+	<View
+		android:visibility="gone"
+		android:id="@+id/view_temp"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></View>
+
+
+</RelativeLayout>

@@ -428,7 +428,7 @@ public class PublishManager extends Handler implements PublishQueue.PublishQueue
 									// 开始上传
 									//UploadPictureResultBean resultBean = SinaSDK.getInstance(mAccount.getAdvancedToken()).uploadPicture(file);
 
-									UploadPictureResultBean resultBean = new FriendMessageNewPictureUpload2(path,upload_pic_size).connectUrl();
+									UploadPictureResultBean resultBean = new FriendMessageNewPictureUpload2(path,bean.getTiming(),upload_pic_size).connectUrl();
 
 									if (resultBean != null && resultBean.getPic_id() != null && resultBean.getPic_id().length() > 0) {
 

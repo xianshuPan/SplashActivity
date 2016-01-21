@@ -2,6 +2,7 @@ package com.hylg.igolf;
 
 import android.app.Application;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -79,6 +80,18 @@ public class MainApp extends Application {
     public WeiBoUser getUser () {
 
        return mAccount.getUser();
+    }
+
+    public int getAppVersionCode () {
+
+        int result = 200;
+        try {
+            result = this.getPackageManager().getPackageInfo(this.getPackageName(),0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     private void init() {

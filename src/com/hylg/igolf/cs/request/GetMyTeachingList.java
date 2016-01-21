@@ -72,18 +72,18 @@ public class GetMyTeachingList extends BaseRequest {
 				
 				JSONObject teacherFeeJson = teacherJson.optJSONObject("fee");
 
-				item.appTime = obj.optLong("appTime");
+				//item.appTime = obj.optLong("appTime");
 				item.status = obj.optInt("status");
 				item.coachDate = obj.optString("coachDate");
 				item.times = obj.optInt("times");
-				item.fee = obj.optDouble("fee");
-				item.start_time = obj.optLong("startTime");
-				item.end_time = obj.optLong("endTime");
-				item.pause_time = obj.optLong("pauseTime");
-				item.period_time = obj.optLong("period");
+				//item.fee = obj.optDouble("fee");
+				//item.start_time = obj.optLong("startTime");
+				//item.end_time = obj.optLong("endTime");
+				//item.pause_time = obj.optLong("pauseTime");
+				//item.period_time = obj.optLong("period");
 				item.id = obj.optLong("id");
 				item.msg = obj.optString("msg");
-				item.coachTime = obj.optString("coachTime");
+				//item.coachTime = obj.optString("coachTime");
 				item.status_str = obj.optString("statusStr");
 
 				item.teacher_id = teacherJson.optLong("id");
@@ -93,29 +93,29 @@ public class GetMyTeachingList extends BaseRequest {
 				item.teacher_name = teacher_customer_json.optString("nickname");
 				item.teacher_star = teacherJson.optLong("star");
 				item.teacher_experience = teacherJson.optLong("experience");
-				item.teacher_phone = teacher_customer_json.optLong("phone");
+				//item.teacher_phone = teacher_customer_json.optLong("phone");
 				item.teacher_sex = teacher_customer_json.optInt("sex");
 				item.teacher_price = teacherFeeJson.optDouble("price"); 
 				
-				item.student_id = studentJson.optLong("id");
-				item.student_sn = studentJson.optString("sn");
-				item.student_avatar = studentJson.optString("avatar");
-				item.student_name = studentJson.optString("nickname");
-				item.student_phone = studentJson.optLong("phone");
-				item.student_sex = studentJson.optInt("sex");
+//				item.student_id = studentJson.optLong("id");
+//				item.student_sn = studentJson.optString("sn");
+//				item.student_avatar = studentJson.optString("avatar");
+//				item.student_name = studentJson.optString("nickname");
+//				item.student_phone = studentJson.optLong("phone");
+//				item.student_sex = studentJson.optInt("sex");
 				
 				item.course_id = courseJson.optLong("id");
 				item.course_abbr = courseJson.optString("abbr");
 				item.course_state = courseJson.optString("state");
 
-				item.attention = obj.optInt("attention");
+				//item.attention = obj.optInt("attention");
 
 				if (coachCommentsJsonArray != null && coachCommentsJsonArray.length() > 0) {
 
 					JSONObject commentItem = coachCommentsJsonArray.optJSONObject(0);
 
-					item.comment_star = commentItem.optDouble("star");
-					item.comment_content = commentItem.optString("content");
+					//item.comment_star = commentItem.optDouble("star");
+					//item.comment_content = commentItem.optString("content");
 				}
 
 				if (refuseJson != null) {

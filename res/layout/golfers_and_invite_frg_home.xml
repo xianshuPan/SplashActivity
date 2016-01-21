@@ -1,0 +1,109 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical" >
+    
+    <!--  -->
+    <RelativeLayout 
+        android:id="@+id/golfers_and_invite_title_relative"
+		style="@style/custom_title_style">
+
+			<LinearLayout
+				android:layout_centerInParent="true"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:orientation="horizontal">
+				<TextView
+					android:id="@+id/golfers_and_invite_hall_text"
+					android:focusable="true"
+					android:background="@drawable/golfers_title_back"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:layout_width="80dp"
+					android:layout_height="30dp"
+					android:gravity="center"
+					android:text="@string/str_hall_tab_open"
+					android:singleLine="true"
+					android:ellipsize="end"
+					android:textColor="@drawable/golfers_title_text_color_back"
+					android:textSize="@dimen/txt_size_s"
+					/>
+
+				<TextView
+					android:id="@+id/golfers_and_invite_golfers_text"
+					android:textColor="@drawable/golfers_title_text_color_back"
+					android:background="@drawable/invite_hall_title_back"
+					android:gravity="center"
+					android:paddingLeft="5dp"
+					android:paddingRight="5dp"
+					android:layout_width="80dp"
+					android:layout_height="30dp"
+					android:text="@string/str_golfers_home_title"
+					android:singleLine="true"
+					android:ellipsize="end"
+					android:textSize="@dimen/txt_size_s"
+					 />
+
+			</LinearLayout>
+
+			
+			<ImageView
+			    android:id="@+id/golfers_and_invite_invite_image"
+			    android:layout_width="40dp"
+				android:layout_marginLeft="5dp"
+				android:layout_height="match_parent"
+				android:scaleType="centerInside"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:src="@drawable/invit_golfers"/>
+			
+			<ImageView
+			    android:id="@+id/golfers_and_invite_search_image"
+				android:scaleType="centerInside"
+			    android:layout_centerVertical="true"
+			    android:padding="8dp"
+			    android:layout_width="40dp"
+			    android:layout_height="match_parent"
+			    android:layout_alignParentRight="true"
+			    android:layout_marginRight="5dp"
+				android:visibility="gone"
+			    android:src="@drawable/ic_action_search"/>
+			
+	    </RelativeLayout>
+
+	<com.hylg.igolf.ui.view.PagerSlidingTabStrip
+		android:id="@+id/friend_frg_tab"
+		android:layout_width="match_parent"
+		android:layout_height="40dip"
+		android:layout_below="@+id/golfers_and_invite_title_relative"
+		android:background="@drawable/white_bg"
+		app:pstsShouldExpand="true"
+		app:pstsDividerColor="#000"
+		app:pstsIndicatorColor="@color/color_friend_item_praiser_name"
+		app:pstsTabPaddingLeftRight="14dip"
+		app:pstsUnderlineColor="#cbcbcb" />
+
+	<com.hylg.igolf.ui.view.MyViewPager
+		android:layout_below="@+id/golfers_and_invite_title_relative"
+		android:id="@+id/golfers_and_invite_itemViewPager"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_weight="1" />
+
+	<FrameLayout
+	    android:layout_below="@+id/golfers_and_invite_title_relative"
+	    android:id="@+id/golfers_and_invite_frame"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+
+	<FrameLayout
+		android:visibility="gone"
+		android:id="@+id/golfers_and_invite_search_container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+	
+</RelativeLayout>

@@ -52,7 +52,7 @@ public class XRTextView extends TextView{
         paint1.setAntiAlias(true);  
         paintColor.setAntiAlias(true);  
         paintColor.setTextSize(textSize);  
-        paintColor.setColor(context.getResources().getColor(R.color.color_friend_item_praiser_name));
+        paintColor.setColor(context.getResources().getColor(R.color.color_gold));
         
         
     }  

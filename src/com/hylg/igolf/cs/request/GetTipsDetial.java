@@ -47,6 +47,8 @@ public class GetTipsDetial extends BaseRequest {
 //				failMsg = jo.getString(RET_MSG);
 //				return rn;
 //			}
+
+			failMsg = jo.optString(RET_MSG);
 			
 			DebugTools.getDebug().debug_v("getPraisedTipsInfo", "------->>>>>"+jo);
 			
@@ -73,6 +75,9 @@ public class GetTipsDetial extends BaseRequest {
 				item.attention = obj.optInt("attention");
 				item.praise = obj.optInt("praise");
 				item.releaseTime = obj.optLong("releaseTime");
+
+				item.praiseCount = obj.optInt("praiseAmount");
+				item.commentsCount = obj.optInt("commentsAmount");
 				
 				item.praises = new ArrayList<HashMap<String,String>>();
 				JSONArray praises = obj.optJSONArray("praises");
@@ -106,6 +111,7 @@ public class GetTipsDetial extends BaseRequest {
 					reviewItemHash.put("name", reviewItem.optString("name"));
 					reviewItemHash.put("tosn", reviewItem.optString("tosn"));
 					reviewItemHash.put("toname", reviewItem.optString("toname"));
+					reviewItemHash.put("commentstime", reviewItem.optString("commentstime"));
 					
 					item.comments.add(reviewItemHash);
 					

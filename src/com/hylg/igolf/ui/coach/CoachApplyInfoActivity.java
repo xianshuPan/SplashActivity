@@ -1,6 +1,8 @@
 package com.hylg.igolf.ui.coach;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -10,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -54,6 +57,8 @@ import com.hylg.igolf.ui.common.AgeSelectActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity.onAgeSelectListener;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity;
 import com.hylg.igolf.ui.common.ImageSelectActivity;
+import com.hylg.igolf.ui.common.IndustrySelectActivity;
+import com.hylg.igolf.ui.common.IndustrySelectActivity.onIndustrySelectListener;
 import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
 import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity;
@@ -76,7 +81,8 @@ public class CoachApplyInfoActivity extends Activity implements
 												OnClickListener,onSexSelectListener, 
 												onAgeSelectListener,onYearsExpSelectListener, 
 												onImageSelectListener ,RegionSelectActivity.onRegionSelectListener,
-												CourseAllSelectActivity.onCourseAllSelectListener {
+												CourseAllSelectActivity.onCourseAllSelectListener,
+		onIndustrySelectListener{
 	
 	private static final String 				TAG = "CoachInfoActivity";
 
@@ -90,7 +96,7 @@ public class CoachApplyInfoActivity extends Activity implements
 	private ImageView                           mTitleTipsImage = null;
 	
 	private EditText                            nickNameTxt;
-	private TextView 							ageTxt,sexTxt,regionTxt,placeTxt,teachAgeTxt;
+	private TextView 							ageTxt,sexTxt,ballAgeTxt,customerRegionTxt,indsutryTxt,regionTxt,placeTxt,teachAgeTxt;
 	
 	/*
 	 * 选择业余教练还是职业教练
@@ -140,6 +146,10 @@ public class CoachApplyInfoActivity extends Activity implements
 	
 	private Activity                            mContext;
 
+	private boolean                             isTeachingAgeSelect,isBallAgeSelect,isCustomerRegionSelect,isCourseRegionSelect;
+
+	private  Bitmap avatarBitmap;
+
 	public static void startCoachApplyInfoActivity (Context context) {
 
 		Intent intent1 = new Intent(context, CoachApplyInfoActivity.class);
@@ -177,6 +187,9 @@ public class CoachApplyInfoActivity extends Activity implements
 		nickNameTxt = (EditText) findViewById(R.id.coach_apply_info_name_selection);
 		ageTxt = (TextView) findViewById(R.id.coach_apply_info_age_selection);
 		sexTxt = (TextView) findViewById(R.id.coach_apply_info_sex_selection);
+		ballAgeTxt = (TextView) findViewById(R.id.coach_apply_info_ball_age_selection);
+		customerRegionTxt = (TextView) findViewById(R.id.coach_apply_info_custome_region_selection);
+		indsutryTxt = (TextView) findViewById(R.id.coach_apply_info_industry_selection);
 		mSpecialEdit = (EditText) findViewById(R.id.coach_apply_info_special_edit);
 		placeTxt = (TextView) findViewById(R.id.coach_apply_info_place_selection);
 		regionTxt = (TextView) findViewById(R.id.coach_apply_info_region_selection);
@@ -218,6 +231,9 @@ public class CoachApplyInfoActivity extends Activity implements
 		findViewById(R.id.coach_apply_info_avtar_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_age_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_sex_ll).setOnClickListener(this);
+		findViewById(R.id.coach_apply_info_ball_age_ll).setOnClickListener(this);
+		findViewById(R.id.coach_apply_info_custome_region_ll).setOnClickListener(this);
+		findViewById(R.id.coach_apply_info_industry_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_name_ll).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_hobby_linear).setOnClickListener(this);
 		findViewById(R.id.coach_apply_info_professional_linear).setOnClickListener(this);
@@ -297,7 +313,25 @@ public class CoachApplyInfoActivity extends Activity implements
 				break;
 				
 			case R.id.coach_apply_info_teach_age_ll:
+
+				isTeachingAgeSelect = true;
+				isBallAgeSelect = false;
 				YearsExpSelectActivity.startYearsExpSelect(this, reqParam.teach_age);
+				overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				break;
+
+
+			case R.id.coach_apply_info_ball_age_ll:
+
+				isTeachingAgeSelect = false;
+				isBallAgeSelect = true;
+				YearsExpSelectActivity.startYearsExpSelect(this, reqParam.ball_age);
+				overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				break;
+
+			case R.id.coach_apply_info_industry_ll:
+
+				IndustrySelectActivity.startIndustrySelect(this,true,reqParam.industry);
 				overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 				break;
 
@@ -308,7 +342,16 @@ public class CoachApplyInfoActivity extends Activity implements
 
 			case R.id.coach_apply_info_region_ll:
 
+				isCourseRegionSelect = true;
+				isCustomerRegionSelect = false;
 				RegionSelectActivity.startRegionSelect(mContext, RegionSelectActivity.REGION_TYPE_SELECT_COURSE, reqParam.state);
+				break;
+
+			case R.id.coach_apply_info_custome_region_ll:
+
+				isCourseRegionSelect = false;
+				isCustomerRegionSelect = true;
+				RegionSelectActivity.startRegionSelect(mContext, RegionSelectActivity.REGION_TYPE_SELECT_COURSE, reqParam.customer_region);
 				break;
 				
 			case R.id.coach_apply_info_place_ll:
@@ -585,8 +628,19 @@ public class CoachApplyInfoActivity extends Activity implements
 		
 		//customer.yearsExpStr = String.valueOf(newYearsExp);
 
-		teachAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap), newYearsExp));
-		reqParam.teach_age = newYearsExp;
+
+		if (isTeachingAgeSelect) {
+
+			teachAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap), newYearsExp));
+			reqParam.teach_age = newYearsExp;
+		}
+
+		if (isBallAgeSelect) {
+
+			ballAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap), newYearsExp));
+			reqParam.ball_age = newYearsExp;
+		}
+
 
 	}
 
@@ -596,6 +650,7 @@ public class CoachApplyInfoActivity extends Activity implements
 //		doModifyCustomerInfo(RequestParam.PARAM_REQ_AGE,String.valueOf(newAge),
 //				ageTxt,String.format(getString(R.string.str_account_age_wrap), newAge));
 		//customer.age = String.valueOf(newAge);
+
 		reqParam.age = newAge;
 		ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), newAge));
 	}
@@ -613,14 +668,24 @@ public class CoachApplyInfoActivity extends Activity implements
 	@Override
 	public void onRegionSelect(String newRegion) {
 
-		reqParam.state = newRegion;
-		regionTxt.setText(goGlobalData.getRegionName(newRegion));
-		// 修改地区后，清楚球场信息
-		if(Long.MAX_VALUE != reqParam.courseid) {
+		if (isCourseRegionSelect) {
 
-			reqParam.courseid = -1;
-			placeTxt.setText(R.string.str_comm_unset);
+			reqParam.state = newRegion;
+			regionTxt.setText(goGlobalData.getRegionName(reqParam.state));
+			// 修改地区后，清楚球场信息
+			if(Long.MAX_VALUE != reqParam.courseid) {
+
+				reqParam.courseid = -1;
+				placeTxt.setText(R.string.str_comm_unset);
+			}
 		}
+
+		if (isCustomerRegionSelect) {
+
+			reqParam.customer_region = newRegion;
+			customerRegionTxt.setText(goGlobalData.getRegionName(reqParam.customer_region));
+		}
+
 	}
 
 
@@ -632,6 +697,13 @@ public class CoachApplyInfoActivity extends Activity implements
 		mPlaceName.setText(course.name);
 		mPlaceAddress.setText(course.address);
 	}
+
+	@Override
+	public void onIndustrySelect(String newIndustry) {
+
+		reqParam.industry = newIndustry;
+		indsutryTxt.setText(goGlobalData.getIndustryName(newIndustry));
+	}
 	
 	
 	@Override
@@ -642,7 +714,10 @@ public class CoachApplyInfoActivity extends Activity implements
 
 				if (mCurrentPhotoSelectTypeInt == Const.AVATAR) {
 
-					startPhotoCrop(mUri);
+					//startPhotoCrop(mUri);
+
+					doModifyAvatar(mUri,customer.sn);
+
 				} else {
 
 					doUploadFile(mUri);
@@ -654,7 +729,8 @@ public class CoachApplyInfoActivity extends Activity implements
 			if(RESULT_OK == resultCode && null != intent) {
 				if (mCurrentPhotoSelectTypeInt == Const.AVATAR) {
 
-					startPhotoCrop(intent.getData());
+					//startPhotoCrop(intent.getData());
+					doModifyAvatar(intent.getData(),customer.sn);
 				} else {
 
 					doUploadFile(intent.getData());
@@ -793,7 +869,7 @@ public class CoachApplyInfoActivity extends Activity implements
 		if(!Utils.isConnected(this)){
 			return;
 		}
-		WaitDialog.showWaitDialog(this,R.string.str_loading_modify_msg);
+		WaitDialog.showWaitDialog(this, R.string.str_loading_modify_msg);
 		
 		new AsyncTask<Object, Object, Integer>() {
 			UpdateAvatar request = new UpdateAvatar(mContext, bitmap, sn);
@@ -825,6 +901,79 @@ public class CoachApplyInfoActivity extends Activity implements
 			}
 		}.execute(null, null, null);
 	}
+
+	/*
+	 * 执行修改头像
+	 * */
+	private void doModifyAvatar(final Uri uri, final String sn) {
+
+		try {
+			avatarBitmap = Media.getBitmap(mContext.getContentResolver(), uri);
+
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			avatarBitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+			float zoom = (float)Math.sqrt(128 * 1024 / (float)out.toByteArray().length);
+
+			Matrix matrix = new Matrix();
+			matrix.setScale(zoom, zoom);
+
+			Bitmap result = Bitmap.createBitmap(avatarBitmap, 0, 0, avatarBitmap.getWidth(), avatarBitmap.getHeight(), matrix, true);
+
+			result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+
+			while(out.toByteArray().length > 128 * 1024){
+				System.out.println(out.toByteArray().length);
+				matrix.setScale(0.9f, 0.9f);
+				result = Bitmap.createBitmap(result, 0, 0, result.getWidth(), result.getHeight(), matrix, true);
+				out.reset();
+				result.compress(Bitmap.CompressFormat.JPEG, 85, out);
+			}
+
+			avatarBitmap = result;
+
+
+
+			if(!Utils.isConnected(this)){
+				return;
+			}
+			WaitDialog.showWaitDialog(this,R.string.str_loading_modify_msg);
+
+			new AsyncTask<Object, Object, Integer>() {
+				UpdateAvatar request = new UpdateAvatar(mContext, avatarBitmap, sn);
+				@Override
+				protected Integer doInBackground(Object... params) {
+					return request.connectUrl();
+				}
+				@Override
+				protected void onPostExecute(Integer result) {
+					super.onPostExecute(result);
+					if(BaseRequest.REQ_RET_OK == result) {
+						AsyncImageLoader.getInstance().clearOverDueCache(sn,
+								FileUtils.getAvatarPathBySn(mContext, sn, customer.avatar));
+//					loadNewAvatar(sn);
+						String avatar = request.getImageName();
+						customer.avatar = avatar;
+						SharedPref.setString(SharedPref.SPK_AVATAR, avatar, mContext);
+//					loadAvatar(customer.sn, avatar);//修改成功,重新加载头像,同步客户端内存图片
+						avatarView.setImageBitmap(avatarBitmap);
+						changedFlag = true;
+
+						reqParam.avatar = avatar;
+
+					} else {
+
+						Toast.makeText(mContext,request.getFailMsg(), Toast.LENGTH_SHORT).show();
+					}
+					WaitDialog.dismissWaitDialog();
+				}
+			}.execute(null, null, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+	}
 	
 	/*
 	 * 开启上传图片功能，
@@ -841,7 +990,7 @@ public class CoachApplyInfoActivity extends Activity implements
 		}
 		//WaitDialog.showWaitDialog(this,R.string.str_loading_modify_msg);
 		
-		final String fileName =  "android_"+new Random().nextInt(100000)+ System.currentTimeMillis()+".jpg";
+		final String fileName =  "android_"+customer.sn+"_"+ System.currentTimeMillis()+".jpg";
 		
 		new AsyncTask<Object, Object, Integer>() {
 			UploadImageRequest request = new UploadImageRequest(mContext,uri,type,methodName,bodyName,fileName,okImage,deleteImage,progress,selectedImage) ;
@@ -1003,6 +1152,9 @@ public class CoachApplyInfoActivity extends Activity implements
 						loadAvatar(reqParam.sn, reqParam.avatar);
 
 						sexTxt.setText(goGlobalData.getSexName(reqParam.sex));
+						ballAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap), reqParam.ball_age));
+						customerRegionTxt.setText(goGlobalData.getRegionName(reqParam.customer_region));
+						indsutryTxt.setText(goGlobalData.getIndustryName(reqParam.industry));
 						ageTxt.setText(reqParam.age_str);
 						nickNameTxt.setText(reqParam.name);
 						placeTxt.setText(reqParam.course_abbr);
@@ -1234,5 +1386,6 @@ public class CoachApplyInfoActivity extends Activity implements
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+
 
 }

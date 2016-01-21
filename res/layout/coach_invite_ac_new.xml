@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@color/gray_e8e8e8"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+		android:id="@+id/coach_invite_head_relative"
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/coach_invite_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_coachers_invite_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <ScrollView
+
+		android:layout_marginBottom="80dp"
+		android:layout_below="@+id/coach_invite_head_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+		android:id="@+id/scrollView">
+		<RelativeLayout
+
+			android:focusable="true"
+			android:focusableInTouchMode="true"
+			android:descendantFocusability="beforeDescendants"
+			android:background="@color/gray_e8e8e8"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="20dp"
+			android:layout_marginRight="20dp"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:orientation="vertical">
+			
+
+		    <!-- 显示头像、姓名、电话、教学诉求，-->
+			    
+			<LinearLayout
+				android:paddingTop="10dp"
+			    android:background="@drawable/coach_invite_head_bg"
+				android:gravity="center_horizontal"
+				android:layout_centerHorizontal="true"
+				android:id="@+id/coach_invite_avatar_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+			        
+				<com.hylg.igolf.ui.view.CircleImageView
+			            android:layout_marginTop="10dp"
+            			android:id="@+id/coach_invite_avatar_image"
+            			android:layout_width="60dp"
+            			android:layout_height="60dp"
+            			android:src="@drawable/avatar_null" />
+
+				<LinearLayout
+					android:gravity="center_vertical"
+					android:layout_marginTop="5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal">
+			         <TextView
+			             android:id="@+id/coach_invite_name_text"
+			             android:layout_width="wrap_content"
+			             android:layout_height="wrap_content"
+			             android:text="夏日蝉鸣"
+						 android:textSize="@dimen/txt_size_ml"
+			             android:textColor="@color/color_hint_txt"/>
+
+					<ImageView
+						android:id="@+id/coach_invite_sex_image"
+						android:layout_marginLeft="5dp"
+						android:src="@drawable/man"
+						android:layout_width="10dp"
+						android:layout_height="15dp" />
+				</LinearLayout>
+			         
+					<RatingBar 
+					    android:layout_marginTop="5dp"
+				        android:layout_width="wrap_content"
+				        android:layout_height="14dp"
+				        android:rating="3.5"
+				        android:numStars="5"
+				        android:stepSize="0.5"
+				        style="@style/myratingbar"
+				        android:isIndicator="true"
+				        android:id="@+id/coach_invite_rating"/>
+					<LinearLayout 
+					    android:layout_marginTop="5dp"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:orientation="horizontal">
+						<TextView
+							android:textColor="@color/color_hint_txt"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="@string/str_coachers_teach_time"/>
+						<TextView
+							android:id="@+id/coach_invite_yearsexp_text"
+							android:textColor="@color/color_hint_txt"
+							android:layout_marginLeft="2dp"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="5"/>
+					    <TextView
+							android:layout_marginLeft="20dp"
+			             android:textColor="@color/color_hint_txt"
+			             android:id="@+id/coach_invite_teaching_time_text"
+			             android:layout_width="wrap_content"
+			             android:layout_height="wrap_content"
+			             android:text="5"/>
+					    <TextView
+							android:textColor="@color/color_hint_txt"
+			             android:layout_marginLeft="2dp"
+			             android:layout_width="wrap_content"
+			             android:layout_height="wrap_content"
+			             android:text="次教学"/>
+					    
+					</LinearLayout>
+
+			        			        
+			    </LinearLayout>
+			    
+			
+			<!-- 约球的时间、地方、球场、学时等 -->
+
+		    <LinearLayout
+
+		        android:id="@+id/coach_invite_other_linear"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:layout_below="@+id/coach_invite_avatar_linear"
+		        android:background="@color/color_white"
+		        android:orientation="vertical" >
+
+		        <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content" >
+
+		            <TextView
+		                android:id="@+id/coach_invite_date_title_text"
+		                style="@style/invite_coach_pre_txt_style"
+		                android:text="@string/str_coach_invite_comm_date" />
+
+		            <TextView
+						android:drawableBottom="@drawable/divider1"
+						android:layout_toLeftOf="@+id/coach_invite_date_end_text"
+		                android:id="@+id/coach_invite_date_text"
+		                style="@style/invite_coach_content_txt_style"
+		                android:layout_toRightOf="@id/coach_invite_date_title_text"
+		                android:text="@string/str_comm_unset" />
+
+					<TextView
+						android:layout_alignParentRight="true"
+						android:id="@+id/coach_invite_date_end_text"
+						style="@style/invite_coach_end_txt_style"
+						android:text="@string/str_coach_invite_comm_date_end" />
+		        </RelativeLayout>
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<TextView
+						android:id="@+id/coach_invite_time_title_text"
+						style="@style/invite_coach_pre_txt_style"
+						android:text="@string/str_coach_invite_comm_time" />
+
+					<TextView
+						android:drawableBottom="@drawable/divider1"
+						android:layout_toLeftOf="@+id/coach_invite_time_end_text"
+						android:id="@+id/coach_invite_time_text"
+						style="@style/invite_coach_content_txt_style"
+						android:layout_toRightOf="@id/coach_invite_time_title_text"
+						android:text="@string/str_comm_unset" />
+
+					<TextView
+						android:layout_alignParentRight="true"
+						android:id="@+id/coach_invite_time_end_text"
+						style="@style/invite_coach_end_txt_style"
+						android:text="@string/str_coach_invite_comm_time_end" />
+				</RelativeLayout>
+
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<TextView
+						android:id="@+id/coach_invite_teaching_hour_title_text"
+						style="@style/invite_coach_pre_txt_style"
+						android:text="@string/str_coach_invite_comm_teaching_hour" />
+
+					<TextView
+						android:drawableBottom="@drawable/divider1"
+						android:layout_toLeftOf="@+id/coach_invite_teaching_hour_end_text"
+						android:id="@+id/coach_invite_teaching_hour_text"
+						style="@style/invite_coach_content_txt_style"
+						android:layout_toRightOf="@id/coach_invite_teaching_hour_title_text"
+						android:text="@string/str_comm_unset" />
+
+					<TextView
+						android:layout_alignParentRight="true"
+						android:id="@+id/coach_invite_teaching_hour_end_text"
+						style="@style/invite_coach_end_txt_style"
+						android:text="@string/str_coach_invite_comm_teaching_hour_end" />
+				</RelativeLayout>
+
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<TextView
+						android:id="@+id/coach_invite_region_title_text"
+						style="@style/invite_coach_pre_txt_style"
+						android:text="@string/str_coach_invite_comm_region" />
+
+					<TextView
+						android:drawableBottom="@drawable/divider1"
+						android:layout_toLeftOf="@+id/coach_invite_region_end_text"
+						android:id="@+id/coach_invite_region_text"
+						style="@style/invite_coach_content_txt_style"
+						android:layout_toRightOf="@id/coach_invite_region_title_text"
+						android:text="@string/str_comm_unset" />
+
+					<TextView
+						android:layout_alignParentRight="true"
+						android:id="@+id/coach_invite_region_end_text"
+						style="@style/invite_coach_end_txt_style"
+						android:text="@string/str_coach_invite_comm_region_end" />
+				</RelativeLayout>
+
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<TextView
+						android:textColor="@color/green_5fb64e"
+						android:drawableBottom="@drawable/divider1"
+						android:layout_toLeftOf="@+id/coach_invite_place_end_text"
+						android:id="@+id/coach_invite_place_text"
+						style="@style/invite_coach_pre_txt_style"
+						android:text="@string/str_comm_unset" />
+
+					<TextView
+						android:layout_alignParentRight="true"
+						android:id="@+id/coach_invite_place_end_text"
+						style="@style/invite_coach_end_txt_style"
+						android:text="@string/str_coach_invite_comm_place_end" />
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:id="@+id/coach_invite_pin_relative"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/reg_item_height" >
+
+					<TextView
+						android:id="@+id/coach_invite_pin_title_text"
+						style="@style/invite_coach_pre_txt_style"
+						android:text="是否同意拼单"
+						/>
+					<ImageView
+						android:padding="2dp"
+						android:layout_marginLeft="10dp"
+						android:layout_toRightOf="@+id/coach_invite_pin_title_text"
+						android:layout_alignParentBottom="true"
+						android:layout_width="20dp"
+						android:src="@drawable/coach_invite_pin_back"
+						android:layout_height="20dp" />
+				</RelativeLayout>
+
+
+				<TextView
+					android:layout_marginTop="30dp"
+					android:layout_marginRight="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="@color/color_hint_txt"
+					android:textSize="@dimen/txt_size_ml"
+					android:text="给教练捎个信，提高成功几率"/>
+		        <EditText
+		            android:id="@+id/coach_invite_question_edit"
+		            android:layout_width="match_parent"
+		            android:layout_height="80dp"
+		            android:layout_marginLeft="20dp"
+					android:layout_marginRight="20dp"
+					android:layout_marginTop="5dp"
+		            android:background="@drawable/frame_bkg"
+		            android:gravity="top"
+					android:textColor="@color/gray_999999"
+		            android:text="请教练指教"
+					android:maxLength="@integer/edit_max_length"
+		            android:padding="5dp" >
+		            <requestFocus />
+		        </EditText>
+
+
+				<TextView
+					android:layout_marginTop="20dp"
+					android:layout_marginRight="20dp"
+					android:layout_marginLeft="20dp"
+					android:drawableLeft="@drawable/warning"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray_999999"
+					android:text="温馨提示:"/>
+				<TextView
+					android:layout_marginTop="5dp"
+					android:layout_marginRight="20dp"
+					android:layout_marginLeft="20dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray_999999"
+					android:lineSpacingExtra="1dp"
+					android:text="1.学员与教练在教练在球场打球所产生的费用由各自支付。\n2.建议您提前购置高尔夫手套和至少一只练习杆，以免在球场租赁时产生额外的费用。"/>
+
+		        <View
+					android:layout_marginTop="20dp"
+		            android:layout_width="match_parent"
+		            android:layout_height="1px"
+		             />
+		    </LinearLayout>
+
+
+		</RelativeLayout>
+	</ScrollView>
+
+	<RelativeLayout
+		android:id="@+id/coach_invite_commit_relative"
+		android:background="@drawable/tabbar_bg"
+		android:layout_alignParentBottom="true"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:layout_centerInParent="true"
+			android:layout_margin="20dp"
+			android:textSize="@dimen/txt_title_size"
+			android:id="@+id/coach_invite_commit_text"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:text="@string/str_coachers_invite_title"
+			android:textColor="@color/color_white"
+			android:padding="5dp"
+			android:gravity="center"
+			android:background="@drawable/attented_color"/>
+	</RelativeLayout>
+
+</RelativeLayout>

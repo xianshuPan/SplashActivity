@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+    <RelativeLayout
+        android:id="@+id/invite_list_open_item_avatar_relative"
+        android:layout_width="match_parent"
+        android:background="@drawable/pin_dan_item_bg"
+        android:layout_height="155dp">
+
+
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/invite_list_open_item_avatar_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textSize="@dimen/txt_size_ml"
+                android:id="@+id/pin_dan_item_course"
+                android:drawableLeft="@drawable/location_gray_icon"
+                android:maxLines="2"
+                style="@style/invite_open_li_txt_style" />
+
+            <TextView
+                android:textSize="@dimen/txt_size_ml"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                    android:layout_below="@id/pin_dan_item_course"
+                    android:id="@+id/pin_dan_item_teetime"
+                    android:drawableLeft="@drawable/time_icon"
+                    style="@style/invite_open_li_txt_style" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/pin_dan_item_teetime">
+
+                <TextView
+                    android:textSize="@dimen/txt_size_ml"
+                    android:text="@string/str_coachers_apply_order_teach_time"
+                    style="@style/invite_open_li_txt_style" />
+                <TextView
+                    android:textSize="@dimen/txt_size_ml"
+                    android:id="@+id/pin_dan_item_teaching_hours"
+                    android:text="2"
+                    style="@style/invite_open_li_txt_style" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="6dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="80dp"
+            android:background="#f5f5f5"
+            android:id="@+id/invite_list_open_item_avatar_linear"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:scaleType="fitXY"
+                android:id="@+id/pin_dan_item_badge_image"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:src="@drawable/pin_dan_refer"/>
+
+            <com.hylg.igolf.ui.view.CircleImageView
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/pin_dan_coach_name_text"
+                android:src="@drawable/avatar_no_golfer"
+                android:id="@+id/pin_dan_coach_avatar_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <ImageView
+                android:layout_marginLeft="-2dp"
+                android:layout_toRightOf="@+id/pin_dan_coach_avatar_image"
+                android:layout_above="@+id/pin_dan_coach_name_text"
+                android:src="@drawable/pin_dan_coach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_above="@+id/pin_dan_item_seper_image"
+                android:id="@+id/pin_dan_coach_name_text"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/invite_item_txt_pad"
+                android:textColor="@color/color_hint_txt"
+                android:textSize="@dimen/txt_size_s" />
+
+
+            <ImageView
+                android:layout_margin="5dp"
+                android:scaleType="fitXY"
+                android:id="@+id/pin_dan_item_seper_image"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:src="@drawable/pin_dan_seper_line"/>
+
+            <com.hylg.igolf.ui.view.CircleImageView
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/pin_dan_item_seper_image"
+                android:src="@drawable/avatar_no_golfer"
+                android:id="@+id/pin_dan_student_avatar_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
+
+            <TextView
+
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_below="@+id/pin_dan_student_avatar_image"
+                android:id="@+id/pin_dan_student_name_text"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/invite_item_txt_pad"
+                android:textColor="@color/color_hint_txt"
+                android:textSize="@dimen/txt_size_s" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

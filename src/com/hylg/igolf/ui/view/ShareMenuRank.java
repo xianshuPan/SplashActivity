@@ -20,6 +20,8 @@ import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.utils.Base64;
+import com.hylg.igolf.utils.DownLoadImageTool;
+import com.hylg.igolf.utils.Utils;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
@@ -72,7 +74,8 @@ public class ShareMenuRank implements OnClickListener {
 
 	private Bitmap 							bitmap = null;
 
-	private String                          imageUrl = "http://121.199.22.44:8080/gams/person/common/about_logo.png";
+	//private String                          imageUrl = "http://121.199.22.44:8080/gams/person/common/about_logo.png";
+	private String                          imageUrl = "";
 
 	private String                          targetUrl = "";
 
@@ -89,6 +92,7 @@ public class ShareMenuRank implements OnClickListener {
 		String param= "location="+location+"&sn="+MainApp.getInstance().getCustomer().sn+"&sex="+sex+"&type="+0+"&pageSize="+15+"&pageNum="+1;
 		
 		DebugTools.getDebug().debug_v("getShareURL", "----->>>>"+param);
+		imageUrl = Utils.getAvatarURLString(MainApp.getInstance().getCustomer().sn);
 		
 		try {
 			targetUrl = BaseRequest.SERVER_PATH+"share/shareRangeInfo?param="+URLEncoder.encode(Base64.encode(param.getBytes()),HTTP.UTF_8);
@@ -382,8 +386,13 @@ public class ShareMenuRank implements OnClickListener {
     
     private void getBitmap () {
 
+		//bitmap = DownLoadImageTool.getInstance(mContext).loadImage(imageUrl, 60);
 
-		bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.about_logo);
+		//if (bitmap == null) {
+
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logo_green);
+		//}
+
     	
     }
 }

@@ -23,7 +23,6 @@ public class CoachComplainOrRefuseList extends BaseRequest {
 		super(context);
 		StringBuilder s = new StringBuilder();
 		s.append("customer_id"); s.append(KV_CONN); s.append(id);
-		
 		param = s.toString();
 		
 		list = new ArrayList<HashMap<String,String>>();

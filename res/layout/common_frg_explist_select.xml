@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@drawable/alpha_bg"
+	android:id="@+id/comm_dialog_bg"
+    android:orientation="vertical">
+
+	<RelativeLayout
+		android:layout_marginBottom="100dp"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		android:clickable="true">
+		<LinearLayout
+
+			android:layout_above="@+id/sex_select_linear"
+			android:background="#eeeded"
+			android:id="@+id/comm_dialog_content_all"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			>
+			<ListView
+				android:background="@color/color_white"
+				android:layout_weight="2"
+				android:id="@+id/comm_dialog_list"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:scrollbars="vertical"
+				android:divider="@color/color_div_line"
+				android:listSelector="@drawable/filter_region_color_back"
+				android:dividerHeight="@dimen/div_line_width" />
+
+			<ListView
+				android:background="#eeeded"
+				android:layout_weight="1"
+				android:id="@+id/comm_dialog_list1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:scrollbars="vertical"
+				android:scrollbarStyle="outsideInset"
+				android:divider="@color/color_div_line"
+				android:dividerHeight="@dimen/div_line_width"
+				android:cacheColorHint="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:visibility="gone"
+			android:background="#eeeded"
+			android:paddingTop="1dp"
+			android:layout_above="@+id/comm_dialog_btn_bottom"
+			android:id="@+id/sex_select_linear"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:gravity="center_vertical"
+			android:orientation="horizontal">
+
+			<TextView
+				android:layout_weight="1"
+				android:layout_marginLeft="10dp"
+				android:textColor="@color/gray"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/str_dialog_select_title_sex"/>
+
+			<ListView
+				android:visibility="gone"
+				android:background="#eeeded"
+				android:layout_weight="1"
+				android:id="@+id/comm_dialog_list_sex"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:scrollbars="vertical"
+				android:scrollbarStyle="outsideInset"
+				android:divider="@color/color_div_line"
+				android:dividerHeight="@dimen/div_line_width"
+				android:cacheColorHint="@android:color/transparent"
+				android:fadingEdge="none"
+				android:drawSelectorOnTop="false" />
+
+			<LinearLayout
+				android:layout_weight="1"
+				android:id="@+id/sex_no_select_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray"
+					android:text="@string/str_no_select"/>
+
+				<ImageView
+					android:visibility="gone"
+					android:src="@drawable/selected_v"
+					android:layout_marginLeft="20dp"
+					android:id="@+id/sex_no_select_image"
+					android:layout_width="20dp"
+					android:layout_height="20dp" />
+
+
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_weight="1"
+				android:id="@+id/man_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray"
+					android:drawablePadding="5dp"
+					android:text="@string/str_comm_sex_man"/>
+
+				<ImageView
+					android:visibility="gone"
+					android:src="@drawable/selected_v"
+					android:layout_marginLeft="20dp"
+					android:id="@+id/man_select_image"
+					android:layout_width="20dp"
+					android:layout_height="20dp" />
+
+
+			</LinearLayout>
+
+
+			<LinearLayout
+				android:layout_weight="1"
+				android:id="@+id/woman_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:gravity="center">
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@color/gray"
+					android:drawablePadding="5dp"
+					android:text="@string/str_comm_sex_woman"/>
+
+				<ImageView
+					android:visibility="gone"
+					android:src="@drawable/selected_v"
+					android:layout_marginLeft="20dp"
+					android:id="@+id/woman_select_image"
+					android:layout_width="20dp"
+					android:layout_height="20dp" />
+
+
+			</LinearLayout>
+
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_alignParentBottom="true"
+			android:id="@+id/comm_dialog_btn_bottom"
+			android:background="#eeeded"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center">
+		<Button
+			android:layout_weight="1"
+			android:background="@color/color_white"
+			android:id="@+id/comm_dialog_btn_cancel"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minHeight="@dimen/custom_ad_btn_height"
+			android:text="@android:string/cancel"
+			android:padding="8dip"
+			android:textSize="@dimen/txt_size_m"
+			android:textColor="@android:color/holo_blue_light" />
+
+		<Button
+			android:visibility="gone"
+			android:layout_marginLeft="1px"
+			android:layout_weight="1"
+			android:background="@color/color_white"
+			android:id="@+id/comm_dialog_btn_ok"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:minHeight="@dimen/custom_ad_btn_height"
+			android:text="@android:string/ok"
+			android:padding="8dip"
+			android:textSize="@dimen/txt_size_m"
+			android:textColor="@android:color/holo_blue_light" />
+
+		</LinearLayout>
+
+	</RelativeLayout>
+</LinearLayout>

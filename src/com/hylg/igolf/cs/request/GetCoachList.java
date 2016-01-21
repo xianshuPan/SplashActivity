@@ -95,6 +95,7 @@ public class GetCoachList extends BaseRequest {
 				item.nickname = customerJson.optString("nickname");
 				item.avatar = customerJson.optString("avatar");
 				item.sex = customerJson.optInt("sex");
+				item.city = customerJson.optString("city");
 				
 				item.teachTimes = obj.optInt("experience");
 				item.teachYear = obj.optInt("teaching_age");

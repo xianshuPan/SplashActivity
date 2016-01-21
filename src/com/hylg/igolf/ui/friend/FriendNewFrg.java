@@ -14,7 +14,6 @@ import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.EhecdListview.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.EhecdListview.OnRefreshListener;
 import com.hylg.igolf.ui.view.LoadFail;
-import com.hylg.igolf.ui.view.RefreshView;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
@@ -29,7 +28,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -55,7 +53,7 @@ public class FriendNewFrg extends Fragment {
 //	private RefreshView					mRefreshView                = null;
 	
 	private EhecdListview               mRefreshView                = null;
-	private FriendCircleAdapter			mFriendHotAdapter			= null;
+	private FriendCircleAdapter mFriendHotAdapter			= null;
 	
 	private GetFriendHotListLoader 		reqLoader 					= null;
 	private LoadFail 					loadFail;
@@ -177,6 +175,8 @@ public class FriendNewFrg extends Fragment {
 			mFriendHotAdapter.appendFriendHotItem(Config.mFriendMessageNewItem);
 			
 		}
+
+		refreshData();
 		
 		super.onResume();
 	}

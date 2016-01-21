@@ -35,12 +35,10 @@ import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.GetSelfInfo;
 import com.hylg.igolf.cs.request.ReturnCode;
 import com.hylg.igolf.ui.coach.CoachApplyInfoActivity;
-import com.hylg.igolf.ui.coach.CoachMyTeachingActivity;
 import com.hylg.igolf.ui.common.AlbumPagerActivity.OnAlbumSetAvatarListener;
 import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
 import com.hylg.igolf.ui.friend.publish.PublishBean;
 import com.hylg.igolf.ui.friend.publish.PublishDB;
-import com.hylg.igolf.ui.friend.publish.SinaDB;
 import com.hylg.igolf.ui.friend.publish.TaskException;
 import com.hylg.igolf.ui.friend.publish.WorkTask;
 import com.hylg.igolf.ui.hall.HallMyInvitesActivity;
@@ -49,6 +47,7 @@ import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -67,7 +66,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 	//private TextView signatureTxtExpand;
 	private Customer 							customer;
 	
-	private ImageView 							customerAvatar,shareImage,settingImage,sexImage;//sex,addAlbumView;
+	private ImageView 							msgHint,customerAvatar,shareImage,settingImage,sexImage;//sex,addAlbumView;
 	//private View addAlbumSpace;
 	private TextView 							nickName,location,yearsExp,handicapi,best,matches,heat,rank,act;
 
@@ -113,42 +112,18 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		sexImage = (ImageView) view.findViewById(R.id.customer_info_sex_image);
 
 		nickName = (TextView) view.findViewById(R.id.customer_info_name_text);
-		nickName.setText(customer.nickname);
-		
 		handicapi = (TextView) view.findViewById(R.id.customer_info_handicapi_txt);
-		handicapi.setText(Utils.getDoubleString(getActivity(), customer.handicapIndex));
 		best = (TextView) view.findViewById(R.id.customer_info_best_txt);
-		best.setText(Utils.getIntString(getActivity(), customer.best));
 		matches = (TextView) view.findViewById(R.id.customer_info_matches_txt);
-		matches.setText(String.valueOf(customer.matches));
-		
 		/**/
 		yearsExp = (TextView) view.findViewById(R.id.customer_info_yearsexp_txt);
-		yearsExp.setText(customer.yearsExpStr+getResources().getString(R.string.str_year));
 		rank = (TextView) view.findViewById(R.id.customer_info_cityrank_txt);
-		rank.setText(Utils.getCityRankString(getActivity(), customer.rank));
 		heat = (TextView) view.findViewById(R.id.customer_info_heat_txt);
-		heat.setText(String.valueOf(customer.heat));
 		act = (TextView) view.findViewById(R.id.customer_info_activity_txt);
-		act.setText(String.valueOf(customer.activity));
 		location = (TextView) view.findViewById(R.id.customer_info_location_txt);
-		location.setText(MainApp.getInstance().getGlobalData().getRegionName(customer.city));
 		customerAvatar = (ImageView) view.findViewById(R.id.customer_info_avatar_image);
-
+		msgHint = (ImageView) view.findViewById(R.id.customer_info_my_message_hint);
 		sexImage = (ImageView) view.findViewById(R.id.customer_info_sex_image);
-
-		if (customer.sex == 0) {
-
-			sexImage.setImageResource(R.drawable.man);
-		} else {
-
-			sexImage.setImageResource(R.drawable.woman);
-		}
-		
-		/*加载头像*/
-		loadAvatar(customer.sn, customer.avatar, customerAvatar);
-		
-		DebugTools.getDebug().debug_v("customer.avatar", "---->>>>" + customer.avatar);
 
 		mMyTipsTxt = (TextView) view.findViewById(R.id.customer_info_my_tips_content_text);
 		mMyInviteTxt = (TextView) view.findViewById(R.id.customer_info_my_invite_content_text);
@@ -178,9 +153,38 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		mPraiseLinear.setOnClickListener(this);
 		mFollowerLinear.setOnClickListener(this);
 		mAttentionLinear.setOnClickListener(this);
+
+		updateUiValue();
         
        // mFriendHotAdapter = new FriendHotAdapter();
 		return view;
+	}
+
+	private void updateUiValue() {
+
+		nickName.setText(customer.nickname);
+		best.setText(Utils.getIntString(getActivity(), customer.best));
+		matches.setText(String.valueOf(customer.matches));
+		handicapi.setText(Utils.getDoubleString(getActivity(), customer.handicapIndex));
+		yearsExp.setText(customer.yearsExpStr+getResources().getString(R.string.str_year));
+		rank.setText(Utils.getCityRankString(getActivity(), customer.rank));
+		heat.setText(String.valueOf(customer.heat));
+		act.setText(String.valueOf(customer.activity));
+		location.setText(MainApp.getInstance().getGlobalData().getRegionName(customer.city));
+
+		if (customer.sex == 0) {
+
+			sexImage.setImageResource(R.drawable.man);
+		} else {
+
+			sexImage.setImageResource(R.drawable.woman);
+		}
+		/*加载头像*/
+		//Utils.loadAvatar(getActivity(),customer.sn, customerAvatar);
+
+		loadAvatar(customer.sn,customer.sn+".jpg",customerAvatar);
+
+		DebugTools.getDebug().debug_v("customer.avatar", "---->>>>" + customer.avatar);
 	}
 	
 	@Override
@@ -191,12 +195,13 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		/*是否显示msg 的*/
 		if(MainApp.getInstance().getGlobalData().msgNumSys == 0){
 			
-			//Utils.setGone(msgAlertIv);
-			//msgAlertIv.setVisibility(View.GONE);
+			Utils.setGone(msgHint);
+			mMyMessageTxt.setText("");
+
 		} else {
 			
-			//Utils.setVisible(msgAlertIv);
-			//msgAlertIv.setVisibility(View.VISIBLE);
+			Utils.setVisible(msgHint);
+			mMyMessageTxt.setText(String.valueOf(MainApp.getInstance().getGlobalData().msgNumSys));
 		}
 
 		getMember();
@@ -277,12 +282,8 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 			public void callBack(int retId, String msg, Member member,CoachItem coach_item) {
 				switch (retId) {
 					case ReturnCode.REQ_RET_OK:
-						handicapi.setText(Utils.getDoubleString(getActivity(), customer.handicapIndex));
-						best.setText(Utils.getIntString(getActivity(), customer.best));
-						heat.setText(String.valueOf(customer.heat));
-						rank.setText(Utils.getCityRankString(getActivity(), customer.rank));
-						act.setText(String.valueOf(customer.activity));
-						matches.setText(String.valueOf(customer.matches));
+
+						updateUiValue();
 
 						if (coach_item == null) {
 
@@ -387,6 +388,8 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 						@Override
 						public void imageLoaded(Drawable imageDrawable) {
 							if (null != imageDrawable && null != iv) {
+
+								FadeInBitmapDisplayer.animate(iv, 500);
 								iv.setImageDrawable(imageDrawable);
 							}
 						}
@@ -410,6 +413,11 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 
 				MyTipsActivity.startMyTipsActivity(this);
 
+//				Uri smsToUri = Uri.parse("smsto:15295990599;13408458008");
+//				Intent mIntent = new Intent( android.content.Intent.ACTION_SENDTO, smsToUri );
+//				mIntent.putExtra("sms_body", "大家一起来使用爱高尔夫");
+//				startActivity( mIntent );
+
 				break;
 
 			case R.id.customer_info_my_invite_content_text:
@@ -427,9 +435,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 
 			case R.id.customer_info_my_teaching_content_text:
 
-				Intent intent2 = new Intent(getActivity(), CoachMyTeachingActivity.class);
-				startActivity(intent2);
-				getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				MyTeachingHomeActivity.startCoachMyTeachingHomeActivity(getActivity());
 
 				break;
 

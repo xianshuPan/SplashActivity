@@ -117,7 +117,7 @@
 		android:layout_marginLeft="10dp"
 		android:dividerHeight="1px"
 	    android:id="@+id/golfers_listview"
-	   style="@style/listview_style"  />
+	    style="@style/listview_style"  />
 
 	<include
 		android:layout_marginTop="1px"

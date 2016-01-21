@@ -2,6 +2,7 @@ package com.hylg.igolf.ui.common;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -54,7 +55,7 @@ public class RegionAndSexSelectFragment extends Fragment {
 
 	private static Fragment from ;
 
-	private int select_parent_position;
+	private int select_parent_position,select_child_position;
 
 	private boolean parent_item_click = false;
 
@@ -94,8 +95,9 @@ public class RegionAndSexSelectFragment extends Fragment {
 
 		View view = inflater.inflate(R.layout.common_frg_explist_select,null);
 
-		getViews(view);
 		getDataFrom();
+		getViews(view);
+
 
 
 		return view;
@@ -110,8 +112,6 @@ public class RegionAndSexSelectFragment extends Fragment {
 			curTypeProvince = curCityType.substring(0,7);
 		}
 		curSexType = getArguments().getInt(BUNDLE_CURR_SEX_TYPE);
-
-		checkSexSelect();
 
 	}
 	
@@ -240,6 +240,8 @@ public class RegionAndSexSelectFragment extends Fragment {
 				finish();
 			}
 		});
+
+		checkSexSelect();
 	}
 
 	private void checkSexSelect() {
@@ -282,6 +284,25 @@ public class RegionAndSexSelectFragment extends Fragment {
 		public LabelAdapter() {
 			gd = MainApp.getInstance().getGlobalData();
 			filters = getData () ;
+
+			if (filters != null && filters.size() > 0) {
+
+				for (int i = 0; i < filters.size(); i++) {
+
+					String key = filters.get(i).get(0).dictKey;
+					if (curTypeProvince.equalsIgnoreCase(key) && !parent_item_click) {
+
+						select_parent_position = i;
+						Message msg = mHandler.obtainMessage();
+						msg.what = 1;
+						mHandler.sendMessage(msg);
+						return;
+//						LabelAdapter1 adapter1 = new LabelAdapter1(select_parent_position);
+//						lv1.setAdapter(adapter1);
+					}
+
+				}
+			}
 		}
 		
 		@Override
@@ -365,6 +386,26 @@ public class RegionAndSexSelectFragment extends Fragment {
 		public LabelAdapter1(int index) {
 
 			parent_index = index;
+
+			if (filters.get(parent_index) != null && filters.get(parent_index).size() > 0) {
+
+				for (int i = 0;i < filters.get(parent_index).size(); i++) {
+
+					String key = filters.get(parent_index).get(i).dictKey;
+
+					if (curCityType.equalsIgnoreCase(key)) {
+
+						select_child_position = i;
+
+						Message msg = mHandler.obtainMessage();
+						msg.what = 2;
+						mHandler.sendMessage(msg);
+						return;
+					}
+
+				}
+
+			}
 		}
 
 		@Override
@@ -523,5 +564,28 @@ public class RegionAndSexSelectFragment extends Fragment {
 	public interface onRegionAndSexSelectListener {
 		void onRegionAndSexSelect(String newRegion,int newSex);
 	}
+
+	public android.os.Handler mHandler = new android.os.Handler(){
+
+		@Override
+		public void handleMessage(Message msg) {
+
+			if (msg.what == 1) {
+
+				LabelAdapter1 adapter1 = new LabelAdapter1(select_parent_position);
+				lv1.setAdapter(adapter1);
+
+				lv.smoothScrollToPosition(select_parent_position);
+
+			}
+
+			if (msg.what == 2) {
+
+				lv1.smoothScrollToPosition(select_child_position);
+
+			}
+
+		}
+	};
 
 }

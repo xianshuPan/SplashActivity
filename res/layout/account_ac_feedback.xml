@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="#e8e8e8"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+		android:id="@+id/account_ac_agreement_head_relative"
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/account_ac_feedback_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_feedback"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+
+		<TextView
+			android:paddingLeft="10dp"
+			android:paddingRight="10dp"
+			android:id="@+id/account_ac_feedback_commit_text"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:gravity="center"
+			android:text="@string/str_friend_comments_add"
+			android:textColor="@color/color_title_txt"
+			android:textSize="@dimen/txt_title_size"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+	<TextView
+		android:layout_marginRight="20dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginTop="40dp"
+		android:text="@string/str_feedback_tips"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:drawablePadding="3dip"
+		android:layout_gravity="center_horizontal"
+		android:gravity="center_vertical"
+		android:textColor="#758791"
+		android:lineSpacingExtra="5dp"
+		android:textSize="@dimen/txt_hint_size" />
+	<EditText
+		android:layout_margin="20dp"
+		android:hint="@string/str_feedback_hint"
+		android:textColorHint="#999999"
+		android:background="@drawable/fight_item_bg"
+		android:id="@+id/account_ac_feedback_edit"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:padding="5dip"
+		android:layout_gravity="center_horizontal"
+		android:gravity="top"
+		android:textColor="@color/color_hint_txt"
+		android:textSize="@dimen/txt_hint_size" />
+	
+</LinearLayout>

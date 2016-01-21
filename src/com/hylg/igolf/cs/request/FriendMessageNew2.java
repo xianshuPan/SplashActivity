@@ -7,6 +7,8 @@ import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.cs.data.RivalData;
 import com.hylg.igolf.imagepicker.Config;
 import com.hylg.igolf.ui.friend.publish.PublishBean;
+import com.hylg.igolf.utils.Base64;
+import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 
 import org.apache.http.protocol.HTTP;
@@ -64,9 +66,7 @@ public class FriendMessageNew2 {
 					
 					String path = mFriendMessageNewItem.getPics()[i];
 					
-					String fileName = path.substring(path.lastIndexOf("/")+1, path.length());
-					
-					ab.append(fileName);
+					ab.append(Utils.getBase64FileName(path,mFriendMessageNewItem.getTiming()));
 					ab.append(",");
 
 				}

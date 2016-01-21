@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
@@ -134,6 +135,7 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 		getSelfInfo();
 
 	}
+
 	
 	private void getViews() {
 		
@@ -193,7 +195,7 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 		initTabHost();
 
 		mTabsIndicater = (PagerSlidingTabStrip)findViewById(R.id.slidingTabs);
-		viewToolBar  = (PagerSlidingTabStrip)findViewById(R.id.viewToolbar);
+		//viewToolBar  = (PagerSlidingTabStrip)findViewById(R.id.viewToolbar);
 
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -220,6 +222,19 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 
 		viewPager.setAdapter(new FragmentViewPagerAdapter(getSupportFragmentManager()));
 		viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
+		int statusBar = 0;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+			statusBar = SystemBarUtils.getStatusBarHeight(this);
+
+			// statusBar = 100;
+		}
+		int height = getResources().getDisplayMetrics().heightPixels;
+		int headHeight = (mTabsIndicater.getHeight()+statusBar+findViewById(R.id.mem_info_ac_detail_new_head).getHeight());
+		viewPager.setLayoutParams(new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				height - headHeight));
+
 		mTabsIndicater.setViewPager(viewPager);
 
 		if (displayIndex == 1) {

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+		android:id="@+id/account_ac_agreement_head_relative"
+        style="@style/custom_title_style" >
+		<ImageButton
+			android:visibility="gone"
+			android:id="@+id/account_psubmit_topbar_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+		    android:id="@+id/account_psubmit_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="@string/str_agree_ment_title"
+		    android:textColor="@color/color_title_txt"
+		    android:textSize="@dimen/txt_title_size"
+		    android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <ScrollView
+		android:layout_marginBottom="50dp"
+		android:layout_below="@+id/account_ac_agreement_head_relative"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<LinearLayout
+
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/repeat_bkg"
+			android:paddingTop="@dimen/view_ver_margin"
+			android:paddingBottom="@dimen/view_ver_margin"
+			android:paddingLeft="@dimen/view_hor_margin"
+			android:paddingRight="@dimen/view_hor_margin"
+			android:orientation="vertical" >
+
+			<TextView
+				android:layout_marginBottom="@dimen/view_ver_distance"
+				android:id="@+id/account_psubmit_reg_hint"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:drawablePadding="3dip"
+				android:layout_gravity="center_horizontal"
+				android:gravity="center_vertical"
+				android:text="@string/str_agree_ment_content"
+				android:textColor="@color/color_hint_txt"
+				android:textSize="@dimen/txt_hint_size" />
+
+		</LinearLayout>
+
+	</ScrollView>
+
+	<RelativeLayout
+		android:layout_alignParentBottom="true"
+		android:background="#f0f1f5"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:orientation="vertical" >
+		<View
+		android:layout_width="match_parent"
+		android:layout_height="1dp"
+		android:background="@drawable/divider1"/>
+		<TextView
+			android:padding="5dp"
+			android:gravity="center"
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:background="@drawable/attented_color"
+			android:layout_centerInParent="true"
+			android:id="@+id/account_ac_agreement_read_text"
+			android:layout_width="match_parent"
+			android:layout_height="35dp"
+			android:text="@string/str_agree_ment_read"
+			android:textColor="@color/color_white"
+			android:textSize="@dimen/txt_size_m"/>
+	</RelativeLayout>
+	
+</RelativeLayout>

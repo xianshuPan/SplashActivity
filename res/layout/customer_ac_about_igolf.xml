@@ -69,7 +69,7 @@
 					android:layout_height="wrap_content"
 					android:clickable="true"
 					android:gravity="center_horizontal"
-					android:hint="@string/str_customer_service_phone_hint"
+					android:hint="@string/str_customer_service_phone"
 					android:textColor="@color/color_hint_txt"
 					android:textSize="@dimen/txt_btn_txt_size" />
 			</LinearLayout>

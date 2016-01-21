@@ -72,7 +72,7 @@ public class MemDetailActivityOld extends Activity implements View.OnClickListen
 	
 	private ListviewBottomRefresh 				mList ;
 	
-	private FriendCircleAdapter 				mFriendHotAdapter ;
+	private FriendCircleAdapter mFriendHotAdapter ;
 	
 	private int 								startPage = 0, 
 												pageSize = 0,

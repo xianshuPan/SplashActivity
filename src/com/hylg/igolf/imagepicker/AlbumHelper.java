@@ -183,7 +183,8 @@ public class AlbumHelper {
 				Media.SIZE, Media.BUCKET_DISPLAY_NAME };
 		// �õ�һ���α�
 		Cursor cur = cr.query(Media.EXTERNAL_CONTENT_URI, columns, null, null,
-				Media.DATA);
+				Media.DATE_ADDED+" desc");
+
 		if (cur.moveToFirst()) {
 			// ��ȡָ���е�����
 			int photoIDIndex = cur.getColumnIndexOrThrow(Media._ID);

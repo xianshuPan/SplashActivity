@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		android:layout_marginBottom="50dp"
+        android:scrollbars="none">
+		<RelativeLayout
+		    android:background="@color/gray_e8e8e8"
+		    android:paddingBottom="10dp"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" >
+
+			<RelativeLayout
+				android:id="@+id/customer_info_head_relative"
+				android:background="#0a8e55"
+				style="@style/custom_title_style" >
+				<ImageView
+					android:layout_marginLeft="5dp"
+					android:id="@+id/customer_info_share_image"
+					android:padding="10dp"
+					android:layout_width="40dp"
+					android:layout_height="match_parent"
+					android:src="@drawable/share_rank"/>
+				<TextView
+					android:visibility="gone"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/str_coachers_invite_title"
+					android:textColor="@color/color_title_txt"
+					android:textSize="@dimen/txt_title_size"
+					android:layout_centerInParent="true" />
+
+				<ImageView
+					android:id="@+id/customer_info_setting_image"
+					android:layout_alignParentRight="true"
+					android:layout_marginRight="5dp"
+					android:padding="8dp"
+					android:layout_width="40dp"
+					android:layout_height="match_parent"
+					android:src="@drawable/setting"/>
+
+			</RelativeLayout>
+			
+
+		    <!-- 显示头像、姓名、电话、教学诉求，-->
+			<include
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/customer_info_head_relative"
+				android:id="@+id/customer_info_score_linear"
+				layout="@layout/customer_info_head"></include>
+
+
+			<!-- -->
+		    <LinearLayout
+		        android:id="@+id/customer_info_other_linear"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:layout_below="@+id/customer_info_score_linear"
+		        android:background="@color/color_white"
+		        android:orientation="vertical" >
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
+
+		        <RelativeLayout
+					android:layout_marginTop="10dp"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content" >
+
+		            <TextView
+		                android:id="@+id/customer_info_my_tips_title_text"
+		                style="@style/customer_info_pre_txt_style"
+		                android:drawableLeft="@drawable/tips_icon"
+		                android:text="@string/str_my_tips_title" />
+
+		            <TextView
+		                android:id="@+id/customer_info_my_tips_content_text"
+		                android:layout_toRightOf="@id/customer_info_my_tips_title_text"
+		                style="@style/customer_info_content_txt_style"
+		                 />
+		        </RelativeLayout>
+
+		        <View
+		            android:layout_width="match_parent"
+		            android:layout_height="1px"
+		            android:layout_marginLeft="20dp"
+		            android:background="@drawable/divider1" />
+
+		        <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content" >
+
+		            <TextView
+		                android:id="@+id/customer_info_my_invite_title_text"
+						style="@style/customer_info_pre_txt_style"
+		                android:drawableLeft="@drawable/invite_icon"
+		                android:text="@string/str_my_invite_title" />
+
+					<TextView
+						style="@style/customer_info_content_txt_style"
+						android:id="@+id/customer_info_my_invite_content_text"
+						android:layout_toRightOf="@+id/customer_info_my_invite_title_text" />
+
+		        </RelativeLayout>
+
+		        <View
+		            android:layout_width="match_parent"
+		            android:layout_height="1px"
+		            android:layout_marginLeft="20dp"
+		            android:background="@drawable/divider1" />
+
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<TextView
+						android:id="@+id/customer_info_my_invite_history_title_text"
+						style="@style/customer_info_pre_txt_style"
+						android:drawableLeft="@drawable/my_invite_history_icon"
+						android:text="@string/str_cusinfo_item_history" />
+
+					<TextView
+						style="@style/customer_info_content_txt_style"
+						android:id="@+id/customer_info_my_invite_history_content_text"
+						android:layout_toRightOf="@+id/customer_info_my_invite_history_title_text" />
+
+				</RelativeLayout>
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_marginLeft="20dp"
+					android:background="@drawable/divider1" />
+
+		        <RelativeLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content" >
+
+		            <TextView
+		                android:id="@+id/customer_info_my_teaching_title_text"
+						style="@style/customer_info_pre_txt_style"
+		                android:drawableLeft="@drawable/coach_studyz_icon"
+		                android:text="@string/str_my_teaching_title" />
+
+		            <TextView
+		                android:id="@+id/customer_info_my_teaching_content_text"
+						style="@style/customer_info_content_txt_style"
+		                android:layout_toRightOf="@id/customer_info_my_teaching_title_text"
+		                 />
+		        </RelativeLayout>
+
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:layout_marginLeft="20dp"
+					android:background="@drawable/divider1" />
+
+				<RelativeLayout
+
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" >
+
+					<TextView
+						android:id="@+id/customer_info_my_balance_title_text"
+						style="@style/customer_info_pre_txt_style"
+						android:drawableLeft="@drawable/balance_icon"
+						android:text="@string/str_my_balance_title" />
+
+					<TextView
+						android:id="@+id/customer_info_my_balance_content_text"
+						style="@style/customer_info_content_txt_style"
+						android:layout_toRightOf="@id/customer_info_my_balance_title_text"
+						/>
+				</RelativeLayout>
+
+
+				<View
+					android:layout_marginTop="10dp"
+		            android:layout_width="match_parent"
+		            android:layout_height="1px"
+		            android:background="@drawable/divider1" />
+
+		    </LinearLayout>
+
+			<RelativeLayout
+				android:layout_marginTop="10dp"
+				android:background="@color/color_white"
+				android:layout_below="@+id/customer_info_other_linear"
+				android:id="@+id/customer_info_apply_coach_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" >
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
+				<TextView
+					android:id="@+id/customer_info_my_coach_title_text"
+					style="@style/customer_info_pre_txt_style"
+					android:drawableLeft="@drawable/coach_icon"
+					android:text="@string/str_my_coach_title" />
+
+				<TextView
+					android:textSize="@dimen/txt_size_ml"
+					android:id="@+id/customer_info_my_coach_content_text"
+					android:layout_toRightOf="@id/customer_info_my_coach_title_text"
+					style="@style/customer_info_content_txt_style"
+					/>
+
+				<View
+					android:layout_alignParentBottom="true"
+					android:layout_below="@+id/coach_invite_place_text"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
+			</RelativeLayout>
+
+
+			<!--  -->
+			<LinearLayout
+				android:layout_marginTop="10dp"
+				android:id="@+id/coach_invite_other1_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_below="@+id/customer_info_apply_coach_linear"
+				android:background="@color/color_white"
+				android:orientation="vertical" >
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
+
+			<RelativeLayout
+				android:layout_marginTop="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" >
+
+				<TextView
+					android:id="@+id/customer_info_my_message_title_text"
+					style="@style/customer_info_pre_txt_style"
+					android:drawableLeft="@drawable/message_icon"
+					android:text="@string/str_my_message_title" />
+
+				<TextView
+					android:id="@+id/customer_info_my_message_content_text"
+					style="@style/customer_info_content_txt_style"
+					android:layout_toRightOf="@id/customer_info_my_message_title_text"
+					/>
+
+				<ImageView
+					android:visibility="gone"
+					android:layout_centerVertical="true"
+					android:layout_toRightOf="@+id/customer_info_my_message_title_text"
+					android:id="@+id/customer_info_my_message_hint"
+					android:layout_toLeftOf="@id/navi_item_hall_img"
+					android:layout_alignTop="@id/navi_item_hall_img"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:src="@drawable/ic_new_msg"
+					android:contentDescription="@null" />
+			</RelativeLayout>
+
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				android:layout_marginLeft="20dp"
+				android:background="@drawable/divider1" />
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" >
+
+				<TextView
+					android:id="@+id/customer_info_my_draft_title_text"
+					style="@style/customer_info_pre_txt_style"
+					android:drawableLeft="@drawable/draft_icon"
+					android:text="@string/str_my_draft_title" />
+
+				<TextView
+					android:id="@+id/customer_info_my_draft_content_text"
+					android:layout_toRightOf="@+id/customer_info_my_draft_title_text"
+					style="@style/customer_info_content_txt_style"/>
+
+
+			</RelativeLayout>
+
+			<View
+				android:layout_marginTop="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="1px"
+				/>
+
+			</LinearLayout>
+
+		</RelativeLayout>
+	</ScrollView>
+</LinearLayout>

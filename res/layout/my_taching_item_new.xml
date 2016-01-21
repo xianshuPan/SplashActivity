@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+    <LinearLayout
+        android:paddingBottom="10dp"
+        android:paddingRight="3dp"
+        android:orientation="vertical"
+        android:id="@+id/invite_list_open_item_avatar_relative"
+        android:layout_width="match_parent"
+        android:background="@drawable/pin_dan_item_bg"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:layout_margin="5dp"
+            android:background="#f5f5f5"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="@dimen/txt_size_ml"
+                android:id="@+id/my_teaching_item_course"
+                android:drawableLeft="@drawable/location_gray_icon"
+                android:maxLines="2"
+                style="@style/my_teaching_item_txt_style" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_below="@+id/my_teaching_item_course">
+
+                <TextView
+                    android:textSize="@dimen/txt_size_ml"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_teetime"
+                    android:drawableLeft="@drawable/time_icon"
+                    style="@style/my_teaching_item_txt_style" />
+                <ImageView
+                    android:layout_marginLeft="5dp"
+                    android:id="@+id/my_teaching_item_type_image"
+                    android:src="@drawable/pin_dan_icon"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:id="@+id/my_teaching_item_student1_relative"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/my_teaching_item_student1_avatar_linear"
+                android:gravity="center_horizontal"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.hylg.igolf.ui.view.CircleImageView
+                    android:src="@drawable/avatar_no_golfer"
+                    android:id="@+id/my_teaching_item_student1_avatar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:id="@+id/my_teaching_item_student1_name"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:maxLength="5"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_hint_txt"
+                    android:textSize="@dimen/txt_size_s" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_toRightOf="@+id/my_teaching_item_student1_avatar_linear"
+                android:gravity="right"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:textSize="@dimen/txt_size_s"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_student1_price_unit"
+                    style="@style/my_teaching_item_txt_style" />
+                <TextView
+                    android:textSize="@dimen/txt_size_s"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_student1_time"
+                    style="@style/my_teaching_item_txt_style" />
+                <TextView
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/txt_size_s"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_student1_price_amount"
+                    style="@style/my_teaching_item_txt_style" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textSize="@dimen/txt_size_s"
+                android:singleLine="true"
+                android:id="@+id/my_teaching_item_student1_status"
+                style="@style/my_teaching_item_txt_style" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:paddingBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:id="@+id/my_teaching_item_student2_relative"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@drawable/divider1"/>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:id="@+id/my_teaching_item_student2_avatar_linear"
+                android:gravity="center_horizontal"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.hylg.igolf.ui.view.CircleImageView
+                    android:src="@drawable/avatar_no_golfer"
+                    android:id="@+id/my_teaching_item_student2_avatar"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+
+                <TextView
+                    android:text="asdfs"
+                    android:id="@+id/my_teaching_item_student2_name"
+                    android:singleLine="true"
+                    android:layout_width="wrap_content"
+                    android:maxLength="5"
+                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/invite_item_txt_pad"
+                    android:textColor="@color/color_hint_txt"
+                    android:textSize="@dimen/txt_size_s" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/my_teaching_item_student2_avatar_linear"
+                android:gravity="right"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="100"
+                    android:textSize="@dimen/txt_size_s"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_student2_price_unit"
+                    style="@style/my_teaching_item_txt_style" />
+                <TextView
+                    android:text="2"
+                    android:textSize="@dimen/txt_size_s"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_student2_time"
+                    style="@style/my_teaching_item_txt_style" />
+                <TextView
+                    android:text="200"
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/txt_size_s"
+                    android:singleLine="true"
+                    android:id="@+id/my_teaching_item_student2_price_amount"
+                    style="@style/my_teaching_item_txt_style" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="200"
+                android:textSize="@dimen/txt_size_s"
+                android:singleLine="true"
+                android:id="@+id/my_teaching_item_student2_status"
+                style="@style/my_teaching_item_txt_style" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

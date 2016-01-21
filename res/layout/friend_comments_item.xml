@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:paddingBottom="5dp"
+		android:paddingTop="5dp"
+		android:background="@color/color_white" >
+
+	    
+	    <com.hylg.igolf.ui.view.CircleImageView
+			android:layout_centerVertical="true"
+            android:id="@+id/coach_comments_item_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/avatar_null" />
+	<!-- 	    	
+		<ImageView
+		    android:layout_alignParentLeft="true"
+		    android:layout_centerVertical="true"
+		    android:id="@+id/golfers_li_avatar"
+		    android:src="@drawable/avatar_loading"
+		    android:scaleType="fitXY"
+		    android:layout_width="@dimen/avatar_golfers_li_size"
+		    android:layout_height="@dimen/avatar_golfers_li_size"
+		    android:contentDescription="@null" />
+	 -->
+	
+		<RelativeLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_toRightOf="@id/coach_comments_item_avatar"
+		    android:paddingLeft="5dp"
+		    android:paddingRight="3dp" >
+
+			<TextView
+				android:layout_marginTop="5dp"
+				android:maxLength="10"
+				android:id="@+id/coach_comments_item_nickname"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@color/color_hint_txt"
+				android:textSize="@dimen/txt_size_m"/>
+
+		    
+			<TextView
+				 android:layout_below="@+id/coach_comments_item_nickname"
+		         android:layout_marginTop="5dp"
+				 android:id="@+id/coach_comments_item_content_text"
+				 android:textColor="@color/gray_999999"
+				 android:textSize="@dimen/txt_size_s"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:ellipsize="end"/>
+
+			<TextView
+
+				android:layout_alignParentRight="true"
+				android:id="@+id/coach_comments_item_time_text"
+				android:text="2015-10-10 15:12:34"
+				android:textColor="@color/gray_999999"
+				android:gravity="right"
+				android:textSize="@dimen/txt_size_small"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:maxLines="2"
+				android:ellipsize="end"/>
+		</RelativeLayout>
+	</RelativeLayout>
+		
+</RelativeLayout>

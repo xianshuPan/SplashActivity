@@ -511,7 +511,6 @@ public class RankHomeFrg extends Fragment
 
 	private void startMemDetail(String memSn) {
 		MemDetailActivityNew.startMemDetailActivity(getActivity(), memSn,1);
-		getActivity().overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 	}
 
 	private class RankAdapter extends IgBaseAdapter {
@@ -552,7 +551,7 @@ public class RankHomeFrg extends Fragment
 				holder = (ViewHodler) convertView.getTag();
 			}
 
-			holder.avatarIv.setEnabled(false);
+			//holder.avatarIv.setEnabled(false);
 			RankingInfo data = list.get(position);
 			int txtColor = getResources().getColor(R.color.color_rank_def);
 

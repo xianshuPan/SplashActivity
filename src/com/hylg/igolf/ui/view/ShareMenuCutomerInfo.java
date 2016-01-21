@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
+import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.utils.Base64;
+import com.hylg.igolf.utils.DownLoadImageTool;
+import com.hylg.igolf.utils.Utils;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
@@ -68,11 +71,14 @@ public class ShareMenuCutomerInfo implements OnClickListener {
 
 	private Bitmap 							bitmap = null;
 
-	private String                          imageUrl = "http://121.199.22.44:8080/gams/person/common/about_logo.png";
+	//private String                          imageUrl = "http://121.199.22.44:8080/gams/person/common/about_logo.png";
+	private String                          imageUrl = "";
 
 	private String                          targetUrl = "";
 
 	String 									content = "从爱高尔夫分享,我的个人信息";
+
+	private String                          customer_sn = "";
 
 	public ShareMenuCutomerInfo(Activity context, View view,String sn) {
 		
@@ -81,7 +87,10 @@ public class ShareMenuCutomerInfo implements OnClickListener {
 		mContext = context;
 		
 		initPopupWindow();
-		
+
+		customer_sn = sn;
+
+		imageUrl = Utils.getAvatarURLString(customer_sn);
 		String param= "sn="+sn;
 		
 		DebugTools.getDebug().debug_v("getShareURL", "----->>>>"+param);
@@ -378,8 +387,13 @@ public class ShareMenuCutomerInfo implements OnClickListener {
     
     private void getBitmap () {
 
+		bitmap = DownLoadImageTool.getInstance(mContext).loadImage(imageUrl, 60);
 
-		bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.about_logo);
+		if (bitmap == null) {
+
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logo_white);
+		}
+
     	
     }
 }

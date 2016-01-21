@@ -32,6 +32,7 @@ import com.hylg.igolf.ui.common.TeeTimeSelectActivity;
 import com.hylg.igolf.ui.common.TeeTimeSelectActivity.onTeeTimeSelectListener;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity.onYearsExpSelectListener;
+import com.hylg.igolf.ui.customer.MyTeachingHomeActivity;
 import com.hylg.igolf.ui.hall.CourseSelectActivity;
 import com.hylg.igolf.ui.hall.StartInviteOpenActivity;
 import com.hylg.igolf.ui.hall.CourseSelectActivity.onCourseSelectListener;
@@ -42,6 +43,7 @@ import com.hylg.igolf.ui.reqparam.StartOpenReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
+import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
@@ -73,21 +75,25 @@ public class CoachInviteActivity extends FragmentActivity implements
 															onTeeDateSelectListener,
 															onHourExpSelectListener,
 															RegionSelectActivity.onRegionSelectListener,
-		CourseAllSelectActivity.onCourseAllSelectListener {
+															CourseAllSelectActivity.onCourseAllSelectListener {
 	
 	private final String 					TAG = "CoachInviteActivity";
 	
 	private final static String 			BUNDLE_REQ_DATA = "coach_data";
 	
 	private ImageButton                     mBack = null;
+
+	private ImageView                       mSexImage = null;
 	
 	private CircleImageView                 mAvatarImage = null;
 	
-	private TextView                        mNickNameTxt = null,mTeachingTimesTxt;
+	private TextView                        mNickNameTxt = null,mTeachingTimesTxt,mSexpYearTxt;
 	
 	private RatingBar                       mRating = null;
 	
 	private TextView                        mDateSelectTxt,mTimeSelectTxt,mTeachingHoursTxt,mRegionTxt,mCourseSelectTxt;
+
+	private RelativeLayout                  mPinDanRelative;
 	
 	private EditText                        mQuestionEdit;
 	
@@ -113,12 +119,13 @@ public class CoachInviteActivity extends FragmentActivity implements
 		context.startActivity(intent);
 	}
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		//Tools.getInstance().setActivityNoTitle(this);
 		DebugTools.getDebug().debug_v(TAG, "onCreate..");
 		
-		setContentView(R.layout.coach_invite_ac);
+		setContentView(R.layout.coach_invite_ac_new);
 		
 		initUI();
 		
@@ -169,29 +176,28 @@ public class CoachInviteActivity extends FragmentActivity implements
 		goGlobalData = MainApp.getInstance().getGlobalData();
 		
 		mBack = (ImageButton) findViewById(R.id.coach_invite_back);
-		
 		mAvatarImage = (CircleImageView) findViewById(R.id.coach_invite_avatar_image);
-		
 		mNickNameTxt = (TextView) findViewById(R.id.coach_invite_name_text);
 		mRating = (RatingBar) findViewById(R.id.coach_invite_rating);
-		
+		mSexImage = (ImageView) findViewById(R.id.coach_invite_sex_image);
 		mTeachingTimesTxt = (TextView) findViewById(R.id.coach_invite_teaching_time_text);
-		
+		mSexpYearTxt =  (TextView) findViewById(R.id.coach_invite_yearsexp_text);
 		mDateSelectTxt = (TextView) findViewById(R.id.coach_invite_date_text);
 		mTimeSelectTxt = (TextView) findViewById(R.id.coach_invite_time_text);
-		mTeachingHoursTxt = (TextView) findViewById(R.id.coach_invite_pre_teach_time_text);
+		mTeachingHoursTxt = (TextView) findViewById(R.id.coach_invite_teaching_hour_text);
 		mRegionTxt = (TextView) findViewById(R.id.coach_invite_region_text);
 		mCourseSelectTxt = (TextView) findViewById(R.id.coach_invite_place_text);
-		
+		mPinDanRelative = (RelativeLayout)findViewById(R.id.coach_invite_pin_relative);
 		mQuestionEdit  = (EditText) findViewById(R.id.coach_invite_question_edit);
-		
 		mCommitTxt = (TextView) findViewById(R.id.coach_invite_commit_text);
+
 		mBack.setOnClickListener(this);
 		mDateSelectTxt.setOnClickListener(this);
 		mTimeSelectTxt.setOnClickListener(this);
 		mTeachingHoursTxt.setOnClickListener(this);
 		mCourseSelectTxt.setOnClickListener(this);
 		mRegionTxt.setOnClickListener(this);
+		mPinDanRelative.setOnClickListener(this);
 		mCommitTxt.setOnClickListener(this);
 		mAvatarImage.setOnClickListener(this);
 
@@ -200,12 +206,22 @@ public class CoachInviteActivity extends FragmentActivity implements
 			
 			mCoachItem = (CoachItem) getIntent().getSerializableExtra(BUNDLE_REQ_DATA) ;
 
-			DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(mCoachItem.sn),mAvatarImage,null);
+			DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(mCoachItem.sn), mAvatarImage, null);
 			//loadAvatar(mCoachItem.sn, mCoachItem.avatar);
+			//Utils.loadAvatar(this,mCoachItem.sn,mAvatarImage);
 			
 			mNickNameTxt.setText(mCoachItem.nickname);
 			mRating.setRating(mCoachItem.rate);
 			mTeachingTimesTxt.setText(String.valueOf(mCoachItem.teachTimes));
+			mSexpYearTxt.setText(mCoachItem.teachYear+getResources().getString(R.string.str_year));
+			if (mCoachItem.sex == Const.SEX_MALE) {
+
+				mSexImage.setImageResource(R.drawable.man);
+			}
+			else {
+
+				mSexImage.setImageResource(R.drawable.woman);
+			}
 			
 			mReqPara = new CoachInviteReqParam();
 			customer = MainApp.getInstance().getCustomer();
@@ -218,7 +234,6 @@ public class CoachInviteActivity extends FragmentActivity implements
 			mCourseSelectTxt.setText(mCoachItem.course_name);
 			
 			mReqPara.times = 1;
-			
 			mTeachingHoursTxt.setText(mReqPara.times+"小时");
 			
 		}
@@ -266,7 +281,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 				setTimeForResult();
 				break;
 
-			case R.id.coach_invite_pre_teach_time_text :
+			case R.id.coach_invite_teaching_hour_text :
 
 				HourExpSelectActivity.startHourExpSelect(this, mReqPara.times);
 				break;
@@ -279,6 +294,21 @@ public class CoachInviteActivity extends FragmentActivity implements
 			case R.id.coach_invite_place_text :
 
 				getCourseList();
+				break;
+
+			case R.id.coach_invite_pin_relative:
+
+				if (mPinDanRelative.isSelected()) {
+
+					mPinDanRelative.setSelected(false);
+					mReqPara.pin_dan = 0;
+				}
+				else {
+
+					mPinDanRelative.setSelected(true);
+					mReqPara.pin_dan = 1;
+				}
+
 				break;
 
 			case R.id.coach_invite_commit_text :
@@ -402,7 +432,8 @@ public class CoachInviteActivity extends FragmentActivity implements
 					
 					Toast.makeText(CoachInviteActivity.this, R.string.str_start_invite_coach_success, Toast.LENGTH_SHORT).show();
 					CoachInviteActivity.this.finish();
-					CoachMyTeachingActivity.startCoachMyTeachingActivity(CoachInviteActivity.this);
+					//CoachMyTeachingActivity.startCoachMyTeachingActivity(CoachInviteActivity.this);
+					MyTeachingHomeActivity.startCoachMyTeachingHomeActivity(CoachInviteActivity.this);
 					
 				} else {
 

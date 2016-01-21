@@ -31,6 +31,9 @@ public class CoachInviteCommit extends BaseRequest {
 		
 		s.append("times"); s.append(KV_CONN); s.append(reqParam.times);
 		s.append(PARAM_CONN);
+
+		s.append("alone"); s.append(KV_CONN); s.append(reqParam.pin_dan);
+		s.append(PARAM_CONN);
 		
 		s.append("coachDate"); s.append(KV_CONN); s.append(reqParam.coachDate );
 		s.append(PARAM_CONN);

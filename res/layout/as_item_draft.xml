@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@color/color_white"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="4dip"
+        android:minHeight="70dip"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/list_item_hn_pad"
+        android:paddingRight="@dimen/list_item_hn_pad">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtType"
+                android:textColor="@color/gray_999999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_divider_height"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/txtTiming"
+                style="@style/TextSubhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_divider_height"/>
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingRight="6dip">
+
+            <ImageView
+                android:visibility="gone"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/tips_image"
+                android:src="@drawable/avatar_no_golfer"/>
+
+            <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/tips_image"
+                android:layout_toLeftOf="@+id/btnDel"
+                android:layout_marginLeft="5dp"
+                android:text="sdfsfasf"
+                android:id="@+id/txtContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lineSpacingExtra="4dip"
+                android:maxLines="3"/>
+
+            <LinearLayout
+                android:layout_toLeftOf="@+id/btnResend"
+                android:id="@+id/btnDel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="@dimen/list_item_hn_pad"
+                 android:clickable="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/delete"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_alignParentRight="true"
+                android:id="@+id/btnResend"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                 android:clickable="true"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:src="@drawable/ic_action_send_now_light"/>
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:text="sadfsafd"
+            android:id="@+id/txtError"
+            style="@style/TextSubhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/scorecard_invalid"
+            android:drawablePadding="4dip"
+            android:textColor="@color/color_red"
+            android:paddingBottom="5dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

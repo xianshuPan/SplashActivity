@@ -31,12 +31,13 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 //	public static final String UPLOAD_PIC_PATH = "http://192.168.2.107:9988/DealPicture/pic/";
 //	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/0/";
 
+
 	public static final String SERVER = "http://121.199.22.44";
 	public static final String PORT = ":8080";
 	public static final String SERVER_IP = SERVER+PORT;
 	public static final String UPLOAD_PIC_PATH = "http://121.199.22.44:9988/DealPicture/pic/";
+
 	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/1/";
-	
 	public static final String TipsPic_Original_PATH = SERVER_IP+"/gams/tipspic/original/";
 	public static final String TipsPic_Thum_PATH = SERVER_IP+"/gams/tipspic/thum/";
 

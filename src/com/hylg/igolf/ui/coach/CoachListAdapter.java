@@ -128,7 +128,12 @@ public class CoachListAdapter extends IgBaseAdapter {
 		if (item.distance <= 1) {
 
 			holder.distanceTv.setText("附近");
-		} else {
+		}
+		else if (item.distance > 2000) {
+
+			holder.distanceTv.setText(MainApp.getInstance().getGlobalData().getRegionName(item.city));
+		}
+		else {
 
 			holder.distanceTv.setText(String.valueOf(item.distance)+"km");
 		}
