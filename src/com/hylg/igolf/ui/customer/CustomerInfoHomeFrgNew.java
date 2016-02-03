@@ -44,6 +44,7 @@ import com.hylg.igolf.ui.friend.publish.WorkTask;
 import com.hylg.igolf.ui.hall.HallMyInvitesActivity;
 import com.hylg.igolf.ui.view.ShareMenuCutomerInfo;
 import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
@@ -68,7 +69,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 	
 	private ImageView 							msgHint,customerAvatar,shareImage,settingImage,sexImage;//sex,addAlbumView;
 	//private View addAlbumSpace;
-	private TextView 							nickName,location,yearsExp,handicapi,best,matches,heat,rank,act;
+	private TextView 							nickName,location,industry,yearsExp,handicapi,best,matches,heat,rank,act;
 
 	private GetMemberloader 					reqLoader = null;
 
@@ -79,7 +80,9 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 	private LinearLayout 						mPraiseLinear,mAttentionLinear,mFollowerLinear;
 	private TextView                            mBalanceTxt,mPraiseCountTxt,mAttentionCountTxt,mFollowerCountTxt;
 
-	private TextView 							mMyTipsTxt,mMyInviteTxt,mMyInviteHistoryTxt,mMyTeachingTxt,mMyBalanceTxt,mMyCoachTxt,mMyMessageTxt,mMyDraftTxt;
+	private TextView 							mMyTipsTxt,mMyInviteTxt,mMyInviteHistoryTxt,mMyTeachingTxt,mMyBalanceTxt,mMyCoachTxt,mMyMessageTxt,mMyDraftTxt,mInviteFriendTxt;
+
+	private boolean                             isDestroyed = false;
 	
 	public static final CustomerInfoHomeFrgNew getInstance() {
 		if(null == customerFrg) {
@@ -121,6 +124,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		heat = (TextView) view.findViewById(R.id.customer_info_heat_txt);
 		act = (TextView) view.findViewById(R.id.customer_info_activity_txt);
 		location = (TextView) view.findViewById(R.id.customer_info_location_txt);
+		industry = (TextView) view.findViewById(R.id.customer_info_industry_txt);
 		customerAvatar = (ImageView) view.findViewById(R.id.customer_info_avatar_image);
 		msgHint = (ImageView) view.findViewById(R.id.customer_info_my_message_hint);
 		sexImage = (ImageView) view.findViewById(R.id.customer_info_sex_image);
@@ -133,6 +137,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		mMyCoachTxt = (TextView) view.findViewById(R.id.customer_info_my_coach_content_text);
 		mMyMessageTxt = (TextView) view.findViewById(R.id.customer_info_my_message_content_text);
 		mMyDraftTxt = (TextView) view.findViewById(R.id.customer_info_my_draft_content_text);
+		mInviteFriendTxt = (TextView) view.findViewById(R.id.customer_info_invite_friend_content_text);
 		mPraiseLinear = (LinearLayout) view.findViewById(R.id.customer_info_my_praise_linear);
 		mFollowerLinear = (LinearLayout) view.findViewById(R.id.customer_info_my_follower_linear);
 		mAttentionLinear = (LinearLayout) view.findViewById(R.id.customer_info_my_attention_linear);
@@ -149,6 +154,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		mMyCoachTxt.setOnClickListener(this);
 		mMyMessageTxt.setOnClickListener(this);
 		mMyDraftTxt.setOnClickListener(this);
+		mInviteFriendTxt.setOnClickListener(this);
 
 		mPraiseLinear.setOnClickListener(this);
 		mFollowerLinear.setOnClickListener(this);
@@ -171,6 +177,7 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		heat.setText(String.valueOf(customer.heat));
 		act.setText(String.valueOf(customer.activity));
 		location.setText(MainApp.getInstance().getGlobalData().getRegionName(customer.city));
+		industry.setText(MainApp.getInstance().getGlobalData().getIndustryName(customer.industry));
 
 		if (customer.sex == 0) {
 
@@ -182,7 +189,10 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		/*加载头像*/
 		//Utils.loadAvatar(getActivity(),customer.sn, customerAvatar);
 
-		loadAvatar(customer.sn,customer.sn+".jpg",customerAvatar);
+		//loadAvatar(customer.sn, customer.sn + ".jpg", customerAvatar);
+
+		DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(customer.sn),customerAvatar,null);
+		//Utils.addStrikeLine()
 
 		DebugTools.getDebug().debug_v("customer.avatar", "---->>>>" + customer.avatar);
 	}
@@ -217,10 +227,12 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 		DebugTools.getDebug().debug_v(TAG, "onPause..");
 	}
 
+
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		
+
+		isDestroyed = true;
 		clearLoader();
 		Debug.stopMethodTracing();
 		DebugTools.getDebug().debug_v(TAG, "onDestroy..");
@@ -283,27 +295,31 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 				switch (retId) {
 					case ReturnCode.REQ_RET_OK:
 
-						updateUiValue();
+						if (!isDestroyed) {
 
-						if (coach_item == null) {
+							updateUiValue();
 
-							return;
-						}
+							if (coach_item == null) {
 
-						if(coach_item.audit == 0) {
+								return;
+							}
 
-							mMyCoachTxt.setText(R.string.str_coach_apply_status_waiting);
-							mMyCoachTxt.setTextColor(getResources().getColor(R.color.color_yellow));
+							if(coach_item.audit == 0) {
 
-						} else if(coach_item.audit == 1) {
+								mMyCoachTxt.setText(R.string.str_coach_apply_status_waiting);
+								mMyCoachTxt.setTextColor(getResources().getColor(R.color.color_yellow));
 
-							mMyCoachTxt.setText(R.string.str_coach_apply_status_success);
-							mMyCoachTxt.setTextColor(getResources().getColor(R.color.green_5fb64e));
+							} else if(coach_item.audit == 1) {
 
-						} else if(coach_item.audit == 2) {
+								mMyCoachTxt.setText(R.string.str_coach_apply_status_success);
+								mMyCoachTxt.setTextColor(getResources().getColor(R.color.green_5fb64e));
 
-							mMyCoachTxt.setTextColor(getResources().getColor(R.color.color_red));
-							mMyCoachTxt.setText(R.string.str_coach_apply_status_fail);
+							} else if(coach_item.audit == 2) {
+
+								mMyCoachTxt.setTextColor(getResources().getColor(R.color.color_red));
+								mMyCoachTxt.setText(R.string.str_coach_apply_status_fail);
+							}
+
 						}
 
 						break;
@@ -442,6 +458,13 @@ public class CustomerInfoHomeFrgNew extends Fragment implements View.OnClickList
 			case R.id.customer_info_my_coach_content_text:
 
 				CoachApplyInfoActivity.startCoachApplyInfoActivity(getActivity());
+
+				break;
+
+			case R.id.customer_info_invite_friend_content_text:
+
+				//CoachApplyInfoActivity.startCoachApplyInfoActivity(getActivity());
+				InviteFriendActivity.startInviteFriendActivity(getActivity(),InviteFriendActivity.CUSTOMER_INFO);
 
 				break;
 

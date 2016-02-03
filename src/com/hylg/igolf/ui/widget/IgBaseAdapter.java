@@ -1,7 +1,6 @@
 package com.hylg.igolf.ui.widget;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -9,10 +8,10 @@ import android.widget.ImageView;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
+import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.SharedPref;
+import com.hylg.igolf.utils.Utils;
 
 public abstract class IgBaseAdapter extends BaseAdapter {
 
@@ -73,29 +72,31 @@ public abstract class IgBaseAdapter extends BaseAdapter {
 				return ;
 			}
 		}
-		Drawable avatar = AsyncImageLoader.getInstance().getAvatar(context, sn, name, size);
+		//Drawable avatar = AsyncImageLoader.getInstance().getAvatar(context, sn, name, size);
 
 		if (sn.equals(MainApp.getInstance().getCustomer().sn)) {
 
 			String prefAvatar = SharedPref.getString(SharedPref.SPK_AVATAR, context);
-			avatar = AsyncImageLoader.getInstance().getAvatar(context, sn, prefAvatar, size);
+			//avatar = AsyncImageLoader.getInstance().getAvatar(context, sn, prefAvatar, size);
 		}
 
-		if(null != avatar) {
-			iv.setImageDrawable(avatar);
-		} else {
-			iv.setImageResource(R.drawable.avatar_loading);
-			AsyncImageLoader.getInstance().loadAvatar(context, sn, name,
-					new ImageCallback() {
-						@Override
-						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != iv) {
-								iv.setImageDrawable(imageDrawable);
-								notifyDataSetChanged();
-							}
-						}
-				});
-		}
+//		if(null != avatar) {
+//			iv.setImageDrawable(avatar);
+//		} else {
+//			iv.setImageResource(R.drawable.avatar_loading);
+//			AsyncImageLoader.getInstance().loadAvatar(context, sn, name,
+//					new ImageCallback() {
+//						@Override
+//						public void imageLoaded(Drawable imageDrawable) {
+//							if(null != imageDrawable && null != iv) {
+//								iv.setImageDrawable(imageDrawable);
+//								notifyDataSetChanged();
+//							}
+//						}
+//				});
+//		}
+
+		DownLoadImageTool.getInstance(context).displayImage(Utils.getAvatarURLString(sn),iv,null);
 
 	}
 	

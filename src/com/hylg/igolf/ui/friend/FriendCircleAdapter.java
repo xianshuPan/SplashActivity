@@ -5,6 +5,7 @@ import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -30,6 +31,7 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
@@ -37,6 +39,7 @@ import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.FriendAttentionAdd;
+import com.hylg.igolf.cs.request.FriendCommentDelete;
 import com.hylg.igolf.cs.request.FriendCommentsAdd;
 import com.hylg.igolf.cs.request.FriendPraiseAdd;
 import com.hylg.igolf.cs.request.FriendTipsDelete;
@@ -95,6 +98,8 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 	/* 新增的评论
 	 * */
 	private HashMap<String, String>     mCurrentComments            = new HashMap<String, String>();
+
+	private boolean                     toNameClick = false;
 
 	public FriendCircleAdapter(Activity activity) {
 
@@ -536,6 +541,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 				XRTextView commentUserName = (XRTextView)commensLinearItem.findViewById(R.id.comment_user_name_text);
 				
 				final String commentSn = list.get(arg0).comments.get(i).get("sn");
+				final String commentId = list.get(arg0).comments.get(i).get("id");
 				final String commentToSn = list.get(arg0).comments.get(i).get("tosn");
 				final String commentName = list.get(arg0).comments.get(i).get("name");
 				
@@ -550,7 +556,9 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 
 								DebugTools.getDebug().debug_v("clickableSpan","----->>>clickableSpan");
 								if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
-									
+
+									//toNameClick = true;
+									dismissExchgPopwin();
 									MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
 									mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 								}
@@ -565,7 +573,11 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 							String praisSnStr = commentToSn;
 							DebugTools.getDebug().debug_v("clickableSpan","----->>>clickableSpan1");
 							if (praisSnStr != null && !praisSnStr.equalsIgnoreCase(sn)) {
-									
+
+								//toNameClick = true;
+
+								dismissExchgPopwin();
+								DebugTools.getDebug().debug_v("toname","----->>>"+"clicked");
 								MemDetailActivityNew.startMemDetailActivity(mContext, praisSnStr);
 								mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 							}
@@ -607,6 +619,9 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 						
 						String commentSnStr = commentSn;
 						String commentNameStr = commentName;
+						String commentIdStr = commentId;
+
+
 						
 						/*如果是自己则不能回复*/
 						if(commentSnStr != null && !commentSnStr.equalsIgnoreCase(sn)) {
@@ -614,6 +629,18 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 							tosn = commentSnStr;
 							toname = commentNameStr;
 							showPopupWindow(temp);
+						}
+						else {
+
+							DebugTools.getDebug().debug_v("comment_all", "----->>>" + "clicked");
+
+							//if (!toNameClick) {
+
+								showDeletePopWin(commentIdStr);
+
+								toNameClick = false;
+							//}
+
 						}
 						
 						DebugTools.getDebug().debug_v(TAG, "commentSnStr--------->>>>>>>"+commentSnStr);
@@ -1085,7 +1112,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			WaitDialog.showWaitDialog(mContext, R.string.str_loading_add_comment);
 			new AsyncTask<Object, Object, Integer>() {
 			
-				FriendCommentsAdd request = new FriendCommentsAdd(mContext, mCurrentComments.get("sn"), 
+				final FriendCommentsAdd request = new FriendCommentsAdd(mContext, mCurrentComments.get("sn"),
 						mCurrentComments.get("name") ,mCurrentComments.get("avatar") ,mCurrentComments.get("tipid"),
 						mCurrentComments.get("tosn"), mCurrentComments.get("toname"),mCurrentComments.get("content"));
 				@Override
@@ -1109,6 +1136,7 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 						hash.put("content", mCurrentComments.get("content"));
 						hash.put("toname", mCurrentComments.get("toname"));
 						hash.put("tosn", mCurrentComments.get("tosn"));
+						hash.put("id", request.id);
 						
 						list.get(mCurrentPositionInt).comments.add(size,hash);
 						notifyDataSetChanged();
@@ -1128,5 +1156,108 @@ public class FriendCircleAdapter extends IgBaseAdapter implements OnClickListene
 			
 		} 
 			
+	}
+
+
+	private PopupWindow mDesPopWin;
+	private void showDeletePopWin(final String commentId) {
+		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+			return ;
+		}
+		RelativeLayout sv = (RelativeLayout) LayoutInflater.from(mContext).inflate(R.layout.friend_circle_delete_pop, null);
+		TextView delete_text = (TextView)sv.findViewById(R.id.delete_comment_txt);
+		TextView cancel_text = (TextView)sv.findViewById(R.id.delete_comment_cancel_txt);
+		mDesPopWin = new PopupWindow(sv, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+		mDesPopWin.setBackgroundDrawable(new ColorDrawable(mContext.getResources().getColor(android.R.color.transparent)));
+		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
+
+		delete_text.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				deleteSelefComment(commentId);
+			}
+		});
+		sv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dismissExchgPopwin();
+			}
+		});
+		cancel_text.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dismissExchgPopwin();
+			}
+		});
+		mDesPopWin.setOnDismissListener(new PopupWindow.OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				if (null != mDesPopWin) {
+					Utils.logh(TAG, "onDismiss ");
+					mDesPopWin = null;
+				}
+			}
+		});
+
+		mDesPopWin.showAtLocation(sv, Gravity.CENTER, 0, 0);
+	}
+
+	private void dismissExchgPopwin() {
+		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+			mDesPopWin.dismiss();
+//			mDesPopWin = null;
+		}
+	}
+
+	/*
+	 * 删除
+	 * */
+	private void deleteSelefComment(final String commentId) {
+
+		/**/
+		WaitDialog.showWaitDialog(mContext, R.string.str_loading_waiting);
+		new AsyncTask<Object, Object, Integer>() {
+
+			final FriendCommentDelete request = new FriendCommentDelete(mContext,commentId,sn);
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrl();
+			}
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				dismissExchgPopwin();
+				if(BaseRequest.REQ_RET_OK == result) {
+
+					if (list != null && list.get(mCurrentPositionInt) != null &&
+							list.get(mCurrentPositionInt).comments != null &&
+							list.get(mCurrentPositionInt).comments.size() > 0) {
+
+						int count = list.get(mCurrentPositionInt).comments.size();
+
+						for (int i = 0;i < count;i++) {
+
+							if (commentId.equalsIgnoreCase(list.get(mCurrentPositionInt).comments.get(i).get("id"))) {
+
+								list.get(mCurrentPositionInt).comments.remove(i);
+								break;
+
+							}
+						}
+
+					}
+
+					notifyDataSetChanged();
+
+				} else {
+
+					Toast.makeText(mContext,request.getFailMsg(),Toast.LENGTH_SHORT).show();
+				}
+				WaitDialog.dismissWaitDialog();
+			}
+		}.execute(null, null, null);
 	}
 }

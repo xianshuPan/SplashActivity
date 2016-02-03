@@ -23,15 +23,9 @@ import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.Customer;
-import com.hylg.igolf.cs.data.FriendHotItem;
 import com.hylg.igolf.cs.data.MyTeachingItem;
-import com.hylg.igolf.cs.data.PinDanDetailInfo;
-import com.hylg.igolf.cs.loader.GetFriendHotListLoader;
-import com.hylg.igolf.cs.loader.GetFriendHotListLoader.GetFriendHotListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.cs.request.GetCoachInviteOrderDetail;
 import com.hylg.igolf.cs.request.GetMyTeachingListNew;
-import com.hylg.igolf.imagepicker.Config;
 import com.hylg.igolf.ui.coach.CoachInviteOrderDetailActivityNew;
 import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.EhecdListview.OnLoadMoreListener;
@@ -545,7 +539,6 @@ public class MyTeachingFrg extends Fragment {
 
 		class ViewHolder {
 
-
 			private ImageView student1_avatar;
 			private TextView student1_nickname;
 			private TextView student1_price;
@@ -588,13 +581,11 @@ public class MyTeachingFrg extends Fragment {
 					statusText.setText("已拒绝");
 					statusText.setTextColor(getResources().getColor(R.color.color_red));
 
-
 					break;
 
 				case Const.MY_TEACHING_ACCEPTED:
 					statusText.setText("待支付");
 					statusText.setTextColor(getResources().getColor(R.color.color_yellow));
-
 
 					break;
 
@@ -604,8 +595,6 @@ public class MyTeachingFrg extends Fragment {
 					statusText.setTextColor(getResources().getColor(R.color.color_blue));
 
 					break;
-
-
 
 				case Const.MY_TEACHING_CANCEL:
 

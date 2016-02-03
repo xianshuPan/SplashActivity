@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.customer;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,7 +7,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -32,6 +33,8 @@ import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class InviteHistoryActivity extends Activity {
 	
@@ -294,7 +297,7 @@ public class InviteHistoryActivity extends Activity {
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			reqData.pageNum = inviteAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

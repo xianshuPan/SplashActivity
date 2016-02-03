@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:background="@color/color_white"
+    android:layout_height="wrap_content" >
+
+    <!-- 首字母 -->
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/alpha"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:background="@color/gray_e8e8e8"
+        android:paddingLeft="20dip"
+        android:textSize="@dimen/txt_size_ml"
+        android:textColor="@color/color_hint_txt"
+        />
+
+    <!-- 联系人信息 -->
+
+
+    <TextView
+        android:paddingLeft="20dip"
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5.0dip"
+        android:layout_below="@+id/alpha"
+        android:singleLine="true"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/txt_size_ml"
+        android:textColor="@color/color_hint_txt" />
+
+    <ImageView
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/alpha"
+        android:src="@drawable/pin_un"
+        android:layout_alignParentRight="true"
+        android:id="@+id/contact_select"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:gravity="center_vertical" />
+
+</RelativeLayout>

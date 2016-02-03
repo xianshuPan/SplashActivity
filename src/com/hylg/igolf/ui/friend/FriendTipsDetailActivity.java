@@ -1,23 +1,49 @@
 package com.hylg.igolf.ui.friend;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-import net.tsz.afinal.FinalBitmap;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.FriendHotItem;
+import com.hylg.igolf.cs.loader.AsyncImageLoader;
+import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
+import com.hylg.igolf.cs.loader.GetTipsDetialLoader;
+import com.hylg.igolf.cs.loader.GetTipsDetialLoader.GetTipsDetialCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.cs.request.FriendCommentsAdd;
 import com.hylg.igolf.cs.request.FriendPraiseAdd;
-import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.loader.GetTipsDetialLoader;
-import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
-import com.hylg.igolf.cs.loader.GetTipsDetialLoader.GetTipsDetialCallback;
 import com.hylg.igolf.cs.request.GetFriendCommentsList;
 import com.hylg.igolf.cs.request.GetFriendPraiserList;
 import com.hylg.igolf.ui.member.SystemBarUtils;
@@ -29,40 +55,18 @@ import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.BaseAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.PopupWindow.OnDismissListener;
+import net.tsz.afinal.FinalBitmap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class FriendTipsDetailActivity extends FragmentActivity implements OnClickListener {
 	
 	private final String 				TAG 						= "FriendNewTipsCountActivity";
+
+	public static final int 			DELETE_COMMENT_SUCC 		= 0;
 	
 	private ImageButton  				mBack 						= null;
 	
@@ -408,7 +412,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 
 					if (commentsAdapter == null) {
 
-						commentsAdapter = new FriendItemCommentsAdapter(mContext,request.getFriendCommentsList());
+						commentsAdapter = new FriendItemCommentsAdapter(mContext,request.getFriendCommentsList(),mHandler);
 
 					}
 					else {
@@ -506,7 +510,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 
 					if (commentsAdapter == null) {
 
-						commentsAdapter = new FriendItemCommentsAdapter(mContext,request.getFriendCommentsList());
+						commentsAdapter = new FriendItemCommentsAdapter(mContext,request.getFriendCommentsList(),mHandler);
 
 					}
 					else {
@@ -700,7 +704,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 
 		if (item1 != null && item1.comments != null && item1.comments.size() > 0) {
 
-			commentsAdapter = new FriendItemCommentsAdapter(this,item1.comments);
+			commentsAdapter = new FriendItemCommentsAdapter(this,item1.comments,mHandler);
 			commentsList.setAdapter(commentsAdapter);
 			commentsList.onRefreshComplete();
 			commentsLoadFail.displayNone();
@@ -745,7 +749,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 			commentsCountTxt.setText(String.valueOf(item.commentsCount));
 		}
 
-		if (item.commentsCount >= 0) {
+		if (item.praiseCount >= 0) {
 
 			praisersCountTxt.setText(String.valueOf(item.praiseCount));
 		}
@@ -1133,7 +1137,7 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 						if (commentsAdapter == null) {
 
 							item.comments.add(0, mCurrentComments);
-							commentsAdapter = new FriendItemCommentsAdapter(mContext,item.comments);
+							commentsAdapter = new FriendItemCommentsAdapter(mContext,item.comments,mHandler);
 							commentsList.setAdapter(commentsAdapter);
 							commentsLoadFail.displayNone();
 						}
@@ -1141,8 +1145,6 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 
 							commentsAdapter.addNewItem(mCurrentComments);
 						}
-
-
 						
 					} else {
 
@@ -1173,4 +1175,22 @@ public class FriendTipsDetailActivity extends FragmentActivity implements OnClic
 
 		}
 	}
+
+	Handler mHandler = new Handler (){
+
+		@Override
+		public void handleMessage(Message msg) {
+
+			if (msg.what == DELETE_COMMENT_SUCC) {
+
+				item.commentsCount = item.commentsCount-1;
+
+				if (item.commentsCount >= 0) {
+
+					commentsCountTxt.setText(String.valueOf(item.commentsCount));
+				}
+
+			}
+		}
+	};
 }

@@ -1,19 +1,5 @@
 package com.hylg.igolf.ui;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-
-import org.json.JSONObject;
-
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -30,6 +16,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,12 +26,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewStub;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
-import cn.jpush.android.api.TagAliasCallback;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -74,8 +57,25 @@ import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.GlobalData;
+import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.umeng.update.UmengUpdateAgent;
+
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, TagAliasCallback {
 	private final static String TAG = "MainActivity";
@@ -108,11 +108,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	private LocationManagerProxy 				mLocationManagerProxy;
 	private myAMapLocationListener      		mAMapLocationListener;
 
+	private FragmentActivity                    mContext;
+
 	public static void startMainActivity(Context context) {
 		
 		Intent intent = new Intent(context, MainActivity.class);
 //		intent.putExtra(BUNDLE_KEY_FROM_SETUP, true);
 		context.startActivity(intent);
+
 	}
 	
 	public static void startMainActivityFromSetup(Context context) {
@@ -148,7 +151,10 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
+		mContext = this;
+
+		SharedPref.setBoolean(SharedPref.PREFS_KEY_SHOW_LOCATION_SETTING,false,mContext);
 		ExitToLogin.getInstance().addActivity(this);
 
 		fragmentRefs = new HashMap<String, WeakReference<onKeyDownClick>>();
@@ -203,20 +209,20 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 		updateAlerts();
 		
 		// 从注册页面进入，展示蒙板
-		Intent intent = getIntent();
-		if(null != intent && intent.getBooleanExtra(BUNDLE_KEY_FROM_SETUP, false)) {
-			final ViewStub maskGuide = (ViewStub) findViewById(R.id.mask_guide);
-			maskGuide.inflate();
-			ImageView vs = (ImageView) findViewById(R.id.main_mask_img);
-			vs.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Utils.logh(TAG, "click on mask guide !");
-					maskGuide.setVisibility(View.GONE);
-//					GolfersHomeFrg.getInstance().onMaskGuideClick();
-				}
-			});
-		}
+//		Intent intent = getIntent();
+//		if(null != intent && intent.getBooleanExtra(BUNDLE_KEY_FROM_SETUP, false)) {
+//			final ViewStub maskGuide = (ViewStub) findViewById(R.id.mask_guide);
+//			maskGuide.inflate();
+//			ImageView vs = (ImageView) findViewById(R.id.main_mask_img);
+//			vs.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					Utils.logh(TAG, "click on mask guide !");
+//					maskGuide.setVisibility(View.GONE);
+////					GolfersHomeFrg.getInstance().onMaskGuideClick();
+//				}
+//			});
+//		}
 		
 		/*从应用中拷贝图片到sd card 中*/
 		copyCameraIconToSdcard();
@@ -255,6 +261,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 			
 			mSelectViewMap.clear();
 		}
+
+		SharedPref.setBoolean(SharedPref.PREFS_KEY_SHOW_LOCATION_SETTING,false,mContext);
 		// 检查内存，删除不常用图片
 		AsyncImageLoader.checkSpace(MainActivity.this, false);
 	}
@@ -1182,7 +1190,49 @@ public class MainActivity extends FragmentActivity implements OnClickListener, T
 				DebugTools.getDebug().debug_v(TAG, "lng------------------>>>"+lng);
 				DebugTools.getDebug().debug_v(TAG, "province------------------>>>"+province);
 				saveCoachLocation();
+			}else {
+
+
+				boolean industry = SharedPref.getBoolean(SharedPref.PREFS_KEY_SHOW_LOCATION_SETTING, mContext);
+
+				if (!industry) {
+
+					SharedPref.setBoolean(SharedPref.PREFS_KEY_SHOW_LOCATION_SETTING,true,mContext);
+					AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
+					dialog.setMessage("「爱高尔夫」需要获取您的位置，以提供更优质的服务。请开启您的定位服务或权限");
+					dialog.setPositiveButton(R.string.str_setting_auth_title, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							Intent intent = new Intent(Settings.ACTION_SETTINGS);
+							startActivity(intent);
+							SharedPref.setBoolean(SharedPref.PREFS_KEY_SHOW_LOCATION_SETTING, false, mContext);
+						}
+					});
+					dialog.setNeutralButton(R.string.str_setting_gps_title, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+							startActivity(intent);
+							SharedPref.setBoolean(SharedPref.PREFS_KEY_SHOW_LOCATION_SETTING, false, mContext);
+						}
+					});
+					dialog.setNegativeButton(R.string.str_photo_cancel, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface arg0, int arg1) {
+							// TODO Auto-generated method stub
+							//CartActivity.this.finish();
+						}
+					});
+					dialog.show();
+				}
+
 			}
+
 		}
 
 	}

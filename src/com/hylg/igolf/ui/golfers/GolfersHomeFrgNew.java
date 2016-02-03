@@ -140,7 +140,6 @@ public class GolfersHomeFrgNew extends Fragment
 				reqData.label = label;
 			}
 
-
 			String industry = SharedPref.getString(SharedPref.PREFS_KEY_GOLFER_DEF_INDUSTRY, getActivity());
 			if(!SharedPref.isInvalidPrefString(industry)) {
 				reqData.industry  = industry;
@@ -603,7 +602,7 @@ public class GolfersHomeFrgNew extends Fragment
 	
 	private void initListView(ArrayList<GolferInfo> golfersList) {
 		if(null == golfersAdapter) {
-			golfersAdapter = new GolfersAdapter(mContext, mHandle, GolfersAdapter.BUNDLE_KEY_GOLFERS_LIST, golfersList);
+			golfersAdapter = new GolfersAdapter(mContext, mHandle, GolfersAdapter.BUNDLE_KEY_GOLFERS_LIST, golfersList,false);
 			listView.setAdapter(golfersAdapter);
 		} else {
 			golfersAdapter.refreshListInfo(golfersList);

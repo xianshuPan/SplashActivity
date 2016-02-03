@@ -1,16 +1,16 @@
 package com.hylg.igolf.cs.request;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.MyInviteInfo;
 import com.hylg.igolf.ui.hall.data.Applicant;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class GetMyInviteList extends BaseRequest {
 	private String param;
@@ -59,6 +59,7 @@ public class GetMyInviteList extends BaseRequest {
 				mii.type = obj.optInt(RET_TYPE);
 				mii.payType = obj.optInt("payType");
 				mii.local_fans = obj.optInt("infoFans");
+				mii.sameProvencePerson = obj.optInt("sameProvencePerson");
 				mii.status = obj.optInt(RET_STATUS);
 				mii.displayStatus = obj.optInt(RET_DISPLAY_STATUS);
 				mii.displayStatusStr = obj.optString(RET_DISPLAY_STATUS_STR);

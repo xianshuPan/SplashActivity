@@ -21,6 +21,13 @@
 		    android:textColor="@color/color_title_txt"
 		    android:textSize="@dimen/txt_title_size"
 		    android:layout_centerInParent="true" />
+
+		<ImageView
+			android:id="@+id/invite_detail_share_image"
+			style="@style/top_bar_btn_style"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/share_rank"
+			android:contentDescription="@null" />
     </RelativeLayout>
  
     <!-- bottom operate buttons region -->
@@ -189,6 +196,7 @@
 		          <RelativeLayout
 					  android:background="@drawable/applicants_bg"
 		              android:layout_marginLeft="10dp"
+					  android:layout_marginRight="5dp"
 					  android:clickable="false"
 					  android:id="@+id/invite_detail_invitee_realtive1"
 					  android:layout_toLeftOf="@+id/invite_detail_invitee_realtive0"
@@ -229,8 +237,8 @@
 			        </RelativeLayout>
 
 					<RelativeLayout
-						android:layout_marginLeft="10dp"
-						android:layout_marginRight="10dp"
+						android:layout_marginLeft="8dp"
+						android:layout_marginRight="8dp"
 						android:background="@drawable/applicants_bg"
 						android:layout_toRightOf="@+id/invite_detail_vs"
 						android:id="@+id/invite_detail_invitee_realtive"
@@ -274,6 +282,7 @@
 			        
 			        <RelativeLayout
 						android:layout_marginRight="10dp"
+						android:layout_marginLeft="5dp"
 						android:clickable="false"
 						android:background="@drawable/applicants_bg"
 			            android:layout_toRightOf="@+id/invite_detail_invitee_realtive0"
@@ -1099,4 +1108,5 @@
             
 		</LinearLayout>    
 	</ScrollView>
+
 </RelativeLayout>

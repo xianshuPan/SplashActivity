@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,7 +29,6 @@ import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
-import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -420,7 +418,7 @@ public class HallMyInvitesActivity extends FragmentActivity implements onResultC
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			startPage = myInviteAdapter.getCount() / pageSize + 1;
+			startPage = startPage + 1;
 			appendListDataAsync(startPage);
 		}
 	};
@@ -533,7 +531,7 @@ public class HallMyInvitesActivity extends FragmentActivity implements onResultC
 				holder.invitee_two.setVisibility(View.VISIBLE);
 				holder.invitee_three.setVisibility(View.VISIBLE);
 
-				holder.fans.setText(String.valueOf(data.local_fans));
+				holder.fans.setText(String.valueOf(data.sameProvencePerson));
 
 
 				if (data.applicants != null && data.applicants.size()> 0) {

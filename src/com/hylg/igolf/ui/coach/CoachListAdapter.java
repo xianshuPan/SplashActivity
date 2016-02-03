@@ -1,19 +1,14 @@
 package com.hylg.igolf.ui.coach;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import cn.gl.lib.view.RoundedImageView;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -22,6 +17,8 @@ import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
+
+import java.util.ArrayList;
 
 public class CoachListAdapter extends IgBaseAdapter {
 	
@@ -135,7 +132,7 @@ public class CoachListAdapter extends IgBaseAdapter {
 		}
 		else {
 
-			holder.distanceTv.setText(String.valueOf(item.distance)+"km");
+			holder.distanceTv.setText(Utils.getMoney(item.distance)+"km");
 		}
 		//holder.distanceTv.setText(String.valueOf(item.distance)+"km");
 		holder.distanceTimeTv.setText(Utils.handTime(item.distanceTime));

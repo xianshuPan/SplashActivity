@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.coach;
 
-import android.content.Intent;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -196,7 +194,7 @@ public class CoachHomeFrgNew extends Fragment implements OnClickListener{
 
 					} else {
 
-						distanceTv.setText(String.valueOf(item.distance)+"km");
+						distanceTv.setText(Utils.getMoney(item.distance)+"km");
 					}
 
 					distanceTimeTv.setText(Utils.handTime(item.distanceTime));

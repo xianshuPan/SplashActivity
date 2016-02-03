@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.golfers;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +30,8 @@ import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class GolfersSearchResultActivity extends Activity implements OnClickListener{
 	public static final String TAG = "GolfersSearchResultActivity";
@@ -136,7 +136,7 @@ public class GolfersSearchResultActivity extends Activity implements OnClickList
 	
 	private void initListView(ArrayList<GolferInfo> golfersList) {
 		if(null == golfersAdapter) {
-			golfersAdapter = new GolfersAdapter(this, mHandle, GolfersAdapter.BUNDLE_KEY_GOLFERS_LIST, golfersList);
+			golfersAdapter = new GolfersAdapter(this, mHandle, GolfersAdapter.BUNDLE_KEY_GOLFERS_LIST, golfersList,false);
 			listView.setAdapter(golfersAdapter);
 		} else {
 			golfersAdapter.refreshListInfo(golfersList);
@@ -229,7 +229,7 @@ public class GolfersSearchResultActivity extends Activity implements OnClickList
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			pageNum = golfersAdapter.getCount() / pageSize + 1;
+			pageNum = pageNum + 1;
 			appendListDataAsync(sn, pageNum, pageSize, keyWord);
 		}
 	};

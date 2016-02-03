@@ -3,20 +3,14 @@ package com.hylg.igolf.ui.coach;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,12 +22,8 @@ import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.CoachInviteOrderDetail;
 import com.hylg.igolf.cs.data.CourseInfo;
 import com.hylg.igolf.cs.data.Customer;
-import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CoachInviteCommit;
-import com.hylg.igolf.cs.request.CoachRefuseContent;
-import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.cs.request.GetCourseAllInfoList;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity.onCourseAllSelectListener;
@@ -46,7 +36,6 @@ import com.hylg.igolf.ui.customer.MyTeachingHomeActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.CoachInviteReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
-import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
 import com.hylg.igolf.utils.Const;
@@ -56,10 +45,8 @@ import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class CoachInviteAgainActivity extends FragmentActivity implements
@@ -236,7 +223,7 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 
 
 			mReqPara.times = 1;
-			mTeachingHoursTxt.setText(mReqPara.times + "小时");
+			mTeachingHoursTxt.setText(mReqPara.times + "");
 		}
 
 		
@@ -457,6 +444,6 @@ public class CoachInviteAgainActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 		mReqPara.times = newHourExp;
 		
-		mTeachingHoursTxt.setText(newHourExp + "小时");
+		mTeachingHoursTxt.setText(newHourExp+"");
 	}
 }

@@ -1,16 +1,21 @@
 package com.hylg.igolf.cs.request;
 
-import java.io.InputStream;
-
-import org.json.JSONObject;
-
 import android.content.Context;
 
+import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.ui.reqparam.StartOpenReqParam;
 
+import org.json.JSONObject;
+
+import java.io.InputStream;
+
 public class StartOpenInvite extends BaseRequest {
 	private String param;
+
+	public long app_id = -1;
+
+	public int local_fans_amount = 0;
 
 	public StartOpenInvite(Context context, StartOpenReqParam reqParam) {
 		super(context);
@@ -40,6 +45,8 @@ public class StartOpenInvite extends BaseRequest {
 	@Override
 	public int parseBody(InputStream is) {
 		String str = transferIs2String(is);
+
+		DebugTools.getDebug().debug_v("startOpenInvite","----->>>"+str);
 		try {
 			JSONObject jo = new JSONObject(str);
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
@@ -47,6 +54,9 @@ public class StartOpenInvite extends BaseRequest {
 				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
+			app_id = jo.optLong("appId");
+			local_fans_amount = jo.optInt("infoFans");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return REQ_RET_F_JSON_EXCEP;

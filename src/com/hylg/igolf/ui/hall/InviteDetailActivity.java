@@ -1,10 +1,7 @@
 package com.hylg.igolf.ui.hall;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -12,14 +9,20 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.RatingBar.OnRatingBarChangeListener;
-import cn.gl.lib.view.*;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -28,15 +31,28 @@ import com.amap.api.location.LocationProviderProxy;
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.*;
+import com.hylg.igolf.cs.data.Customer;
+import com.hylg.igolf.cs.data.InviteRoleInfo;
+import com.hylg.igolf.cs.data.MyInviteDetail;
+import com.hylg.igolf.cs.data.PlanShowInfo;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
-import com.hylg.igolf.cs.request.*;
-import com.hylg.igolf.ui.hall.adapter.*;
+import com.hylg.igolf.cs.request.ApplyOpenInvite;
+import com.hylg.igolf.cs.request.CancelOpenInvite;
+import com.hylg.igolf.cs.request.GetMyInviteDetail;
+import com.hylg.igolf.cs.request.RevokeInviteApp;
+import com.hylg.igolf.ui.hall.adapter.ApplicantsAdapter;
+import com.hylg.igolf.ui.hall.adapter.PlanSelectAdapter;
+import com.hylg.igolf.ui.hall.adapter.PlanShowAdapter;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
-import com.hylg.igolf.utils.*;
+import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
+
+import cn.gl.lib.view.NestGridView;
+import cn.gl.lib.view.NestListView;
 
 public abstract class InviteDetailActivity extends Activity implements View.OnClickListener {
 	/**
@@ -50,7 +66,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	private int finishResult;
 	private Intent finishIntent;
 	private View svLayout;
-	private LinearLayout operBarLl; // 底部操作按钮
+	protected LinearLayout operBarLl; // 底部操作按钮
 	// 双方头像，昵称，性别
 	private InfoViewHolder leftInfoVh, rightInfoVh,right1InfoVh,right2InfoVh;//right0InfoVh
 	// 称呼(一对一)及约球语
@@ -63,6 +79,8 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 	protected LinearLayout mInviteAllInfoLinear,mInviteShowLinear;
 	protected ImageView mInviteShowImage;
 	protected TextView mInviteaShowTxt;
+
+	protected ImageView mShareImage;
 
 	// 开球时间，场地；方案(一对一确定后) 1/2
 	//private LinearLayout appInfoLl;
@@ -189,6 +207,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		getLeftPerInfoViews();
 		getRightPerInfoViews();
 
+		mShareImage = (ImageView) findViewById(R.id.invite_detail_share_image);
 		invitee_one_relative = (RelativeLayout) findViewById(R.id.invite_detail_invitee_realtive);
 		invitee_two_relative = (RelativeLayout) findViewById(R.id.invite_detail_invitee_realtive1);
 		invitee_three_relative = (RelativeLayout) findViewById(R.id.invite_detail_invitee_realtive2);
@@ -198,8 +217,8 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 		mInviteaShowTxt = (TextView) findViewById(R.id.invite_detail_invintee_info_all_show_txt);
 		mInviteShowImage= (ImageView) findViewById(R.id.invite_detail_invintee_info_all_show_image);
 
+		mShareImage.setOnClickListener(this);
 		mInviteShowLinear.setOnClickListener(this);
-
 		invitee_one_relative.setOnClickListener(this);
 		invitee_two_relative.setOnClickListener(this);
 		invitee_three_relative.setOnClickListener(this);
@@ -1033,6 +1052,7 @@ public abstract class InviteDetailActivity extends Activity implements View.OnCl
 				}
 
 				break;
+
 		}
 	}
 

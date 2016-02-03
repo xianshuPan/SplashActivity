@@ -1,26 +1,19 @@
 package com.hylg.igolf.ui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -33,11 +26,18 @@ import com.hylg.igolf.R;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.LoginUser;
 import com.hylg.igolf.ui.account.LoginActivity;
-import com.hylg.igolf.ui.view.PagerSlidingTabStrip;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.umeng.analytics.MobclickAgent;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class SplashActivity extends Activity {
 
@@ -46,6 +46,8 @@ public class SplashActivity extends Activity {
 	/*高德定位操作*/
 	private LocationManagerProxy 				mLocationManagerProxy;
 	private myAMapLocationListener      		mAMapLocationListener;
+
+	private ImageView                           imageView;
 	
 	public static void startSplashActivityFromReceiver(Context context, Bundle bundle) {
 		context.startActivity(
@@ -74,7 +76,7 @@ public class SplashActivity extends Activity {
 	private static final int DOWN_STEP = 2;
 	private static final int START_LOGIN_ACTIVITY = 3;
 	private static final int START_MAIN_ACTIVITY = 4;
-	private static final long MIN_LOAD_DELAY = 1500; // 页面最短停留时间
+	private static final long MIN_LOAD_DELAY = 2000; // 页面最短停留时间
 	private long loadTime = 0; // 记录启动新页面之前，花费的总时间
 	
 	@Override
@@ -83,6 +85,8 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.activity_splash);
 
 		MobclickAgent.updateOnlineConfig(this);
+
+		//imageView = (ImageView)findViewById(R.id.splash_image);
 		/*
 		 * Get previously and current version code, 
 		 * to check whether display user guide.
@@ -100,7 +104,6 @@ public class SplashActivity extends Activity {
 				startActivityForResult(intent, Const.REQUST_CODE_USER_GUIDE);
 				overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 
-				
 			} else {
 				
 				//asynTask();
@@ -137,6 +140,38 @@ public class SplashActivity extends Activity {
 				LocationProviderProxy.AMapNetwork, 60 * 1000, 15, mAMapLocationListener);
 
 		mLocationManagerProxy.setGpsEnable(false);
+
+		startAnimation();
+	}
+
+	private void startAnimation() {
+
+		AnimationSet animationSet = new AnimationSet(true);
+		//前四个参数表示从原来大小的100%缩小到10%，后四个参数是为确定“中心点”
+		ScaleAnimation scaleAnimation = new ScaleAnimation(0.8f, 1, 0.8f,
+				1, Animation.RELATIVE_TO_SELF, 0.5f,
+				Animation.RELATIVE_TO_SELF, 0.5f);
+		animationSet.addAnimation(scaleAnimation);
+		//动画效果推迟1秒钟后启动
+		animationSet.setStartOffset(1000);
+		//如果值为true，控件则保持动画结束的状态
+		animationSet.setFillAfter(true);
+		//如果值为false，控件则保持动画结束的状态
+		animationSet.setFillBefore(false);
+		//动画效果重复3次
+		//animationSet.setRepeatCount(3);
+		animationSet.setDuration(2000);
+
+		//imageView.startAnimation(animationSet);
+
+		Matrix mMatrix = new Matrix();
+		mMatrix.reset();
+		mMatrix.postTranslate(1, 0.2f);
+		mMatrix.postScale(1, 0.2f);
+		//mMatrix.postTranslate(translX, translY);
+
+		//imageView.setImageMatrix(mMatrix);
+		//imageView.invalidate();
 	}
 
 	@Override
@@ -482,6 +517,8 @@ public class SplashActivity extends Activity {
 				protected void onPostExecute(Integer result) {
 					super.onPostExecute(result);
 					loadTime += System.currentTimeMillis() - start;
+
+					DebugTools.getDebug().debug_v("loadTime","----->>>"+loadTime);
 					if(BaseRequest.REQ_RET_OK == result) {
 						startMainActivity();
 					} else {
@@ -500,8 +537,12 @@ public class SplashActivity extends Activity {
 		Utils.logh(TAG, "startLoginActivity loadTime: " + loadTime);
 		if(MIN_LOAD_DELAY > loadTime) {
 			handler.sendEmptyMessageDelayed(START_LOGIN_ACTIVITY, (MIN_LOAD_DELAY - loadTime));
+
 		} else {
-			doStartLoginActivity();
+
+			//doStartLoginActivity();
+
+			handler.sendEmptyMessageDelayed(START_LOGIN_ACTIVITY, 1000);
 		}
 	}
 	
@@ -522,13 +563,15 @@ public class SplashActivity extends Activity {
 			
 		} else {
 			
-			doStartMainActivity();
+			//doStartMainActivity();
+
+			handler.sendEmptyMessageDelayed(START_MAIN_ACTIVITY, 1000);
 		}
 	}
 	
 	private void doStartMainActivity() {
 		MainActivity.startMainActivity(SplashActivity.this);
-		
+
 		overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
 		finish();
 	}

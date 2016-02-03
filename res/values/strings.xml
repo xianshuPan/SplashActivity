@@ -202,6 +202,7 @@
     
     <!-- golfers -->
     <string name="str_golfers_home_title">球友</string>
+    <string name="str_recommand_golfers_home_title">推荐球友</string>
     <string name="str_golfers_search_result_title">球友搜索结果</string>
     <string name="str_golfers_label_hint">点击标签找感兴趣的球友</string>
     <string name="str_golfers_selection_hint">设置筛选条件</string>
@@ -240,11 +241,9 @@
     <string name="str_coachers_search">搜索</string>
     <string name="str_coach_info_detail_title">教练详情</string>
     <string name="str_coach_invite_not_end">教学还没有结束</string>
-    
     <string name="str_coach_invite_no_avatar">请上传头像</string>
     <string name="str_coach_invite_no_name">请填写姓名</string>
     <string name="str_coach_invite_no_sex">请选择性别</string>
-
     <string name="str_coach_invite_no_age">请选择年龄</string>
     <string name="str_coach_invite_no_id_frond">请上传身份证前面</string>
     <string name="str_coach_invite_no_id_back">请上传身份证背面</string>
@@ -256,14 +255,10 @@
     <string name="str_coach_apply_status_waiting">待审核</string>
     <string name="str_coach_apply_status_success">通过审核</string>
     <string name="str_coach_apply_status_fail">未通过审核</string>
-    
     <string name="str_coach_start_teaching_title">确定开始教学</string>
     <string name="str_coach_start_teaching_message">请告知学员,教学开始</string>
-    
     <string name="str_coach_end_teaching_title">确定结束教学</string>
     <string name="str_coach_end_teaching_message">请告知学员,及时支付</string>
-
-    
     <string name="str_coachers_info_student_comment">学员评价</string>
     <string name="str_coachers_info_see_all_comments">查看全部学员评价</string>
     <string name="str_coachers_info_place">常驻球场</string>
@@ -279,6 +274,8 @@
     <string name="str_coachers_invite_title">约教练</string>
     <string name="str_coachers_invite_again">再约一次</string>
     <string name="str_setting_title">设置</string>
+    <string name="str_setting_auth_title">设置权限</string>
+    <string name="str_setting_gps_title">开启定位</string>
     <string name="str_coachers_invite_other_title"><u>看看其他教练</u></string>
     <string name="str_pay_title">支付</string>
     <string name="str_pay_finish">已支付</string>
@@ -291,7 +288,11 @@
     <string name="str_hall_start_sts_title">发起约球</string>
     <string name="str_hall_tab_open">约球大厅</string>
     <string name="str_hall_have">您有</string>
-    <string name="str_hall_hava_end">位本地粉丝，已通知</string>
+    <string name="str_noticed">已通知</string>
+
+    <string name="str_hall_hava_end">位本地粉丝</string>
+    <string name="str_hall_system_auto">系统已自动推送给</string>
+    <string name="str_hall_system_auto_end">位球友</string>
     <string name="str_hall_tab_sts">我的约球</string>
     <string name="str_hall_invite_open_list_title">@string/str_hall_tab_open</string>
     <string name="str_hall_invite_sts_list_title">@string/str_hall_tab_sts</string>
@@ -393,6 +394,7 @@
 
     <string name="str_feedback_ok">大侠，说得好！多谢指教！</string>
      <string name="str_invite_detail_score_invalid">请输入大于0的数值！</string>
+    <string name="search_bar_notify_text">搜索姓名、手机号</string>
      
      <!-- friend 朋友圈 -->
      <string name="str_friend_home_title">球友圈</string>
@@ -412,6 +414,7 @@
     <string name="str_rank_sub_title_score">成绩</string>
     <string name="str_rank_own_hint">未上榜，显示原因</string>
     <string name="str_rank_intro_hint_title">为保证排行榜的真实性：</string>
+    <string name="str_invite_open_hint_title">点击这里就可以发起\n一个大厅约球哦</string>
     <string name="str_rank_intro_hint">1.约球成功后才能上传成绩，系统智能过滤刷榜;\n2.上传成绩的有效时间为开球后2&#8211;12小时;\n3.有效区域为球场半径5公里内;\n4.每张计分卡都将由后台人工审核;\n5.差点算法严格参考USGA标准。</string>
     
     <string name="viewpager_indicator">%1$d/%2$d</string>
@@ -470,11 +473,14 @@
     <string name="str_my_teaching_title">我的教学</string>
     <string name="str_my_balance_title">我的余额</string>
     <string name="str_my_coach_title">申请教练</string>
+    <string name="str_invite_friend_title">邀请好友</string>
+    <string name="str_over">跳过</string>
+    <string name="str_select_friend">请选择好友</string>
     <string name="str_my_message_title">我的消息</string>
     <string name="str_my_draft_title">我的草稿箱</string>
     <string name="str_feedback">意见反馈</string>
     <string name="str_feedback_edit">请填写您的宝贵意见</string>
-    <string name="str_feedback_tips">\t\t欢迎您提出宝贵的意见和建议，您留下的每个字都将用来改善我们的软件，希望我们能为您提供更好的服务。</string>
+    <string name="str_feedback_tips">\t\t\t欢迎您提出宝贵的意见和建议，您留下的每个字都将用来改善我们的软件，希望我们能为您提供更好的服务。</string>
     <string name="str_feedback_hint">\t\t有什么想说的?给我们发送您宝贵的意见。</string>
     <string name="str_about">关于iGolf</string>
     <string name="str_hot_line">客服热线</string>
@@ -643,6 +649,7 @@
     <string name="str_photo_take">拍照</string>
     <string name="str_photo_gallery">选择本地图片</string>
     <string name="str_photo_cancel">取消</string>
+    <string name="str_delete_comment">删除此条评论</string>
     <string name="str_photo_commit">确定</string>
     
      <!-- friend 朋友圈 -->

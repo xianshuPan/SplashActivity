@@ -1,8 +1,7 @@
 package com.hylg.igolf.ui.golfers.adapter;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,16 +11,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import cn.gl.lib.view.RoundedImageView;
+import android.widget.Toast;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.GolferInfo;
-import com.hylg.igolf.ui.view.CircleImageView;
+import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class GolfersAdapter extends IgBaseAdapter {
 	private Activity context;
@@ -39,13 +42,17 @@ public class GolfersAdapter extends IgBaseAdapter {
 	private String bundleKey;
 	private int starSize;
 	private GlobalData gd;
+
+	private boolean mIsRecommand = false;
 	
-	public GolfersAdapter(Activity context, Handler handle, String bundleKey, ArrayList<GolferInfo> list) {
+	public GolfersAdapter(Activity context, Handler handle, String bundleKey, ArrayList<GolferInfo> list,boolean isRecommand) {
 		this.context = context;
 		mHandle = handle;
 		this.bundleKey = bundleKey;
 		this.list = list;
 		starSize = (int) context.getResources().getDimension(R.dimen.golfers_li_rate_star_size);
+
+		mIsRecommand = isRecommand;
 		gd = MainApp.getInstance().getGlobalData();
 	}
 
@@ -69,6 +76,7 @@ public class GolfersAdapter extends IgBaseAdapter {
 			convertView = View.inflate(context, R.layout.golfers_list_item, null);
 			holder = new ViewHodler();
 			holder.inviteBtn = (Button) convertView.findViewById(R.id.golfers_li_invite_btn);
+			holder.attentionBtn = (Button) convertView.findViewById(R.id.golfers_li_attention_btn);
 			holder.avatarIv = (ImageView) convertView.findViewById(R.id.golfers_li_avatar);
 			holder.sexIv = (ImageView) convertView.findViewById(R.id.golfers_li_sex);
 			holder.nicknameTv = (TextView) convertView.findViewById(R.id.golfers_li_nickname);
@@ -79,6 +87,7 @@ public class GolfersAdapter extends IgBaseAdapter {
 			holder.industryTv = (TextView) convertView.findViewById(R.id.golfers_li_industry);
 			convertView.setTag(holder);
 		} else {
+
 			holder = (ViewHodler) convertView.getTag();
 		}
 		GolferInfo data = list.get(position);
@@ -88,9 +97,33 @@ public class GolfersAdapter extends IgBaseAdapter {
 //		} else {
 //			convertView.setBackgroundResource(R.drawable.list_item_odd_bkg);
 //		}
+
+		if (mIsRecommand) {
+
+			holder.attentionBtn.setVisibility(View.VISIBLE);
+
+			if(list.get(position).attention == 0) {
+
+				holder.attentionBtn.setText(R.string.str_friend_attention);//color_tab_green
+				holder.attentionBtn.setTextColor(context.getResources().getColor(R.color.color_tab_green));
+				holder.attentionBtn.setBackgroundResource(R.drawable.attent_color);
+
+			}
+			else if (list.get(position).attention == 1) {
+
+				holder.attentionBtn.setText(R.string.str_friend_attented);
+				holder.attentionBtn.setTextColor(context.getResources().getColor(R.color.color_white));
+				holder.attentionBtn.setBackgroundResource(R.drawable.attented_color);
+			}
+		}
+		else {
+
+			holder.attentionBtn.setVisibility(View.GONE);
+		}
 		convertView.setOnClickListener(new OnItemChildClickListener(GOLFERS_INDEX_ITEM, position));
 		holder.inviteBtn.setOnClickListener(new OnItemChildClickListener(GOLFERS_INDEX_INVITE, position));
 		holder.avatarIv.setOnClickListener(new OnItemChildClickListener(GOLFERS_INDEX_AVATAR, position));
+		holder.attentionBtn.setOnClickListener(new OnItemAttentionClickListener(position));
 		
 		loadAvatar(context, data.sn, data.avatar, holder.avatarIv);
 
@@ -110,6 +143,7 @@ public class GolfersAdapter extends IgBaseAdapter {
 
 	private class ViewHodler {
 		protected Button inviteBtn;
+		protected Button attentionBtn;
 		protected ImageView avatarIv;
 		protected ImageView sexIv;
 		protected TextView handicapiTv;
@@ -140,6 +174,60 @@ public class GolfersAdapter extends IgBaseAdapter {
 			mHandle.sendMessage(msg);
 		}
 		
+	}
+
+
+	private class OnItemAttentionClickListener implements View.OnClickListener {
+		private int position;
+
+		public OnItemAttentionClickListener( int position) {
+
+			this.position = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+
+			attention(position);
+		}
+
+	}
+
+	/*
+	 * 添加关注
+	 * */
+	private void attention(final int position) {
+
+		/*添加或取消关注*/
+		WaitDialog.showWaitDialog(context, R.string.str_loading_waiting);
+		new AsyncTask<Object, Object, Integer>() {
+
+			FriendAttentionAdd request = new FriendAttentionAdd(context,MainApp.getInstance().getCustomer().sn,list.get(position).sn,list.get(position).attention);
+			@Override
+			protected Integer doInBackground(Object... params) {
+
+				return request.connectUrlGet();
+			}
+			@Override
+			protected void onPostExecute(Integer result) {
+				super.onPostExecute(result);
+
+				if(BaseRequest.REQ_RET_OK == result) {
+
+					/*已经关注过*/
+					int attention = list.get(position).attention;
+
+					list.get(position).attention = attention == 1 ? 0 : 1;
+
+					notifyDataSetChanged();
+
+				} else {
+
+					Toast.makeText(context,request.getFailMsg(),Toast.LENGTH_SHORT).show();
+				}
+				WaitDialog.dismissWaitDialog();
+			}
+		}.execute(null, null, null);
 	}
 
 	@Override

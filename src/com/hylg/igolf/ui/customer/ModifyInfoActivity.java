@@ -1,10 +1,5 @@
 package com.hylg.igolf.ui.customer;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,7 +10,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -48,12 +42,18 @@ import com.hylg.igolf.ui.common.YearsExpSelectActivity;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity.onYearsExpSelectListener;
 import com.hylg.igolf.ui.reqparam.ModifyCustomerReqParam;
 import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.FileUtils;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ModifyInfoActivity extends FragmentActivity implements OnClickListener,onSexSelectListener,
 											onRegionSelectListener,onIndustrySelectListener,
@@ -155,7 +155,9 @@ public class ModifyInfoActivity extends FragmentActivity implements OnClickListe
 	
 	private void initMyInfoData() {
 		customer = MainApp.getInstance().getCustomer();
-		loadAvatar(customer.sn,customer.avatar);
+		//loadAvatar(customer.sn,customer.avatar);
+
+		DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(customer.sn),avatarView,null);
 		goGlobalData = MainApp.getInstance().getGlobalData();
 		sexView.setText(goGlobalData.getSexName(customer.sex));
 		ageView.setText(String.format(getString(R.string.str_account_age_wrap), customer.age));

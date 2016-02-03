@@ -3,9 +3,7 @@ package com.hylg.igolf.cs.request;
 import android.content.Context;
 
 import com.hylg.igolf.DebugTools;
-import com.hylg.igolf.cs.data.OpenInvitationInfo;
 import com.hylg.igolf.cs.data.PinDanDetailInfo;
-import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
 import com.hylg.igolf.ui.reqparam.GetPinDanReqParam;
 
 import org.json.JSONArray;
@@ -65,10 +63,10 @@ public class GetPinDanList extends BaseRequest {
 			DebugTools.getDebug().debug_v("getCanPinDanList","------>>>"+jo);
 
 			int rn = jo.optInt(RET_NUM, REQ_RET_FAIL);
-			if(REQ_RET_OK != rn && REQ_RET_F_OPEN_LIST_REFRESH != rn) {
+			//if(REQ_RET_OK != rn && REQ_RET_F_OPEN_LIST_REFRESH != rn) {
 				failMsg = jo.optString(RET_MSG);
-				return rn;
-			}
+				//return rn;
+			//}
 			
 			retNum = jo.optInt("amount");
 			JSONArray ja = jo.optJSONArray("pinDanList");

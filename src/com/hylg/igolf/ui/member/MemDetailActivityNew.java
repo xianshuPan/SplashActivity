@@ -1,7 +1,6 @@
 package com.hylg.igolf.ui.member;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -40,17 +39,13 @@ import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.cs.request.GetMember;
 import com.hylg.igolf.cs.request.GetSelfInfo;
-import com.hylg.igolf.ui.coach.CoachInviteActivity;
+import com.hylg.igolf.ui.coach.CoachInfoDetailActivity;
 import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
 import com.hylg.igolf.ui.customer.MyAttentionsActivity;
 import com.hylg.igolf.ui.customer.MyFollowerActivity;
 import com.hylg.igolf.ui.customer.MyPraiseActivity;
-import com.hylg.igolf.ui.friend.FriendAttentionFrg;
-import com.hylg.igolf.ui.friend.FriendHotFrg;
-import com.hylg.igolf.ui.friend.FriendLocalFrg;
-import com.hylg.igolf.ui.friend.FriendNewFrg;
+import com.hylg.igolf.ui.friend.PhotoViewActivity;
 import com.hylg.igolf.ui.hall.StartInviteStsActivity;
-import com.hylg.igolf.ui.reqparam.CoachApplyInfoReqParam;
 import com.hylg.igolf.ui.view.PagerSlidingTabStrip;
 import com.hylg.igolf.ui.view.ShareMenuCutomerInfo;
 import com.hylg.igolf.ui.view.ZoomOutPageTransformer;
@@ -76,7 +71,7 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 	
 	private ImageView 							customerAvatar,shareImage,attentionImage,sex;
 
-	private TextView 							headNickName,nickName,location,attention,inviteGolfer,
+	private TextView 							headNickName,nickName,location,industry,attention,inviteGolfer,
 												yearsExp,handicapi,best,matches,heat,rank,act;
 
 	private LinearLayout 						mPraiseLinear,mAttentionLinear,mFollowerLinear,inviteCoach;
@@ -162,6 +157,7 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 		best = (TextView) findViewById(R.id.customer_info_best_txt);
 		matches = (TextView) findViewById(R.id.customer_info_matches_txt);
 		location = (TextView) findViewById(R.id.customer_info_location_txt);
+		industry = (TextView) findViewById(R.id.customer_info_industry_txt);
 		
 		/**/
 		yearsExp = (TextView) findViewById(R.id.customer_info_yearsexp_txt);
@@ -190,6 +186,7 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 		mPraiseLinear.setOnClickListener(this);
 		mFollowerLinear.setOnClickListener(this);
 		mAttentionLinear.setOnClickListener(this);
+		customerAvatar.setOnClickListener(this);
 		memSn = getIntent().getExtras().getString(BUNDLE_KEY_MEM_SN);
 		displayIndex = getIntent().getExtras().getInt(BUNDLE_KEY_DISPLAY_INDEX);
 		initTabHost();
@@ -378,6 +375,7 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 		handicapi.setText(Utils.getDoubleString(this, member.handicapIndex));
 		matches.setText(String.valueOf(member.matches));
 		location.setText(MainApp.getInstance().getGlobalData().getRegionName(member.city));
+		industry.setText(MainApp.getInstance().getGlobalData().getIndustryName(member.industry));
 		
 		mAttentionState = member.attention;
 		if (member.attention == 0) {
@@ -511,7 +509,8 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 				break;
 			case R.id.mem_info_invite_coach_linear :
 
-				CoachInviteActivity.startCoachInviteActivity(mContext,coach_item);
+				//CoachInviteActivity.startCoachInviteActivity(mContext,coach_item);
+				CoachInfoDetailActivity.startCoachInfoDetail(mContext,coach_item);
 
 				break;
 
@@ -539,6 +538,17 @@ public class MemDetailActivityNew extends FragmentActivity implements View.OnCli
 
 				MyPraiseActivity.startMyPraiseActivity(this, memSn);
 				mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+				break;
+
+			case R.id.customer_info_avatar_image :
+
+				ArrayList<String> maxPaths = new ArrayList<String>();
+
+				maxPaths.add(Utils.getAvatarURLString(memSn));
+				Intent data = new Intent(mContext, PhotoViewActivity.class);
+				data.putStringArrayListExtra("Photos", maxPaths);
+				data.putExtra("Index", 0);
+				mContext.startActivity(data);
 				break;
 		}
 	}

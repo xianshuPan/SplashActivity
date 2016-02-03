@@ -1,17 +1,18 @@
 package com.hylg.igolf.cs.request;
 
-import java.io.InputStream;
-
-
-import org.json.JSONObject;
+import android.content.Context;
 
 import com.hylg.igolf.DebugTools;
 
-import android.content.Context;
+import org.json.JSONObject;
+
+import java.io.InputStream;
 
 public class FriendCommentsAdd extends BaseRequest {
 	
 	private String param;
+
+	public String id;
 
 	public FriendCommentsAdd(Context context, String sn, String name,String avatar,
 						String tipId, String tosn, String toname,
@@ -55,6 +56,8 @@ public class FriendCommentsAdd extends BaseRequest {
 				failMsg = jo.optString(RET_MSG);
 				return rn;
 			}
+
+			id = jo.optString("id");
 			
 		} catch (Exception e) {
 			e.printStackTrace();

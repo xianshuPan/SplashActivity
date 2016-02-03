@@ -102,7 +102,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:text="@string/str_hall_have"
+                android:text="@string/str_hall_system_auto"
                 android:layout_toRightOf="@id/invite_list_open_item_teetime"
                 android:layout_below="@id/invite_list_open_item_teetime"
                 android:drawableLeft="@drawable/notice_icon"
@@ -113,7 +113,7 @@
                 android:layout_below="@id/invite_list_open_item_teetime"
                 style="@style/invite_open_li_txt_style" />
             <TextView
-                android:text="@string/str_hall_hava_end"
+                android:text="@string/str_hall_system_auto_end"
                 android:layout_toRightOf="@id/invite_list_open_item_teetime"
                 android:layout_below="@id/invite_list_open_item_teetime"
                 style="@style/invite_open_li_txt_style" />

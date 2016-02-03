@@ -1,10 +1,5 @@
 package com.hylg.igolf.ui.hall;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,8 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.gl.lib.impl.TextWatcherBkgVariable;
-import cn.gl.lib.view.NestGridView;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -42,6 +35,14 @@ import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+import cn.gl.lib.impl.TextWatcherBkgVariable;
+import cn.gl.lib.view.NestGridView;
 
 public class StartInviteOpenActivity extends Activity
 									implements OnClickListener, onTeeDateSelectListener,
@@ -260,7 +261,7 @@ public class StartInviteOpenActivity extends Activity
 				WaitDialog.dismissWaitDialog();
 				if(BaseRequest.REQ_RET_OK == result) {
 					Toast.makeText(StartInviteOpenActivity.this, R.string.str_start_invite_open_success, Toast.LENGTH_SHORT).show();
-					startSuccess(data);
+					startSuccess(data,request.app_id,request.local_fans_amount);
 				} else {
 	//				if(BaseRequest.REQ_RET_F_START_INVITE_LESS_TWO == result) { }
 					Toast.makeText(StartInviteOpenActivity.this, request.getFailMsg(), Toast.LENGTH_SHORT).show();
@@ -269,7 +270,7 @@ public class StartInviteOpenActivity extends Activity
 		}.execute(null, null, null);
 	}
 
-	private void startSuccess(StartOpenReqParam data) {
+	private void startSuccess(StartOpenReqParam data,long app_id,int local_fans_amount) {
 		GetOpenInviteReqParam reqParam = new GetOpenInviteReqParam();
 		reqParam.sn = MainApp.getInstance().getCustomer().sn;
 		reqParam.pageNum = MainApp.getInstance().getGlobalData().startPage;
@@ -295,6 +296,15 @@ public class StartInviteOpenActivity extends Activity
 			//OpenInviteListActivity.startOpenInvite(this, reqParam);
 
 			Intent intent = new Intent();
+
+
+			if  (app_id >= 0) {
+
+				//Bundle data_app = new Bundle();
+				//data_app.putLong("app_id", app_id);
+				intent.putExtra("app_id", app_id);
+				intent.putExtra("local_fans_amount", local_fans_amount);
+			}
 			setResult(Activity.RESULT_OK,intent);
 			finish();
 			overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);

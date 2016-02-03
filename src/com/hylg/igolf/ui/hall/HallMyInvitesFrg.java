@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.hall;
 
-import java.util.ArrayList;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.gl.lib.view.RoundedImageView;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -34,6 +31,8 @@ import com.hylg.igolf.ui.widget.IgBaseAdapter;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 	
@@ -372,7 +371,7 @@ public class HallMyInvitesFrg extends Fragment implements onResultCallback {
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			startPage = myInviteAdapter.getCount() / pageSize + 1;
+			startPage = startPage + 1;
 			appendListDataAsync(startPage);
 		}
 	};

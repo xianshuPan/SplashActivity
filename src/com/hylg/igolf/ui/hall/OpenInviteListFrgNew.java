@@ -7,17 +7,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,11 +38,9 @@ import com.hylg.igolf.ui.common.TeeDateSelectFragment;
 import com.hylg.igolf.ui.common.TeeDateSelectFragment.onTeeDateSelectListener;
 import com.hylg.igolf.ui.hall.StartInviteOpenActivity.onStartRefreshListener;
 import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
-
 import com.hylg.igolf.ui.view.EhecdListview;
-import com.hylg.igolf.ui.view.EhecdListview.OnRefreshListener;
 import com.hylg.igolf.ui.view.EhecdListview.OnLoadMoreListener;
-
+import com.hylg.igolf.ui.view.EhecdListview.OnRefreshListener;
 import com.hylg.igolf.ui.view.ListFooter;
 import com.hylg.igolf.ui.view.LoadFail;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
@@ -323,7 +316,16 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 					ArrayList<OpenInvitationInfo> inviteList) {
 				listView.onRefreshComplete();
 				if(BaseRequest.REQ_RET_OK == retId) {
-					openAdapter.refreshListData(inviteList);
+
+					if (openAdapter != null) {
+
+						openAdapter.refreshListData(inviteList);
+					}
+					else {
+
+						initListView(inviteList);
+					}
+
 					//listFooter.refreshFooterView(inviteList.size(), data.pageSize);
 					//refreshResultHintTv(retNum);
 				} else {
@@ -349,7 +351,16 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || inviteList.size() == 0) {
 					//listFooter.displayLast();
 				} else if(BaseRequest.REQ_RET_OK == retId) {
-					openAdapter.appendListData(inviteList);
+
+					if (openAdapter != null) {
+
+						openAdapter.appendListData(inviteList);
+					}
+					else {
+
+						initListView(inviteList);
+					}
+
 					//listFooter.refreshFooterView(inviteList.size(), data.pageSize);
 					//refreshResultHintTv(retNum);
 				} else {
@@ -477,8 +488,8 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if (sd != null && sd.length > 0) {
 
 					//finalBit.display(holder.invitee_one,Utils.getAvatarURLString(sd[0]));
-					//DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[0]),holder.invitee_one,null);
-					Utils.loadAvatar(mContext,sd[0],holder.invitee_one);
+					DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[0]),holder.invitee_one,null);
+					//Utils.loadAvatar(mContext,sd[0],holder.invitee_one);
 				}
 				else {
 
@@ -490,8 +501,8 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if (sd != null && sd.length > 1) {
 
 					//finalBit.display(holder.invitee_two,Utils.getAvatarURLString(sd[1]));
-					//DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[1]), holder.invitee_two, null);
-					Utils.loadAvatar(mContext,sd[1],holder.invitee_two);
+					DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[1]), holder.invitee_two, null);
+					//Utils.loadAvatar(mContext,sd[1],holder.invitee_two);
 				}
 				else {
 
@@ -502,8 +513,8 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 				if (sd != null && sd.length > 2) {
 
 					//finalBit.display(holder.invitee_three,Utils.getAvatarURLString(sd[2]));
-					//DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[2]), holder.invitee_three, null);
-					Utils.loadAvatar(mContext,sd[2],holder.invitee_three);
+					DownLoadImageTool.getInstance(getActivity()).displayImage(Utils.getAvatarURLString(sd[2]), holder.invitee_three, null);
+					//Utils.loadAvatar(mContext,sd[2],holder.invitee_three);
 				}
 				else {
 
@@ -527,7 +538,7 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 			holder.teetime.setText(data.teeTime);
 			holder.course.setText(data.courseName);
 			holder.paytype.setText(gd.getPayTypeName(data.payType));
-			holder.fans.setText(String.valueOf(data.local_fans));
+			holder.fans.setText(String.valueOf(data.sameProvencePerson));
 
 			boolean canEnter = false;
 			switch(data.displayStatus) {
@@ -547,11 +558,12 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 					break;
 				case Const.INVITE_OPEN_RED_ACCEPTED:
 					canEnter = false;
-					holder.state.setTextColor(getResources().getColor(R.color.color_red));
-					holder.state_divider.setBackgroundColor(getResources().getColor(R.color.color_red));
+					holder.state.setTextColor(getResources().getColor(R.color.color_gold));
+					holder.state_divider.setBackgroundColor(getResources().getColor(R.color.color_gold));
 //					convertView.setOnClickListener(null);
 //					convertView.setBackgroundResource(R.drawable.invite_list_bkg_disable);
 					break;
+
 			}
 			convertView.setOnClickListener(new onInviteItemClickListner(canEnter, position));
 			holder.state.setText(data.displayMsg);
@@ -666,7 +678,7 @@ public class OpenInviteListFrgNew extends Fragment implements OnClickListener,
 //				Utils.logh(TAG, "loading");
 //				return ;
 //			}
-			reqData.pageNum = openAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

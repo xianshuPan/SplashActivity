@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.customer;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +29,8 @@ import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class SysMsgActivity extends Activity implements GetSysMsgDetailCallback {
 	
@@ -217,7 +217,7 @@ public class SysMsgActivity extends Activity implements GetSysMsgDetailCallback 
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			reqData.pageNum = sysMsgAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

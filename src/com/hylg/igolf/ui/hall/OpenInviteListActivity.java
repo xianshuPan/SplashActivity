@@ -1,26 +1,5 @@
 package com.hylg.igolf.ui.hall;
 
-import java.util.ArrayList;
-
-import cn.gl.lib.view.RoundedImageView;
-
-import com.hylg.igolf.MainApp;
-import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.OpenInvitationInfo;
-import com.hylg.igolf.cs.loader.GetOpenInviteListLoader;
-import com.hylg.igolf.cs.loader.GetOpenInviteListLoader.GetOpenInviteListCallback;
-import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.ui.hall.StartInviteOpenActivity.onStartRefreshListener;
-import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
-import com.hylg.igolf.ui.view.ListFooter;
-import com.hylg.igolf.ui.view.LoadFail;
-import com.hylg.igolf.ui.view.PullListView;
-import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
-import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
-import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
-import com.hylg.igolf.ui.widget.IgBaseAdapter;
-import com.hylg.igolf.utils.*;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +11,32 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.hylg.igolf.MainApp;
+import com.hylg.igolf.R;
+import com.hylg.igolf.cs.data.OpenInvitationInfo;
+import com.hylg.igolf.cs.loader.GetOpenInviteListLoader;
+import com.hylg.igolf.cs.loader.GetOpenInviteListLoader.GetOpenInviteListCallback;
+import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.ui.hall.StartInviteOpenActivity.onStartRefreshListener;
+import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
+import com.hylg.igolf.ui.view.ListFooter;
+import com.hylg.igolf.ui.view.LoadFail;
+import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
+import com.hylg.igolf.ui.view.PullListView;
+import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
+import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
+import com.hylg.igolf.ui.widget.IgBaseAdapter;
+import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.GlobalData;
+import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class OpenInviteListActivity extends Activity implements OnClickListener, onStartRefreshListener {
 	private static final String TAG = "OpenInviteListActivity";
@@ -410,7 +414,7 @@ public class OpenInviteListActivity extends Activity implements OnClickListener,
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			reqData.pageNum = openAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

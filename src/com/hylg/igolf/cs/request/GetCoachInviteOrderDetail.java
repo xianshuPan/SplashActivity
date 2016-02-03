@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.text.DecimalFormat;
 
 public class GetCoachInviteOrderDetail extends BaseRequest {
 	private String param;
@@ -75,6 +74,7 @@ public class GetCoachInviteOrderDetail extends BaseRequest {
 			//DecimalFormat df = new DecimalFormat("#.00");
 			//data.ratio = Double.valueOf(df.format(jo.optDouble("ratio")));
 			data.ratio =jo.optDouble("ratio");
+			data.discount =jo.optDouble("discount");
 
 			JSONObject coach_json = jo.optJSONObject("coach");
 			if (coach_json != null) {

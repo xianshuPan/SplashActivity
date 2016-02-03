@@ -1,16 +1,16 @@
 package com.hylg.igolf.cs.request;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.cs.data.OpenInvitationInfo;
 import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class GetOpenInviteList extends BaseRequest {
 	private String param;
@@ -93,6 +93,7 @@ public class GetOpenInviteList extends BaseRequest {
 				invitation.inviteeAvatar = obj.optString("inviteeAvatar");
 				invitation.invitee_sns = obj.optString("sns");
 				invitation.acceptMe = obj.optBoolean("accepted");
+				invitation.sameProvencePerson = obj.optInt("sameProvencePerson");
 				invitation.local_fans = obj.optInt("infoFans");
 				inviteList.add(invitation);
 			}

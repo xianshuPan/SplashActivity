@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/color_white"
+	android:orientation="vertical">
+
+	<RelativeLayout
+		android:id="@+id/invite_friend_title_relative"
+		style="@style/custom_title_style" >
+		<ImageButton
+			android:id="@+id/invite_friend_back"
+			style="@style/top_bar_btn_style"
+			android:contentDescription="@null"
+			android:layout_alignParentLeft="true"
+			android:src="@drawable/xbtn_back" />
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/str_invite_friend_title"
+			android:textColor="@color/color_title_txt"
+			android:textSize="@dimen/txt_title_size"
+			android:layout_centerInParent="true" />
+
+	</RelativeLayout>
+	<LinearLayout
+		android:visibility="gone"
+		android:id="@+id/invite_firend_setting_linear"
+		android:layout_marginTop="20dp"
+		android:layout_marginLeft="20dp"
+		android:layout_marginRight="20dp"
+		android:layout_below="@+id/invite_friend_title_relative"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:orientation="vertical">
+
+		<TextView
+			android:textSize="@dimen/txt_size_m"
+			android:textColor="@color/color_hint_txt"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="无法为您匹配通讯录好友"/>
+
+		<TextView
+			android:layout_marginTop="20dp"
+			android:textColor="@color/gray_999999"
+			android:textSize="@dimen/txt_size_ml"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="「爱高尔夫」没有访问您通讯录的权限。您可以到设置->应用权限管理中修改"/>
+
+		<TextView
+
+			android:layout_marginTop="50dp"
+			android:paddingLeft="20dp"
+			android:paddingRight="20dp"
+			android:layout_centerVertical="true"
+			android:textSize="@dimen/txt_size_ml"
+			android:id="@+id/invite_friend_setting_text"
+			android:layout_width="wrap_content"
+			android:layout_height="35dp"
+			android:text="@string/str_setting_auth_title"
+			android:textColor="@color/color_white"
+			android:gravity="center"
+			android:background="@drawable/attented_color"/>
+	</LinearLayout>
+
+
+	<com.hylg.igolf.ui.widget.ContactScrollView
+		android:id="@+id/invite_friend_scroll"
+		android:layout_marginBottom="-5dp"
+		android:layout_below="@+id/invite_friend_title_relative"
+		android:layout_above="@+id/invite_friend_commit_relative"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:scrollbars="none">
+		<LinearLayout
+			android:background="@color/color_white"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical" >
+
+
+			<LinearLayout
+				android:visibility="gone"
+				android:background="@color/gray_e8e8e8"
+				android:id="@+id/bar_keyboard"
+				android:layout_width="match_parent"
+				android:layout_height="60dp"
+				android:orientation="horizontal"
+				android:gravity="center_vertical"
+				android:padding="5dp">
+
+				<EditText
+					android:layout_marginLeft="10dp"
+					android:padding="5dp"
+					android:drawableLeft="@drawable/search_box_icon"
+					android:drawablePadding="5dp"
+					android:layout_margin="5dp"
+					android:id="@+id/bar_keyboard_text"
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight="1"
+					android:background="@drawable/edit_white_bg"
+					android:hint="@string/search_bar_notify_text"
+					android:textColor="@color/gray_999999"
+					android:textSize="@dimen/txt_size_ml"
+					android:textColorHint="@color/gray_999999" />
+
+
+				<ImageView
+					android:visibility="gone"
+					android:id="@+id/bar_keyboard_btn"
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:layout_marginLeft="8dp"
+					android:layout_marginRight="3dp"
+					android:clickable="true"
+					android:src="@drawable/bar_keyboard_background" />
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_below="@+id/bar_keyboard"
+				android:visibility="gone"
+				android:background="@color/color_white"
+				android:layout_marginRight="@dimen/letter_side_bar_width"
+				android:id="@+id/invite_friend_registered_friend_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:gravity="center_vertical">
+
+
+				<TextView
+					android:layout_marginLeft="10dp"
+					android:layout_centerVertical="true"
+					android:id="@+id/invite_friend_registered_friend_count_text"
+					android:layout_width="wrap_content"
+					android:layout_height="35dp"
+					android:gravity="center"
+					android:textColor="@color/color_hint_txt"
+					android:textSize="@dimen/txt_size_ml"
+					/>
+				<View
+
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1"/>
+				<ListView
+					android:dividerHeight="1px"
+					android:layout_marginLeft="10dp"
+					android:id="@+id/invite_friend_registered_friend_list"
+					android:layout_width="match_parent"
+					android:layout_height="200dp" />
+
+				<View
+					android:layout_marginTop="10dp"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1"/>
+
+
+			</LinearLayout>
+
+
+
+			<RelativeLayout
+				android:layout_below="@+id/invite_friend_registered_friend_linear"
+				android:background="@color/color_white"
+				android:layout_marginTop="10dp"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<ListView
+					android:dividerHeight="1px"
+					android:layout_toLeftOf="@+id/contact_letter_side_bar"
+					android:id="@+id/contact_list"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent" />
+
+
+				<com.hylg.igolf.ui.view.LetterSideBar
+					android:id="@+id/contact_letter_side_bar"
+					android:layout_width="@dimen/letter_side_bar_width"
+					android:layout_height="wrap_content"
+					android:layout_alignParentRight="true"
+					android:layout_centerVertical="true" />
+
+				<TextView
+					android:layout_centerVertical="true"
+					android:id="@+id/contact_group_char"
+					android:layout_width="40dp"
+					android:layout_height="40dp"
+					android:layout_marginRight="30dp"
+					android:layout_toLeftOf="@id/contact_letter_side_bar"
+					android:background="@color/gray_999999"
+					android:gravity="center"
+					android:textColor="@color/color_white"
+					android:textSize="@dimen/txt_title_size"
+					android:visibility="gone"
+					 />
+			</RelativeLayout>
+
+
+		</LinearLayout>
+	</com.hylg.igolf.ui.widget.ContactScrollView>
+
+	<RelativeLayout
+		android:visibility="gone"
+		android:id="@+id/invite_friend_commit_relative"
+		android:layout_alignParentBottom="true"
+		android:background="@color/color_white"
+		android:layout_width="match_parent"
+		android:layout_height="60dp">
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="1px"
+			android:background="@drawable/divider1"/>
+		<TextView
+			android:layout_marginLeft="20dp"
+			android:layout_marginRight="20dp"
+			android:layout_centerVertical="true"
+			android:textSize="@dimen/txt_size_m"
+			android:id="@+id/invite_friend_commit_text"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:text="@string/str_invite_friend_title"
+			android:textColor="@color/color_white"
+			android:padding="5dp"
+			android:gravity="center"
+			android:background="@drawable/attented_color"/>
+	</RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,15 +1,18 @@
 package com.hylg.igolf.ui.view;
 
 
-import java.io.ByteArrayOutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-
-import org.apache.http.protocol.HTTP;
-
-import net.tsz.afinal.FinalBitmap;
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
@@ -25,27 +28,24 @@ import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.share.WeiboShareSDK;
 import com.tencent.connect.share.QQShare;
 import com.tencent.connect.share.QzoneShare;
-import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.tencent.tauth.IUiListener;
 import com.tencent.tauth.Tencent;
 import com.tencent.tauth.UiError;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.PopupWindow;
-import android.widget.PopupWindow.OnDismissListener;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import net.tsz.afinal.FinalBitmap;
+
+import org.apache.http.protocol.HTTP;
+
+import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 
 public class ShareMenu  implements OnClickListener {
 	
@@ -463,7 +463,7 @@ public class ShareMenu  implements OnClickListener {
 		imageUrl = imageUrlStrResult;
 		if (bitmap == null) {
 
-			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.about_logo);
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logo_green);
 		}
     	
     	return bitmap;

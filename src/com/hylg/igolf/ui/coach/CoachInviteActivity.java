@@ -1,45 +1,42 @@
 package com.hylg.igolf.ui.coach;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.CoachComemntsItem;
 import com.hylg.igolf.cs.data.CoachItem;
 import com.hylg.igolf.cs.data.CourseInfo;
 import com.hylg.igolf.cs.data.Customer;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.loader.GetCoachCommentsListLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
-import com.hylg.igolf.cs.loader.GetCoachCommentsListLoader.GetCoachCommentsCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CoachInviteCommit;
 import com.hylg.igolf.cs.request.GetCourseAllInfoList;
-import com.hylg.igolf.cs.request.GetCourseInfoList;
-import com.hylg.igolf.cs.request.StartOpenInvite;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity;
-import com.hylg.igolf.ui.common.HourExpSelectActivity.onHourExpSelectListener;
 import com.hylg.igolf.ui.common.HourExpSelectActivity;
+import com.hylg.igolf.ui.common.HourExpSelectActivity.onHourExpSelectListener;
 import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity;
 import com.hylg.igolf.ui.common.TeeDateSelectActivity.onTeeDateSelectListener;
-import com.hylg.igolf.ui.common.TeeTimeSelectActivity;
-import com.hylg.igolf.ui.common.TeeTimeSelectActivity.onTeeTimeSelectListener;
-import com.hylg.igolf.ui.common.YearsExpSelectActivity;
-import com.hylg.igolf.ui.common.YearsExpSelectActivity.onYearsExpSelectListener;
 import com.hylg.igolf.ui.customer.MyTeachingHomeActivity;
-import com.hylg.igolf.ui.hall.CourseSelectActivity;
-import com.hylg.igolf.ui.hall.StartInviteOpenActivity;
-import com.hylg.igolf.ui.hall.CourseSelectActivity.onCourseSelectListener;
-import com.hylg.igolf.ui.member.MemDetailActivity;
 import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.CoachInviteReqParam;
-import com.hylg.igolf.ui.reqparam.StartOpenReqParam;
 import com.hylg.igolf.ui.view.CircleImageView;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog;
 import com.hylg.igolf.ui.widget.IgTimePickerDialog.OnIgTimeSetListener;
@@ -49,26 +46,10 @@ import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.provider.ContactsContract.CommonDataKinds.Nickname;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RatingBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class CoachInviteActivity extends FragmentActivity implements 
 															OnClickListener,
@@ -234,7 +215,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 			mCourseSelectTxt.setText(mCoachItem.course_name);
 			
 			mReqPara.times = 1;
-			mTeachingHoursTxt.setText(mReqPara.times+"小时");
+			mTeachingHoursTxt.setText(mReqPara.times+"");
 			
 		}
 		
@@ -479,7 +460,7 @@ public class CoachInviteActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 		mReqPara.times = newHourExp;
 		
-		mTeachingHoursTxt.setText(newHourExp+"小时");
+		mTeachingHoursTxt.setText(newHourExp+"");
 	}
 
 

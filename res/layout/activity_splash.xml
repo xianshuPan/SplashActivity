@@ -1,6 +1,37 @@
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:scaleType="fitXY"
+android:id="@+id/splash_image"
+android:src="@drawable/splash_view"
+android:contentDescription="@null" />-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scaleType="fitXY"
-    android:src="@drawable/splash_view"
-    android:contentDescription="@null" />
+    >
+
+    <com.hylg.igolf.ui.widget.SplashImageView
+
+        android:id="@+id/img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/splash_view" />
+
+    <ImageView
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/splash_view_icon"/>
+
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="120dp"
+        android:layout_marginLeft="50dp"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:src="@drawable/splash_view_lable"/>
+</RelativeLayout>
+

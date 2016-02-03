@@ -1,26 +1,5 @@
 package com.hylg.igolf.ui.friend;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-
-import com.hylg.igolf.DebugTools;
-import com.hylg.igolf.MainApp;
-import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.FriendHotItem;
-import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.cs.loader.GetNewTipsLoader;
-import com.hylg.igolf.cs.loader.GetNewTipsLoader.GetNewTipsListCallback;
-import com.hylg.igolf.ui.widget.IgBaseAdapter;
-import com.hylg.igolf.utils.Const;
-import com.hylg.igolf.utils.DownLoadImageTool;
-import com.hylg.igolf.utils.GlobalData;
-import com.hylg.igolf.utils.Utils;
-import com.hylg.igolf.utils.WaitDialog;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +16,26 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.hylg.igolf.DebugTools;
+import com.hylg.igolf.MainApp;
+import com.hylg.igolf.R;
+import com.hylg.igolf.cs.data.FriendHotItem;
+import com.hylg.igolf.cs.loader.GetNewTipsLoader;
+import com.hylg.igolf.cs.loader.GetNewTipsLoader.GetNewTipsListCallback;
+import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.ui.widget.IgBaseAdapter;
+import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.DownLoadImageTool;
+import com.hylg.igolf.utils.GlobalData;
+import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 public class FriendNewTipsCountActivity extends FragmentActivity {
 	
@@ -260,8 +259,10 @@ public class FriendNewTipsCountActivity extends FragmentActivity {
 					//SimpleDateFormat sdf = new SimpleDateFormat();
 					//holder.time.setText(sd.get(Calendar.HOUR_OF_DAY)+":"+sd.get(Calendar.MINUTE));
 
-					holder.time.setText(new SimpleDateFormat("HH:mm",
-							Locale.getDefault()).format(new Date(Long.valueOf(comments.get(comments.size()-1).get("commentstime")))));
+					String asd = new SimpleDateFormat("HH:mm",
+							Locale.getDefault()).format(new Date(Long.valueOf(comments.get(comments.size() - 1).get("commentstime"))));
+
+					holder.time.setText(asd);
 				}
 				
 				if (imageUrlStr != null && imageUrlStr.indexOf(",") > 0) {

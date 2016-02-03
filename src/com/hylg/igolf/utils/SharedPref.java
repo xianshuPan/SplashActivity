@@ -2,6 +2,7 @@ package com.hylg.igolf.utils;
 
 import android.content.Context;
 import android.util.Base64;
+
 import cn.gl.lib.utils.BaseSharedPref;
 
 public class SharedPref extends BaseSharedPref {
@@ -34,6 +35,8 @@ public class SharedPref extends BaseSharedPref {
 	public final static String PREFS_KEY_GOLFER_DEF_LABLE = "golfer_def_lable";
 	
 	public final static String PREFS_KEY_HALL_DEF_REGION = "hall_def_region";
+
+	public final static String PREFS_KEY_SHOW_LOCATION_SETTING = "show_location_setting";
 	
 	public static String getPrefPhone(Context c) {
 		String phone = getString(SPK_PHONE, c);

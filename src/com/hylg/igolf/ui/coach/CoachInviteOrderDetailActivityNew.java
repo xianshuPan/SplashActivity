@@ -409,8 +409,8 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 
 		if (mData.teacher_sn != null && mData.teacher_sn.length() > 0) {
 
-			//DownLoadImageTool.getInstance(mContext).displayImage(Utils.getAvatarURLString(mData.teacher_sn), mCoachAvatarImage, null);
-			Utils.loadAvatar(this,mData.teacher_sn,mCoachAvatarImage);
+			DownLoadImageTool.getInstance(mContext).displayImage(Utils.getAvatarURLString(mData.teacher_sn), mCoachAvatarImage, null);
+			//Utils.loadAvatar(this,mData.teacher_sn,mCoachAvatarImage);
 			mCoachNameTxt.setText(mData.teacher_name);
 			mCoachPhoneTxt.setText(mData.teacher_phone);
 			mCoachBallAgeTxt.setText(String.valueOf(mData.teacher_ball_age)+getResources().getString(R.string.str_year));
@@ -442,8 +442,8 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 
 		if (mData.student1_sn != null && mData.student1_sn.length() > 0) {
 
-			//DownLoadImageTool.getInstance(mContext).displayImage(Utils.getAvatarURLString(mData.student1_sn), mStudent1AvatarImage, null);
-			Utils.loadAvatar(this,mData.student1_sn,mStudent1AvatarImage);
+			DownLoadImageTool.getInstance(mContext).displayImage(Utils.getAvatarURLString(mData.student1_sn), mStudent1AvatarImage, null);
+			//Utils.loadAvatar(this,mData.student1_sn,mStudent1AvatarImage);
 			mStudent1NameTxt.setText(mData.student1_name);
 			mStudent1PhoneTxt.setText(mData.student1_phone);
 			mStudent1BallAgeTxt.setText(String.valueOf(mData.student1_ball_age)+getResources().getString(R.string.str_year));
@@ -485,8 +485,8 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 
 		if (mData.student2_sn != null && mData.student2_sn.length() > 0) {
 
-			//DownLoadImageTool.getInstance(mContext).displayImage(Utils.getAvatarURLString(mData.student2_sn), mStudent2AvatarImage, null);
-			Utils.loadAvatar(this,mData.student2_sn,mStudent2AvatarImage);
+			DownLoadImageTool.getInstance(mContext).displayImage(Utils.getAvatarURLString(mData.student2_sn), mStudent2AvatarImage, null);
+			//Utils.loadAvatar(this,mData.student2_sn,mStudent2AvatarImage);
 			mStudent2NameTxt.setText(mData.student2_name);
 			mStudent2PhoneTxt.setText(mData.student2_phone);
 			mStudent2BallAgeTxt.setText(String.valueOf(mData.student2_ball_age)+getResources().getString(R.string.str_year));
@@ -556,6 +556,10 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 			mRevokeRelative.setVisibility(View.VISIBLE);
 			findViewById(R.id.coach_invite_order_detail_bottom_relative).setVisibility(View.VISIBLE);
 			mPinDanTxt.setVisibility(View.VISIBLE);
+
+			mOriginalPriceTxt.setVisibility(View.VISIBLE);
+			mOriginalPriceTxt.setText(Utils.addStrikeLine(getResources().getString(R.string.str_rmb) + df.format(mData.discountPrice)));
+			mDiscountPriceTxt.setText(getResources().getString(R.string.str_rmb) + df.format(mData.discountPrice*mData.discount));
 
 
 		/*my teaching*/
@@ -657,14 +661,7 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 
 				//mStatusImage.setImageResource(R.drawable.teaching_refuse);
 				findViewById(R.id.coach_invite_order_detail_refuse_content_linear).setVisibility(View.VISIBLE);
-				if (mData.refuse_content != null && mData.refuse_content.length() > 0) {
 
-					mRefuseContentTxt.setText(mData.refuse_content);
-
-				} else {
-
-					mRefuseContentTxt.setVisibility(View.GONE);
-				}
 				getCoachRefuseContent();
 				break;
 			case Const.MY_TEACHING_ACCEPTED:
@@ -746,7 +743,7 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 
 		new AsyncTask<Object, Object, Integer>() {
 
-			CoachRefuseContent request = new CoachRefuseContent(mContext, mData.id);
+			final CoachRefuseContent request = new CoachRefuseContent(mContext, mData.id);
 
 			@Override
 			protected Integer doInBackground(Object... params) {
@@ -763,6 +760,15 @@ public class CoachInviteOrderDetailActivityNew extends FragmentActivity implemen
 				if ( result == BaseRequest.REQ_RET_OK){
 
 					initListView(request.getSelectionList());
+
+					if (request.refuseContent != null && request.refuseContent.length() > 0) {
+
+						mRefuseContentTxt.setText(request.refuseContent);
+
+					} else {
+
+						mRefuseContentTxt.setVisibility(View.GONE);
+					}
 				}
 
 			}

@@ -1,22 +1,16 @@
 package com.hylg.igolf.ui.hall;
 
-import java.io.File;
-import java.io.Serializable;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.location.*;
+import android.location.GpsStatus;
 import android.location.GpsStatus.Listener;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,21 +21,47 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.provider.Settings;
 import android.view.View;
-import android.widget.*;
-import cn.gl.lib.img.AsyncImageSaver;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.*;
+import com.hylg.igolf.cs.data.Customer;
+import com.hylg.igolf.cs.data.InviteRoleInfo;
+import com.hylg.igolf.cs.data.MyInviteDetail;
+import com.hylg.igolf.cs.data.MyInviteInfo;
+import com.hylg.igolf.cs.data.RivalData;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
-import com.hylg.igolf.cs.request.*;
+import com.hylg.igolf.cs.request.BaseRequest;
+import com.hylg.igolf.cs.request.CancelInviteApp;
+import com.hylg.igolf.cs.request.MarkInviteApp;
+import com.hylg.igolf.cs.request.RateGolfer;
+import com.hylg.igolf.cs.request.RateGolferAll;
 import com.hylg.igolf.cs.request.UpdateImageRequest.getRivalDataCallback;
+import com.hylg.igolf.cs.request.UploadScorecard;
 import com.hylg.igolf.db.InviteScoreNotesData;
 import com.hylg.igolf.db.InviteScoreNotesDatabase;
 import com.hylg.igolf.ui.common.ImageSelectActivity;
 import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
-import com.hylg.igolf.utils.*;
+import com.hylg.igolf.ui.view.ShareMenuInviteGolferDetail;
+import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.FileUtils;
+import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
+
+import java.io.File;
+import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import cn.gl.lib.img.AsyncImageSaver;
 
 public class InviteDetailMineActivity extends InviteDetailActivity implements onImageSelectListener {
 	private final static String TAG = "InviteDetailMineActivity";
@@ -177,7 +197,6 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
     };
 	/**
 	 * 获取位置信息
-	 * @param hint	是否提示用户打开设置
 	 */
 //	private void openLocation(boolean hint) {
 //        if(null == locationMgr) {
@@ -286,7 +305,6 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	/**
 	 *  进行中,当前时间大于等于开球时间，并未记分或未评价对方
 	 * @param detail
-	 * @see Const.MY_INVITE_PLAYING
 	 */
 	protected void palyingScoreAndRate(MyInviteDetail detail) {
 		Utils.logh(TAG, "score: " + detail.score + " scoreCardName: " + detail.scoreCardName + " rateStar: " + detail.rateStar);
@@ -384,7 +402,6 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	/**
 	 *  已完成,有记分并有已评价对方
 	 * @param detail
-	 * @see Const.MY_INVITE_COMPLETE
 	 */
 	protected void completeScoreAndRate(MyInviteDetail detail) {
 		// 测试状态下，检查数据合法性
@@ -516,8 +533,6 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	 * 签到
 	 * @param appSn 约球单号
 	 * @param sn 用户会员编号
-	 * @param latitude 纬度
-	 * @param longitude 经度
 	 * @param callback
 	 */
 	private void markInviteApp(final String appSn, final String sn, final markInviteAppCallback callback, boolean waitGps) {
@@ -808,8 +823,6 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	 * 记分登记
 	 * @param appSn 约球单号
 	 * @param sn 用户会员编号
-	 * @param latitude 纬度
-	 * @param longitude 经度
 	 * @param score 成绩
 	 * @param callback
 	 */
@@ -1123,9 +1136,6 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 	
 	/**
 	 * 启程回执
-	 * @param appSn 约球单号
-	 * @param sn 用户会员编号
-	 * @param callback
 	 */
 //	protected void notifyDeparture(String appSn, String sn, notifyDepartureCallback callback) {
 //		
@@ -1153,6 +1163,13 @@ public class InviteDetailMineActivity extends InviteDetailActivity implements on
 //				clickUploadScorecard();
 				ImageSelectActivity.startImageSelect(InviteDetailMineActivity.this);
 				break;
+
+			case R.id.invite_detail_share_image:
+
+				ShareMenuInviteGolferDetail share = new ShareMenuInviteGolferDetail(this,operBarLl,invitation.inviterSn,invitation.sn);
+				share.showPopupWindow();
+				break;
+
 			default:
 				super.onClick(v);
 				break;

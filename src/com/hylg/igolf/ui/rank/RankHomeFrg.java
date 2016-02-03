@@ -1,14 +1,27 @@
 package com.hylg.igolf.ui.rank;
 
-import java.util.ArrayList;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.data.RankingInfo;
 import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.loader.GetRankingListLoader;
 import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
+import com.hylg.igolf.cs.loader.GetRankingListLoader;
 import com.hylg.igolf.cs.loader.GetRankingListLoader.GetRankingListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.ui.common.RegionAndSexSelectFragment;
@@ -18,8 +31,8 @@ import com.hylg.igolf.ui.member.MemDetailActivityNew;
 import com.hylg.igolf.ui.reqparam.GetRankingReqParam;
 import com.hylg.igolf.ui.view.ListFooter;
 import com.hylg.igolf.ui.view.LoadFail;
-import com.hylg.igolf.ui.view.PullListView;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
+import com.hylg.igolf.ui.view.PullListView;
 import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
 import com.hylg.igolf.ui.view.ShareMenuRank;
@@ -28,12 +41,7 @@ import com.hylg.igolf.utils.GlobalData;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.*;
-import android.view.View.OnClickListener;
-import android.widget.*;
+import java.util.ArrayList;
 
 public class RankHomeFrg extends Fragment
 						implements View.OnClickListener,onRegionAndSexSelectListener
@@ -195,7 +203,7 @@ public class RankHomeFrg extends Fragment
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			reqData.pageNum = rankAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

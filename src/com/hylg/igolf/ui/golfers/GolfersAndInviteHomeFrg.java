@@ -3,6 +3,7 @@ package com.hylg.igolf.ui.golfers;
 import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,19 +26,23 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
+import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.ui.MainActivity;
-import com.hylg.igolf.ui.SplashActivity;
+import com.hylg.igolf.ui.customer.InviteFriendActivity;
 import com.hylg.igolf.ui.hall.InviteDetailOpenOtherActivity;
 import com.hylg.igolf.ui.hall.OpenInviteListFrgNew;
 import com.hylg.igolf.ui.hall.StartInviteOpenActivity;
 import com.hylg.igolf.ui.view.MyViewPager;
 import com.hylg.igolf.ui.view.ZoomOutPageTransformer;
 import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 
 import java.lang.reflect.Field;
@@ -68,6 +74,10 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 
 	private FragmentActivity mContext=null;
 
+	private long app_id = -1;
+
+	private int local_fans_amount= 0;
+
 	/**
      * 获取当前屏幕的密度 
      */  
@@ -84,7 +94,6 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 
 		super.onCreate(savedInstanceState);
 
@@ -163,6 +172,13 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 		});
 		viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
+
+		boolean fa = SharedPref.getBoolean(MainApp.getInstance().getCustomer().sn+"_Registerd",getActivity());
+		if (!fa) {
+
+			showInvitePopWin();
+		}
+
 		return view;
 	}
 
@@ -237,8 +253,10 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 					// 状态变化了，目前重刷列表
 					//navigateToInviteHall();
 					//OpenInviteListFrgNew.getInstance().handler.sendEmptyMessageDelayed(OpenInviteListFrgNew.MSG_INIT_LIST, OpenInviteListFrgNew.INIT_DELAY);
-					Message msg = handler.obtainMessage();
 
+					app_id = intent.getLongExtra("app_id",-1);
+					local_fans_amount = intent.getIntExtra("local_fans_amount",0);
+					Message msg = handler.obtainMessage();
 					msg.what = 0;
 					handler.sendMessageDelayed(msg, 500);
 					return ;
@@ -290,6 +308,7 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 //				break;
 		}
 	}
+
 
 	private TextView.OnEditorActionListener mOnEditorActionListener = new TextView.OnEditorActionListener() {
 		@Override
@@ -485,6 +504,8 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 			switch (msg.what){
 
 				case 0:
+
+					showDesPopWin();
 					navigateToInviteHall();
 					break;
 			}
@@ -492,4 +513,85 @@ public class GolfersAndInviteHomeFrg extends Fragment implements View.OnClickLis
 			return false;
 		}
 	});
+
+
+	private PopupWindow mDesPopWin;
+	private void showDesPopWin() {
+		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+			return ;
+		}
+		RelativeLayout sv = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(R.layout.invite_friend_popwin, null);
+		ImageView inviteFriendImage = (ImageView)sv.findViewById(R.id.invite_friend_pop_commit_bg);
+
+		TextView local_fans_text = (TextView)sv.findViewById(R.id.invite_list_open_item_fans);
+		mDesPopWin = new PopupWindow(sv, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+		mDesPopWin.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
+
+		inviteFriendImage.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				InviteFriendActivity.startInviteFriendActivity(getActivity(), InviteFriendActivity.OPEN_INVITE, app_id);
+				dismissExchgPopwin();
+			}
+		});
+		sv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dismissExchgPopwin();
+			}
+		});
+		mDesPopWin.setOnDismissListener(new PopupWindow.OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				if (null != mDesPopWin) {
+					Utils.logh(TAG, "onDismiss ");
+					mDesPopWin = null;
+				}
+			}
+		});
+		local_fans_text.setText(String.valueOf(local_fans_amount));
+		mDesPopWin.showAtLocation(sv, Gravity.CENTER, 0, 0);
+	}
+
+	private void showInvitePopWin() {
+		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+			return ;
+		}
+		RelativeLayout sv = (RelativeLayout) LayoutInflater.from(getActivity())
+				.inflate(R.layout.invite_open_hint_popwin, null);
+		mDesPopWin = new PopupWindow(sv, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
+		mDesPopWin.setBackgroundDrawable(new ColorDrawable(getResources().getColor(android.R.color.transparent)));
+		mDesPopWin.setAnimationStyle(android.R.style.Animation_Dialog);
+		sv.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				SharedPref.setBoolean(MainApp.getInstance().getCustomer().sn + "_Registerd", true, getActivity());
+				dismissExchgPopwin();
+			}
+		});
+		mDesPopWin.setOnDismissListener(new PopupWindow.OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				if (null != mDesPopWin) {
+					Utils.logh(TAG, "onDismiss ");
+					mDesPopWin = null;
+				}
+			}
+		});
+		//mDesPopWin.showAtLocation(mInviteGolfersImage, Gravity.BOTTOM, 0, 0);
+
+		mDesPopWin.showAsDropDown(mInviteGolfersImage, 0, 0);
+
+	}
+
+	private void dismissExchgPopwin() {
+		if(null != mDesPopWin && mDesPopWin.isShowing()) {
+			mDesPopWin.dismiss();
+//			mDesPopWin = null;
+		}
+	}
+
 }

@@ -16,6 +16,8 @@ public class CoachRefuseContent extends BaseRequest {
 
 	private ArrayList<HashMap<String, String>> list = null;
 
+	public String refuseContent ;
+
 	public CoachRefuseContent(Context context, long id) {
 		super(context);
 		StringBuilder s = new StringBuilder();
@@ -46,25 +48,26 @@ public class CoachRefuseContent extends BaseRequest {
 			JSONObject jo = new JSONObject(str);
 			
 			DebugTools.getDebug().debug_v("getCoachRefuseReason", "----->>>"+jo);
-			
+
+
+			refuseContent = jo.optString("content");
+
 			JSONArray ja = jo.optJSONArray("reasons");
-			
-			if (ja == null || ja.length() <= 0) {
-				
-				return REQ_RET_F_NO_DATA;
-			}
-			
-			for (int i = 0; i < ja.length(); i++) {
-				
-				JSONObject jso = ja.optJSONObject(i);
-				
-				HashMap<String, String> map = new HashMap<String, String>();
-				
-				map.put("type", jso.optString("type"));
-				map.put("id", jso.optString("id"));
-				map.put("reason", jso.optString("reason"));
-				
-				list.add(map);
+
+			if (ja != null && ja.length() > 0) {
+
+				for (int i = 0; i < ja.length(); i++) {
+
+					JSONObject jso = ja.optJSONObject(i);
+
+					HashMap<String, String> map = new HashMap<String, String>();
+
+					map.put("type", jso.optString("type"));
+					map.put("id", jso.optString("id"));
+					map.put("reason", jso.optString("reason"));
+
+					list.add(map);
+				}
 			}
 			
 			

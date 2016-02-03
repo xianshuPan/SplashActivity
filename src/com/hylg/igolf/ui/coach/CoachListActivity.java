@@ -1,8 +1,5 @@
 package com.hylg.igolf.ui.coach;
 
-import java.util.ArrayList;
-
-import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,8 +13,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
@@ -27,16 +27,22 @@ import com.hylg.igolf.cs.data.Customer;
 import com.hylg.igolf.cs.loader.GetCoachListLoader;
 import com.hylg.igolf.cs.loader.GetCoachListLoader.GetCoachListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.ui.common.*;
-import com.hylg.igolf.ui.common.SexSelectFragment.onSexSelectListener;
+import com.hylg.igolf.ui.common.CoacherSortItemSelectFragment;
 import com.hylg.igolf.ui.common.CoacherSortItemSelectFragment.onCoacherSortItemSelectListener;
+import com.hylg.igolf.ui.common.CoacherTypeSelectFragment;
 import com.hylg.igolf.ui.common.CoacherTypeSelectFragment.onCoacherTypeSelectListener;
+import com.hylg.igolf.ui.common.SexSelectFragment;
+import com.hylg.igolf.ui.common.SexSelectFragment.onSexSelectListener;
 import com.hylg.igolf.ui.golfers.adapter.GolfersAdapter;
 import com.hylg.igolf.ui.reqparam.CoachListReqParam;
 import com.hylg.igolf.ui.view.EhecdListview;
 import com.hylg.igolf.ui.view.LoadFail;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
-import com.hylg.igolf.utils.*;
+import com.hylg.igolf.utils.GlobalData;
+import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class CoachListActivity extends FragmentActivity implements
 													View.OnClickListener,
@@ -283,7 +289,7 @@ public class CoachListActivity extends FragmentActivity implements
 		@Override
 		public void onLoadMore() {
 			
-			reqData.pageNum = coachAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};
@@ -438,7 +444,17 @@ public class CoachListActivity extends FragmentActivity implements
 			public void callBack(int retId, String msg, ArrayList<CoachItem> golfersList) {
 
 				findViewById(R.id.coach_list_progress).setVisibility(View.GONE);
-				if(BaseRequest.REQ_RET_OK == retId) {
+
+				if(BaseRequest.REQ_RET_F_NO_DATA == retId || golfersList.size() == 0) {
+					if(msg.trim().length() == 0) {
+						msg = getString(R.string.str_golfers_req_no_data_hint);
+					}
+					// display reload page
+					loadFail.displayNoDataRetry(msg);
+
+					Toast.makeText(CoachListActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+				} else if(BaseRequest.REQ_RET_OK == retId) {
 
 					if (coachAdapter != null) {
 
@@ -449,9 +465,13 @@ public class CoachListActivity extends FragmentActivity implements
 						initListView(golfersList);
 					}
 
+					loadFail.displayNone();
+
 				} else {
 					// do not change previous data if fail, just toast fail message.
 //					if(BaseRequest.REQ_RET_F_NO_DATA == retId) { }
+
+					loadFail.displayFail(msg);
 					Toast.makeText(CoachListActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
 				listView.onRefreshComplete();
@@ -473,12 +493,27 @@ public class CoachListActivity extends FragmentActivity implements
 
 				if(BaseRequest.REQ_RET_F_NO_DATA == retId || golfersList.size() == 0) {
 
+					loadFail.displayNoDataRetry(msg);
 					Toast.makeText(CoachListActivity.this, R.string.str_golfers_li_no_more, Toast.LENGTH_SHORT).show();
+
 				} else if(BaseRequest.REQ_RET_OK == retId) {
 					
 					//golfersAdapter.appendListInfo(golfersList);
 
+					if (coachAdapter != null) {
+
+						coachAdapter.appendListInfo(golfersList);
+
+					} else {
+
+						initListView(golfersList);
+					}
+
+					loadFail.displayNone();
+
 				} else {
+
+					loadFail.displayNoDataRetry(msg);
 					Toast.makeText(CoachListActivity.this, msg, Toast.LENGTH_SHORT).show();
 				}
 				listView.onRefreshComplete();

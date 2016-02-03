@@ -1,13 +1,5 @@
 package com.hylg.igolf.ui.coach;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -30,14 +22,14 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.PopupWindow.OnDismissListener;
 
 import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
@@ -50,16 +42,15 @@ import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.CommitCoachInfo;
 import com.hylg.igolf.cs.request.GetCoachApplyInfo;
 import com.hylg.igolf.cs.request.GetCourseAllInfoList;
-
 import com.hylg.igolf.cs.request.UpdateAvatar;
 import com.hylg.igolf.cs.request.UploadImageRequest;
 import com.hylg.igolf.ui.common.AgeSelectActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity.onAgeSelectListener;
 import com.hylg.igolf.ui.common.CourseAllSelectActivity;
 import com.hylg.igolf.ui.common.ImageSelectActivity;
+import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
 import com.hylg.igolf.ui.common.IndustrySelectActivity;
 import com.hylg.igolf.ui.common.IndustrySelectActivity.onIndustrySelectListener;
-import com.hylg.igolf.ui.common.ImageSelectActivity.onImageSelectListener;
 import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
@@ -75,7 +66,12 @@ import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-import org.w3c.dom.Text;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class CoachApplyInfoActivity extends Activity implements 
 												OnClickListener,onSexSelectListener, 
@@ -1272,6 +1268,13 @@ public class CoachApplyInfoActivity extends Activity implements
 
 						regionTxt.setText(goGlobalData.getRegionName(customer.state));
 						sexTxt.setText(goGlobalData.getSexName(customer.sex));
+
+						if (customer.yearsExpStr != null && customer.yearsExpStr.length() > 0) {
+
+							ballAgeTxt.setText(String.format(getString(R.string.str_account_yearsexp_wrap),Integer.valueOf( customer.yearsExpStr)));
+						}
+						customerRegionTxt.setText(goGlobalData.getRegionName(customer.city));
+						indsutryTxt.setText(goGlobalData.getIndustryName(customer.industry));
 						ageTxt.setText(String.format(getString(R.string.str_account_age_wrap), customer.age));
 						nickNameTxt.setText(customer.nickname);
 						

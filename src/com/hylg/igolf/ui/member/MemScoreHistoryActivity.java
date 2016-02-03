@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.member;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +30,8 @@ import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class MemScoreHistoryActivity extends Activity implements OnClickListener{
 	private static final String TAG = "MemScoreHistoryActivity";
@@ -213,7 +213,7 @@ public class MemScoreHistoryActivity extends Activity implements OnClickListener
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			reqData.pageNum = scoreHistoryAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

@@ -38,16 +38,14 @@
 
 			
 			<TextView
-			    android:layout_marginBottom="@dimen/view_ver_distance"
-			    android:layout_width="wrap_content"
+				android:layout_marginLeft="15dp"
+			    android:layout_marginBottom="5dp"
+			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
-			    android:drawableLeft="@drawable/ic_hint_star"
-			    android:drawablePadding="3dip"
-			    android:text="@string/str_reg_info_setup_hint"
+			    android:text="账号设置"
 			    android:textColor="@color/color_hint_txt"
-			    android:textSize="@dimen/txt_hint_size"
+			    android:textSize="@dimen/txt_size_small"
 			    android:layout_gravity="center_horizontal"
-			    android:gravity="center_vertical"
 			    android:focusable="true"
 			    android:focusableInTouchMode="true" />
 			<View
@@ -91,7 +89,7 @@
 				android:background="@drawable/divider1"/>
 			<RelativeLayout
 				android:layout_marginLeft="10dp"
-				android:layout_marginBottom="@dimen/view_ver_distance"
+				android:layout_marginBottom="10dp"
 			    android:layout_width="match_parent"
 			    android:layout_height="wrap_content"
 				>
@@ -152,6 +150,36 @@
 				    android:inputType="textPassword" />				
 				
 			</RelativeLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+
+				<TextView
+					android:layout_marginLeft="15dp"
+					android:layout_marginBottom="5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="更多资料"
+					android:textColor="@color/color_hint_txt"
+					android:textSize="@dimen/txt_size_small"
+					android:layout_gravity="center_horizontal"
+					android:focusable="true"
+					android:focusableInTouchMode="true" />
+				<TextView
+					android:singleLine="true"
+					android:layout_marginLeft="10dp"
+					android:layout_marginBottom="5dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="（填写完整资料，更好的玩转igolf哦）"
+					android:textColor="@color/color_gold"
+					android:textSize="@dimen/txt_size_small"
+					android:layout_gravity="center_horizontal"
+					android:focusable="true"
+					android:focusableInTouchMode="true" />
+			</LinearLayout>
 
 			<View
 

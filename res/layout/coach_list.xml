@@ -101,12 +101,7 @@
 	     android:layout_width="match_parent"
 	     android:layout_height="1px"
 	     android:background="@drawable/divider1" />
-	<include
-		android:layout_below="@+id/coach_list_filter_linear"
-	    android:id="@+id/coach_list_load_fail"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    layout="@layout/common_load_fail" />
+
 	
 	<com.hylg.igolf.ui.view.EhecdListview
 		android:footerDividersEnabled="false"
@@ -120,6 +115,13 @@
         android:id="@+id/coach_listview"
 	    android:scrollbarStyle="outsideOverlay"
 	    android:divider="@drawable/divider" />
+
+	<include
+		android:layout_below="@+id/coach_list_filter_linear"
+		android:id="@+id/coach_list_load_fail"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		layout="@layout/common_load_fail" />
 
 	<FrameLayout
 		android:layout_marginTop="1px"

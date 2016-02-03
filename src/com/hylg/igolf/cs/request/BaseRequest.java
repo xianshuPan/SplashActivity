@@ -1,11 +1,5 @@
 package com.hylg.igolf.cs.request;
 
-import java.io.*;
-import java.net.*;
-
-import org.apache.http.conn.ConnectTimeoutException;
-import org.apache.http.protocol.HTTP;
-
 import android.content.Context;
 import android.util.Log;
 
@@ -13,6 +7,18 @@ import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.R;
 import com.hylg.igolf.utils.Base64;
 import com.hylg.igolf.utils.Utils;
+
+import org.apache.http.conn.ConnectTimeoutException;
+import org.apache.http.protocol.HTTP;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.net.URLEncoder;
 
 public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCode {
 	
@@ -27,17 +33,16 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 	protected static final int TIMEOUT = 30 * 1000;
 	
 	/*获取朋友圈列表*/
-//	public static final String SERVER_IP = "http://192.168.2.107:8080";
+//	public static final String SERVER_IP = "http://192.168.2.125:8080";
 //	public static final String UPLOAD_PIC_PATH = "http://192.168.2.107:9988/DealPicture/pic/";
 //	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/0/";
-
 
 	public static final String SERVER = "http://121.199.22.44";
 	public static final String PORT = ":8080";
 	public static final String SERVER_IP = SERVER+PORT;
 	public static final String UPLOAD_PIC_PATH = "http://121.199.22.44:9988/DealPicture/pic/";
-
 	public static final String SERVER_PATH = SERVER_IP+"/gams/ci/1/";
+
 	public static final String TipsPic_Original_PATH = SERVER_IP+"/gams/tipspic/original/";
 	public static final String TipsPic_Thum_PATH = SERVER_IP+"/gams/tipspic/thum/";
 
@@ -137,6 +142,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 		 * 		2: ipad;
 		 * 		3: wp.
 		 */
+
 		return connectUrl(getRequestUrl(), timeOut);
 	}
 	
@@ -166,6 +172,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 		
 		try {
 			URL url = new URL(addr);
+
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(timeOut);
 			conn.setReadTimeout(timeOut);
@@ -175,6 +182,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 				
 				return parseBody(input);
 			} else {
+
 				return REQ_RET_F_CUS_DEF;
 			}
 //		} catch(MalformedURLException e) {
@@ -193,10 +201,11 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 //			return REQ_RET_EXCEP;
 		} catch(IOException e) {
 			Log.w(TAG, "IOException: "
-					+ (null==e.getMessage()?"":e.getMessage().toString()));
+					+ (null == e.getMessage() ? "" : e.getMessage().toString()));
 			e.printStackTrace();
+
 			failMsg = context.getString(R.string.str_toast_request_exc);
-//			return REQ_RET_EXCEP;
+			//return REQ_RET_EXCEP;
 		} finally {
 			if(null != input){
 				try {
@@ -218,8 +227,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 		}
 		
 		String addr = getRequestUrl();
-		
-		
+
 		sendBroadCast();
 		
 		InputStream input = null;
@@ -259,8 +267,22 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 //			return REQ_RET_EXCEP;
 		} catch(IOException e) {
 			Log.w(TAG, "IOException: "
-					+ (null==e.getMessage()?"":e.getMessage().toString()));
+					+ (null == e.getMessage() ? "" : e.getMessage().toString()));
 			e.printStackTrace();
+
+			failMsg = e.toString();
+
+//			try {
+//
+//				String path = Environment.getExternalStorageDirectory()+"/savePHoneBoookError.txt";
+//				FileOutputStream fis = new FileOutputStream(path);
+//
+//				byte[] sdfsd= failMsg.getBytes();
+//				fis.write(sdfsd);
+//
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//			}
 			failMsg = context.getString(R.string.str_toast_request_exc);
 //			return REQ_RET_EXCEP;
 		} finally {
@@ -285,8 +307,7 @@ public abstract class BaseRequest implements RequestParam, ReturnParam, ReturnCo
 			
 			DebugTools.getDebug().debug_v(TAG, "广播已经发出");
 		}
-		
-		
+
 	}
 	
 	protected String transferIs2String(InputStream is) {

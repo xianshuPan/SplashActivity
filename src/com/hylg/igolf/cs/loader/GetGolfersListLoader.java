@@ -1,13 +1,13 @@
 package com.hylg.igolf.cs.loader;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.AsyncTask;
 
 import com.hylg.igolf.cs.data.GolferInfo;
 import com.hylg.igolf.cs.request.GetGolfersList;
 import com.hylg.igolf.ui.reqparam.GetGolfersReqParam;
+
+import java.util.ArrayList;
 
 public class GetGolfersListLoader extends BaseAsyncLoader {
 	private GetGolfersList request;
@@ -39,6 +39,6 @@ public class GetGolfersListLoader extends BaseAsyncLoader {
 	}
 
 	public interface GetGolfersListCallback {
-		public abstract void callBack(int retId, String msg, ArrayList<GolferInfo> golfersList);
+		void callBack(int retId, String msg, ArrayList<GolferInfo> golfersList);
 	}
 }

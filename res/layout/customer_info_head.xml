@@ -11,7 +11,7 @@
 		android:layout_centerHorizontal="true"
 		android:id="@+id/customer_info_avatar_linear"
 		android:layout_width="match_parent"
-		android:layout_height="180dp">
+		android:layout_height="200dp">
 
 		<ImageView
 			android:visibility="gone"
@@ -80,9 +80,19 @@
 
 		</LinearLayout>
 
+		<TextView
+			android:layout_centerHorizontal="true"
+			android:layout_below="@+id/customer_info_location_linear"
+			android:singleLine="true"
+			android:id="@+id/customer_info_industry_txt"
+			android:layout_marginLeft="40dp"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@color/color_white" />
+
 		<LinearLayout
 			android:id="@+id/customer_info_attention_linear"
-			android:layout_below="@+id/customer_info_location_linear"
+			android:layout_below="@+id/customer_info_industry_txt"
 			android:layout_marginTop="20dp"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"

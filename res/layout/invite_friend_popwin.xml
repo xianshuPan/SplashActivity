@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	android:background="@drawable/alpha_bg"
+	android:clickable="true"
+	 >
+	
+	<ImageView
+		android:layout_marginTop="30dp"
+	    android:id="@+id/invite_friend_pop_bg"
+		android:src="@drawable/invite_friend_bg"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content">
+	</ImageView>
+
+	<TextView
+		android:layout_marginTop="150dp"
+		android:id="@+id/invite_friend_pop_desc_text"
+		android:layout_centerHorizontal="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="@color/color_hint_txt"
+		android:text="恭喜您已成功发起约球\n\t等待其他球友加入"/>
+
+	<LinearLayout
+		android:layout_centerHorizontal="true"
+		android:id="@+id/invite_list_open_item_fans_linear"
+		android:layout_below="@+id/invite_friend_pop_desc_text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+
+		<TextView
+			android:text="@string/str_noticed"
+			style="@style/invite_open_li_txt_style" />
+		<TextView
+			android:id="@+id/invite_list_open_item_fans"
+			style="@style/invite_open_li_txt_style" />
+		<TextView
+			android:text="@string/str_hall_hava_end"
+			style="@style/invite_open_li_txt_style" />
+
+
+	</LinearLayout>
+
+	<ImageView
+		android:layout_marginTop="220dp"
+		android:id="@+id/invite_friend_pop_commit_bg"
+		android:src="@drawable/invite_friend_commit_bg"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+	</ImageView>
+	
+</RelativeLayout>

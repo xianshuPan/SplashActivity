@@ -8,6 +8,7 @@
 		android:layout_height="80dp">
 	
 		<Button
+
 		    android:layout_marginRight="10dp"
 			android:layout_alignBottom="@+id/golfers_list_linear"
 		    android:layout_alignParentRight="true"
@@ -18,6 +19,20 @@
 		    android:layout_height="30dp"
 		    android:textColor="@color/color_white"
 		     />
+
+		<Button
+			android:visibility="gone"
+			android:text="@string/str_friend_attention"
+			android:layout_marginRight="10dp"
+			android:layout_alignBottom="@+id/golfers_list_linear"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:background="@drawable/attent_color"
+			android:id="@+id/golfers_li_attention_btn"
+			android:layout_width="75dp"
+			android:layout_height="30dp"
+			android:textColor="@color/green_5fb64e"
+			/>
 
 			<com.hylg.igolf.ui.view.CircleImageView
 				android:layout_centerVertical="true"

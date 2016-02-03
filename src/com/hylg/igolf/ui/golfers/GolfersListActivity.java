@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.golfers;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
@@ -15,8 +13,11 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -24,10 +25,13 @@ import com.hylg.igolf.cs.data.GolferInfo;
 import com.hylg.igolf.cs.loader.GetGolfersListLoader;
 import com.hylg.igolf.cs.loader.GetGolfersListLoader.GetGolfersListCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.ui.common.*;
+import com.hylg.igolf.ui.common.IndustrySelectActivity;
 import com.hylg.igolf.ui.common.IndustrySelectActivity.onIndustrySelectListener;
+import com.hylg.igolf.ui.common.LabelSelectActivity;
 import com.hylg.igolf.ui.common.LabelSelectActivity.onLabelSelectListener;
+import com.hylg.igolf.ui.common.RegionSelectActivity;
 import com.hylg.igolf.ui.common.RegionSelectActivity.onRegionSelectListener;
+import com.hylg.igolf.ui.common.SexSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
 import com.hylg.igolf.ui.golfers.adapter.GolfersAdapter;
 import com.hylg.igolf.ui.golfers.adapter.LabelAdapter;
@@ -40,7 +44,13 @@ import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
 import com.hylg.igolf.ui.view.PullListView;
 import com.hylg.igolf.ui.view.PullListView.OnLoadMoreListener;
 import com.hylg.igolf.ui.view.PullListView.OnRefreshListener;
-import com.hylg.igolf.utils.*;
+import com.hylg.igolf.utils.Const;
+import com.hylg.igolf.utils.GlobalData;
+import com.hylg.igolf.utils.SharedPref;
+import com.hylg.igolf.utils.Utils;
+import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 public class GolfersListActivity extends Activity
 									implements View.OnClickListener,
@@ -258,7 +268,7 @@ public class GolfersListActivity extends Activity
 				Utils.logh(TAG, "loading");
 				return ;
 			}
-			reqData.pageNum = golfersAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};
@@ -458,7 +468,7 @@ public class GolfersListActivity extends Activity
 	
 	private void initListView(ArrayList<GolferInfo> golfersList) {
 		if(null == golfersAdapter) {
-			golfersAdapter = new GolfersAdapter(this, mHandle, GolfersAdapter.BUNDLE_KEY_GOLFERS_LIST, golfersList);
+			golfersAdapter = new GolfersAdapter(this, mHandle, GolfersAdapter.BUNDLE_KEY_GOLFERS_LIST, golfersList,false);
 			listView.setAdapter(golfersAdapter);
 		} else {
 			golfersAdapter.refreshListInfo(golfersList);

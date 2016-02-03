@@ -29,7 +29,7 @@
                 android:layout_marginLeft="10dp"
                 android:maxLines="1"
                 android:text="剑走偏锋"
-                android:textColor="#c7ad60"
+                android:textColor="@color/color_gold"
                 android:textSize="18sp" />
 
             <TextView
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
+                android:textColor="@color/color_hint_txt"
                 android:text="很漂亮" />
             
              <TextView
@@ -53,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
+                 android:textColor="@color/color_hint_txt"
                 android:text="18:30" />
 
             <ImageView

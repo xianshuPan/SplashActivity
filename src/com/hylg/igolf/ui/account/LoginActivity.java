@@ -20,7 +20,7 @@ import com.hylg.igolf.cs.loader.AsyncImageLoader.ImageCallback;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.cs.request.LoginUser;
 import com.hylg.igolf.ui.MainActivity;
-import com.hylg.igolf.ui.SplashActivity;
+import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
@@ -157,7 +157,9 @@ public class LoginActivity extends Activity {
 //		} else {
 //			avatarIv.setImageBitmap(BitmapFactory.decodeFile(path));
 //		}
-		loadAvatar(prefSn, prefAvatar, avatarIv);
+		//loadAvatar(prefSn, prefAvatar, avatarIv);
+
+		DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(prefSn),avatarIv,null);
 		return true;
 	}
 	

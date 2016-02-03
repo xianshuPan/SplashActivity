@@ -224,6 +224,39 @@
 					android:background="@drawable/divider1" />
 			</RelativeLayout>
 
+			<RelativeLayout
+				android:layout_marginTop="10dp"
+				android:background="@color/color_white"
+				android:layout_below="@+id/customer_info_apply_coach_linear"
+				android:id="@+id/customer_info_invite_friend_linear"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content" >
+				<View
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
+				<TextView
+					android:id="@+id/customer_info_invite_friend_title_text"
+					style="@style/customer_info_pre_txt_style"
+					android:drawableLeft="@drawable/invit_friend_icon"
+					android:text="@string/str_invite_friend_title" />
+
+				<TextView
+					android:textSize="@dimen/txt_size_ml"
+					android:id="@+id/customer_info_invite_friend_content_text"
+					android:layout_toRightOf="@id/customer_info_invite_friend_title_text"
+					style="@style/customer_info_content_txt_style"
+					/>
+
+				<View
+					android:layout_alignParentBottom="true"
+					android:layout_below="@+id/coach_invite_place_text"
+					android:layout_width="match_parent"
+					android:layout_height="1px"
+					android:background="@drawable/divider1" />
+			</RelativeLayout>
+
+
 
 			<!--  -->
 			<LinearLayout
@@ -232,7 +265,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_alignParentLeft="true"
-				android:layout_below="@+id/customer_info_apply_coach_linear"
+				android:layout_below="@+id/customer_info_invite_friend_linear"
 				android:background="@color/color_white"
 				android:orientation="vertical" >
 				<View

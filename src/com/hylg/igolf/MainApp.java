@@ -1,14 +1,16 @@
 package com.hylg.igolf;
 
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
-
-import cn.jpush.android.api.JPushInterface;
+import android.provider.Settings;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationListener;
@@ -29,8 +31,9 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
+
+import cn.jpush.android.api.JPushInterface;
 
 public class MainApp extends Application {
 
@@ -257,6 +260,39 @@ public class MainApp extends Application {
 
                 DebugTools.getDebug().debug_v(TAG, "main_app_lat------------------>>>"+lat);
                 DebugTools.getDebug().debug_v(TAG, "main_app_lng------------------>>>"+lng);
+
+            } else {
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(mainApp);
+
+                dialog.setMessage("「爱高尔夫」需要获取您的位置，以提供更优质的服务。请开启您的定位服务或权限");
+                dialog.setPositiveButton(R.string.str_setting_auth_title, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+                        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+                dialog.setNeutralButton(R.string.str_setting_gps_title, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                });
+                dialog.setNegativeButton(R.string.str_photo_cancel, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        // TODO Auto-generated method stub
+                        //CartActivity.this.finish();
+                    }
+                });
+                dialog.show();
             }
         }
 

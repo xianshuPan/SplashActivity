@@ -1,7 +1,6 @@
 package com.hylg.igolf.ui.hall;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +25,6 @@ import com.hylg.igolf.ui.hall.StartInviteOpenActivity.onStartRefreshListener;
 import com.hylg.igolf.ui.reqparam.GetOpenInviteReqParam;
 import com.hylg.igolf.ui.reqparam.GetPinDanReqParam;
 import com.hylg.igolf.ui.view.EhecdListview;
-import com.hylg.igolf.ui.view.ListFooter;
 import com.hylg.igolf.ui.view.LoadFail;
 import com.hylg.igolf.ui.view.LoadFail.onRetryClickListener;
 import com.hylg.igolf.ui.widget.IgBaseAdapter;
@@ -451,7 +449,7 @@ public class PinDanListActivity extends Activity implements OnClickListener, onS
 		@Override
 		public void onLoadMore() {
 
-			reqData.pageNum = openAdapter.getCount() / reqData.pageSize + 1;
+			reqData.pageNum = reqData.pageNum + 1;
 			appendListDataAsync(reqData);
 		}
 	};

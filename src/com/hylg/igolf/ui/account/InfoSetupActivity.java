@@ -1,10 +1,5 @@
 package com.hylg.igolf.ui.account;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,8 +20,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-import cn.gl.lib.impl.TextWatcherBkgVariable;
-
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
 import com.hylg.igolf.cs.request.BaseRequest;
@@ -34,7 +27,6 @@ import com.hylg.igolf.cs.request.LoginUser;
 import com.hylg.igolf.cs.request.RegisterCustomer;
 import com.hylg.igolf.cs.request.UpdateAvatar;
 import com.hylg.igolf.ui.MainActivity;
-import com.hylg.igolf.ui.SplashActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity;
 import com.hylg.igolf.ui.common.AgeSelectActivity.onAgeSelectListener;
 import com.hylg.igolf.ui.common.ImageSelectActivity;
@@ -47,12 +39,20 @@ import com.hylg.igolf.ui.common.SexSelectActivity;
 import com.hylg.igolf.ui.common.SexSelectActivity.onSexSelectListener;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity;
 import com.hylg.igolf.ui.common.YearsExpSelectActivity.onYearsExpSelectListener;
+import com.hylg.igolf.ui.reqparam.GetGolfersReqParam;
 import com.hylg.igolf.ui.reqparam.RegisterCustomerReqParam;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.SharedPref;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import cn.gl.lib.impl.TextWatcherBkgVariable;
 
 public class InfoSetupActivity extends Activity
 								implements View.OnClickListener,
@@ -260,7 +260,20 @@ public class InfoSetupActivity extends Activity
 			protected void onPostExecute(Integer result) {
 				super.onPostExecute(result);
 				if(BaseRequest.REQ_RET_OK == result) {
-					startMainActivity();
+
+					GetGolfersReqParam data = new GetGolfersReqParam();
+					data.pageSize  = MainApp.getInstance().getGlobalData().pageSize;
+					data.pageNum  = MainApp.getInstance().getGlobalData().startPage;
+
+					if (reqParam.city != null && reqParam.city.length() >= 7) {
+
+						data.region = reqParam.city.substring(0,7);
+					}
+					//data.region = reqParam.city;
+					data.sn = MainApp.getInstance().getCustomer().sn;
+					RecommendGolfersListActivity.startRecommendGolfersListActivity(InfoSetupActivity.this,data);
+					//startMainActivity();
+
 				} else {
 					String msg = request.getFailMsg();
 					if(msg.isEmpty()) {

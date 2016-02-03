@@ -1031,7 +1031,7 @@
 					android:divider="@drawable/divider"  />
 
 				<TextView
-					android:padding="3dp"
+					android:padding="5dp"
 					android:background="@drawable/frame_bkg"
 					android:gravity="top"
 					android:textSize="@dimen/txt_size_ml"

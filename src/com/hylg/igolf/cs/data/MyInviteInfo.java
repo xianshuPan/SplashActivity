@@ -30,6 +30,8 @@ public class MyInviteInfo implements Serializable {
 	public int inviterSex;
 	public String inviterName;
 	public int payType;
+	public int sameProvencePerson;
+
 	public int local_fans;
 
 	public ArrayList<Applicant> applicants;

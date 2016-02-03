@@ -15,9 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hylg.igolf.DebugTools;
-import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.loader.AsyncImageLoader;
 import com.hylg.igolf.cs.request.BaseRequest;
 import com.hylg.igolf.utils.Base64;
 import com.hylg.igolf.utils.DownLoadImageTool;
@@ -391,7 +389,7 @@ public class ShareMenuCutomerInfo implements OnClickListener {
 
 		if (bitmap == null) {
 
-			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logo_white);
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.logo_green);
 		}
 
     	

@@ -1,18 +1,12 @@
 package com.hylg.igolf.ui.account;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,7 +14,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import cn.gl.lib.impl.TextWatcherBkgVariable;
 
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
@@ -34,7 +27,7 @@ import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
 
-import org.w3c.dom.Text;
+import cn.gl.lib.impl.TextWatcherBkgVariable;
 
 public class PhoneSubmitActivity extends FragmentActivity implements View.OnClickListener {
 	public static final String TAG = "PhoneSubmitActivity";
@@ -290,7 +283,7 @@ public class PhoneSubmitActivity extends FragmentActivity implements View.OnClic
 
 			case R.id.verify_login_linear:
 
-				LoginActivity.backWithPhone(this, "");
+				LoginActivity.backWithPhone(this, inputPhoneEt.getText().toString());
 				break;
 
 			case R.id.account_psubmit_agreement_linear:

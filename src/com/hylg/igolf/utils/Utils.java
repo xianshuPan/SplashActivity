@@ -1,34 +1,12 @@
 package com.hylg.igolf.utils;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import org.apache.http.protocol.HTTP;
-
-import com.hylg.igolf.DebugTools;
-import com.hylg.igolf.MainApp;
-import com.hylg.igolf.R;
-import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.ui.friend.publish.GlobalContext;
-import com.hylg.igolf.ui.member.MemDetailActivityNew;
-
-import cn.gl.lib.utils.BaseUtils;
-
+import android.animation.AnimatorInflater;
+import android.animation.ArgbEvaluator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -36,12 +14,35 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.ImageView.ScaleType;
+
+import com.hylg.igolf.DebugTools;
+import com.hylg.igolf.MainApp;
+import com.hylg.igolf.R;
+import com.hylg.igolf.cs.request.BaseRequest;
+
+import net.sourceforge.pinyin4j.PinyinHelper;
+
+import org.apache.http.protocol.HTTP;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import cn.gl.lib.utils.BaseUtils;
 
 
 public class Utils extends BaseUtils {
@@ -136,7 +137,7 @@ public class Utils extends BaseUtils {
 	
 	public static String getDoubleString(Context context, double value) {
 		if(context== null || value == Double.MAX_VALUE) {
-			return context.getString(R.string.str_no_value);
+			return "--";
 		}
 		if(value < 0) {
 			return String.format(context.getString(R.string.str_negative_handicap), String.valueOf(value));
@@ -145,8 +146,8 @@ public class Utils extends BaseUtils {
 	}
 	
 	public static String getIntString(Context context, int value) {
-		if(value == Integer.MAX_VALUE) {
-			return context.getString(R.string.str_no_value);
+		if(context == null || value == Integer.MAX_VALUE) {
+			return "--";
 		}
 		if(value < 0) {
 			return String.format(context.getString(R.string.str_negative_handicap), String.valueOf(value));
@@ -155,8 +156,8 @@ public class Utils extends BaseUtils {
 	}
 	
 	public static String getCityRankString(Context context, int value) {
-		if(value == Integer.MAX_VALUE) {
-			return context.getString(R.string.str_no_value);
+		if(context == null || value == Integer.MAX_VALUE) {
+			return "--";
 		}
 		return String.valueOf(value);
 	}
@@ -165,7 +166,9 @@ public class Utils extends BaseUtils {
 		if(sn == null || sn.length() <= 0 ) {
 			return "";
 		}
-		return BaseRequest.SERVER_IP+"/gams/person/"+sn+"/avatar/original/"+sn+".jpg";
+
+		Random asd = new Random(System.currentTimeMillis());
+		return BaseRequest.SERVER_IP+"/gams/person/"+sn+"/avatar/original/"+sn+".jpg"+"?random="+asd.nextInt();
 	}
 	
 	/* 根据输入的时间显示是好久
@@ -200,7 +203,7 @@ public class Utils extends BaseUtils {
 		int inputHOUR = input.get(Calendar.HOUR);
 		
 		if (input.get(Calendar.AM_PM) == Calendar.PM) {
-			
+
 			inputHOUR = inputHOUR+12;
 		}
 		
@@ -566,53 +569,87 @@ public class Utils extends BaseUtils {
 	}
 
 	protected static boolean isAvatarClickable = true ;
-	public static void loadAvatar(final Activity mContext,final String sn,final ImageView iv){
+//	public static void loadAvatar(final Activity mContext,final String sn,final ImageView iv){
+//
+//		// 头像存在，且不是自己的头像，设置点击查看详情
+//		if (mContext == null) {
+//
+//			return;
+//		}
+//
+//		String name = sn+".jpg";
+//		if(null != name && !name.isEmpty() && !sn.equals(MainApp.getInstance().getCustomer().sn)) {
+//			iv.setOnClickListener(new View.OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//
+//					if (isAvatarClickable) {
+//
+//						MemDetailActivityNew.startMemDetailActivity(mContext, sn);
+//						mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
+//					}
+//
+//				}
+//			});
+//		} else {
+//			iv.setOnClickListener(null);
+//		}
+//		Drawable avatar = AsyncImageLoader.getInstance().getAvatar(mContext, sn, name, (int) mContext.getResources().getDimension(R.dimen.avatar_detail_size));
+//
+//		if (sn.equals(MainApp.getInstance().getCustomer().sn)) {
+//
+//			String prefAvatar = SharedPref.getString(SharedPref.SPK_AVATAR, mContext);
+//			avatar = AsyncImageLoader.getInstance().getAvatar(mContext, sn, prefAvatar, (int) mContext.getResources().getDimension(R.dimen.avatar_detail_size));
+//		}
+//
+//		if(null != avatar) {
+//			iv.setImageDrawable(avatar);
+//		} else {
+//			iv.setImageResource(R.drawable.avatar_loading);
+//			AsyncImageLoader.getInstance().loadAvatar(mContext, sn, name,
+//					new AsyncImageLoader.ImageCallback() {
+//						@Override
+//						public void imageLoaded(Drawable imageDrawable) {
+//							if(null != imageDrawable && null != iv) {
+//								iv.setImageDrawable(imageDrawable);
+//
+//							}
+//						}
+//					});
+//		}
+//	}
 
-		// 头像存在，且不是自己的头像，设置点击查看详情
-		if (mContext == null) {
+	public static ObjectAnimator GenerateColorAnimator(Context context, int animatorID, Object target) {
+		ObjectAnimator colorAnimation = (ObjectAnimator) AnimatorInflater.loadAnimator(context, animatorID);
+		colorAnimation.setTarget(target);
+		colorAnimation.setEvaluator(new ArgbEvaluator());
+		return colorAnimation;
+	}
 
-			return;
+	public static boolean isChinese(String str) {
+		byte[] bytes = str.getBytes();
+		return bytes.length != str.length();
+	}
+
+	public static boolean isNumeric(String str) {
+		Pattern pattern = Pattern.compile("[0-9]*");
+		Matcher isNum = pattern.matcher(str);
+		return isNum.matches();
+	}
+
+	// 返回中文的首字母
+	public static char getPinYinHeadChar(String str) {
+
+		String convert = "";
+		for (int j = 0; j < str.length(); j++) {
+			char word = str.charAt(j);
+			String[] pinyinArray = PinyinHelper.toHanyuPinyinStringArray(word);
+			if (pinyinArray != null) {
+				convert += pinyinArray[0].charAt(0);
+			} else {
+				convert += word;
+			}
 		}
-
-		String name = sn+".jpg";
-		if(null != name && !name.isEmpty() && !sn.equals(MainApp.getInstance().getCustomer().sn)) {
-			iv.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-
-					if (isAvatarClickable) {
-
-						MemDetailActivityNew.startMemDetailActivity(mContext, sn);
-						mContext.overridePendingTransition(R.anim.ac_slide_right_in, R.anim.ac_slide_left_out);
-					}
-
-				}
-			});
-		} else {
-			iv.setOnClickListener(null);
-		}
-		Drawable avatar = AsyncImageLoader.getInstance().getAvatar(mContext, sn, name, (int) mContext.getResources().getDimension(R.dimen.avatar_detail_size));
-
-		if (sn.equals(MainApp.getInstance().getCustomer().sn)) {
-
-			String prefAvatar = SharedPref.getString(SharedPref.SPK_AVATAR, mContext);
-			avatar = AsyncImageLoader.getInstance().getAvatar(mContext, sn, prefAvatar, (int) mContext.getResources().getDimension(R.dimen.avatar_detail_size));
-		}
-
-		if(null != avatar) {
-			iv.setImageDrawable(avatar);
-		} else {
-			iv.setImageResource(R.drawable.avatar_loading);
-			AsyncImageLoader.getInstance().loadAvatar(mContext, sn, name,
-					new AsyncImageLoader.ImageCallback() {
-						@Override
-						public void imageLoaded(Drawable imageDrawable) {
-							if(null != imageDrawable && null != iv) {
-								iv.setImageDrawable(imageDrawable);
-
-							}
-						}
-					});
-		}
+		return convert.charAt(0);
 	}
 }

@@ -9,11 +9,13 @@ public class CoachInviteOrderDetail implements Serializable {
 	public String status_str;
 	public String coachDate;
 	public String msg;
-	public long id;
+	public long    id;
 	public int times;
 	public int type;
 	public int alone_status;
 	public double ratio;
+
+	public double discount;
 
 	public double originalPrice ;
 	public double discountPrice ;

@@ -108,4 +108,8 @@
     <dimen name="sp_20">20sp</dimen>
 
     <dimen name="abc_action_bar_default_height_material">56dp</dimen>
+
+    <dimen name="navigator_text_height">24dp</dimen>
+    <dimen name="navigator_text_size">18sp</dimen>
+    <dimen name="letter_side_bar_width">30dp</dimen>
 </resources>

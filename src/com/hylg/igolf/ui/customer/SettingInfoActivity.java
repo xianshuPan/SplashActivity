@@ -2,45 +2,26 @@ package com.hylg.igolf.ui.customer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.hylg.igolf.DebugTools;
 import com.hylg.igolf.MainApp;
 import com.hylg.igolf.R;
-import com.hylg.igolf.cs.data.MyFolloweInfo;
-import com.hylg.igolf.cs.loader.AsyncImageLoader;
-import com.hylg.igolf.cs.loader.GetMyFollowerListLoader;
-import com.hylg.igolf.cs.loader.GetMyFollowerListLoader.GetMyFollowerListCallback;
-import com.hylg.igolf.cs.request.BaseRequest;
-import com.hylg.igolf.cs.request.FriendAttentionAdd;
 import com.hylg.igolf.ui.account.AgreementActivityActivity;
 import com.hylg.igolf.ui.account.FeedBackActivity;
 import com.hylg.igolf.ui.account.LoginActivity;
-import com.hylg.igolf.ui.view.EhecdListview;
-import com.hylg.igolf.ui.view.EhecdListview.OnLoadMoreListener;
-import com.hylg.igolf.ui.view.EhecdListview.OnRefreshListener;
-import com.hylg.igolf.ui.widget.IgBaseAdapter;
-import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.DownLoadImageTool;
 import com.hylg.igolf.utils.ExitToLogin;
 import com.hylg.igolf.utils.Utils;
-import com.hylg.igolf.utils.WaitDialog;
-
-import java.util.ArrayList;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -142,9 +123,9 @@ public class SettingInfoActivity extends FragmentActivity implements  OnClickLis
 	protected void onResume () {
 
 		String sn = MainApp.getInstance().getCustomer().sn;
-		//DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(sn),mAvatar,null);
+		DownLoadImageTool.getInstance(this).displayImage(Utils.getAvatarURLString(sn),mAvatar,null);
 
-		Utils.loadAvatar(mContext,sn,mAvatar);
+		//Utils.loadAvatar(mContext,sn,mAvatar);
 		super.onResume();
 	}
 

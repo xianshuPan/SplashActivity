@@ -25,5 +25,6 @@ public class OpenInvitationInfo implements Serializable {
 	public String inviteeAvatar;
 	public String invitee_sns;
 	public int local_fans;
+	public int sameProvencePerson;
 	public boolean acceptMe;
 }

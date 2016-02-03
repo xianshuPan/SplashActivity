@@ -1,7 +1,5 @@
 package com.hylg.igolf.ui.hall;
 
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +20,8 @@ import com.hylg.igolf.ui.hall.adapter.PlanSelectAdapter;
 import com.hylg.igolf.utils.Const;
 import com.hylg.igolf.utils.Utils;
 import com.hylg.igolf.utils.WaitDialog;
+
+import java.util.ArrayList;
 
 /**
  * 他人发起的一对一邀约
@@ -140,6 +140,7 @@ public class InviteDetailOtherStsActivity extends InviteDetailMineActivity {
 				// 实际列表中，非提醒，无此类信息，已经转移到约球历史
 				displayDisableBtn(R.string.str_invite_detail_oper_btn_app_revoke_done);
 				displayPlansShowListView(detail.planInfo); // 已撤销，展示，但不可选
+				displayAppInfo(detail.teeTime, invitation.courseName);
 				break;
 			case Const.MY_INVITE_REVOKED: // 已撤约,任一一方撤约
 				// 实际列表中，非提醒，无此类信息，已经转移到约球历史
